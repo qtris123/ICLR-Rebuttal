@@ -18,6 +18,13 @@ ICLR-Rebuttal/
 ├── install_driver.sh                  # Host VM NVIDIA driver & CUDA installer
 ├── launch_experiment.py               # 100% reproducible experiment tracker & runner
 │
+├── environments/                      # Conda environment specifications & locks
+│   ├── cartridges.yml                 # Standalone Conda environment for Repo A (Cartridges)
+│   ├── submem.yml                     # Standalone Conda environment for Repo B (SubMem)
+│   ├── requirements_cartridges.txt    # Exact pinned pip dependencies for Repo A
+│   ├── requirements_submem.txt        # Exact pinned pip dependencies for Repo B
+│   └── setup_envs.sh                  # Automated script to build & verify both envs
+│
 ├── gated-continual-cartridges/        # [Submodule] Repo A (Tri): Cartridges (main)
 │   ├── cartridges/                    # Core cartridge models, clients, & trainers
 │   ├── configs/                       # Experiment recipes & manifests
@@ -65,20 +72,56 @@ git submodule update --init --recursive
 
 ### 2. Environment Setup
 
-#### Repo A (`cartridges`):
+To ensure 100% reproducible execution, full standalone Conda environment definitions and pinned requirement locks are provided in `environments/`.
+
+| Repository | Conda Env Name | Python | Core Stack | Config File |
+| :--- | :--- | :--- | :--- | :--- |
+| **Repo A (Cartridges)** | `cartridges` | 3.12 | PyTorch 2.6 (`cu124`), Transformers 4.53, PEFT 0.18, FlashInfer | `environments/cartridges.yml` |
+| **Repo B (SubMem)** | `submem` | 3.12 | PyTorch 2.8 (`cu128`), vLLM 0.11, Transformers 4.57, Accelerate 1.12 | `environments/submem.yml` |
+
+#### Option 1: Automated Setup (Recommended)
+Run the automated setup script to build both environments and link local packages in editable mode:
+
 ```bash
-conda env create -f gated-continual-cartridges/environment.yml
-conda activate cartridges
+# Set up both conda environments and install editable packages
+bash environments/setup_envs.sh all
+
+# Or set up individually:
+bash environments/setup_envs.sh cartridges
+bash environments/setup_envs.sh submem
 ```
 
-#### Repo B (`submem`):
+#### Option 2: Manual Setup
+
+##### Repo A (`cartridges`):
 ```bash
-conda create -n submem python=3.11 -y
+conda env create -f environments/cartridges.yml
+conda activate cartridges
+pip install -e gated-continual-cartridges
+```
+
+*Verification:*
+```bash
+python -c "import torch, transformers, peft; print('Cartridges OK: PyTorch', torch.__version__, 'CUDA:', torch.cuda.is_available())"
+```
+
+##### Repo B (`submem`):
+```bash
+conda env create -f environments/submem.yml
 conda activate submem
-cd farid/gated-continual-cartridges
-pip install -r requirements.txt
-pip install -e .
-cd ../..
+pip install -e farid/gated-continual-cartridges
+```
+
+*Verification:*
+```bash
+python -c "import torch, transformers, vllm; print('SubMem OK: PyTorch', torch.__version__, 'vLLM:', vllm.__version__, 'CUDA:', torch.cuda.is_available())"
+```
+
+*Alternative pip-only setup (from clean Python 3.12 environment):*
+```bash
+conda create -n submem python=3.12 -y && conda activate submem
+pip install -r environments/requirements_submem.txt
+pip install -e farid/gated-continual-cartridges
 ```
 
 #### Applying Patches to Repo B:
@@ -153,3 +196,4 @@ Review the master experiment registry anytime:
 ```bash
 column -t -s $'\t' experiments/experiments_registry.tsv | less -S
 ```
+
