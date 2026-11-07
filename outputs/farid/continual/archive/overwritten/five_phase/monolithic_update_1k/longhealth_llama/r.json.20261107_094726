@@ -1,0 +1,102 @@
+{
+  "model": "meta-llama/Llama-3.2-3B-Instruct",
+  "benchmark": "longhealth",
+  "stream": "data/streams/longhealth_5phase.json",
+  "mode": "recompress",
+  "budget": 1024,
+  "budget_mode": "total",
+  "beta": "zero",
+  "seed": 0,
+  "host": "instance-20261107-064504",
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "written_at": "2026-11-07 08:52:15",
+  "command": "run_continual.py --config configs/monolithic_update.yaml --stream data/streams/longhealth_5phase.json --model meta-llama/Llama-3.2-3B-Instruct --budget 1024 --write-slots 256 --vllm-mem 0.36 --out results/continual/five_phase/monolithic_update_1k/longhealth_llama/r.json --generate-out results/continual/five_phase/monolithic_update_1k/longhealth_llama/r.generations.jsonl",
+  "generate_batch": 1,
+  "chunk_size": 2048,
+  "query_config": "ss-plus-repeat",
+  "ss_fallback": "error",
+  "recompress_queries": "doc+memory",
+  "merge_threshold": 0.05,
+  "read_topk": 1,
+  "value_prior_lambda": 0.01,
+  "write_slots": 256,
+  "write_rule": "most",
+  "max_questions": 0,
+  "continual": true,
+  "metric": "log_ppl",
+  "max_model_len": 0,
+  "yarn_extended": false,
+  "complete": false,
+  "docs": [
+    "longhealth phase 1",
+    "longhealth phase 2",
+    "longhealth phase 3",
+    "longhealth phase 4",
+    "longhealth phase 5"
+  ],
+  "matrix": [
+    {
+      "phase": 0,
+      "m_len": 1067,
+      "ppl": {
+        "longhealth phase 1": {
+          "log_ppl": 1.0261,
+          "ppl": 2.79,
+          "log_ppl_perq": 2.0055,
+          "n": 80,
+          "_nll": 1234.4511556625366,
+          "_tok": 1203,
+          "per_cat": {
+            "longhealth_mcq": 2.0055
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 522.7,
+      "probe_s": 3.1
+    },
+    {
+      "phase": 1,
+      "m_len": 1024,
+      "ppl": {
+        "longhealth phase 1": {
+          "log_ppl": 0.9102,
+          "ppl": 2.485,
+          "log_ppl_perq": 1.7177,
+          "n": 80,
+          "_nll": 1095.0147547721863,
+          "_tok": 1203,
+          "per_cat": {
+            "longhealth_mcq": 1.7177
+          },
+          "read_mode": "dense"
+        },
+        "longhealth phase 2": {
+          "log_ppl": 1.5316,
+          "ppl": 4.626,
+          "log_ppl_perq": 2.964,
+          "n": 80,
+          "_nll": 1013.9238286018372,
+          "_tok": 662,
+          "per_cat": {
+            "longhealth_mcq": 2.964
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 728.7,
+      "probe_s": 5.8
+    }
+  ],
+  "base_logppl": {
+    "longhealth phase 1": 1.268,
+    "longhealth phase 2": 2.6185,
+    "longhealth phase 3": 2.2241,
+    "longhealth phase 4": 2.2486,
+    "longhealth phase 5": 2.548
+  }
+}

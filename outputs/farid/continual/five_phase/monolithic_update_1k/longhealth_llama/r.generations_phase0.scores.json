@@ -1,0 +1,22 @@
+{
+  "longhealth phase 1": {
+    "n": 80,
+    "metric": "accuracy",
+    "score": 0.375,
+    "unparsed": 7,
+    "score_parsed": 0.411
+  },
+  "_overall": {
+    "n": 80,
+    "metric": "accuracy",
+    "score": 0.375,
+    "unparsed_mcq": 7,
+    "unparsed_rate": 0.0875
+  },
+  "_scorer": {
+    "commit": "57c67c8f",
+    "rules_version": "2026-09-19.lenient",
+    "scorer_mtime": "2026-11-07T07:34:20",
+    "scored_at": "2026-11-07T09:38:34"
+  }
+}
