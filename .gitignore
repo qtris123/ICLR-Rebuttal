@@ -1,0 +1,34 @@
+# Large model weights and tensor checkpoints (prevent exceeding GitHub 100MB limit)
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# HuggingFace & dataset cache
+huggingface/
+.hf_staging/
+.hf_download/
+
+# System / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

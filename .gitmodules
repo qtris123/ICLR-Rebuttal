@@ -1,0 +1,8 @@
+[submodule "gated-continual-cartridges"]
+	path = gated-continual-cartridges
+	url = https://github.com/qtris123/gated-continual-cartridges.git
+	branch = main
+[submodule "farid/gated-continual-cartridges"]
+	path = farid/gated-continual-cartridges
+	url = https://github.com/faridlazuarda/gated-continual-cartridges.git
+	branch = moe-am
