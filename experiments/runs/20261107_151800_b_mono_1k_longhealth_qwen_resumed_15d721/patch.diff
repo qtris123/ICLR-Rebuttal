@@ -1,0 +1,62 @@
+diff --git a/submem/compaction/compaction_methods/per_layer_head_on_policy.py b/submem/compaction/compaction_methods/per_layer_head_on_policy.py
+index 4817af3e..30a5573f 100644
+--- a/submem/compaction/compaction_methods/per_layer_head_on_policy.py
++++ b/submem/compaction/compaction_methods/per_layer_head_on_policy.py
+@@ -685,6 +685,8 @@ class PerLayerHeadOnPolicyCompaction(FullCacheCompactionAlgorithm):
+             C2_layer = torch.cat(C2_heads, dim=1)
+ 
+             compacted_layers.append((C1_layer, beta_layer, C2_layer))
++            if torch.cuda.is_available():
++                torch.cuda.empty_cache()
+ 
+         # Aggregate stats
+         # Compute average tensor length across all global (non-sliding) layers
+@@ -967,7 +969,8 @@ class PerLayerHeadOnPolicyCompaction(FullCacheCompactionAlgorithm):
+                 continue
+ 
+             # q_all_layers: (num_layers, num_attn_heads, n_tokens, head_dim)
+-            q_layer = q_all_layers[layer_idx]  # (num_attn_heads, n_tokens, head_dim)
++            q_layer = q_all_layers[layer_idx].clone()
++            del q_all_layers
+ 
+             per_seq_q_layer.append(q_layer)
+ 
+diff --git a/submem/compaction/query_generation/self_study.py b/submem/compaction/query_generation/self_study.py
+index fe2b29a5..3710fb44 100644
+--- a/submem/compaction/query_generation/self_study.py
++++ b/submem/compaction/query_generation/self_study.py
+@@ -606,6 +606,14 @@ class SelfStudyQueryGenerator:
+             # --- save vLLM outputs for reuse by other cells on the same document ---
+             _ss_cache_save(_cache_key, spec_to_starters, starter_to_answer)
+ 
++            # Put vLLM to sleep immediately after text generation to free GPU memory for HF extraction
++            if self.vllm_model is not None:
++                if self.verbose:
++                    print("Putting vLLM to sleep before HF query extraction...")
++                self.vllm_model.sleep()
++                if torch.cuda.is_available():
++                    torch.cuda.empty_cache()
++
+             # Phase 3: Extract query vectors from answers using HuggingFace in prefill mode
+             all_query_vectors = []
+             sequences = [] if return_sequences else None
+diff --git a/submem/continual/archive.py b/submem/continual/archive.py
+index 992697c8..46759d48 100644
+--- a/submem/continual/archive.py
++++ b/submem/continual/archive.py
+@@ -128,6 +128,7 @@ def archive_before_overwrite(path, content=None, content_path=None):
+ 
+ def write_json(path, obj):
+     """Write obj as indented JSON to path, archiving a differing file first."""
++    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+     text = json.dumps(obj, indent=2)
+     archive_before_overwrite(path, content=text)
+     tmp = path + ".tmp"
+@@ -141,6 +142,7 @@ def write_json(path, obj):
+ def write_jsonl(path, meta, recs):
+     """Write a _meta line and one JSON record per line, archiving a differing
+     file first."""
++    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+     text = "".join(
+         json.dumps(r) + "\n" for r in [{"_meta": meta}] + list(recs)
+     )
