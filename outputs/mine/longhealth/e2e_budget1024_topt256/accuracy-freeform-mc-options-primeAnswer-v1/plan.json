@@ -1,0 +1,87 @@
+{
+  "dataset": "longhealth",
+  "decode": {
+    "answer_prime": " Answer:",
+    "backend": "flex",
+    "batch_size": 16,
+    "max_new_tokens": 32,
+    "num_shots": 0,
+    "prompt_variant": "phase-parquet-verbatim",
+    "temperature": 0.0,
+    "thinking": false
+  },
+  "eval_sets": [
+    {
+      "id": "p01",
+      "label": "phase 1",
+      "path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/phases/phase1_eval.parquet",
+      "phase": 1
+    },
+    {
+      "id": "p02",
+      "label": "phase 2",
+      "path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/phases/phase2_eval.parquet",
+      "phase": 2
+    },
+    {
+      "id": "p03",
+      "label": "phase 3",
+      "path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/phases/phase3_eval.parquet",
+      "phase": 3
+    },
+    {
+      "id": "p04",
+      "label": "phase 4",
+      "path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/phases/phase4_eval.parquet",
+      "phase": 4
+    },
+    {
+      "id": "p05",
+      "label": "phase 5",
+      "path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/phases/phase5_eval.parquet",
+      "phase": 5
+    }
+  ],
+  "model": "Qwen/Qwen3-4B-Instruct-2507",
+  "output_dir": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/evaluations/longhealth/e2e_budget1024_topt256/accuracy-freeform-mc-options-primeAnswer-v1",
+  "protocol": "freeform-mc-options-v1",
+  "schema_version": 1,
+  "stages": [
+    {
+      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget1024/p01/2026-11-08-02-14-56-initial_am_compaction/5f9bddec-13ac-471f-8a1b-c81fae13e627/cache-step0.pt",
+      "id": "p01",
+      "index": 1,
+      "label": "after phase 1",
+      "state_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p01.json"
+    },
+    {
+      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-02-19-49-LONGHEALTH_P2_e2e_budget1024_topt256/cdbc2057-b4c5-4fcb-ba33-ca2d4c28c8fb/cache-step27.pt",
+      "id": "p02",
+      "index": 2,
+      "label": "after phase 2",
+      "state_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p02.json"
+    },
+    {
+      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-02-25-26-LONGHEALTH_P3_e2e_budget1024_topt256/2bee6e59-1e66-4b8f-a2f7-93c4e9ccae76/cache-step24.pt",
+      "id": "p03",
+      "index": 3,
+      "label": "after phase 3",
+      "state_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p03.json"
+    },
+    {
+      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-02-30-45-LONGHEALTH_P4_e2e_budget1024_topt256/a471388f-4673-49ef-a20d-7bbe51f42217/cache-step23.pt",
+      "id": "p04",
+      "index": 4,
+      "label": "after phase 4",
+      "state_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p04.json"
+    },
+    {
+      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-02-35-53-LONGHEALTH_P5_e2e_budget1024_topt256/f1cc793d-88c8-4bd4-a540-14ffdc2b1ecc/cache-step29.pt",
+      "id": "p05",
+      "index": 5,
+      "label": "after phase 5",
+      "state_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p05.json"
+    }
+  ],
+  "technique": "e2e_budget1024_topt256"
+}

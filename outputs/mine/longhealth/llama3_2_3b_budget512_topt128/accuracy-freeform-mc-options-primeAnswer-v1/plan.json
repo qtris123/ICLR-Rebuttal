@@ -4,7 +4,7 @@
     "answer_prime": " Answer:",
     "backend": "flex",
     "batch_size": 16,
-    "max_new_tokens": 64,
+    "max_new_tokens": 32,
     "num_shots": 0,
     "prompt_variant": "phase-parquet-verbatim",
     "temperature": 0.0,
@@ -48,35 +48,35 @@
   "schema_version": 1,
   "stages": [
     {
-      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/llama3_2_3b_budget512/p01/2026-11-07-22-35-57-initial_am_compaction/a283a4c0-b4f8-48c2-ab73-15945f7c8c0b/cache-step0.pt",
+      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/llama3_2_3b_budget512/p01/2026-11-08-01-20-31-initial_am_compaction/0332ddfc-2bbb-4294-ab37-021ce7f50bac/cache-step0.pt",
       "id": "p01",
       "index": 1,
       "label": "after phase 1",
       "state_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/llama3_2_3b_budget512_topt128/p01.json"
     },
     {
-      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-07-22-40-13-LONGHEALTH_P2_llama3_2_3b_budget512_topt128/f320be51-63ad-48d5-9f42-4ac7cf347961/cache-step27.pt",
+      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-01-27-45-LONGHEALTH_P2_llama3_2_3b_budget512_topt128/8c10d67e-111f-4cd8-b5b8-d1e4598ac49a/cache-step27.pt",
       "id": "p02",
       "index": 2,
       "label": "after phase 2",
       "state_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/llama3_2_3b_budget512_topt128/p02.json"
     },
     {
-      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-07-22-45-38-LONGHEALTH_P3_llama3_2_3b_budget512_topt128/15c6f2a5-8b72-48be-b0ac-48ac8e4ac2ed/cache-step24.pt",
+      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-01-35-38-LONGHEALTH_P3_llama3_2_3b_budget512_topt128/0b4be34b-cf15-454d-b195-b6c163bd32a3/cache-step24.pt",
       "id": "p03",
       "index": 3,
       "label": "after phase 3",
       "state_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/llama3_2_3b_budget512_topt128/p03.json"
     },
     {
-      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-07-22-50-51-LONGHEALTH_P4_llama3_2_3b_budget512_topt128/df071ba2-28f2-44d2-9803-2098f50605b4/cache-step23.pt",
+      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-01-43-01-LONGHEALTH_P4_llama3_2_3b_budget512_topt128/ec329883-099e-482c-aa1d-9a8b1f1949c3/cache-step23.pt",
       "id": "p04",
       "index": 4,
       "label": "after phase 4",
       "state_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/llama3_2_3b_budget512_topt128/p04.json"
     },
     {
-      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-07-22-55-56-LONGHEALTH_P5_llama3_2_3b_budget512_topt128/dd3c7913-a5a5-4e75-8806-dd9829914151/cache-step29.pt",
+      "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-01-50-23-LONGHEALTH_P5_llama3_2_3b_budget512_topt128/5611815c-6730-44d4-bd40-24cb667ecdaa/cache-step29.pt",
       "id": "p05",
       "index": 5,
       "label": "after phase 5",

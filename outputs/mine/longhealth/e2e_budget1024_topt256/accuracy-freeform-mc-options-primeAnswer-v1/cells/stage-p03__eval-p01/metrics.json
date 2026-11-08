@@ -1,0 +1,44 @@
+{
+  "accuracy": 0.0375,
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-02-25-26-LONGHEALTH_P3_e2e_budget1024_topt256/2bee6e59-1e66-4b8f-a2f7-93c4e9ccae76/cache-step24.pt",
+  "complete": true,
+  "dataset": "longhealth",
+  "decode": {
+    "answer_prime": " Answer:",
+    "backend": "flex",
+    "batch_size": 16,
+    "max_new_tokens": 32,
+    "num_shots": 0,
+    "prompt_variant": "phase-parquet-verbatim",
+    "temperature": 0.0,
+    "thinking": false
+  },
+  "eval_id": "p01",
+  "eval_label": "phase 1",
+  "eval_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/phases/phase1_eval.parquet",
+  "eval_phase": 1,
+  "model": "Qwen/Qwen3-4B-Instruct-2507",
+  "num_correct": 3,
+  "num_expected": 80,
+  "num_recorded": 80,
+  "num_scored": 80,
+  "num_unparsed": 62,
+  "plan_hash": "48aac57696c70a8369cae934677b641e15825059186646751102304d1d8f924c",
+  "protocol": "freeform-mc-options-v1",
+  "schema_version": 1,
+  "scorer": "mc_options",
+  "scorer_source": "faridlazuarda/gated-continual-cartridges@7c11bf1:mc_options",
+  "stage_id": "p03",
+  "stage_index": 3,
+  "stage_label": "after phase 3",
+  "subgroups": {
+    "difficult_1": {
+      "accuracy": null,
+      "num_correct": 0,
+      "num_scored": 0
+    }
+  },
+  "technique": "e2e_budget1024_topt256",
+  "unparsed_rate": 0.775,
+  "wall_clock_s": 65.97915148735046
+}

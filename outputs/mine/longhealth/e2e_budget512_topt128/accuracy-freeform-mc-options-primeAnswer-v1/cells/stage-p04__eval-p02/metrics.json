@@ -1,13 +1,13 @@
 {
-  "accuracy": 0.2,
-  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-07-21-06-26-LONGHEALTH_P4_e2e_budget512_topt128/2057647d-cc13-473b-94d5-a14f2a25420e/cache-step23.pt",
+  "accuracy": 0.0,
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-00-37-58-LONGHEALTH_P4_e2e_budget512_topt128/cd4c6299-d456-4e1d-8577-fa8069f7ecb4/cache-step23.pt",
   "complete": true,
   "dataset": "longhealth",
   "decode": {
     "answer_prime": " Answer:",
     "backend": "flex",
     "batch_size": 16,
-    "max_new_tokens": 64,
+    "max_new_tokens": 32,
     "num_shots": 0,
     "prompt_variant": "phase-parquet-verbatim",
     "temperature": 0.0,
@@ -18,12 +18,12 @@
   "eval_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/phases/phase2_eval.parquet",
   "eval_phase": 2,
   "model": "Qwen/Qwen3-4B-Instruct-2507",
-  "num_correct": 16,
+  "num_correct": 0,
   "num_expected": 80,
   "num_recorded": 80,
   "num_scored": 80,
-  "num_unparsed": 5,
-  "plan_hash": "8fcb8eb4f6b943d9963cab77eee300255e7a0a06180f2b1b5ff8bbb37228746b",
+  "num_unparsed": 69,
+  "plan_hash": "a8368a7fc95d20232eabe08221804a0f030e6b669b0f32d667e0bedbfb82a5e7",
   "protocol": "freeform-mc-options-v1",
   "schema_version": 1,
   "scorer": "mc_options",
@@ -39,6 +39,6 @@
     }
   },
   "technique": "e2e_budget512_topt128",
-  "unparsed_rate": 0.0625,
-  "wall_clock_s": 115.18460369110107
+  "unparsed_rate": 0.8625,
+  "wall_clock_s": 62.427645683288574
 }

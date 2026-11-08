@@ -1,13 +1,13 @@
 {
-  "accuracy": 0.0,
-  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-07-22-50-51-LONGHEALTH_P4_llama3_2_3b_budget512_topt128/df071ba2-28f2-44d2-9803-2098f50605b4/cache-step23.pt",
+  "accuracy": 0.2625,
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-01-43-01-LONGHEALTH_P4_llama3_2_3b_budget512_topt128/ec329883-099e-482c-aa1d-9a8b1f1949c3/cache-step23.pt",
   "complete": true,
   "dataset": "longhealth",
   "decode": {
     "answer_prime": " Answer:",
     "backend": "flex",
     "batch_size": 16,
-    "max_new_tokens": 64,
+    "max_new_tokens": 32,
     "num_shots": 0,
     "prompt_variant": "phase-parquet-verbatim",
     "temperature": 0.0,
@@ -18,12 +18,12 @@
   "eval_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/phases/phase1_eval.parquet",
   "eval_phase": 1,
   "model": "meta-llama/Llama-3.2-3B-Instruct",
-  "num_correct": 0,
+  "num_correct": 21,
   "num_expected": 80,
   "num_recorded": 80,
   "num_scored": 80,
-  "num_unparsed": 80,
-  "plan_hash": "ff81da6d1404c9cae4ac3f24260bfe7d9bd9c08022c0392696bf7e131d079a71",
+  "num_unparsed": 0,
+  "plan_hash": "af6bc55632328f12a6706071a8ec79ddf7dc3d352d445d0f10cce6a2e21ac7c7",
   "protocol": "freeform-mc-options-v1",
   "schema_version": 1,
   "scorer": "mc_options",
@@ -39,6 +39,6 @@
     }
   },
   "technique": "llama3_2_3b_budget512_topt128",
-  "unparsed_rate": 1.0,
-  "wall_clock_s": 23.25105357170105
+  "unparsed_rate": 0.0,
+  "wall_clock_s": 15.212166547775269
 }

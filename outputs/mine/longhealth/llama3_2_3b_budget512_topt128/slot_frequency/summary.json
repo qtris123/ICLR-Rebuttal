@@ -12,48 +12,48 @@
   "n_slots": 512,
   "usage_penalty_lambda": 0.0,
   "usage_decay": 1.0,
-  "cumulative_union_coverage_ratio": 0.4598,
-  "cumulative_union_coverage_pct": 45.98,
+  "cumulative_union_coverage_ratio": 0.6712,
+  "cumulative_union_coverage_pct": 67.12,
   "total_distinct_slots_written": 512,
   "per_stage_coverage_ratio": [
-    0.4586,
-    0.251,
-    0.2502,
-    0.25
+    0.563,
+    0.3653,
+    0.3892,
+    0.3726
   ],
   "per_stage_coverage_pct": [
-    45.86,
-    25.1,
-    25.02,
-    25.0
+    56.3,
+    36.53,
+    38.92,
+    37.26
   ],
   "jaccard_overlap_matrix": [
     [
       1.0,
-      0.5967,
-      0.5952,
-      0.5947
+      0.5606,
+      0.5443,
+      0.5023
     ],
     [
-      0.5967,
+      0.5606,
       1.0,
-      0.9959,
-      0.9951
+      0.6406,
+      0.5352
     ],
     [
-      0.5952,
-      0.9959,
+      0.5443,
+      0.6406,
       1.0,
-      0.9992
+      0.6229
     ],
     [
-      0.5947,
-      0.9951,
-      0.9992,
+      0.5023,
+      0.5352,
+      0.6229,
       1.0
     ]
   ],
-  "consecutive_jaccard_mean": 0.8639,
+  "consecutive_jaccard_mean": 0.608,
   "max_slot_write_count": 103,
-  "mean_writes_per_active_slot": 56.01
+  "mean_writes_per_active_slot": 38.36
 }

@@ -1,0 +1,59 @@
+{
+  "dataset": "longhealth",
+  "tag": "llama3_2_3b_budget1024_topt256",
+  "n_stages": 4,
+  "stages": [
+    "p02",
+    "p03",
+    "p04",
+    "p05"
+  ],
+  "n_layers": 28,
+  "n_slots": 1024,
+  "usage_penalty_lambda": 0.0,
+  "usage_decay": 1.0,
+  "cumulative_union_coverage_ratio": 0.7366,
+  "cumulative_union_coverage_pct": 73.66,
+  "total_distinct_slots_written": 1024,
+  "per_stage_coverage_ratio": [
+    0.6173,
+    0.3945,
+    0.4164,
+    0.3952
+  ],
+  "per_stage_coverage_pct": [
+    61.73,
+    39.45,
+    41.64,
+    39.52
+  ],
+  "jaccard_overlap_matrix": [
+    [
+      1.0,
+      0.5416,
+      0.5162,
+      0.4743
+    ],
+    [
+      0.5416,
+      1.0,
+      0.5962,
+      0.4917
+    ],
+    [
+      0.5162,
+      0.5962,
+      1.0,
+      0.5823
+    ],
+    [
+      0.4743,
+      0.4917,
+      0.5823,
+      1.0
+    ]
+  ],
+  "consecutive_jaccard_mean": 0.5734,
+  "max_slot_write_count": 103,
+  "mean_writes_per_active_slot": 34.96
+}

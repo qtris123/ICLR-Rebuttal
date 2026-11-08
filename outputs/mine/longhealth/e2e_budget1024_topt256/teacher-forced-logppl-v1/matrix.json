@@ -1,0 +1,175 @@
+{
+  "dataset": "longhealth",
+  "method": "am",
+  "technique": "e2e_budget1024_topt256",
+  "chain": "cache-step0.pt p01 -> continual am p02-p05",
+  "protocol": "teacher-forced-logppl-v1",
+  "metric": "teacher-forced mean token loss (natural log)",
+  "p01_cache": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget1024/p01/2026-11-08-02-14-56-initial_am_compaction/5f9bddec-13ac-471f-8a1b-c81fae13e627/cache-step0.pt",
+  "recipe_config": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/recipes/subkv_sweep/e2e_budget1024_topt256.yaml",
+  "stage_caches": {
+    "p01": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget1024/p01/2026-11-08-02-14-56-initial_am_compaction/5f9bddec-13ac-471f-8a1b-c81fae13e627/cache-step0.pt",
+    "p02": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-02-19-49-LONGHEALTH_P2_e2e_budget1024_topt256/cdbc2057-b4c5-4fcb-ba33-ca2d4c28c8fb/cache-step27.pt",
+    "p03": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-02-25-26-LONGHEALTH_P3_e2e_budget1024_topt256/2bee6e59-1e66-4b8f-a2f7-93c4e9ccae76/cache-step24.pt",
+    "p04": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-02-30-45-LONGHEALTH_P4_e2e_budget1024_topt256/a471388f-4673-49ef-a20d-7bbe51f42217/cache-step23.pt",
+    "p05": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-08-02-35-53-LONGHEALTH_P5_e2e_budget1024_topt256/f1cc793d-88c8-4bd4-a540-14ffdc2b1ecc/cache-step29.pt"
+  },
+  "task_order": [
+    "p1",
+    "p2",
+    "p3",
+    "p4",
+    "p5"
+  ],
+  "acquired_at": {
+    "p1": "p01",
+    "p2": "p02",
+    "p3": "p03",
+    "p4": "p04",
+    "p5": "p05"
+  },
+  "stage_labels": {
+    "p01": "after p1",
+    "p02": "after p2",
+    "p03": "after p3",
+    "p04": "after p4",
+    "p05": "after p5"
+  },
+  "cells": {
+    "p01": {
+      "p1": {
+        "loss": 3.3134939670562744,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p01.json"
+      },
+      "p2": {
+        "loss": 4.3324875831604,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p01.json"
+      },
+      "p3": {
+        "loss": 4.282742023468018,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p01.json"
+      },
+      "p4": {
+        "loss": 4.342170715332031,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p01.json"
+      },
+      "p5": {
+        "loss": 4.498806953430176,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p01.json"
+      }
+    },
+    "p02": {
+      "p1": {
+        "loss": 1.883522391319275,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p02.json"
+      },
+      "p2": {
+        "loss": 2.9069936275482178,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p02.json"
+      },
+      "p3": {
+        "loss": 2.651538133621216,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p02.json"
+      },
+      "p4": {
+        "loss": 2.640977382659912,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p02.json"
+      },
+      "p5": {
+        "loss": 2.991060972213745,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p02.json"
+      }
+    },
+    "p03": {
+      "p1": {
+        "loss": 1.8823962211608887,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p03.json"
+      },
+      "p2": {
+        "loss": 2.9586997032165527,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p03.json"
+      },
+      "p3": {
+        "loss": 2.827486991882324,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p03.json"
+      },
+      "p4": {
+        "loss": 2.668360948562622,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p03.json"
+      },
+      "p5": {
+        "loss": 3.039703607559204,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p03.json"
+      }
+    },
+    "p04": {
+      "p1": {
+        "loss": 1.9101004600524902,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p04.json"
+      },
+      "p2": {
+        "loss": 2.9346065521240234,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p04.json"
+      },
+      "p3": {
+        "loss": 2.723815679550171,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p04.json"
+      },
+      "p4": {
+        "loss": 2.64743971824646,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p04.json"
+      },
+      "p5": {
+        "loss": 3.036038875579834,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p04.json"
+      }
+    },
+    "p05": {
+      "p1": {
+        "loss": 1.9326251745224,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p05.json"
+      },
+      "p2": {
+        "loss": 3.0053510665893555,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p05.json"
+      },
+      "p3": {
+        "loss": 2.8008947372436523,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p05.json"
+      },
+      "p4": {
+        "loss": 2.7253329753875732,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p05.json"
+      },
+      "p5": {
+        "loss": 3.096109390258789,
+        "source": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget1024_topt256/p05.json"
+      }
+    }
+  },
+  "continual_metrics": {
+    "average_loss_on_seen_tasks": {
+      "p01": 3.3134939670562744,
+      "p02": 2.3952580094337463,
+      "p03": 2.556194305419922,
+      "p04": 2.553990602493286,
+      "p05": 2.712062668800354
+    },
+    "forgetting_at_final_stage": {
+      "p1": -1.3808687925338745,
+      "p2": 0.0983574390411377,
+      "p3": -0.026592254638671875,
+      "p4": 0.07789325714111328
+    },
+    "mean_forgetting": -0.30780258774757385
+  },
+  "recipe": {
+    "key_mode": "highest_attention",
+    "key_reposition": true,
+    "beta_enabled": false,
+    "top_t": 256,
+    "ridge_lambda": 0.0,
+    "delta_weight": 0.01,
+    "rope_theta": 5000000.0
+  }
+}

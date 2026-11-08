@@ -1,13 +1,13 @@
 {
-  "accuracy": 0.4,
-  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-07-20-44-45-initial_am_compaction/219594c2-0306-4e3d-94de-dcd9c3d26856/cache-step0.pt",
+  "accuracy": 0.1625,
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-08-00-19-26-initial_am_compaction/a823a676-e132-45b4-a904-114e1a425fd9/cache-step0.pt",
   "complete": true,
   "dataset": "longhealth",
   "decode": {
     "answer_prime": " Answer:",
     "backend": "flex",
     "batch_size": 16,
-    "max_new_tokens": 64,
+    "max_new_tokens": 32,
     "num_shots": 0,
     "prompt_variant": "phase-parquet-verbatim",
     "temperature": 0.0,
@@ -18,12 +18,12 @@
   "eval_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/phases/phase3_eval.parquet",
   "eval_phase": 3,
   "model": "Qwen/Qwen3-4B-Instruct-2507",
-  "num_correct": 32,
+  "num_correct": 13,
   "num_expected": 80,
   "num_recorded": 80,
   "num_scored": 80,
   "num_unparsed": 0,
-  "plan_hash": "8fcb8eb4f6b943d9963cab77eee300255e7a0a06180f2b1b5ff8bbb37228746b",
+  "plan_hash": "a8368a7fc95d20232eabe08221804a0f030e6b669b0f32d667e0bedbfb82a5e7",
   "protocol": "freeform-mc-options-v1",
   "schema_version": 1,
   "scorer": "mc_options",
@@ -40,5 +40,5 @@
   },
   "technique": "e2e_budget512_topt128",
   "unparsed_rate": 0.0,
-  "wall_clock_s": 116.25403070449829
+  "wall_clock_s": 62.20719790458679
 }
