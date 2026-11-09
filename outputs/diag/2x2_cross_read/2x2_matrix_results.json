@@ -1,0 +1,54 @@
+[
+  {
+    "cache": "exptri_cache",
+    "prompt": "exptri_prompt",
+    "num_total": 80,
+    "num_correct": 10,
+    "accuracy": 0.125,
+    "option_distribution": {
+      "A": 80
+    },
+    "pct_A": 100.0
+  },
+  {
+    "cache": "exptri_cache",
+    "prompt": "main_prompt",
+    "num_total": 80,
+    "num_correct": 0,
+    "accuracy": 0.0,
+    "option_distribution": {
+      "A": 68,
+      "Unparsed": 12
+    },
+    "pct_A": 85.0
+  },
+  {
+    "cache": "main_cache",
+    "prompt": "exptri_prompt",
+    "num_total": 80,
+    "num_correct": 34,
+    "accuracy": 0.425,
+    "option_distribution": {
+      "E": 14,
+      "A": 10,
+      "B": 17,
+      "D": 14,
+      "C": 25
+    },
+    "pct_A": 12.5
+  },
+  {
+    "cache": "main_cache",
+    "prompt": "main_prompt",
+    "num_total": 80,
+    "num_correct": 2,
+    "accuracy": 0.025,
+    "option_distribution": {
+      "Unparsed": 70,
+      "E": 3,
+      "A": 6,
+      "D": 1
+    },
+    "pct_A": 7.5
+  }
+]

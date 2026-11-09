@@ -1,0 +1,17 @@
+{
+  "num_total": 80,
+  "num_correct": 10,
+  "accuracy": 0.125,
+  "option_distribution": {
+    "A": 80
+  },
+  "pct_A": 100.0,
+  "mean_step0_logprobs": {
+    "A": -4.094148797404606,
+    "B": -7.716414422404607,
+    "C": -6.3308675474046066,
+    "D": -7.783211297404607,
+    "E": -9.096883172404606
+  },
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512_prefill_swap/p01/2026-11-09-05-06-29-initial_am_compaction/afeda3ae-b173-493f-8037-628085dae46a/cache-step0.pt"
+}

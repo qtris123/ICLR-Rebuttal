@@ -1,0 +1,14 @@
+{
+  "cache": "main_cache",
+  "prompt": "main_prompt",
+  "num_total": 80,
+  "num_correct": 2,
+  "accuracy": 0.025,
+  "option_distribution": {
+    "Unparsed": 70,
+    "E": 3,
+    "A": 6,
+    "D": 1
+  },
+  "pct_A": 7.5
+}

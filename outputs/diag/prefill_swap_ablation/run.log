@@ -1,0 +1,21 @@
+[OK] Found existing newly built cache: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512_prefill_swap/p01/2026-11-09-05-06-29-initial_am_compaction/afeda3ae-b173-493f-8037-628085dae46a/cache-step0.pt
+Loaded 80 evaluation questions from phase1_eval.parquet
+
+Loading model Qwen/Qwen3-4B-Instruct-2507...
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.09it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.13it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.67it/s]
+======================================================================
+STEP 2: Evaluating newly built cache on 80 LongHealth questions...
+======================================================================
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512_prefill_swap/p01/2026-11-09-05-06-29-initial_am_compaction/afeda3ae-b173-493f-8037-628085dae46a/cache-step0.pt
+2026-11-09 05:26:57,834 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-09 05:26:57,835 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+evaluating_prefill_swap:   0%|          | 0/5 [00:00<?, ?it/s]evaluating_prefill_swap:  20%|██        | 1/5 [00:14<00:56, 14.06s/it]evaluating_prefill_swap:  40%|████      | 2/5 [00:27<00:40, 13.47s/it]evaluating_prefill_swap:  60%|██████    | 3/5 [00:39<00:26, 13.20s/it]evaluating_prefill_swap:  80%|████████  | 4/5 [00:53<00:13, 13.16s/it]evaluating_prefill_swap: 100%|██████████| 5/5 [01:06<00:00, 13.07s/it]evaluating_prefill_swap: 100%|██████████| 5/5 [01:06<00:00, 13.20s/it]
+
+======================================================================
+ABLATION RESULTS (exp/tri with main's prefill helper)
+======================================================================
+Accuracy: 10/80 (12.50%)
+Option Distribution: {'A': 80}
+Percentage Predicted 'A': 100.0%
+Mean Option Logprobs at step 0: {'A': -4.094148797404606, 'B': -7.716414422404607, 'C': -6.3308675474046066, 'D': -7.783211297404607, 'E': -9.096883172404606}
+Saved results to /home/voquangtri2025/ICLR-Rebuttal/outputs/diag/prefill_swap_ablation/results.json

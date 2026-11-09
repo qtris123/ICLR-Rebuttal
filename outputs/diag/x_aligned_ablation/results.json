@@ -1,0 +1,97 @@
+{
+  "num_total": 80,
+  "num_correct": 31,
+  "accuracy": 0.3875,
+  "option_distribution": {
+    "D": 16,
+    "E": 8,
+    "A": 11,
+    "B": 15,
+    "C": 30
+  },
+  "pct_A": 13.750000000000002,
+  "mean_step0_logprobs": {
+    "A": -8.469633388223848,
+    "B": -9.321977138223847,
+    "C": -7.743852138223848,
+    "D": -8.500883388223848,
+    "E": -10.347758388223848
+  },
+  "samples": [
+    {
+      "question_id": "patient_01_0",
+      "generated_text": " Answer: (d) Vincere, and (e) Doxirubin\n\n**Final Answer: (d) Vincere, (e) Do",
+      "resolved_option": "Vincristine",
+      "assigned_letter": "D",
+      "reference_answer": "Vincristine",
+      "correct": true,
+      "choice_step0_logprobs": {
+        "A": -7.363389651116686,
+        "B": -9.425889651116686,
+        "C": -7.425889651116686,
+        "D": -6.425889651116686,
+        "E": -8.800889651116686
+      }
+    },
+    {
+      "question_id": "patient_01_1",
+      "generated_text": " Answer: (e)\n\n**Rationale:**\n\nThe question asks for a diagnosis that is NOT accurate based on the provided information.\n\n- Option (a): \"She has",
+      "resolved_option": "She has pre-existing ALS.",
+      "assigned_letter": "E",
+      "reference_answer": "She has 3-vessel CHD.",
+      "correct": false,
+      "choice_step0_logprobs": {
+        "A": -7.527725433987776,
+        "B": -6.590225433987776,
+        "C": -7.152725433987776,
+        "D": -7.527725433987776,
+        "E": -7.340225433987776
+      }
+    },
+    {
+      "question_id": "patient_01_2",
+      "generated_text": " Answer: (a) Multiple Sclerosis\n\n**Rationale:**\n\nThe patient is described as having a chronic, neuroinflammatory condition. The patient's symptoms include:\n\n",
+      "resolved_option": "Multiple sclerosis",
+      "assigned_letter": "A",
+      "reference_answer": "Multiple sclerosis",
+      "correct": true,
+      "choice_step0_logprobs": {
+        "A": -7.67882918654129,
+        "B": -11.553829186541291,
+        "C": -9.428829186541291,
+        "D": -11.053829186541291,
+        "E": -12.991329186541291
+      }
+    },
+    {
+      "question_id": "patient_01_3",
+      "generated_text": " Answer: (b) 0.5 mg, 1 capsule at bedtime\n\n**Explanation:**\n\nThe patient is on a daily regimen of Fingolimod",
+      "resolved_option": "0.5 mg, 1 capsule at bedtime",
+      "assigned_letter": "B",
+      "reference_answer": "0.5 mg, 1 capsule at bedtime",
+      "correct": true,
+      "choice_step0_logprobs": {
+        "A": -9.438844867552207,
+        "B": -7.188844867552207,
+        "C": -10.001344867552207,
+        "D": -10.813844867552207,
+        "E": -13.001344867552207
+      }
+    },
+    {
+      "question_id": "patient_01_4",
+      "generated_text": " Answer: (c) 6 cycles of L-Polar-CP\n\n**Note:** The patient is currently under treatment with a 6-cycle regimen of L-Polar",
+      "resolved_option": "6 cycles of L-Pola-CRP",
+      "assigned_letter": "C",
+      "reference_answer": "6 cycles of R-Pola-CHP",
+      "correct": false,
+      "choice_step0_logprobs": {
+        "A": -8.372496294829945,
+        "B": -8.684996294829945,
+        "C": -7.622496294829945,
+        "D": -7.059996294829945,
+        "E": -9.247496294829945
+      }
+    }
+  ]
+}

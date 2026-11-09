@@ -1,0 +1,15 @@
+{
+  "cache": "main_cache",
+  "prompt": "exptri_prompt",
+  "num_total": 80,
+  "num_correct": 34,
+  "accuracy": 0.425,
+  "option_distribution": {
+    "E": 14,
+    "A": 10,
+    "B": 17,
+    "D": 14,
+    "C": 25
+  },
+  "pct_A": 12.5
+}

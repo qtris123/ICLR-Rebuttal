@@ -1,0 +1,21 @@
+[OK] Found existing newly built cache: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512_x_aligned/p01/2026-11-09-05-55-07-initial_am_compaction/d9263ab5-7f64-4098-8d8f-750ab7f52a9d/cache-step0.pt
+Loaded 80 evaluation questions from phase1_eval.parquet
+
+Loading model Qwen/Qwen3-4B-Instruct-2507...
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.07it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.11it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.64it/s]
+======================================================================
+STEP 2: Evaluating X_aligned cache on 80 LongHealth questions...
+======================================================================
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512_x_aligned/p01/2026-11-09-05-55-07-initial_am_compaction/d9263ab5-7f64-4098-8d8f-750ab7f52a9d/cache-step0.pt
+2026-11-09 06:14:46,100 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-09 06:14:46,100 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+evaluating_x_aligned:   0%|          | 0/5 [00:00<?, ?it/s]evaluating_x_aligned:  20%|██        | 1/5 [00:13<00:55, 13.91s/it]evaluating_x_aligned:  40%|████      | 2/5 [00:26<00:40, 13.37s/it]evaluating_x_aligned:  60%|██████    | 3/5 [00:39<00:26, 13.16s/it]evaluating_x_aligned:  80%|████████  | 4/5 [00:52<00:13, 13.16s/it]evaluating_x_aligned: 100%|██████████| 5/5 [01:06<00:00, 13.12s/it]evaluating_x_aligned: 100%|██████████| 5/5 [01:06<00:00, 13.21s/it]
+
+======================================================================
+ABLATION RESULTS (exp/tri with X_aligned student RoPE offset)
+======================================================================
+Accuracy: 31/80 (38.75%)
+Option Distribution: {'D': 16, 'E': 8, 'A': 11, 'B': 15, 'C': 30}
+Percentage Predicted 'A': 13.8%
+Mean Option Logprobs at step 0: {'A': -8.469633388223848, 'B': -9.321977138223847, 'C': -7.743852138223848, 'D': -8.500883388223848, 'E': -10.347758388223848}
+Saved results to /home/voquangtri2025/ICLR-Rebuttal/outputs/diag/x_aligned_ablation/results.json

@@ -1,0 +1,57 @@
+======================================================================
+QWEN P1 2x2 CROSS-READ INVESTIGATION
+Model: Qwen/Qwen3-4B-Instruct-2507 | Device: cuda
+======================================================================
+[OK] Found existing main P1 cache: /home/voquangtri2025/ICLR-Rebuttal/gated-main/outputs/experiments/subkv_sweep_longhealth/budget512_main/p01/cache-step0.pt
+Using exp/tri cache: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-08-00-19-26-initial_am_compaction/a823a676-e132-45b4-a904-114e1a425fd9/cache-step0.pt
+Using main cache:    /home/voquangtri2025/ICLR-Rebuttal/gated-main/outputs/experiments/subkv_sweep_longhealth/budget512_main/p01/cache-step0.pt
+Loaded 80 examples for exp/tri prompt from phase1_eval.parquet
+Loaded 80 examples for main prompt from patients_01_to_10.parquet
+
+Loading model Qwen/Qwen3-4B-Instruct-2507...
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.05it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.12it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.65it/s]
+
+Evaluating Cell: [exptri_cache] x [exptri_prompt] (80 examples)...
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-08-00-19-26-initial_am_compaction/a823a676-e132-45b4-a904-114e1a425fd9/cache-step0.pt
+2026-11-09 04:32:54,846 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-09 04:32:54,846 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+exptri_cache_x_exptri_prompt:   0%|          | 0/5 [00:00<?, ?it/s]exptri_cache_x_exptri_prompt:  20%|██        | 1/5 [00:14<00:56, 14.07s/it]exptri_cache_x_exptri_prompt:  40%|████      | 2/5 [00:26<00:39, 13.33s/it]exptri_cache_x_exptri_prompt:  60%|██████    | 3/5 [00:39<00:25, 12.93s/it]exptri_cache_x_exptri_prompt:  80%|████████  | 4/5 [00:52<00:12, 12.84s/it]exptri_cache_x_exptri_prompt: 100%|██████████| 5/5 [01:04<00:00, 12.71s/it]exptri_cache_x_exptri_prompt: 100%|██████████| 5/5 [01:04<00:00, 12.91s/it]
+  -> Accuracy: 10/80 (12.50%)
+  -> Choice Distribution: {'A': 80} (% Option A: 100.0%)
+
+Evaluating Cell: [exptri_cache] x [main_prompt] (80 examples)...
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-08-00-19-26-initial_am_compaction/a823a676-e132-45b4-a904-114e1a425fd9/cache-step0.pt
+2026-11-09 04:33:59,461 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-09 04:33:59,462 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+exptri_cache_x_main_prompt:   0%|          | 0/5 [00:00<?, ?it/s]exptri_cache_x_main_prompt:  20%|██        | 1/5 [00:12<00:50, 12.60s/it]exptri_cache_x_main_prompt:  40%|████      | 2/5 [00:24<00:37, 12.41s/it]exptri_cache_x_main_prompt:  60%|██████    | 3/5 [00:37<00:25, 12.57s/it]exptri_cache_x_main_prompt:  80%|████████  | 4/5 [00:50<00:12, 12.73s/it]exptri_cache_x_main_prompt: 100%|██████████| 5/5 [01:03<00:00, 12.82s/it]exptri_cache_x_main_prompt: 100%|██████████| 5/5 [01:03<00:00, 12.72s/it]
+  -> Accuracy: 0/80 (0.00%)
+  -> Choice Distribution: {'A': 68, 'Unparsed': 12} (% Option A: 85.0%)
+
+Evaluating Cell: [main_cache] x [exptri_prompt] (80 examples)...
+/home/voquangtri2025/ICLR-Rebuttal/gated-main/outputs/experiments/subkv_sweep_longhealth/budget512_main/p01/cache-step0.pt
+2026-11-09 04:35:03,119 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-09 04:35:03,119 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+main_cache_x_exptri_prompt:   0%|          | 0/5 [00:00<?, ?it/s]main_cache_x_exptri_prompt:  20%|██        | 1/5 [00:12<00:50, 12.64s/it]main_cache_x_exptri_prompt:  40%|████      | 2/5 [00:25<00:37, 12.49s/it]main_cache_x_exptri_prompt:  60%|██████    | 3/5 [00:37<00:25, 12.50s/it]main_cache_x_exptri_prompt:  80%|████████  | 4/5 [00:50<00:12, 12.59s/it]main_cache_x_exptri_prompt: 100%|██████████| 5/5 [01:02<00:00, 12.60s/it]main_cache_x_exptri_prompt: 100%|██████████| 5/5 [01:02<00:00, 12.57s/it]
+  -> Accuracy: 34/80 (42.50%)
+  -> Choice Distribution: {'E': 14, 'A': 10, 'B': 17, 'D': 14, 'C': 25} (% Option A: 12.5%)
+
+Evaluating Cell: [main_cache] x [main_prompt] (80 examples)...
+/home/voquangtri2025/ICLR-Rebuttal/gated-main/outputs/experiments/subkv_sweep_longhealth/budget512_main/p01/cache-step0.pt
+2026-11-09 04:36:06,057 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-09 04:36:06,057 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+main_cache_x_main_prompt:   0%|          | 0/5 [00:00<?, ?it/s]main_cache_x_main_prompt:  20%|██        | 1/5 [00:12<00:50, 12.65s/it]main_cache_x_main_prompt:  40%|████      | 2/5 [00:24<00:37, 12.46s/it]main_cache_x_main_prompt:  60%|██████    | 3/5 [00:37<00:25, 12.70s/it]main_cache_x_main_prompt:  80%|████████  | 4/5 [00:51<00:12, 12.89s/it]main_cache_x_main_prompt: 100%|██████████| 5/5 [01:03<00:00, 12.85s/it]main_cache_x_main_prompt: 100%|██████████| 5/5 [01:03<00:00, 12.79s/it]
+  -> Accuracy: 2/80 (2.50%)
+  -> Choice Distribution: {'Unparsed': 70, 'E': 3, 'A': 6, 'D': 1} (% Option A: 7.5%)
+
+==============================================================================
+2x2 CROSS-READ MATRIX RESULTS SUMMARY (80 Phase 1 LongHealth questions)
+==============================================================================
+Cache           | Prompt          | Correct    | Accuracy   | % Pred A   | Distribution
+------------------------------------------------------------------------------
+exptri_cache    | exptri_prompt   | 10/80     | 12.50%    |  100.0%    | A:80
+exptri_cache    | main_prompt     |  0/80     |  0.00%    |   85.0%    | A:68 Unparsed:12
+main_cache      | exptri_prompt   | 34/80     | 42.50%    |   12.5%    | A:10 B:17 C:25 D:14 E:14
+main_cache      | main_prompt     |  2/80     |  2.50%    |    7.5%    | A:6 D:1 E:3 Unparsed:70
+==============================================================================
+
+Wrote full 2x2 diagnostic results to: /home/voquangtri2025/ICLR-Rebuttal/outputs/diag/2x2_cross_read/2x2_matrix_results.json
