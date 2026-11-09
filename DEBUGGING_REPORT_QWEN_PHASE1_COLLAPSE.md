@@ -187,3 +187,69 @@ Assigned: E | Correct: False
 Option distribution across all 80 questions:
 `{'A': 11, 'B': 15, 'C': 30, 'D': 16, 'E': 8}` (Accuracy: 31/80 = 38.75%).
 Option A collapse is completely resolved.
+
+---
+
+## 7. Architectural & Pipeline Comparison Across Codebases
+
+A central question in this investigation was: **Why did `main` not collapse at Phase 1 even though it also used unshifted queries during compaction?**
+
+### The Hidden Interaction: Token Retokenization vs. RoPE Sensitivity
+
+1. **In `main` (Accidental Regularization via Token Scrambling)**:
+   - The reference parquet file `qwen_longhealth_p1_task_8192.parquet` stored Llama token IDs.
+   - In `main`, `targets` defaulted to `"logits"`, which kept `retokenize = False`. As a result, `main` passed raw Llama token IDs directly to Qwen without re-encoding.
+   - When decoded in Qwen, these token IDs formed pseudo-random scrambled text (`'<|im_start|>user\nyl’), fold on theXP of the Master of$i Dent...'`).
+   - Because the tokens were effectively random noise, Qwen's intermediate queries $Q_0$ were diffuse and unpolarized (acting like isotropic Gaussian noise).
+   - Although `main` had the same 512-slot theoretical RoPE offset, the diffuse query noise prevented the value solve from sharply overfitting to the unrotated relative coordinate frame ($i - j$). Consequently, the readout didn't point into any specific degenerate basin at test time.
+
+2. **In `exp/tri` (Before Fix)**:
+   - `exp/tri` introduced `stored_token_ids_need_retokenize()`, which detected the vocabulary mismatch and re-encoded the conversations with Qwen's tokenizer.
+   - This meant Qwen was now given real, clean English clinical text (`'What are your thoughts on the effectiveness of the combination of immunotherapy and surgical excision...'`).
+   - With real language, Qwen's attention queries $Q_0$ became **sharply directional** in head space.
+   - When directional queries were fitted against unrotated slots ($i - j$), the 512-position phase shift at test time ($(512 + i) - j$) completely distorted the attention weights, driving the residual stream into a degenerate basin that triggered Qwen's unconditioned medical summary prior (100% Option A).
+
+---
+
+### Coordinate Frame Comparison Across Implementations
+
+```
+1. exp/tri (Before Fix):
+   Teacher Target Y:    Q_0 (pos 0)   attends to Document K (pos 0..T)
+   Student Solve X:     Q_0 (pos 0)   attends to Cartridge C_1 (pos 0..B)   <-- Relative: (i - j)
+   Test Time Reader:    Q   (pos 512) attends to Cartridge C_1 (pos 0..B)   <-- Relative: (512 + i - j)
+   [OUTCOME]: 512-slot RoPE mismatch -> Representation breakdown -> 100% Option A collapse (12.50%).
+
+2. main (Accidental regularizer):
+   Teacher Target Y:    Q_0 (scrambled Llama tokens)
+   Student Solve X:     Q_0 (scrambled Llama tokens, pos 0)
+   Test Time Reader:    Q   (real prompt, pos 512)
+   [OUTCOME]: 512-slot mismatch masked by diffuse token noise -> 34/80 (42.50%).
+
+3. Farid's moe-am / submem:
+   Teacher Target Y:    Chunk-based document prefill
+   RoPE Handling:       Explicit chunk RoPE correction via `compute_rope_correction`
+                        (`rope_offset_applied = original_article_start - chunk_local_start`)
+   Test Time Reader:    Corrected chunk coordinate frame
+   [OUTCOME]: 33/80 (41.25%), no collapse.
+
+4. exp/tri (With X_aligned Fix):
+   Teacher Target Y:    Q_0 (pos 0)   attends to Document K (pos 0..T)      <-- Ground-truth context
+   Student Solve X:     R(B) Q_0      attends to Cartridge C_1 (pos 0..B)   <-- Relative: (B + i - j)
+   Test Time Reader:    Q   (pos 512) attends to Cartridge C_1 (pos 0..B)   <-- Relative: (512 + i - j)
+   [OUTCOME]: ZERO mismatch. Perfect coordinate alignment -> 31/80 (38.75%), balanced options.
+```
+
+---
+
+### Why the $X_{\text{aligned}}$ Fix is Principled & Robust
+
+1. **Mathematically Exact Coordinate Alignment**:
+   At evaluation time, the cartridge sits at positions $[0, B-1]$ and the question tokens sit at $[B, B+1, \dots]$. The student solve $X_{\text{aligned}}$ now inverts the exact attention matrix that will be computed at test time:
+   $$X_{\text{aligned}} = \text{softmax}\left(\frac{(R(B)Q_0) C_1^\top}{\sqrt{d}} + \beta\right)$$
+2. **Preserves Teacher Grounding**:
+   The teacher pass $Y = \text{softmax}(Q_0 K^\top / \sqrt{d}) V$ remains in the natural in-context reading frame (queries and document both start at position 0).
+3. **Clean Training Distribution**:
+   Unlike `main` (which relied on token mismatch noise to avoid collapse), `exp/tri` operates on clean, properly retokenized natural language queries, establishing a solid foundation for subsequent continual learning phases.
+
+
