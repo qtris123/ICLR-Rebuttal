@@ -34,9 +34,7 @@ sudo python3 cuda_installer.pyz install_driver --installation-mode=binary
 echo "Installing the CUDA Toolkit..."
 sudo python3 cuda_installer.pyz install_cuda
 
-# --- 5. Reboot ---
-echo "Installation complete. A reboot is required."
-echo "VM will reboot in 5 seconds..."
-sleep 5
-sudo reboot
-EOF
+# --- 5. Done ---
+echo "Installation complete."
+echo "If the driver does not immediately appear in nvidia-smi, you may manually reboot with 'sudo reboot'."
+

@@ -1,0 +1,1441 @@
+======================================================================
+ Starting E2E Continual Compaction Sweep
+ Model:     Qwen/Qwen3-4B-Instruct-2507 (Slug: qwen3_4b)
+ Dataset:   longhealth
+ GPU:       0 (Evals: 0)
+ Python:    /home/voquangtri2025/miniconda3/envs/cartridges/bin/python
+ Budgets:   512
+ Top-Ts:    128
+ Root:      /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges
+======================================================================
+
+>>> [Arm 1/1] Budget=512, top_t=128, max_queries_per_head=1024, delta_weight=0.01 (Tag: e2e_budget512_topt128) <<<
+    Log file: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/logs/e2e_subkv_sweep/longhealth_e2e_budget512_topt128_20261110_022333.log
+--- Step 1: Initial Compaction (p01, 512 slots) ---
+2026-11-10 02:23:42,925 - cartridges.datasets [rank=0] - INFO - Stored token ids do not match Qwen/Qwen3-4B-Instruct-2507; retokenizing
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00, 54.40it/s]
+2026-11-10 02:24:52,334 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:24:52,334 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:24:52,392 - __main__ [rank=0] - INFO - Compaction completed in 61.6s: {'value_absmax': 160.0, 'key_absmax': 300.0, 'n_documents': 4, 'T_teacher': 49392, 'doc_token_counts': [12644, 12308, 12878, 11562], 'num_tokens': 512, 'key_select': 'highest_attention', 'dataset': 'longhealth', 'qasper_topic': 'QA', 'quality_phase': None, 'phase': 1, 'enable_beta': False, 'rebake_key_positions': True, 'global_teacher_positions': True, 'rope_theta': 5000000.0, 'model_rope_theta': 5000000.0, 'rope_theta_matches_model': True, 'strip_reference_system_prompt': True, 'ridge_lambda': 0.0001, 'ridge_scale': 'spectral', 'n_ref_batches': 50, 'flex_targets': False, 'query_position_offset': 0, 'align_student_rope': True, 'student_rope_offset': 512, 'recon_mse_mean': 0.020096712026593702, 'recon_mse_max': 0.14649441558867693, 'recon_mse_per_layer': {0: 3.804013294939068e-05, 1: 1.2384331853354524e-05, 2: 2.49474088604984e-05, 3: 5.8551071106194286e-05, 4: 0.00010798715993587393, 5: 0.00027237438916927204, 6: 0.00025737949363247026, 7: 0.0005561929065152071, 8: 0.0011598571909416933, 9: 0.0010301735674147494, 10: 0.0015554350029560737, 11: 0.0010516496222408023, 12: 0.0018527052161516622, 13: 0.001770300164935179, 14: 0.002931621376774274, 15: 0.006522089461213909, 16: 0.0029169532645028085, 17: 0.0028919170727021992, 18: 0.0034576007165014744, 19: 0.0073711951554287225, 20: 0.007549871748778969, 21: 0.006713558177580126, 22: 0.011491248820675537, 23: 0.012926857016282156, 24: 0.015229457465466112, 25: 0.016811176290502772, 26: 0.014720126811880618, 27: 0.028675642679445446, 28: 0.033730167779140174, 29: 0.02573324798140675, 30: 0.05735281121451408, 31: 0.040787856793031096, 32: 0.0706482243258506, 33: 0.08673643739894032, 34: 0.14649441558867693, 35: 0.11204117815941572}, 'wall_clock_s': 61.517658948898315, 'rope_note': "Each doc prefilled at a running offset, so absolute RoPE positions are unique corpus-wide. Selected keys rebaked onto sequential slots at rope_theta=5e+06, matching the model's base.", 'stabilizers': 'none (one-shot compaction: no delta_weight, no old-ref guard)', 'compact_time_s': 61.5603449344635}
+2026-11-10 02:25:06,156 - cartridges.train [rank=0] - INFO - Evaluating `p1` (n=11, 11 per device, world size=1)
+
+Evaluation [step=0] (p1):   0%|          | 0/11 [00:00<?, ?it/s]
+Evaluation [step=0] (p1):   9%|▉         | 1/11 [00:00<00:01,  7.78it/s]
+Evaluation [step=0] (p1):  18%|█▊        | 2/11 [00:00<00:01,  7.85it/s]
+Evaluation [step=0] (p1):  27%|██▋       | 3/11 [00:00<00:01,  7.88it/s]
+Evaluation [step=0] (p1):  36%|███▋      | 4/11 [00:00<00:00,  7.88it/s]
+Evaluation [step=0] (p1):  45%|████▌     | 5/11 [00:00<00:00,  7.88it/s]
+Evaluation [step=0] (p1):  55%|█████▍    | 6/11 [00:00<00:00,  7.89it/s]
+Evaluation [step=0] (p1):  64%|██████▎   | 7/11 [00:00<00:00,  7.90it/s]
+Evaluation [step=0] (p1):  73%|███████▎  | 8/11 [00:01<00:00,  7.90it/s]
+Evaluation [step=0] (p1):  82%|████████▏ | 9/11 [00:01<00:00,  7.90it/s]
+Evaluation [step=0] (p1):  91%|█████████ | 10/11 [00:01<00:00,  7.90it/s]
+Evaluation [step=0] (p1): 100%|██████████| 11/11 [00:01<00:00,  7.79it/s]
+                                                                         
+2026-11-10 02:25:07,558 - cartridges.train [rank=0] - INFO - Eval loss - 2.639007806777954 
+2026-11-10 02:25:07,558 - cartridges.train [rank=0] - INFO - done evaling - p1
+2026-11-10 02:25:07,558 - cartridges.train [rank=0] - INFO - Evaluating `p2` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p2):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p2):  11%|█         | 1/9 [00:00<00:01,  7.92it/s]
+Evaluation [step=0] (p2):  22%|██▏       | 2/9 [00:00<00:00,  7.90it/s]
+Evaluation [step=0] (p2):  33%|███▎      | 3/9 [00:00<00:00,  7.90it/s]
+Evaluation [step=0] (p2):  44%|████▍     | 4/9 [00:00<00:00,  7.89it/s]
+Evaluation [step=0] (p2):  56%|█████▌    | 5/9 [00:00<00:00,  7.91it/s]
+Evaluation [step=0] (p2):  67%|██████▋   | 6/9 [00:00<00:00,  7.91it/s]
+Evaluation [step=0] (p2):  78%|███████▊  | 7/9 [00:00<00:00,  7.91it/s]
+Evaluation [step=0] (p2):  89%|████████▉ | 8/9 [00:01<00:00,  7.91it/s]
+Evaluation [step=0] (p2): 100%|██████████| 9/9 [00:01<00:00,  7.91it/s]
+                                                                       
+2026-11-10 02:25:08,698 - cartridges.train [rank=0] - INFO - Eval loss - 4.053521633148193 
+2026-11-10 02:25:08,698 - cartridges.train [rank=0] - INFO - done evaling - p2
+2026-11-10 02:25:08,698 - cartridges.train [rank=0] - INFO - Evaluating `p3` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p3):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p3):  10%|█         | 1/10 [00:00<00:01,  7.92it/s]
+Evaluation [step=0] (p3):  20%|██        | 2/10 [00:00<00:01,  7.92it/s]
+Evaluation [step=0] (p3):  30%|███       | 3/10 [00:00<00:00,  7.92it/s]
+Evaluation [step=0] (p3):  40%|████      | 4/10 [00:00<00:00,  7.88it/s]
+Evaluation [step=0] (p3):  50%|█████     | 5/10 [00:00<00:00,  7.89it/s]
+Evaluation [step=0] (p3):  60%|██████    | 6/10 [00:00<00:00,  7.90it/s]
+Evaluation [step=0] (p3):  70%|███████   | 7/10 [00:00<00:00,  7.87it/s]
+Evaluation [step=0] (p3):  80%|████████  | 8/10 [00:01<00:00,  7.87it/s]
+Evaluation [step=0] (p3):  90%|█████████ | 9/10 [00:01<00:00,  7.89it/s]
+Evaluation [step=0] (p3): 100%|██████████| 10/10 [00:01<00:00,  7.77it/s]
+                                                                         
+2026-11-10 02:25:09,973 - cartridges.train [rank=0] - INFO - Eval loss - 3.779437780380249 
+2026-11-10 02:25:09,973 - cartridges.train [rank=0] - INFO - done evaling - p3
+2026-11-10 02:25:09,973 - cartridges.train [rank=0] - INFO - Evaluating `p4` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p4):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p4):  11%|█         | 1/9 [00:00<00:01,  7.93it/s]
+Evaluation [step=0] (p4):  22%|██▏       | 2/9 [00:00<00:00,  7.92it/s]
+Evaluation [step=0] (p4):  33%|███▎      | 3/9 [00:00<00:00,  7.91it/s]
+Evaluation [step=0] (p4):  44%|████▍     | 4/9 [00:00<00:00,  7.90it/s]
+Evaluation [step=0] (p4):  56%|█████▌    | 5/9 [00:00<00:00,  7.91it/s]
+Evaluation [step=0] (p4):  67%|██████▋   | 6/9 [00:00<00:00,  7.88it/s]
+Evaluation [step=0] (p4):  78%|███████▊  | 7/9 [00:00<00:00,  7.90it/s]
+Evaluation [step=0] (p4):  89%|████████▉ | 8/9 [00:01<00:00,  7.90it/s]
+Evaluation [step=0] (p4): 100%|██████████| 9/9 [00:01<00:00,  7.86it/s]
+                                                                       
+2026-11-10 02:25:11,115 - cartridges.train [rank=0] - INFO - Eval loss - 3.8953068256378174 
+2026-11-10 02:25:11,115 - cartridges.train [rank=0] - INFO - done evaling - p4
+2026-11-10 02:25:11,115 - cartridges.train [rank=0] - INFO - Evaluating `p5` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p5):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p5):  11%|█         | 1/9 [00:00<00:01,  7.94it/s]
+Evaluation [step=0] (p5):  22%|██▏       | 2/9 [00:00<00:00,  7.93it/s]
+Evaluation [step=0] (p5):  33%|███▎      | 3/9 [00:00<00:00,  7.91it/s]
+Evaluation [step=0] (p5):  44%|████▍     | 4/9 [00:00<00:00,  7.93it/s]
+Evaluation [step=0] (p5):  56%|█████▌    | 5/9 [00:00<00:00,  7.93it/s]
+Evaluation [step=0] (p5):  67%|██████▋   | 6/9 [00:00<00:00,  7.93it/s]
+Evaluation [step=0] (p5):  78%|███████▊  | 7/9 [00:00<00:00,  7.90it/s]
+Evaluation [step=0] (p5):  89%|████████▉ | 8/9 [00:01<00:00,  7.89it/s]
+Evaluation [step=0] (p5): 100%|██████████| 9/9 [00:01<00:00,  7.88it/s]
+                                                                       
+2026-11-10 02:25:12,255 - cartridges.train [rank=0] - INFO - Eval loss - 4.134486198425293 
+2026-11-10 02:25:12,255 - cartridges.train [rank=0] - INFO - done evaling - p5
+2026-11-10 02:25:12,482 - __main__ [rank=0] - INFO - AM Phase 1 compaction complete. Saved to /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-02-23-42-initial_am_compaction/5bd11d41-efd9-45b1-be13-429bfeedaf7e
+dataset   longhealth
+method    compaction
+p1 root   /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01
+recipe    /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/recipes/subkv_sweep/e2e_budget512_topt128.yaml
+=== p01 cache: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache_last.pt
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache_last.pt
+    P01 Cache ready: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache_last.pt
+--- Step 2: Continual Compaction (Stages p02-p05, top_t=128) ---
+dataset      longhealth
+method       am
+lineage      e2e_budget512_topt128
+p01 cache    /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+recipe       /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/recipes/subkv_sweep/e2e_budget512_topt128.yaml
+recipe knobs key_mode=highest_attention reposition=True beta=False top_t=128 ridge=0.0 delta=0.01 rope_theta=5000000.0
+runs/state   /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs | /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state
+write gpu    0   eval fan-out gpus ['0']
+
+=== p01: evaluating the starting cartridge on all 5 evals (fan-out gpus ['0']) ===
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.07it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.03it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.53it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+2026-11-10 02:25:29,492 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:25:29,492 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:25:29,513 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:25:29,609 - cartridges.train [rank=0] - INFO - Evaluating `p1` (n=11, 11 per device, world size=1)
+
+Evaluation [step=0] (p1):   0%|          | 0/11 [00:00<?, ?it/s]
+Evaluation [step=0] (p1):   9%|▉         | 1/11 [00:05<00:52,  5.25s/it]
+Evaluation [step=0] (p1):  18%|█▊        | 2/11 [00:05<00:20,  2.24s/it]
+Evaluation [step=0] (p1):  27%|██▋       | 3/11 [00:05<00:10,  1.27s/it]
+Evaluation [step=0] (p1):  36%|███▋      | 4/11 [00:05<00:05,  1.22it/s]
+Evaluation [step=0] (p1):  45%|████▌     | 5/11 [00:05<00:03,  1.76it/s]
+Evaluation [step=0] (p1):  55%|█████▍    | 6/11 [00:05<00:02,  2.39it/s]
+Evaluation [step=0] (p1):  64%|██████▎   | 7/11 [00:06<00:01,  3.09it/s]
+Evaluation [step=0] (p1):  73%|███████▎  | 8/11 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p1):  82%|████████▏ | 9/11 [00:06<00:00,  4.58it/s]
+Evaluation [step=0] (p1):  91%|█████████ | 10/11 [00:06<00:00,  5.26it/s]
+Evaluation [step=0] (p1): 100%|██████████| 11/11 [00:06<00:00,  5.84it/s]
+                                                                         
+2026-11-10 02:25:36,122 - cartridges.train [rank=0] - INFO - Eval loss - 2.643073320388794 
+2026-11-10 02:25:36,122 - cartridges.train [rank=0] - INFO - done evaling - p1
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p1": {
+      "name": "p1",
+      "loss": 2.643073320388794,
+      "perplexity": 14.056336919386073
+    }
+  }
+}
+2026-11-10 02:25:36,123 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p01_evals/p1.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.17it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.08it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.63it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+2026-11-10 02:25:51,853 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:25:51,853 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:25:51,874 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:25:51,961 - cartridges.train [rank=0] - INFO - Evaluating `p2` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p2):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p2):  10%|█         | 1/10 [00:05<00:47,  5.24s/it]
+Evaluation [step=0] (p2):  20%|██        | 2/10 [00:05<00:17,  2.23s/it]
+Evaluation [step=0] (p2):  30%|███       | 3/10 [00:05<00:08,  1.27s/it]
+Evaluation [step=0] (p2):  40%|████      | 4/10 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p2):  50%|█████     | 5/10 [00:05<00:02,  1.76it/s]
+Evaluation [step=0] (p2):  60%|██████    | 6/10 [00:05<00:01,  2.39it/s]
+Evaluation [step=0] (p2):  70%|███████   | 7/10 [00:05<00:00,  3.10it/s]
+Evaluation [step=0] (p2):  80%|████████  | 8/10 [00:06<00:00,  3.85it/s]
+Evaluation [step=0] (p2):  90%|█████████ | 9/10 [00:06<00:00,  4.59it/s]
+Evaluation [step=0] (p2): 100%|██████████| 10/10 [00:06<00:00,  5.23it/s]
+                                                                         
+2026-11-10 02:25:58,338 - cartridges.train [rank=0] - INFO - Eval loss - 4.057441234588623 
+2026-11-10 02:25:58,338 - cartridges.train [rank=0] - INFO - done evaling - p2
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p2": {
+      "name": "p2",
+      "loss": 4.057441234588623,
+      "perplexity": 57.826158042288235
+    }
+  }
+}
+2026-11-10 02:25:58,339 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p01_evals/p2.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.08it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.06it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.57it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+2026-11-10 02:26:14,202 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:26:14,203 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:26:14,224 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:26:14,310 - cartridges.train [rank=0] - INFO - Evaluating `p3` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p3):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p3):  10%|█         | 1/10 [00:05<00:47,  5.26s/it]
+Evaluation [step=0] (p3):  20%|██        | 2/10 [00:05<00:17,  2.24s/it]
+Evaluation [step=0] (p3):  30%|███       | 3/10 [00:05<00:08,  1.28s/it]
+Evaluation [step=0] (p3):  40%|████      | 4/10 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p3):  50%|█████     | 5/10 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p3):  60%|██████    | 6/10 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p3):  70%|███████   | 7/10 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p3):  80%|████████  | 8/10 [00:06<00:00,  3.83it/s]
+Evaluation [step=0] (p3):  90%|█████████ | 9/10 [00:06<00:00,  4.58it/s]
+Evaluation [step=0] (p3): 100%|██████████| 10/10 [00:06<00:00,  5.22it/s]
+                                                                         
+2026-11-10 02:26:20,714 - cartridges.train [rank=0] - INFO - Eval loss - 3.777393341064453 
+2026-11-10 02:26:20,714 - cartridges.train [rank=0] - INFO - done evaling - p3
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p3": {
+      "name": "p3",
+      "loss": 3.777393341064453,
+      "perplexity": 43.7019769873972
+    }
+  }
+}
+2026-11-10 02:26:20,715 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p01_evals/p3.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.03it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.12it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.65it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+2026-11-10 02:26:36,439 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:26:36,439 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:26:36,460 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:26:36,545 - cartridges.train [rank=0] - INFO - Evaluating `p4` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p4):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p4):  11%|█         | 1/9 [00:05<00:42,  5.26s/it]
+Evaluation [step=0] (p4):  22%|██▏       | 2/9 [00:05<00:15,  2.24s/it]
+Evaluation [step=0] (p4):  33%|███▎      | 3/9 [00:05<00:07,  1.27s/it]
+Evaluation [step=0] (p4):  44%|████▍     | 4/9 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p4):  56%|█████▌    | 5/9 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p4):  67%|██████▋   | 6/9 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p4):  78%|███████▊  | 7/9 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p4):  89%|████████▉ | 8/9 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p4): 100%|██████████| 9/9 [00:06<00:00,  4.58it/s]
+                                                                       
+2026-11-10 02:26:42,814 - cartridges.train [rank=0] - INFO - Eval loss - 3.8979969024658203 
+2026-11-10 02:26:42,814 - cartridges.train [rank=0] - INFO - done evaling - p4
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p4": {
+      "name": "p4",
+      "loss": 3.8979969024658203,
+      "perplexity": 49.30359022658788
+    }
+  }
+}
+2026-11-10 02:26:42,815 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p01_evals/p4.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.08it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.55it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+2026-11-10 02:26:58,588 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:26:58,588 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:26:58,610 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:26:58,695 - cartridges.train [rank=0] - INFO - Evaluating `p5` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p5):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p5):  11%|█         | 1/9 [00:05<00:41,  5.23s/it]
+Evaluation [step=0] (p5):  22%|██▏       | 2/9 [00:05<00:15,  2.23s/it]
+Evaluation [step=0] (p5):  33%|███▎      | 3/9 [00:05<00:07,  1.27s/it]
+Evaluation [step=0] (p5):  44%|████▍     | 4/9 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p5):  56%|█████▌    | 5/9 [00:05<00:02,  1.76it/s]
+Evaluation [step=0] (p5):  67%|██████▋   | 6/9 [00:05<00:01,  2.39it/s]
+Evaluation [step=0] (p5):  78%|███████▊  | 7/9 [00:05<00:00,  3.10it/s]
+Evaluation [step=0] (p5):  89%|████████▉ | 8/9 [00:06<00:00,  3.85it/s]
+Evaluation [step=0] (p5): 100%|██████████| 9/9 [00:06<00:00,  4.59it/s]
+                                                                       
+2026-11-10 02:27:04,936 - cartridges.train [rank=0] - INFO - Eval loss - 4.1324920654296875 
+2026-11-10 02:27:04,936 - cartridges.train [rank=0] - INFO - done evaling - p5
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p5": {
+      "name": "p5",
+      "loss": 4.1324920654296875,
+      "perplexity": 62.333067622059794
+    }
+  }
+}
+2026-11-10 02:27:04,938 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p01_evals/p5.json
+
+=== p02: am write on gpu 0 + 5 evals fanned across ['0'] ===
+2026-11-10 02:27:14,392 - __main__ [rank=0] - INFO - B-ROPE: AM teacher rope_theta = 5e+06
+Running 1 configs
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.13it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.06it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.58it/s]
+2026-11-10 02:27:20,685 - cartridges.am.continual.run [rank=0] - INFO - RoPE write bound to model frequencies (ratio to vanilla theta min=0.9963 max=1.0034)
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+2026-11-10 02:27:20,750 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:27:20,750 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:27:21,094 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM: 27 unique documents in /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/train/qwen_longhealth_p2_task_8192.parquet (teacher dataset=longhealth, qasper_topic=MT, quality_phase=None)
+2026-11-10 02:27:23,008 - cartridges.am.continual.run [rank=0] - INFO - Document 1/27 (doc-000-237aebd6): 64 conversations
+2026-11-10 02:27:39,802 - cartridges.am.continual.run [rank=0] - INFO - Document doc-000-237aebd6 complete: mean_mse=0.000805 queries=294912 time=16.7s
+2026-11-10 02:27:39,802 - cartridges.am.continual.run [rank=0] - INFO - Document 2/27 (doc-001-d67a6f5b): 192 conversations
+2026-11-10 02:27:51,422 - cartridges.am.continual.run [rank=0] - INFO - Document doc-001-d67a6f5b complete: mean_mse=0.000573 queries=294912 time=11.5s
+2026-11-10 02:27:51,422 - cartridges.am.continual.run [rank=0] - INFO - Document 3/27 (doc-002-1a4f3b33): 96 conversations
+2026-11-10 02:27:58,813 - cartridges.am.continual.run [rank=0] - INFO - Document doc-002-1a4f3b33 complete: mean_mse=0.000948 queries=294912 time=7.3s
+2026-11-10 02:27:58,814 - cartridges.am.continual.run [rank=0] - INFO - Document 4/27 (doc-003-002d5e1c): 128 conversations
+2026-11-10 02:28:05,608 - cartridges.am.continual.run [rank=0] - INFO - Document doc-003-002d5e1c complete: mean_mse=0.001528 queries=294912 time=6.7s
+2026-11-10 02:28:05,608 - cartridges.am.continual.run [rank=0] - INFO - Document 5/27 (doc-004-d313be95): 128 conversations
+2026-11-10 02:28:12,162 - cartridges.am.continual.run [rank=0] - INFO - Document doc-004-d313be95 complete: mean_mse=0.001400 queries=294912 time=6.4s
+2026-11-10 02:28:12,162 - cartridges.am.continual.run [rank=0] - INFO - Document 6/27 (doc-005-09f0d65b): 128 conversations
+2026-11-10 02:28:19,028 - cartridges.am.continual.run [rank=0] - INFO - Document doc-005-09f0d65b complete: mean_mse=0.001766 queries=294912 time=6.7s
+2026-11-10 02:28:19,028 - cartridges.am.continual.run [rank=0] - INFO - Document 7/27 (doc-006-52000ef9): 96 conversations
+2026-11-10 02:28:26,156 - cartridges.am.continual.run [rank=0] - INFO - Document doc-006-52000ef9 complete: mean_mse=0.001868 queries=294912 time=7.0s
+2026-11-10 02:28:26,156 - cartridges.am.continual.run [rank=0] - INFO - Document 8/27 (doc-007-aacb72aa): 128 conversations
+2026-11-10 02:28:33,478 - cartridges.am.continual.run [rank=0] - INFO - Document doc-007-aacb72aa complete: mean_mse=0.001715 queries=294912 time=7.2s
+2026-11-10 02:28:33,478 - cartridges.am.continual.run [rank=0] - INFO - Document 9/27 (doc-008-48afc6cd): 32 conversations
+2026-11-10 02:28:40,420 - cartridges.am.continual.run [rank=0] - INFO - Document doc-008-48afc6cd complete: mean_mse=0.001668 queries=294912 time=6.8s
+2026-11-10 02:28:40,420 - cartridges.am.continual.run [rank=0] - INFO - Document 10/27 (doc-009-94f7ae5e): 128 conversations
+2026-11-10 02:28:47,175 - cartridges.am.continual.run [rank=0] - INFO - Document doc-009-94f7ae5e complete: mean_mse=0.001524 queries=294912 time=6.6s
+2026-11-10 02:28:47,175 - cartridges.am.continual.run [rank=0] - INFO - Document 11/27 (doc-010-819481fb): 96 conversations
+2026-11-10 02:28:54,122 - cartridges.am.continual.run [rank=0] - INFO - Document doc-010-819481fb complete: mean_mse=0.001872 queries=294912 time=6.8s
+2026-11-10 02:28:54,123 - cartridges.am.continual.run [rank=0] - INFO - Document 12/27 (doc-011-1165ac8a): 96 conversations
+2026-11-10 02:29:00,900 - cartridges.am.continual.run [rank=0] - INFO - Document doc-011-1165ac8a complete: mean_mse=0.001740 queries=294912 time=6.7s
+2026-11-10 02:29:00,900 - cartridges.am.continual.run [rank=0] - INFO - Document 13/27 (doc-012-872ba2f8): 128 conversations
+2026-11-10 02:29:07,159 - cartridges.am.continual.run [rank=0] - INFO - Document doc-012-872ba2f8 complete: mean_mse=0.001734 queries=294912 time=6.1s
+2026-11-10 02:29:07,160 - cartridges.am.continual.run [rank=0] - INFO - Document 14/27 (doc-013-7f31d678): 64 conversations
+2026-11-10 02:29:13,581 - cartridges.am.continual.run [rank=0] - INFO - Document doc-013-7f31d678 complete: mean_mse=0.001982 queries=294912 time=6.3s
+2026-11-10 02:29:13,581 - cartridges.am.continual.run [rank=0] - INFO - Document 15/27 (doc-014-1908d0c8): 32 conversations
+2026-11-10 02:29:19,470 - cartridges.am.continual.run [rank=0] - INFO - Document doc-014-1908d0c8 complete: mean_mse=0.001400 queries=294912 time=5.8s
+2026-11-10 02:29:19,471 - cartridges.am.continual.run [rank=0] - INFO - Document 16/27 (doc-015-ed4c19dd): 128 conversations
+2026-11-10 02:29:26,022 - cartridges.am.continual.run [rank=0] - INFO - Document doc-015-ed4c19dd complete: mean_mse=0.001279 queries=294912 time=6.4s
+2026-11-10 02:29:26,023 - cartridges.am.continual.run [rank=0] - INFO - Document 17/27 (doc-016-eedf04ae): 256 conversations
+2026-11-10 02:29:32,286 - cartridges.am.continual.run [rank=0] - INFO - Document doc-016-eedf04ae complete: mean_mse=0.001580 queries=294912 time=6.2s
+2026-11-10 02:29:32,286 - cartridges.am.continual.run [rank=0] - INFO - Document 18/27 (doc-017-0e4476d8): 128 conversations
+2026-11-10 02:29:38,324 - cartridges.am.continual.run [rank=0] - INFO - Document doc-017-0e4476d8 complete: mean_mse=0.001192 queries=294912 time=5.9s
+2026-11-10 02:29:38,324 - cartridges.am.continual.run [rank=0] - INFO - Document 19/27 (doc-018-0d5edb28): 224 conversations
+2026-11-10 02:29:45,378 - cartridges.am.continual.run [rank=0] - INFO - Document doc-018-0d5edb28 complete: mean_mse=0.001535 queries=294912 time=6.9s
+2026-11-10 02:29:45,378 - cartridges.am.continual.run [rank=0] - INFO - Document 20/27 (doc-019-4c60ae9e): 160 conversations
+2026-11-10 02:29:51,150 - cartridges.am.continual.run [rank=0] - INFO - Document doc-019-4c60ae9e complete: mean_mse=0.001120 queries=294912 time=5.7s
+2026-11-10 02:29:51,150 - cartridges.am.continual.run [rank=0] - INFO - Document 21/27 (doc-020-c603b7f9): 128 conversations
+2026-11-10 02:29:57,416 - cartridges.am.continual.run [rank=0] - INFO - Document doc-020-c603b7f9 complete: mean_mse=0.001414 queries=294912 time=6.2s
+2026-11-10 02:29:57,417 - cartridges.am.continual.run [rank=0] - INFO - Document 22/27 (doc-021-6d868d1c): 160 conversations
+2026-11-10 02:30:03,669 - cartridges.am.continual.run [rank=0] - INFO - Document doc-021-6d868d1c complete: mean_mse=0.001154 queries=294912 time=6.1s
+2026-11-10 02:30:03,669 - cartridges.am.continual.run [rank=0] - INFO - Document 23/27 (doc-022-66388a84): 192 conversations
+2026-11-10 02:30:10,017 - cartridges.am.continual.run [rank=0] - INFO - Document doc-022-66388a84 complete: mean_mse=0.001488 queries=294912 time=6.2s
+2026-11-10 02:30:10,017 - cartridges.am.continual.run [rank=0] - INFO - Document 24/27 (doc-023-d572c376): 96 conversations
+2026-11-10 02:30:17,493 - cartridges.am.continual.run [rank=0] - INFO - Document doc-023-d572c376 complete: mean_mse=0.001369 queries=294912 time=7.4s
+2026-11-10 02:30:17,493 - cartridges.am.continual.run [rank=0] - INFO - Document 25/27 (doc-024-b16b1cdc): 96 conversations
+2026-11-10 02:30:24,543 - cartridges.am.continual.run [rank=0] - INFO - Document doc-024-b16b1cdc complete: mean_mse=0.001543 queries=294912 time=6.9s
+2026-11-10 02:30:24,544 - cartridges.am.continual.run [rank=0] - INFO - Document 26/27 (doc-025-97cf86dc): 32 conversations
+2026-11-10 02:30:32,479 - cartridges.am.continual.run [rank=0] - INFO - Document doc-025-97cf86dc complete: mean_mse=0.001901 queries=294912 time=7.8s
+2026-11-10 02:30:32,479 - cartridges.am.continual.run [rank=0] - INFO - Document 27/27 (doc-026-49eb173e): 32 conversations
+2026-11-10 02:30:38,391 - cartridges.am.continual.run [rank=0] - INFO - Document doc-026-49eb173e complete: mean_mse=0.001422 queries=294912 time=5.8s
+2026-11-10 02:30:38,395 - cartridges.am.continual.run [rank=0] - INFO - SLOT-GEOMETRY: saved slots_written.pt (this-stage distinct slots/layer=326.6/512, this-stage writes=124416, cumulative writes=124416)
+2026-11-10 02:30:38,395 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete: 27 documents in 195.4s
+2026-11-10 02:30:38,510 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete in 197.6s (27 documents). Saved to /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.16it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.14it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.69it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt
+2026-11-10 02:30:54,472 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:30:54,473 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:30:54,494 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:30:54,589 - cartridges.train [rank=0] - INFO - Evaluating `p1` (n=11, 11 per device, world size=1)
+
+Evaluation [step=0] (p1):   0%|          | 0/11 [00:00<?, ?it/s]
+Evaluation [step=0] (p1):   9%|▉         | 1/11 [00:05<00:52,  5.24s/it]
+Evaluation [step=0] (p1):  18%|█▊        | 2/11 [00:05<00:20,  2.23s/it]
+Evaluation [step=0] (p1):  27%|██▋       | 3/11 [00:05<00:10,  1.27s/it]
+Evaluation [step=0] (p1):  36%|███▋      | 4/11 [00:05<00:05,  1.22it/s]
+Evaluation [step=0] (p1):  45%|████▌     | 5/11 [00:05<00:03,  1.76it/s]
+Evaluation [step=0] (p1):  55%|█████▍    | 6/11 [00:05<00:02,  2.39it/s]
+Evaluation [step=0] (p1):  64%|██████▎   | 7/11 [00:05<00:01,  3.10it/s]
+Evaluation [step=0] (p1):  73%|███████▎  | 8/11 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p1):  82%|████████▏ | 9/11 [00:06<00:00,  4.58it/s]
+Evaluation [step=0] (p1):  91%|█████████ | 10/11 [00:06<00:00,  5.26it/s]
+Evaluation [step=0] (p1): 100%|██████████| 11/11 [00:06<00:00,  5.84it/s]
+                                                                         
+2026-11-10 02:31:01,097 - cartridges.train [rank=0] - INFO - Eval loss - 1.996671199798584 
+2026-11-10 02:31:01,097 - cartridges.train [rank=0] - INFO - done evaling - p1
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p1": {
+      "name": "p1",
+      "loss": 1.996671199798584,
+      "perplexity": 7.364500300848103
+    }
+  }
+}
+2026-11-10 02:31:01,098 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p02_evals/p1.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.17it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.06it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.59it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt
+2026-11-10 02:31:16,965 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:31:16,965 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:31:16,986 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:31:17,073 - cartridges.train [rank=0] - INFO - Evaluating `p2` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p2):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p2):  10%|█         | 1/10 [00:05<00:47,  5.27s/it]
+Evaluation [step=0] (p2):  20%|██        | 2/10 [00:05<00:17,  2.24s/it]
+Evaluation [step=0] (p2):  30%|███       | 3/10 [00:05<00:08,  1.28s/it]
+Evaluation [step=0] (p2):  40%|████      | 4/10 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p2):  50%|█████     | 5/10 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p2):  60%|██████    | 6/10 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p2):  70%|███████   | 7/10 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p2):  80%|████████  | 8/10 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p2):  90%|█████████ | 9/10 [00:06<00:00,  4.57it/s]
+Evaluation [step=0] (p2): 100%|██████████| 10/10 [00:06<00:00,  5.22it/s]
+                                                                         
+2026-11-10 02:31:23,484 - cartridges.train [rank=0] - INFO - Eval loss - 2.906214475631714 
+2026-11-10 02:31:23,484 - cartridges.train [rank=0] - INFO - done evaling - p2
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p2": {
+      "name": "p2",
+      "loss": 2.906214475631714,
+      "perplexity": 18.28743982115707
+    }
+  }
+}
+2026-11-10 02:31:23,485 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p02_evals/p2.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.03it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.01s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.47it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt
+2026-11-10 02:31:39,441 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:31:39,441 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:31:39,462 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:31:39,548 - cartridges.train [rank=0] - INFO - Evaluating `p3` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p3):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p3):  10%|█         | 1/10 [00:05<00:47,  5.27s/it]
+Evaluation [step=0] (p3):  20%|██        | 2/10 [00:05<00:17,  2.25s/it]
+Evaluation [step=0] (p3):  30%|███       | 3/10 [00:05<00:08,  1.28s/it]
+Evaluation [step=0] (p3):  40%|████      | 4/10 [00:05<00:04,  1.21it/s]
+Evaluation [step=0] (p3):  50%|█████     | 5/10 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p3):  60%|██████    | 6/10 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p3):  70%|███████   | 7/10 [00:06<00:00,  3.08it/s]
+Evaluation [step=0] (p3):  80%|████████  | 8/10 [00:06<00:00,  3.82it/s]
+Evaluation [step=0] (p3):  90%|█████████ | 9/10 [00:06<00:00,  4.55it/s]
+Evaluation [step=0] (p3): 100%|██████████| 10/10 [00:06<00:00,  5.19it/s]
+                                                                         
+2026-11-10 02:31:45,971 - cartridges.train [rank=0] - INFO - Eval loss - 2.674008369445801 
+2026-11-10 02:31:45,971 - cartridges.train [rank=0] - INFO - done evaling - p3
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p3": {
+      "name": "p3",
+      "loss": 2.674008369445801,
+      "perplexity": 14.497966082941703
+    }
+  }
+}
+2026-11-10 02:31:45,972 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p02_evals/p3.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.11it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.03it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.55it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt
+2026-11-10 02:32:01,779 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:32:01,780 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:32:01,801 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:32:01,887 - cartridges.train [rank=0] - INFO - Evaluating `p4` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p4):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p4):  11%|█         | 1/9 [00:05<00:42,  5.26s/it]
+Evaluation [step=0] (p4):  22%|██▏       | 2/9 [00:05<00:15,  2.24s/it]
+Evaluation [step=0] (p4):  33%|███▎      | 3/9 [00:05<00:07,  1.28s/it]
+Evaluation [step=0] (p4):  44%|████▍     | 4/9 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p4):  56%|█████▌    | 5/9 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p4):  67%|██████▋   | 6/9 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p4):  78%|███████▊  | 7/9 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p4):  89%|████████▉ | 8/9 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p4): 100%|██████████| 9/9 [00:06<00:00,  4.58it/s]
+                                                                       
+2026-11-10 02:32:08,159 - cartridges.train [rank=0] - INFO - Eval loss - 2.6018154621124268 
+2026-11-10 02:32:08,160 - cartridges.train [rank=0] - INFO - done evaling - p4
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p4": {
+      "name": "p4",
+      "loss": 2.6018154621124268,
+      "perplexity": 13.488203142314026
+    }
+  }
+}
+2026-11-10 02:32:08,161 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p02_evals/p4.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.08it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.07it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.58it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt
+2026-11-10 02:32:24,031 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:32:24,031 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:32:24,053 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:32:24,139 - cartridges.train [rank=0] - INFO - Evaluating `p5` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p5):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p5):  11%|█         | 1/9 [00:05<00:42,  5.29s/it]
+Evaluation [step=0] (p5):  22%|██▏       | 2/9 [00:05<00:15,  2.25s/it]
+Evaluation [step=0] (p5):  33%|███▎      | 3/9 [00:05<00:07,  1.28s/it]
+Evaluation [step=0] (p5):  44%|████▍     | 4/9 [00:05<00:04,  1.21it/s]
+Evaluation [step=0] (p5):  56%|█████▌    | 5/9 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p5):  67%|██████▋   | 6/9 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p5):  78%|███████▊  | 7/9 [00:06<00:00,  3.08it/s]
+Evaluation [step=0] (p5):  89%|████████▉ | 8/9 [00:06<00:00,  3.83it/s]
+Evaluation [step=0] (p5): 100%|██████████| 9/9 [00:06<00:00,  4.57it/s]
+                                                                       
+2026-11-10 02:32:30,433 - cartridges.train [rank=0] - INFO - Eval loss - 3.068044900894165 
+2026-11-10 02:32:30,434 - cartridges.train [rank=0] - INFO - done evaling - p5
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p5": {
+      "name": "p5",
+      "loss": 3.068044900894165,
+      "perplexity": 21.49982726454568
+    }
+  }
+}
+2026-11-10 02:32:30,435 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p02_evals/p5.json
+stage         P1       P2       P3       P4       P5
+p01        2.643    4.057    3.777    3.898    4.132
+p02        1.997    2.906    2.674    2.602    3.068
+p03            -        -        -        -        -
+p04            -        -        -        -        -
+p05            -        -        -        -        -
+
+=== p03: am write on gpu 0 + 5 evals fanned across ['0'] ===
+2026-11-10 02:32:39,831 - __main__ [rank=0] - INFO - B-ROPE: AM teacher rope_theta = 5e+06
+Running 1 configs
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.06it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.08it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.60it/s]
+2026-11-10 02:32:46,127 - cartridges.am.continual.run [rank=0] - INFO - RoPE write bound to model frequencies (ratio to vanilla theta min=0.9963 max=1.0034)
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/cache-step27.pt
+2026-11-10 02:32:46,193 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:32:46,193 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:32:46,223 - cartridges.am.continual.run [rank=0] - INFO - SLOT-USAGE: loaded prior cumulative from /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-27-14-LONGHEALTH_P2_e2e_budget512_topt128/989e06d1-d6ac-4cce-bbaa-570a3f6c3129/slots_written.pt (writes=124416)
+2026-11-10 02:32:46,572 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM: 24 unique documents in /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/train/qwen_longhealth_p3_task_8192.parquet (teacher dataset=longhealth, qasper_topic=MT, quality_phase=None)
+2026-11-10 02:32:48,323 - cartridges.am.continual.run [rank=0] - INFO - Document 1/24 (doc-000-f19c7267): 142 conversations
+2026-11-10 02:33:05,624 - cartridges.am.continual.run [rank=0] - INFO - Document doc-000-f19c7267 complete: mean_mse=0.001400 queries=294912 time=17.2s
+2026-11-10 02:33:05,624 - cartridges.am.continual.run [rank=0] - INFO - Document 2/24 (doc-001-35979778): 208 conversations
+2026-11-10 02:33:16,411 - cartridges.am.continual.run [rank=0] - INFO - Document doc-001-35979778 complete: mean_mse=0.001595 queries=294912 time=10.7s
+2026-11-10 02:33:16,411 - cartridges.am.continual.run [rank=0] - INFO - Document 3/24 (doc-002-1d65ec16): 210 conversations
+2026-11-10 02:33:24,506 - cartridges.am.continual.run [rank=0] - INFO - Document doc-002-1d65ec16 complete: mean_mse=0.002160 queries=294912 time=8.0s
+2026-11-10 02:33:24,506 - cartridges.am.continual.run [rank=0] - INFO - Document 4/24 (doc-003-6e5e3142): 130 conversations
+2026-11-10 02:33:32,713 - cartridges.am.continual.run [rank=0] - INFO - Document doc-003-6e5e3142 complete: mean_mse=0.001518 queries=294912 time=8.1s
+2026-11-10 02:33:32,713 - cartridges.am.continual.run [rank=0] - INFO - Document 5/24 (doc-004-05c6c698): 202 conversations
+2026-11-10 02:33:39,883 - cartridges.am.continual.run [rank=0] - INFO - Document doc-004-05c6c698 complete: mean_mse=0.001716 queries=294912 time=7.1s
+2026-11-10 02:33:39,883 - cartridges.am.continual.run [rank=0] - INFO - Document 6/24 (doc-005-456cc2b2): 141 conversations
+2026-11-10 02:33:46,556 - cartridges.am.continual.run [rank=0] - INFO - Document doc-005-456cc2b2 complete: mean_mse=0.001485 queries=294912 time=6.6s
+2026-11-10 02:33:46,557 - cartridges.am.continual.run [rank=0] - INFO - Document 7/24 (doc-006-015cd3b1): 194 conversations
+2026-11-10 02:33:53,352 - cartridges.am.continual.run [rank=0] - INFO - Document doc-006-015cd3b1 complete: mean_mse=0.001678 queries=294912 time=6.7s
+2026-11-10 02:33:53,352 - cartridges.am.continual.run [rank=0] - INFO - Document 8/24 (doc-007-af5912bd): 118 conversations
+2026-11-10 02:34:01,028 - cartridges.am.continual.run [rank=0] - INFO - Document doc-007-af5912bd complete: mean_mse=0.001663 queries=294912 time=7.6s
+2026-11-10 02:34:01,029 - cartridges.am.continual.run [rank=0] - INFO - Document 9/24 (doc-008-f4ceadbf): 140 conversations
+2026-11-10 02:34:08,246 - cartridges.am.continual.run [rank=0] - INFO - Document doc-008-f4ceadbf complete: mean_mse=0.001972 queries=294912 time=7.1s
+2026-11-10 02:34:08,246 - cartridges.am.continual.run [rank=0] - INFO - Document 10/24 (doc-009-2c813e63): 113 conversations
+2026-11-10 02:34:15,576 - cartridges.am.continual.run [rank=0] - INFO - Document doc-009-2c813e63 complete: mean_mse=0.002623 queries=294912 time=7.2s
+2026-11-10 02:34:15,577 - cartridges.am.continual.run [rank=0] - INFO - Document 11/24 (doc-010-65c80b46): 224 conversations
+2026-11-10 02:34:21,891 - cartridges.am.continual.run [rank=0] - INFO - Document doc-010-65c80b46 complete: mean_mse=0.001389 queries=294912 time=6.2s
+2026-11-10 02:34:21,892 - cartridges.am.continual.run [rank=0] - INFO - Document 12/24 (doc-011-4ce475b0): 96 conversations
+2026-11-10 02:34:28,737 - cartridges.am.continual.run [rank=0] - INFO - Document doc-011-4ce475b0 complete: mean_mse=0.001478 queries=294912 time=6.7s
+2026-11-10 02:34:28,737 - cartridges.am.continual.run [rank=0] - INFO - Document 13/24 (doc-012-870e57a7): 224 conversations
+2026-11-10 02:34:36,126 - cartridges.am.continual.run [rank=0] - INFO - Document doc-012-870e57a7 complete: mean_mse=0.002111 queries=294912 time=7.3s
+2026-11-10 02:34:36,127 - cartridges.am.continual.run [rank=0] - INFO - Document 14/24 (doc-013-b7669956): 160 conversations
+2026-11-10 02:34:42,195 - cartridges.am.continual.run [rank=0] - INFO - Document doc-013-b7669956 complete: mean_mse=0.001873 queries=294912 time=6.0s
+2026-11-10 02:34:42,196 - cartridges.am.continual.run [rank=0] - INFO - Document 15/24 (doc-014-4be2d7a9): 128 conversations
+2026-11-10 02:34:49,042 - cartridges.am.continual.run [rank=0] - INFO - Document doc-014-4be2d7a9 complete: mean_mse=0.001443 queries=294912 time=6.7s
+2026-11-10 02:34:49,042 - cartridges.am.continual.run [rank=0] - INFO - Document 16/24 (doc-015-29e99e99): 128 conversations
+2026-11-10 02:34:55,447 - cartridges.am.continual.run [rank=0] - INFO - Document doc-015-29e99e99 complete: mean_mse=0.001596 queries=294912 time=6.3s
+2026-11-10 02:34:55,447 - cartridges.am.continual.run [rank=0] - INFO - Document 17/24 (doc-016-4eb3ee15): 224 conversations
+2026-11-10 02:35:01,367 - cartridges.am.continual.run [rank=0] - INFO - Document doc-016-4eb3ee15 complete: mean_mse=0.002319 queries=294912 time=5.8s
+2026-11-10 02:35:01,367 - cartridges.am.continual.run [rank=0] - INFO - Document 18/24 (doc-017-0288d3b0): 192 conversations
+2026-11-10 02:35:07,684 - cartridges.am.continual.run [rank=0] - INFO - Document doc-017-0288d3b0 complete: mean_mse=0.002048 queries=294912 time=6.2s
+2026-11-10 02:35:07,684 - cartridges.am.continual.run [rank=0] - INFO - Document 19/24 (doc-018-eece7d7a): 64 conversations
+2026-11-10 02:35:14,529 - cartridges.am.continual.run [rank=0] - INFO - Document doc-018-eece7d7a complete: mean_mse=0.001721 queries=294912 time=6.7s
+2026-11-10 02:35:14,530 - cartridges.am.continual.run [rank=0] - INFO - Document 20/24 (doc-019-a7fd70d5): 192 conversations
+2026-11-10 02:35:21,898 - cartridges.am.continual.run [rank=0] - INFO - Document doc-019-a7fd70d5 complete: mean_mse=0.002199 queries=294912 time=7.2s
+2026-11-10 02:35:21,898 - cartridges.am.continual.run [rank=0] - INFO - Document 21/24 (doc-020-15da6086): 64 conversations
+2026-11-10 02:35:29,120 - cartridges.am.continual.run [rank=0] - INFO - Document doc-020-15da6086 complete: mean_mse=0.002006 queries=294912 time=7.1s
+2026-11-10 02:35:29,120 - cartridges.am.continual.run [rank=0] - INFO - Document 22/24 (doc-021-4b1381f3): 96 conversations
+2026-11-10 02:35:35,336 - cartridges.am.continual.run [rank=0] - INFO - Document doc-021-4b1381f3 complete: mean_mse=0.002437 queries=294912 time=6.1s
+2026-11-10 02:35:35,336 - cartridges.am.continual.run [rank=0] - INFO - Document 23/24 (doc-022-f74e7608): 32 conversations
+2026-11-10 02:35:41,546 - cartridges.am.continual.run [rank=0] - INFO - Document doc-022-f74e7608 complete: mean_mse=0.002028 queries=294912 time=6.1s
+2026-11-10 02:35:41,547 - cartridges.am.continual.run [rank=0] - INFO - Document 24/24 (doc-023-a8f5b426): 32 conversations
+2026-11-10 02:35:48,026 - cartridges.am.continual.run [rank=0] - INFO - Document doc-023-a8f5b426 complete: mean_mse=0.001898 queries=294912 time=6.4s
+2026-11-10 02:35:48,029 - cartridges.am.continual.run [rank=0] - INFO - SLOT-GEOMETRY: saved slots_written.pt (this-stage distinct slots/layer=253.0/512, this-stage writes=110592, cumulative writes=235008)
+2026-11-10 02:35:48,029 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete: 24 documents in 179.7s
+2026-11-10 02:35:48,141 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete in 181.8s (24 documents). Saved to /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.05it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.01it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.50it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt
+2026-11-10 02:36:04,237 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:36:04,237 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:36:04,259 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:36:04,357 - cartridges.train [rank=0] - INFO - Evaluating `p1` (n=11, 11 per device, world size=1)
+
+Evaluation [step=0] (p1):   0%|          | 0/11 [00:00<?, ?it/s]
+Evaluation [step=0] (p1):   9%|▉         | 1/11 [00:05<00:52,  5.27s/it]
+Evaluation [step=0] (p1):  18%|█▊        | 2/11 [00:05<00:20,  2.25s/it]
+Evaluation [step=0] (p1):  27%|██▋       | 3/11 [00:05<00:10,  1.28s/it]
+Evaluation [step=0] (p1):  36%|███▋      | 4/11 [00:05<00:05,  1.21it/s]
+Evaluation [step=0] (p1):  45%|████▌     | 5/11 [00:05<00:03,  1.75it/s]
+Evaluation [step=0] (p1):  55%|█████▍    | 6/11 [00:05<00:02,  2.38it/s]
+Evaluation [step=0] (p1):  64%|██████▎   | 7/11 [00:06<00:01,  3.08it/s]
+Evaluation [step=0] (p1):  73%|███████▎  | 8/11 [00:06<00:00,  3.83it/s]
+Evaluation [step=0] (p1):  82%|████████▏ | 9/11 [00:06<00:00,  4.57it/s]
+Evaluation [step=0] (p1):  91%|█████████ | 10/11 [00:06<00:00,  5.26it/s]
+Evaluation [step=0] (p1): 100%|██████████| 11/11 [00:06<00:00,  5.84it/s]
+                                                                         
+2026-11-10 02:36:10,895 - cartridges.train [rank=0] - INFO - Eval loss - 1.9924122095108032 
+2026-11-10 02:36:10,895 - cartridges.train [rank=0] - INFO - done evaling - p1
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p1": {
+      "name": "p1",
+      "loss": 1.9924122095108032,
+      "perplexity": 7.333201663199795
+    }
+  }
+}
+2026-11-10 02:36:10,897 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p03_evals/p1.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.07it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.55it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt
+2026-11-10 02:36:26,740 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:36:26,740 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:36:26,761 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:36:26,848 - cartridges.train [rank=0] - INFO - Evaluating `p2` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p2):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p2):  10%|█         | 1/10 [00:05<00:47,  5.25s/it]
+Evaluation [step=0] (p2):  20%|██        | 2/10 [00:05<00:17,  2.24s/it]
+Evaluation [step=0] (p2):  30%|███       | 3/10 [00:05<00:08,  1.27s/it]
+Evaluation [step=0] (p2):  40%|████      | 4/10 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p2):  50%|█████     | 5/10 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p2):  60%|██████    | 6/10 [00:05<00:01,  2.39it/s]
+Evaluation [step=0] (p2):  70%|███████   | 7/10 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p2):  80%|████████  | 8/10 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p2):  90%|█████████ | 9/10 [00:06<00:00,  4.58it/s]
+Evaluation [step=0] (p2): 100%|██████████| 10/10 [00:06<00:00,  5.23it/s]
+                                                                         
+2026-11-10 02:36:33,240 - cartridges.train [rank=0] - INFO - Eval loss - 2.7878074645996094 
+2026-11-10 02:36:33,240 - cartridges.train [rank=0] - INFO - done evaling - p2
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p2": {
+      "name": "p2",
+      "loss": 2.7878074645996094,
+      "perplexity": 16.245362194086606
+    }
+  }
+}
+2026-11-10 02:36:33,241 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p03_evals/p2.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.06it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.02it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.52it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt
+2026-11-10 02:36:49,203 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:36:49,204 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:36:49,225 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:36:49,313 - cartridges.train [rank=0] - INFO - Evaluating `p3` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p3):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p3):  10%|█         | 1/10 [00:05<00:47,  5.28s/it]
+Evaluation [step=0] (p3):  20%|██        | 2/10 [00:05<00:17,  2.25s/it]
+Evaluation [step=0] (p3):  30%|███       | 3/10 [00:05<00:08,  1.28s/it]
+Evaluation [step=0] (p3):  40%|████      | 4/10 [00:05<00:04,  1.21it/s]
+Evaluation [step=0] (p3):  50%|█████     | 5/10 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p3):  60%|██████    | 6/10 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p3):  70%|███████   | 7/10 [00:06<00:00,  3.08it/s]
+Evaluation [step=0] (p3):  80%|████████  | 8/10 [00:06<00:00,  3.83it/s]
+Evaluation [step=0] (p3):  90%|█████████ | 9/10 [00:06<00:00,  4.57it/s]
+Evaluation [step=0] (p3): 100%|██████████| 10/10 [00:06<00:00,  5.22it/s]
+                                                                         
+2026-11-10 02:36:55,731 - cartridges.train [rank=0] - INFO - Eval loss - 2.6246981620788574 
+2026-11-10 02:36:55,732 - cartridges.train [rank=0] - INFO - done evaling - p3
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p3": {
+      "name": "p3",
+      "loss": 2.6246981620788574,
+      "perplexity": 13.800408070869919
+    }
+  }
+}
+2026-11-10 02:36:55,733 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p03_evals/p3.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.05it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.02it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.52it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt
+2026-11-10 02:37:11,567 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:37:11,567 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:37:11,591 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:37:11,677 - cartridges.train [rank=0] - INFO - Evaluating `p4` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p4):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p4):  11%|█         | 1/9 [00:05<00:41,  5.24s/it]
+Evaluation [step=0] (p4):  22%|██▏       | 2/9 [00:05<00:15,  2.23s/it]
+Evaluation [step=0] (p4):  33%|███▎      | 3/9 [00:05<00:07,  1.27s/it]
+Evaluation [step=0] (p4):  44%|████▍     | 4/9 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p4):  56%|█████▌    | 5/9 [00:05<00:02,  1.76it/s]
+Evaluation [step=0] (p4):  67%|██████▋   | 6/9 [00:05<00:01,  2.39it/s]
+Evaluation [step=0] (p4):  78%|███████▊  | 7/9 [00:05<00:00,  3.10it/s]
+Evaluation [step=0] (p4):  89%|████████▉ | 8/9 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p4): 100%|██████████| 9/9 [00:06<00:00,  4.58it/s]
+                                                                       
+2026-11-10 02:37:17,930 - cartridges.train [rank=0] - INFO - Eval loss - 2.7170653343200684 
+2026-11-10 02:37:17,930 - cartridges.train [rank=0] - INFO - done evaling - p4
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p4": {
+      "name": "p4",
+      "loss": 2.7170653343200684,
+      "perplexity": 15.135838378814519
+    }
+  }
+}
+2026-11-10 02:37:17,931 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p03_evals/p4.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.23it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.13it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.70it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt
+2026-11-10 02:37:33,574 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:37:33,574 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:37:33,595 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:37:33,680 - cartridges.train [rank=0] - INFO - Evaluating `p5` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p5):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p5):  11%|█         | 1/9 [00:05<00:42,  5.27s/it]
+Evaluation [step=0] (p5):  22%|██▏       | 2/9 [00:05<00:15,  2.24s/it]
+Evaluation [step=0] (p5):  33%|███▎      | 3/9 [00:05<00:07,  1.28s/it]
+Evaluation [step=0] (p5):  44%|████▍     | 4/9 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p5):  56%|█████▌    | 5/9 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p5):  67%|██████▋   | 6/9 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p5):  78%|███████▊  | 7/9 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p5):  89%|████████▉ | 8/9 [00:06<00:00,  3.83it/s]
+Evaluation [step=0] (p5): 100%|██████████| 9/9 [00:06<00:00,  4.57it/s]
+                                                                       
+2026-11-10 02:37:39,959 - cartridges.train [rank=0] - INFO - Eval loss - 3.086264133453369 
+2026-11-10 02:37:39,959 - cartridges.train [rank=0] - INFO - done evaling - p5
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p5": {
+      "name": "p5",
+      "loss": 3.086264133453369,
+      "perplexity": 21.895127718286666
+    }
+  }
+}
+2026-11-10 02:37:39,960 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p03_evals/p5.json
+stage         P1       P2       P3       P4       P5
+p01        2.643    4.057    3.777    3.898    4.132
+p02        1.997    2.906    2.674    2.602    3.068
+p03        1.992    2.788    2.625    2.717    3.086
+p04            -        -        -        -        -
+p05            -        -        -        -        -
+
+=== p04: am write on gpu 0 + 5 evals fanned across ['0'] ===
+2026-11-10 02:37:49,448 - __main__ [rank=0] - INFO - B-ROPE: AM teacher rope_theta = 5e+06
+Running 1 configs
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.05it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.10it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.62it/s]
+2026-11-10 02:37:55,686 - cartridges.am.continual.run [rank=0] - INFO - RoPE write bound to model frequencies (ratio to vanilla theta min=0.9963 max=1.0034)
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/cache-step24.pt
+2026-11-10 02:37:55,753 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:37:55,753 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:37:55,782 - cartridges.am.continual.run [rank=0] - INFO - SLOT-USAGE: loaded prior cumulative from /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-32-39-LONGHEALTH_P3_e2e_budget512_topt128/051c05bb-a244-4237-a5af-20cf8b0a50cb/slots_written.pt (writes=235008)
+2026-11-10 02:37:56,099 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM: 23 unique documents in /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/train/qwen_longhealth_p4_task_8192.parquet (teacher dataset=longhealth, qasper_topic=MT, quality_phase=None)
+2026-11-10 02:37:57,729 - cartridges.am.continual.run [rank=0] - INFO - Document 1/23 (doc-000-83a1ff31): 130 conversations
+2026-11-10 02:38:13,584 - cartridges.am.continual.run [rank=0] - INFO - Document doc-000-83a1ff31 complete: mean_mse=0.001460 queries=294912 time=15.7s
+2026-11-10 02:38:13,584 - cartridges.am.continual.run [rank=0] - INFO - Document 2/23 (doc-001-2ea08e8b): 140 conversations
+2026-11-10 02:38:25,634 - cartridges.am.continual.run [rank=0] - INFO - Document doc-001-2ea08e8b complete: mean_mse=0.001928 queries=294912 time=11.9s
+2026-11-10 02:38:25,634 - cartridges.am.continual.run [rank=0] - INFO - Document 3/23 (doc-002-dd550ed4): 163 conversations
+2026-11-10 02:38:33,005 - cartridges.am.continual.run [rank=0] - INFO - Document doc-002-dd550ed4 complete: mean_mse=0.001541 queries=294912 time=7.3s
+2026-11-10 02:38:33,006 - cartridges.am.continual.run [rank=0] - INFO - Document 4/23 (doc-003-5579e97b): 110 conversations
+2026-11-10 02:38:40,393 - cartridges.am.continual.run [rank=0] - INFO - Document doc-003-5579e97b complete: mean_mse=0.001974 queries=294912 time=7.3s
+2026-11-10 02:38:40,393 - cartridges.am.continual.run [rank=0] - INFO - Document 5/23 (doc-004-16e96914): 110 conversations
+2026-11-10 02:38:46,869 - cartridges.am.continual.run [rank=0] - INFO - Document doc-004-16e96914 complete: mean_mse=0.002261 queries=294912 time=6.4s
+2026-11-10 02:38:46,869 - cartridges.am.continual.run [rank=0] - INFO - Document 6/23 (doc-005-3b7420b3): 113 conversations
+2026-11-10 02:38:53,458 - cartridges.am.continual.run [rank=0] - INFO - Document doc-005-3b7420b3 complete: mean_mse=0.001938 queries=294912 time=6.5s
+2026-11-10 02:38:53,458 - cartridges.am.continual.run [rank=0] - INFO - Document 7/23 (doc-006-67a8818b): 121 conversations
+2026-11-10 02:39:00,740 - cartridges.am.continual.run [rank=0] - INFO - Document doc-006-67a8818b complete: mean_mse=0.001800 queries=294912 time=7.2s
+2026-11-10 02:39:00,741 - cartridges.am.continual.run [rank=0] - INFO - Document 8/23 (doc-007-74737946): 101 conversations
+2026-11-10 02:39:07,204 - cartridges.am.continual.run [rank=0] - INFO - Document doc-007-74737946 complete: mean_mse=0.002405 queries=294912 time=6.4s
+2026-11-10 02:39:07,204 - cartridges.am.continual.run [rank=0] - INFO - Document 9/23 (doc-008-778067e9): 122 conversations
+2026-11-10 02:39:13,216 - cartridges.am.continual.run [rank=0] - INFO - Document doc-008-778067e9 complete: mean_mse=0.001876 queries=294912 time=5.9s
+2026-11-10 02:39:13,216 - cartridges.am.continual.run [rank=0] - INFO - Document 10/23 (doc-009-c6f785a8): 138 conversations
+2026-11-10 02:39:19,973 - cartridges.am.continual.run [rank=0] - INFO - Document doc-009-c6f785a8 complete: mean_mse=0.002011 queries=294912 time=6.6s
+2026-11-10 02:39:19,974 - cartridges.am.continual.run [rank=0] - INFO - Document 11/23 (doc-010-14972817): 121 conversations
+2026-11-10 02:39:26,677 - cartridges.am.continual.run [rank=0] - INFO - Document doc-010-14972817 complete: mean_mse=0.001751 queries=294912 time=6.6s
+2026-11-10 02:39:26,678 - cartridges.am.continual.run [rank=0] - INFO - Document 12/23 (doc-011-4ad98442): 146 conversations
+2026-11-10 02:39:33,284 - cartridges.am.continual.run [rank=0] - INFO - Document doc-011-4ad98442 complete: mean_mse=0.002247 queries=294912 time=6.5s
+2026-11-10 02:39:33,285 - cartridges.am.continual.run [rank=0] - INFO - Document 13/23 (doc-012-b8f602fa): 132 conversations
+2026-11-10 02:39:40,463 - cartridges.am.continual.run [rank=0] - INFO - Document doc-012-b8f602fa complete: mean_mse=0.002182 queries=294912 time=7.1s
+2026-11-10 02:39:40,463 - cartridges.am.continual.run [rank=0] - INFO - Document 14/23 (doc-013-56e03c73): 140 conversations
+2026-11-10 02:39:47,325 - cartridges.am.continual.run [rank=0] - INFO - Document doc-013-56e03c73 complete: mean_mse=0.001219 queries=294912 time=6.8s
+2026-11-10 02:39:47,325 - cartridges.am.continual.run [rank=0] - INFO - Document 15/23 (doc-014-049d2bda): 141 conversations
+2026-11-10 02:39:53,653 - cartridges.am.continual.run [rank=0] - INFO - Document doc-014-049d2bda complete: mean_mse=0.001584 queries=294912 time=6.2s
+2026-11-10 02:39:53,653 - cartridges.am.continual.run [rank=0] - INFO - Document 16/23 (doc-015-aaf2b5aa): 145 conversations
+2026-11-10 02:40:00,150 - cartridges.am.continual.run [rank=0] - INFO - Document doc-015-aaf2b5aa complete: mean_mse=0.001567 queries=294912 time=6.4s
+2026-11-10 02:40:00,151 - cartridges.am.continual.run [rank=0] - INFO - Document 17/23 (doc-016-137a0386): 201 conversations
+2026-11-10 02:40:07,469 - cartridges.am.continual.run [rank=0] - INFO - Document doc-016-137a0386 complete: mean_mse=0.001189 queries=294912 time=7.2s
+2026-11-10 02:40:07,469 - cartridges.am.continual.run [rank=0] - INFO - Document 18/23 (doc-017-971232e4): 131 conversations
+2026-11-10 02:40:14,578 - cartridges.am.continual.run [rank=0] - INFO - Document doc-017-971232e4 complete: mean_mse=0.001443 queries=294912 time=7.0s
+2026-11-10 02:40:14,579 - cartridges.am.continual.run [rank=0] - INFO - Document 19/23 (doc-018-f655752a): 186 conversations
+2026-11-10 02:40:21,470 - cartridges.am.continual.run [rank=0] - INFO - Document doc-018-f655752a complete: mean_mse=0.001689 queries=294912 time=6.8s
+2026-11-10 02:40:21,470 - cartridges.am.continual.run [rank=0] - INFO - Document 20/23 (doc-019-2b11c928): 181 conversations
+2026-11-10 02:40:27,950 - cartridges.am.continual.run [rank=0] - INFO - Document doc-019-2b11c928 complete: mean_mse=0.001828 queries=294912 time=6.4s
+2026-11-10 02:40:27,950 - cartridges.am.continual.run [rank=0] - INFO - Document 21/23 (doc-020-0d3a0db8): 127 conversations
+2026-11-10 02:40:34,531 - cartridges.am.continual.run [rank=0] - INFO - Document doc-020-0d3a0db8 complete: mean_mse=0.001672 queries=294912 time=6.5s
+2026-11-10 02:40:34,531 - cartridges.am.continual.run [rank=0] - INFO - Document 22/23 (doc-021-529cff8a): 151 conversations
+2026-11-10 02:40:40,900 - cartridges.am.continual.run [rank=0] - INFO - Document doc-021-529cff8a complete: mean_mse=0.002476 queries=294912 time=6.3s
+2026-11-10 02:40:40,900 - cartridges.am.continual.run [rank=0] - INFO - Document 23/23 (doc-022-c80dc0e9): 206 conversations
+2026-11-10 02:40:48,186 - cartridges.am.continual.run [rank=0] - INFO - Document doc-022-c80dc0e9 complete: mean_mse=0.001546 queries=294912 time=7.2s
+2026-11-10 02:40:48,190 - cartridges.am.continual.run [rank=0] - INFO - SLOT-GEOMETRY: saved slots_written.pt (this-stage distinct slots/layer=225.7/512, this-stage writes=105984, cumulative writes=340992)
+2026-11-10 02:40:48,190 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete: 23 documents in 170.5s
+2026-11-10 02:40:48,303 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete in 172.4s (23 documents). Saved to /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.09it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.03it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.54it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt
+2026-11-10 02:41:04,531 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:41:04,531 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:41:04,552 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:41:04,646 - cartridges.train [rank=0] - INFO - Evaluating `p1` (n=11, 11 per device, world size=1)
+
+Evaluation [step=0] (p1):   0%|          | 0/11 [00:00<?, ?it/s]
+Evaluation [step=0] (p1):   9%|▉         | 1/11 [00:05<00:52,  5.27s/it]
+Evaluation [step=0] (p1):  18%|█▊        | 2/11 [00:05<00:20,  2.25s/it]
+Evaluation [step=0] (p1):  27%|██▋       | 3/11 [00:05<00:10,  1.28s/it]
+Evaluation [step=0] (p1):  36%|███▋      | 4/11 [00:05<00:05,  1.22it/s]
+Evaluation [step=0] (p1):  45%|████▌     | 5/11 [00:05<00:03,  1.75it/s]
+Evaluation [step=0] (p1):  55%|█████▍    | 6/11 [00:05<00:02,  2.38it/s]
+Evaluation [step=0] (p1):  64%|██████▎   | 7/11 [00:06<00:01,  3.09it/s]
+Evaluation [step=0] (p1):  73%|███████▎  | 8/11 [00:06<00:00,  3.83it/s]
+Evaluation [step=0] (p1):  82%|████████▏ | 9/11 [00:06<00:00,  4.56it/s]
+Evaluation [step=0] (p1):  91%|█████████ | 10/11 [00:06<00:00,  5.25it/s]
+Evaluation [step=0] (p1): 100%|██████████| 11/11 [00:06<00:00,  5.83it/s]
+                                                                         
+2026-11-10 02:41:11,183 - cartridges.train [rank=0] - INFO - Eval loss - 2.019458293914795 
+2026-11-10 02:41:11,183 - cartridges.train [rank=0] - INFO - done evaling - p1
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p1": {
+      "name": "p1",
+      "loss": 2.019458293914795,
+      "perplexity": 7.534242483017114
+    }
+  }
+}
+2026-11-10 02:41:11,185 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p04_evals/p1.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.09it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.05it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.56it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt
+2026-11-10 02:41:27,037 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:41:27,037 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:41:27,059 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:41:27,146 - cartridges.train [rank=0] - INFO - Evaluating `p2` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p2):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p2):  10%|█         | 1/10 [00:05<00:47,  5.30s/it]
+Evaluation [step=0] (p2):  20%|██        | 2/10 [00:05<00:18,  2.25s/it]
+Evaluation [step=0] (p2):  30%|███       | 3/10 [00:05<00:08,  1.28s/it]
+Evaluation [step=0] (p2):  40%|████      | 4/10 [00:05<00:04,  1.21it/s]
+Evaluation [step=0] (p2):  50%|█████     | 5/10 [00:05<00:02,  1.74it/s]
+Evaluation [step=0] (p2):  60%|██████    | 6/10 [00:05<00:01,  2.37it/s]
+Evaluation [step=0] (p2):  70%|███████   | 7/10 [00:06<00:00,  3.08it/s]
+Evaluation [step=0] (p2):  80%|████████  | 8/10 [00:06<00:00,  3.82it/s]
+Evaluation [step=0] (p2):  90%|█████████ | 9/10 [00:06<00:00,  4.56it/s]
+Evaluation [step=0] (p2): 100%|██████████| 10/10 [00:06<00:00,  5.20it/s]
+                                                                         
+2026-11-10 02:41:33,584 - cartridges.train [rank=0] - INFO - Eval loss - 2.7931466102600098 
+2026-11-10 02:41:33,584 - cartridges.train [rank=0] - INFO - done evaling - p2
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p2": {
+      "name": "p2",
+      "loss": 2.7931466102600098,
+      "perplexity": 16.33233051080561
+    }
+  }
+}
+2026-11-10 02:41:33,585 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p04_evals/p2.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.17it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.06it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.60it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt
+2026-11-10 02:41:49,403 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:41:49,403 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:41:49,425 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:41:49,513 - cartridges.train [rank=0] - INFO - Evaluating `p3` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p3):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p3):  10%|█         | 1/10 [00:05<00:47,  5.25s/it]
+Evaluation [step=0] (p3):  20%|██        | 2/10 [00:05<00:17,  2.24s/it]
+Evaluation [step=0] (p3):  30%|███       | 3/10 [00:05<00:08,  1.28s/it]
+Evaluation [step=0] (p3):  40%|████      | 4/10 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p3):  50%|█████     | 5/10 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p3):  60%|██████    | 6/10 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p3):  70%|███████   | 7/10 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p3):  80%|████████  | 8/10 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p3):  90%|█████████ | 9/10 [00:06<00:00,  4.58it/s]
+Evaluation [step=0] (p3): 100%|██████████| 10/10 [00:06<00:00,  5.23it/s]
+                                                                         
+2026-11-10 02:41:55,911 - cartridges.train [rank=0] - INFO - Eval loss - 2.5745346546173096 
+2026-11-10 02:41:55,911 - cartridges.train [rank=0] - INFO - done evaling - p3
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p3": {
+      "name": "p3",
+      "loss": 2.5745346546173096,
+      "perplexity": 13.125207982230394
+    }
+  }
+}
+2026-11-10 02:41:55,912 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p04_evals/p3.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.08it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.56it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt
+2026-11-10 02:42:11,751 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:42:11,751 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:42:11,772 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:42:11,858 - cartridges.train [rank=0] - INFO - Evaluating `p4` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p4):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p4):  11%|█         | 1/9 [00:05<00:42,  5.27s/it]
+Evaluation [step=0] (p4):  22%|██▏       | 2/9 [00:05<00:15,  2.24s/it]
+Evaluation [step=0] (p4):  33%|███▎      | 3/9 [00:05<00:07,  1.28s/it]
+Evaluation [step=0] (p4):  44%|████▍     | 4/9 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p4):  56%|█████▌    | 5/9 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p4):  67%|██████▋   | 6/9 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p4):  78%|███████▊  | 7/9 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p4):  89%|████████▉ | 8/9 [00:06<00:00,  3.83it/s]
+Evaluation [step=0] (p4): 100%|██████████| 9/9 [00:06<00:00,  4.57it/s]
+                                                                       
+2026-11-10 02:42:18,137 - cartridges.train [rank=0] - INFO - Eval loss - 2.6885857582092285 
+2026-11-10 02:42:18,137 - cartridges.train [rank=0] - INFO - done evaling - p4
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p4": {
+      "name": "p4",
+      "loss": 2.6885857582092285,
+      "perplexity": 14.710856494029269
+    }
+  }
+}
+2026-11-10 02:42:18,138 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p04_evals/p4.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.06it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.05it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.56it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt
+2026-11-10 02:42:34,040 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:42:34,040 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:42:34,062 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:42:34,153 - cartridges.train [rank=0] - INFO - Evaluating `p5` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p5):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p5):  11%|█         | 1/9 [00:05<00:42,  5.28s/it]
+Evaluation [step=0] (p5):  22%|██▏       | 2/9 [00:05<00:15,  2.25s/it]
+Evaluation [step=0] (p5):  33%|███▎      | 3/9 [00:05<00:07,  1.28s/it]
+Evaluation [step=0] (p5):  44%|████▍     | 4/9 [00:05<00:04,  1.21it/s]
+Evaluation [step=0] (p5):  56%|█████▌    | 5/9 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p5):  67%|██████▋   | 6/9 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p5):  78%|███████▊  | 7/9 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p5):  89%|████████▉ | 8/9 [00:06<00:00,  3.83it/s]
+Evaluation [step=0] (p5): 100%|██████████| 9/9 [00:06<00:00,  4.57it/s]
+                                                                       
+2026-11-10 02:42:40,441 - cartridges.train [rank=0] - INFO - Eval loss - 3.0157859325408936 
+2026-11-10 02:42:40,442 - cartridges.train [rank=0] - INFO - done evaling - p5
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p5": {
+      "name": "p5",
+      "loss": 3.0157859325408936,
+      "perplexity": 20.405121689317014
+    }
+  }
+}
+2026-11-10 02:42:40,443 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p04_evals/p5.json
+stage         P1       P2       P3       P4       P5
+p01        2.643    4.057    3.777    3.898    4.132
+p02        1.997    2.906    2.674    2.602    3.068
+p03        1.992    2.788    2.625    2.717    3.086
+p04        2.019    2.793    2.575    2.689    3.016
+p05            -        -        -        -        -
+
+=== p05: am write on gpu 0 + 5 evals fanned across ['0'] ===
+2026-11-10 02:42:49,898 - __main__ [rank=0] - INFO - B-ROPE: AM teacher rope_theta = 5e+06
+Running 1 configs
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.10it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.07it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.60it/s]
+2026-11-10 02:42:56,170 - cartridges.am.continual.run [rank=0] - INFO - RoPE write bound to model frequencies (ratio to vanilla theta min=0.9963 max=1.0034)
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/cache-step23.pt
+2026-11-10 02:42:56,235 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:42:56,235 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:42:56,265 - cartridges.am.continual.run [rank=0] - INFO - SLOT-USAGE: loaded prior cumulative from /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-37-49-LONGHEALTH_P4_e2e_budget512_topt128/c703bb86-370f-404a-8503-3f7f2a8cbd3e/slots_written.pt (writes=340992)
+2026-11-10 02:42:56,594 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM: 29 unique documents in /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/train/qwen_longhealth_p5_task_8192.parquet (teacher dataset=longhealth, qasper_topic=MT, quality_phase=None)
+2026-11-10 02:42:58,686 - cartridges.am.continual.run [rank=0] - INFO - Document 1/29 (doc-000-a0bc2e9d): 69 conversations
+2026-11-10 02:43:14,504 - cartridges.am.continual.run [rank=0] - INFO - Document doc-000-a0bc2e9d complete: mean_mse=0.001873 queries=294912 time=15.7s
+2026-11-10 02:43:14,505 - cartridges.am.continual.run [rank=0] - INFO - Document 2/29 (doc-001-882a17c4): 72 conversations
+2026-11-10 02:43:22,073 - cartridges.am.continual.run [rank=0] - INFO - Document doc-001-882a17c4 complete: mean_mse=0.002139 queries=294912 time=7.5s
+2026-11-10 02:43:22,073 - cartridges.am.continual.run [rank=0] - INFO - Document 3/29 (doc-002-6a762cf3): 157 conversations
+2026-11-10 02:43:33,150 - cartridges.am.continual.run [rank=0] - INFO - Document doc-002-6a762cf3 complete: mean_mse=0.001960 queries=294912 time=11.0s
+2026-11-10 02:43:33,150 - cartridges.am.continual.run [rank=0] - INFO - Document 4/29 (doc-003-e2ba21f6): 162 conversations
+2026-11-10 02:43:40,314 - cartridges.am.continual.run [rank=0] - INFO - Document doc-003-e2ba21f6 complete: mean_mse=0.001816 queries=294912 time=7.1s
+2026-11-10 02:43:40,315 - cartridges.am.continual.run [rank=0] - INFO - Document 5/29 (doc-004-8e8fcb0d): 87 conversations
+2026-11-10 02:43:47,248 - cartridges.am.continual.run [rank=0] - INFO - Document doc-004-8e8fcb0d complete: mean_mse=0.001447 queries=294912 time=6.8s
+2026-11-10 02:43:47,248 - cartridges.am.continual.run [rank=0] - INFO - Document 6/29 (doc-005-1af1b21d): 69 conversations
+2026-11-10 02:43:54,341 - cartridges.am.continual.run [rank=0] - INFO - Document doc-005-1af1b21d complete: mean_mse=0.001675 queries=294912 time=7.0s
+2026-11-10 02:43:54,342 - cartridges.am.continual.run [rank=0] - INFO - Document 7/29 (doc-006-6343a20c): 142 conversations
+2026-11-10 02:44:01,329 - cartridges.am.continual.run [rank=0] - INFO - Document doc-006-6343a20c complete: mean_mse=0.001576 queries=294912 time=6.9s
+2026-11-10 02:44:01,329 - cartridges.am.continual.run [rank=0] - INFO - Document 8/29 (doc-007-bedb3d2c): 72 conversations
+2026-11-10 02:44:07,994 - cartridges.am.continual.run [rank=0] - INFO - Document doc-007-bedb3d2c complete: mean_mse=0.001378 queries=294912 time=6.6s
+2026-11-10 02:44:07,994 - cartridges.am.continual.run [rank=0] - INFO - Document 9/29 (doc-008-6f3e8a59): 156 conversations
+2026-11-10 02:44:15,020 - cartridges.am.continual.run [rank=0] - INFO - Document doc-008-6f3e8a59 complete: mean_mse=0.001650 queries=294912 time=6.9s
+2026-11-10 02:44:15,020 - cartridges.am.continual.run [rank=0] - INFO - Document 10/29 (doc-009-c965d96c): 68 conversations
+2026-11-10 02:44:22,746 - cartridges.am.continual.run [rank=0] - INFO - Document doc-009-c965d96c complete: mean_mse=0.002108 queries=294912 time=7.6s
+2026-11-10 02:44:22,747 - cartridges.am.continual.run [rank=0] - INFO - Document 11/29 (doc-010-8c730ee1): 78 conversations
+2026-11-10 02:44:29,337 - cartridges.am.continual.run [rank=0] - INFO - Document doc-010-8c730ee1 complete: mean_mse=0.001932 queries=294912 time=6.5s
+2026-11-10 02:44:29,338 - cartridges.am.continual.run [rank=0] - INFO - Document 12/29 (doc-011-74f44b74): 160 conversations
+2026-11-10 02:44:35,956 - cartridges.am.continual.run [rank=0] - INFO - Document doc-011-74f44b74 complete: mean_mse=0.001766 queries=294912 time=6.5s
+2026-11-10 02:44:35,956 - cartridges.am.continual.run [rank=0] - INFO - Document 13/29 (doc-012-0c50cea2): 66 conversations
+2026-11-10 02:44:42,428 - cartridges.am.continual.run [rank=0] - INFO - Document doc-012-0c50cea2 complete: mean_mse=0.001952 queries=294912 time=6.4s
+2026-11-10 02:44:42,428 - cartridges.am.continual.run [rank=0] - INFO - Document 14/29 (doc-013-2935c0a0): 93 conversations
+2026-11-10 02:44:49,027 - cartridges.am.continual.run [rank=0] - INFO - Document doc-013-2935c0a0 complete: mean_mse=0.003035 queries=294912 time=6.5s
+2026-11-10 02:44:49,027 - cartridges.am.continual.run [rank=0] - INFO - Document 15/29 (doc-014-fe082b13): 70 conversations
+2026-11-10 02:44:56,418 - cartridges.am.continual.run [rank=0] - INFO - Document doc-014-fe082b13 complete: mean_mse=0.002437 queries=294912 time=7.3s
+2026-11-10 02:44:56,419 - cartridges.am.continual.run [rank=0] - INFO - Document 16/29 (doc-015-2858f3fe): 66 conversations
+2026-11-10 02:45:03,100 - cartridges.am.continual.run [rank=0] - INFO - Document doc-015-2858f3fe complete: mean_mse=0.001968 queries=294912 time=6.6s
+2026-11-10 02:45:03,101 - cartridges.am.continual.run [rank=0] - INFO - Document 17/29 (doc-016-c0d19f37): 140 conversations
+2026-11-10 02:45:10,459 - cartridges.am.continual.run [rank=0] - INFO - Document doc-016-c0d19f37 complete: mean_mse=0.001779 queries=294912 time=7.2s
+2026-11-10 02:45:10,460 - cartridges.am.continual.run [rank=0] - INFO - Document 18/29 (doc-017-9b1de5fb): 140 conversations
+2026-11-10 02:45:17,605 - cartridges.am.continual.run [rank=0] - INFO - Document doc-017-9b1de5fb complete: mean_mse=0.002315 queries=294912 time=7.0s
+2026-11-10 02:45:17,605 - cartridges.am.continual.run [rank=0] - INFO - Document 19/29 (doc-018-1fd83b55): 116 conversations
+2026-11-10 02:45:24,448 - cartridges.am.continual.run [rank=0] - INFO - Document doc-018-1fd83b55 complete: mean_mse=0.001421 queries=294912 time=6.7s
+2026-11-10 02:45:24,448 - cartridges.am.continual.run [rank=0] - INFO - Document 20/29 (doc-019-67b040d0): 147 conversations
+2026-11-10 02:45:31,997 - cartridges.am.continual.run [rank=0] - INFO - Document doc-019-67b040d0 complete: mean_mse=0.001916 queries=294912 time=7.4s
+2026-11-10 02:45:31,997 - cartridges.am.continual.run [rank=0] - INFO - Document 21/29 (doc-020-fe9d55bf): 153 conversations
+2026-11-10 02:45:39,637 - cartridges.am.continual.run [rank=0] - INFO - Document doc-020-fe9d55bf complete: mean_mse=0.001789 queries=294912 time=7.5s
+2026-11-10 02:45:39,637 - cartridges.am.continual.run [rank=0] - INFO - Document 22/29 (doc-021-8f720a0a): 138 conversations
+2026-11-10 02:45:45,816 - cartridges.am.continual.run [rank=0] - INFO - Document doc-021-8f720a0a complete: mean_mse=0.001477 queries=294912 time=6.1s
+2026-11-10 02:45:45,816 - cartridges.am.continual.run [rank=0] - INFO - Document 23/29 (doc-022-4a6b0efa): 116 conversations
+2026-11-10 02:45:53,337 - cartridges.am.continual.run [rank=0] - INFO - Document doc-022-4a6b0efa complete: mean_mse=0.001837 queries=294912 time=7.4s
+2026-11-10 02:45:53,337 - cartridges.am.continual.run [rank=0] - INFO - Document 24/29 (doc-023-b537a32e): 130 conversations
+2026-11-10 02:46:00,786 - cartridges.am.continual.run [rank=0] - INFO - Document doc-023-b537a32e complete: mean_mse=0.002402 queries=294912 time=7.3s
+2026-11-10 02:46:00,786 - cartridges.am.continual.run [rank=0] - INFO - Document 25/29 (doc-024-e9ae4089): 148 conversations
+2026-11-10 02:46:07,909 - cartridges.am.continual.run [rank=0] - INFO - Document doc-024-e9ae4089 complete: mean_mse=0.001586 queries=294912 time=7.0s
+2026-11-10 02:46:07,910 - cartridges.am.continual.run [rank=0] - INFO - Document 26/29 (doc-025-2bc7cc62): 150 conversations
+2026-11-10 02:46:15,107 - cartridges.am.continual.run [rank=0] - INFO - Document doc-025-2bc7cc62 complete: mean_mse=0.002750 queries=294912 time=7.1s
+2026-11-10 02:46:15,107 - cartridges.am.continual.run [rank=0] - INFO - Document 27/29 (doc-026-f100f5b4): 137 conversations
+2026-11-10 02:46:21,188 - cartridges.am.continual.run [rank=0] - INFO - Document doc-026-f100f5b4 complete: mean_mse=0.001499 queries=294912 time=6.0s
+2026-11-10 02:46:21,188 - cartridges.am.continual.run [rank=0] - INFO - Document 28/29 (doc-027-ab52af7a): 134 conversations
+2026-11-10 02:46:27,709 - cartridges.am.continual.run [rank=0] - INFO - Document doc-027-ab52af7a complete: mean_mse=0.002707 queries=294912 time=6.4s
+2026-11-10 02:46:27,710 - cartridges.am.continual.run [rank=0] - INFO - Document 29/29 (doc-028-febe4d64): 102 conversations
+2026-11-10 02:46:34,905 - cartridges.am.continual.run [rank=0] - INFO - Document doc-028-febe4d64 complete: mean_mse=0.002116 queries=294912 time=7.1s
+2026-11-10 02:46:34,908 - cartridges.am.continual.run [rank=0] - INFO - SLOT-GEOMETRY: saved slots_written.pt (this-stage distinct slots/layer=208.4/512, this-stage writes=133632, cumulative writes=474624)
+2026-11-10 02:46:34,908 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete: 29 documents in 216.2s
+2026-11-10 02:46:35,024 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete in 218.7s (29 documents). Saved to /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.09it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.02it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.52it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt
+2026-11-10 02:46:51,339 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:46:51,339 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:46:51,360 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:46:51,455 - cartridges.train [rank=0] - INFO - Evaluating `p1` (n=11, 11 per device, world size=1)
+
+Evaluation [step=0] (p1):   0%|          | 0/11 [00:00<?, ?it/s]
+Evaluation [step=0] (p1):   9%|▉         | 1/11 [00:05<00:52,  5.28s/it]
+Evaluation [step=0] (p1):  18%|█▊        | 2/11 [00:05<00:20,  2.25s/it]
+Evaluation [step=0] (p1):  27%|██▋       | 3/11 [00:05<00:10,  1.28s/it]
+Evaluation [step=0] (p1):  36%|███▋      | 4/11 [00:05<00:05,  1.21it/s]
+Evaluation [step=0] (p1):  45%|████▌     | 5/11 [00:05<00:03,  1.75it/s]
+Evaluation [step=0] (p1):  55%|█████▍    | 6/11 [00:05<00:02,  2.38it/s]
+Evaluation [step=0] (p1):  64%|██████▎   | 7/11 [00:06<00:01,  3.08it/s]
+Evaluation [step=0] (p1):  73%|███████▎  | 8/11 [00:06<00:00,  3.83it/s]
+Evaluation [step=0] (p1):  82%|████████▏ | 9/11 [00:06<00:00,  4.56it/s]
+Evaluation [step=0] (p1):  91%|█████████ | 10/11 [00:06<00:00,  5.25it/s]
+Evaluation [step=0] (p1): 100%|██████████| 11/11 [00:06<00:00,  5.83it/s]
+                                                                         
+2026-11-10 02:46:58,001 - cartridges.train [rank=0] - INFO - Eval loss - 2.0265374183654785 
+2026-11-10 02:46:58,001 - cartridges.train [rank=0] - INFO - done evaling - p1
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p1": {
+      "name": "p1",
+      "loss": 2.0265374183654785,
+      "perplexity": 7.5877675549894334
+    }
+  }
+}
+2026-11-10 02:46:58,002 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p05_evals/p1.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.08it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.56it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt
+2026-11-10 02:47:13,918 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:47:13,918 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:47:13,940 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:47:14,027 - cartridges.train [rank=0] - INFO - Evaluating `p2` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p2):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p2):  10%|█         | 1/10 [00:05<00:47,  5.26s/it]
+Evaluation [step=0] (p2):  20%|██        | 2/10 [00:05<00:17,  2.24s/it]
+Evaluation [step=0] (p2):  30%|███       | 3/10 [00:05<00:08,  1.27s/it]
+Evaluation [step=0] (p2):  40%|████      | 4/10 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p2):  50%|█████     | 5/10 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p2):  60%|██████    | 6/10 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p2):  70%|███████   | 7/10 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p2):  80%|████████  | 8/10 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p2):  90%|█████████ | 9/10 [00:06<00:00,  4.58it/s]
+Evaluation [step=0] (p2): 100%|██████████| 10/10 [00:06<00:00,  5.22it/s]
+                                                                         
+2026-11-10 02:47:20,425 - cartridges.train [rank=0] - INFO - Eval loss - 2.7786617279052734 
+2026-11-10 02:47:20,425 - cartridges.train [rank=0] - INFO - done evaling - p2
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p2": {
+      "name": "p2",
+      "loss": 2.7786617279052734,
+      "perplexity": 16.09746374002081
+    }
+  }
+}
+2026-11-10 02:47:20,426 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p05_evals/p2.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.11it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.55it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt
+2026-11-10 02:47:36,364 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:47:36,365 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:47:36,385 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:47:36,472 - cartridges.train [rank=0] - INFO - Evaluating `p3` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p3):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p3):  10%|█         | 1/10 [00:05<00:47,  5.29s/it]
+Evaluation [step=0] (p3):  20%|██        | 2/10 [00:05<00:18,  2.25s/it]
+Evaluation [step=0] (p3):  30%|███       | 3/10 [00:05<00:08,  1.28s/it]
+Evaluation [step=0] (p3):  40%|████      | 4/10 [00:05<00:04,  1.21it/s]
+Evaluation [step=0] (p3):  50%|█████     | 5/10 [00:05<00:02,  1.74it/s]
+Evaluation [step=0] (p3):  60%|██████    | 6/10 [00:05<00:01,  2.37it/s]
+Evaluation [step=0] (p3):  70%|███████   | 7/10 [00:06<00:00,  3.08it/s]
+Evaluation [step=0] (p3):  80%|████████  | 8/10 [00:06<00:00,  3.82it/s]
+Evaluation [step=0] (p3):  90%|█████████ | 9/10 [00:06<00:00,  4.57it/s]
+Evaluation [step=0] (p3): 100%|██████████| 10/10 [00:06<00:00,  5.22it/s]
+                                                                         
+2026-11-10 02:47:42,901 - cartridges.train [rank=0] - INFO - Eval loss - 2.5799107551574707 
+2026-11-10 02:47:42,901 - cartridges.train [rank=0] - INFO - done evaling - p3
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p3": {
+      "name": "p3",
+      "loss": 2.5799107551574707,
+      "perplexity": 13.195960435695138
+    }
+  }
+}
+2026-11-10 02:47:42,902 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p05_evals/p3.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.12it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.16it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.71it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt
+2026-11-10 02:47:58,616 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:47:58,616 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:47:58,637 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:47:58,723 - cartridges.train [rank=0] - INFO - Evaluating `p4` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p4):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p4):  11%|█         | 1/9 [00:05<00:42,  5.26s/it]
+Evaluation [step=0] (p4):  22%|██▏       | 2/9 [00:05<00:15,  2.24s/it]
+Evaluation [step=0] (p4):  33%|███▎      | 3/9 [00:05<00:07,  1.27s/it]
+Evaluation [step=0] (p4):  44%|████▍     | 4/9 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p4):  56%|█████▌    | 5/9 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p4):  67%|██████▋   | 6/9 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p4):  78%|███████▊  | 7/9 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p4):  89%|████████▉ | 8/9 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p4): 100%|██████████| 9/9 [00:06<00:00,  4.57it/s]
+                                                                       
+2026-11-10 02:48:04,992 - cartridges.train [rank=0] - INFO - Eval loss - 2.681537628173828 
+2026-11-10 02:48:04,992 - cartridges.train [rank=0] - INFO - done evaling - p4
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p4": {
+      "name": "p4",
+      "loss": 2.681537628173828,
+      "perplexity": 14.607536996861954
+    }
+  }
+}
+2026-11-10 02:48:04,993 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p05_evals/p4.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.05it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.05it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.55it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt
+2026-11-10 02:48:20,805 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 02:48:20,805 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 02:48:20,826 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 02:48:20,912 - cartridges.train [rank=0] - INFO - Evaluating `p5` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p5):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p5):  11%|█         | 1/9 [00:05<00:41,  5.22s/it]
+Evaluation [step=0] (p5):  22%|██▏       | 2/9 [00:05<00:15,  2.22s/it]
+Evaluation [step=0] (p5):  33%|███▎      | 3/9 [00:05<00:07,  1.27s/it]
+Evaluation [step=0] (p5):  44%|████▍     | 4/9 [00:05<00:04,  1.23it/s]
+Evaluation [step=0] (p5):  56%|█████▌    | 5/9 [00:05<00:02,  1.76it/s]
+Evaluation [step=0] (p5):  67%|██████▋   | 6/9 [00:05<00:01,  2.40it/s]
+Evaluation [step=0] (p5):  78%|███████▊  | 7/9 [00:05<00:00,  3.11it/s]
+Evaluation [step=0] (p5):  89%|████████▉ | 8/9 [00:06<00:00,  3.85it/s]
+Evaluation [step=0] (p5): 100%|██████████| 9/9 [00:06<00:00,  4.59it/s]
+                                                                       
+2026-11-10 02:48:27,140 - cartridges.train [rank=0] - INFO - Eval loss - 2.9719204902648926 
+2026-11-10 02:48:27,140 - cartridges.train [rank=0] - INFO - done evaling - p5
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-02-42-49-LONGHEALTH_P5_e2e_budget512_topt128/37542024-66c6-4808-8b59-299db7fab708/cache-step29.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p5": {
+      "name": "p5",
+      "loss": 2.9719204902648926,
+      "perplexity": 19.529389606738093
+    }
+  }
+}
+2026-11-10 02:48:27,142 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p05_evals/p5.json
+stage         P1       P2       P3       P4       P5
+p01        2.643    4.057    3.777    3.898    4.132
+p02        1.997    2.906    2.674    2.602    3.068
+p03        1.992    2.788    2.625    2.717    3.086
+p04        2.019    2.793    2.575    2.689    3.016
+p05        2.027    2.779    2.580    2.682    2.972
+
+stage         P1       P2       P3       P4       P5
+p01        2.643    4.057    3.777    3.898    4.132
+p02        1.997    2.906    2.674    2.602    3.068
+p03        1.992    2.788    2.625    2.717    3.086
+p04        2.019    2.793    2.575    2.689    3.016
+p05        2.027    2.779    2.580    2.682    2.972
+
+{
+  "average_loss_on_seen_tasks": {
+    "p01": 2.643073320388794,
+    "p02": 2.451442837715149,
+    "p03": 2.4683059453964233,
+    "p04": 2.5189313292503357,
+    "p05": 2.6077136039733886
+  },
+  "forgetting_at_final_stage": {
+    "p1": -0.6165359020233154,
+    "p2": -0.12755274772644043,
+    "p3": -0.04478740692138672,
+    "p4": -0.007048130035400391
+  },
+  "mean_forgetting": -0.19898104667663574
+}
+
+wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/evaluations/longhealth/e2e_budget512_topt128/teacher-forced-logppl-v1
+    Successfully generated perplexity matrix: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/evaluations/longhealth/e2e_budget512_topt128/teacher-forced-logppl-v1/matrix.json
+--- Step 3: Record Slot Frequency Artifacts (longhealth, e2e_budget512_topt128) ---
+  [slot_frequency] Recorded slot frequency outputs to: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/evaluations/longhealth/e2e_budget512_topt128/slot_frequency
+                   Coverage: 76.81% | Consecutive Jaccard: 0.601 | Max Writes/Slot: 103
+--- Step 4: Generation Accuracy Matrix (longhealth, e2e_budget512_topt128) ---
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/evaluations/longhealth/e2e_budget512_topt128/accuracy-freeform-mc-options-primeAnswer-v1/plan.json
+{
+  "schema_version": 1,
+  "plan_hash": "c2da0ff79bb9d88c8cd54c424863d90c9e758976dd8e6b322be5e032aa6f98f3",
+  "dataset": "longhealth",
+  "technique": "e2e_budget512_topt128",
+  "protocol": "freeform-mc-options-v1",
+  "model": "Qwen/Qwen3-4B-Instruct-2507",
+  "stage_ids": [
+    "p01",
+    "p02",
+    "p03",
+    "p04",
+    "p05"
+  ],
+  "eval_ids": [
+    "p01",
+    "p02",
+    "p03",
+    "p04",
+    "p05"
+  ],
+  "accuracy": [
+    [
+      0.325,
+      0.3625,
+      0.425,
+      0.2875,
+      0.3625
+    ],
+    [
+      0.325,
+      0.2875,
+      0.325,
+      0.325,
+      0.2875
+    ],
+    [
+      0.3125,
+      0.3,
+      0.3125,
+      0.325,
+      0.275
+    ],
+    [
+      0.3375,
+      0.2375,
+      0.3375,
+      0.3125,
+      0.275
+    ],
+    [
+      0.2875,
+      0.275,
+      0.3625,
+      0.3375,
+      0.3
+    ]
+  ],
+  "num_complete_cells": 25,
+  "num_expected_cells": 25
+}
+=== accuracy matrix done: outputs/evaluations/longhealth/e2e_budget512_topt128/accuracy-freeform-mc-options-primeAnswer-v1/matrix.json ===
+=== generations recorded in: outputs/evaluations/longhealth/e2e_budget512_topt128/accuracy-freeform-mc-options-primeAnswer-v1/cells/*/generations.jsonl ===
+    Successfully generated accuracy matrix: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/evaluations/longhealth/e2e_budget512_topt128/accuracy-freeform-mc-options-primeAnswer-v1/matrix.json
+
+======================================================================
+ All datasets and arms completed successfully at Tue Nov 10 03:16:44 UTC 2026!
+ Results available in: outputs/evaluations/{longhealth}/
+ Logs stored in:        /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/logs/e2e_subkv_sweep/
+======================================================================

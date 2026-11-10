@@ -1,0 +1,1616 @@
+======================================================================
+ Starting E2E Continual Compaction Sweep
+ Model:     Qwen/Qwen3-4B-Instruct-2507 (Slug: qwen3_4b)
+ Dataset:   longhealth
+ GPU:       0 (Evals: 0)
+ Python:    /home/voquangtri2025/miniconda3/envs/cartridges/bin/python
+ Budgets:   512
+ Top-Ts:    128
+ Root:      /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges
+======================================================================
+
+>>> [Arm 1/1] Budget=512, top_t=128, max_queries_per_head=1024, delta_weight=0.01 (Tag: e2e_budget512_topt128) <<<
+    Log file: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/logs/e2e_subkv_sweep/longhealth_e2e_budget512_topt128_20261110_003239.log
+--- Step 1: Initial Compaction (p01, 512 slots) ---
+2026-11-10 00:32:48,358 - cartridges.datasets [rank=0] - INFO - Stored token ids do not match Qwen/Qwen3-4B-Instruct-2507; retokenizing
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:00,  4.34it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:00<00:00,  4.05it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00,  6.08it/s]
+E1110 00:34:42.471000 10789 site-packages/torch/_inductor/select_algorithm.py:1477] [1/0] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/sz/csz72eas5ysaxh3rx7wnm2jcgfmgnm3djdpnhwrt4juhzucmuspg.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:34:42.913000 10789 site-packages/torch/_inductor/select_algorithm.py:1696] [1/0] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x12644x128, 1x8x12644x128, 1x8x12644x128, 1x32x12644, 1x1x99, 1x1x99x99, 1x1x99, 1x1x99x99, 12644)
+  triton_flex_attention_0 8.0824 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_4 9.7823 ms 82.6% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_1 13.1338 ms 61.5% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_3 33.7920 ms 23.9% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_2 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9754 seconds and 12.3706 seconds precompiling for 5 choices
+E1110 00:35:07.108000 10789 site-packages/torch/_inductor/select_algorithm.py:1477] [1/1] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/e7/ce7g52ajydlwkjk626noxef2xtxbkc6c3rcxmcqpzuas5zuservz.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:35:07.755000 10789 site-packages/torch/_inductor/select_algorithm.py:1696] [1/1] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x12308x128, 1x8x12308x128, 1x8x12308x128, 1x32x12308, 1x1x97, 1x1x97x97, 1x1x97, 1x1x97x97, 12308)
+  triton_flex_attention_5 7.7793 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_9 9.5068 ms 81.8% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_6 12.6781 ms 61.4% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_8 33.6323 ms 23.1% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_7 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9545 seconds and 12.0054 seconds precompiling for 5 choices
+E1110 00:35:24.197000 10789 site-packages/torch/_inductor/select_algorithm.py:1477] [1/2] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/cx/ccxzqrkqom3zorhrw5msh6kft7ztsk7cwofsmxagm4x5kafiuwao.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:35:24.924000 10789 site-packages/torch/_inductor/select_algorithm.py:1696] [1/2] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x12878x128, 1x8x12878x128, 1x8x12878x128, 1x32x12878, 1x1x101, 1x1x101x101, 1x1x101, 1x1x101x101, 12878)
+  triton_flex_attention_10 8.0548 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_14 9.8857 ms 81.5% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_11 13.2669 ms 60.7% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_13 34.8078 ms 23.1% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_12 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9651 seconds and 12.0790 seconds precompiling for 5 choices
+E1110 00:35:41.926000 10789 site-packages/torch/_inductor/select_algorithm.py:1477] [1/3] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/tg/ctgas2c5jnofjo5zazumlcayude4efb4kuw3f6qmvyip335e45zw.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:35:42.345000 10789 site-packages/torch/_inductor/select_algorithm.py:1696] [1/3] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x11562x128, 1x8x11562x128, 1x8x11562x128, 1x32x11562, 1x1x91, 1x1x91x91, 1x1x91, 1x1x91x91, 11562)
+  triton_flex_attention_15 7.2509 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_19 8.8832 ms 81.6% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_16 12.0248 ms 60.3% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_18 31.0692 ms 23.3% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_17 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9502 seconds and 12.3525 seconds precompiling for 5 choices
+E1110 00:35:59.321000 10789 site-packages/torch/_inductor/select_algorithm.py:1477] [1/4] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/tf/ctfyoshg36t3km4ucbrok52lpzynem4rxolza4spiv5yiiofcdeo.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:35:59.653000 10789 site-packages/torch/_inductor/select_algorithm.py:1696] [1/4] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x2048x128, 1x8x2048x128, 1x8x2048x128, 1x32x2048, 1x1x16, 1x1x16x16, 1x1x16, 1x1x16x16, 2048)
+  triton_flex_attention_20 1.2708 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_24 1.5104 ms 84.1% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_21 1.5821 ms 80.3% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_23 4.0253 ms 31.6% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_22 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.6506 seconds and 11.2090 seconds precompiling for 5 choices
+2026-11-10 00:36:43,360 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:36:43,360 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:36:43,430 - __main__ [rank=0] - INFO - Compaction completed in 208.6s: {'value_absmax': 160.0, 'key_absmax': 300.0, 'n_documents': 4, 'T_teacher': 49392, 'doc_token_counts': [12644, 12308, 12878, 11562], 'num_tokens': 512, 'key_select': 'highest_attention', 'dataset': 'longhealth', 'qasper_topic': 'QA', 'quality_phase': None, 'phase': 1, 'enable_beta': False, 'rebake_key_positions': True, 'global_teacher_positions': True, 'rope_theta': 5000000.0, 'model_rope_theta': 5000000.0, 'rope_theta_matches_model': True, 'strip_reference_system_prompt': True, 'ridge_lambda': 0.0001, 'ridge_scale': 'spectral', 'n_ref_batches': 50, 'flex_targets': False, 'query_position_offset': 0, 'align_student_rope': True, 'student_rope_offset': 512, 'recon_mse_mean': 0.020096712026593702, 'recon_mse_max': 0.14649441558867693, 'recon_mse_per_layer': {0: 3.804013294939068e-05, 1: 1.2384331853354524e-05, 2: 2.49474088604984e-05, 3: 5.8551071106194286e-05, 4: 0.00010798715993587393, 5: 0.00027237438916927204, 6: 0.00025737949363247026, 7: 0.0005561929065152071, 8: 0.0011598571909416933, 9: 0.0010301735674147494, 10: 0.0015554350029560737, 11: 0.0010516496222408023, 12: 0.0018527052161516622, 13: 0.001770300164935179, 14: 0.002931621376774274, 15: 0.006522089461213909, 16: 0.0029169532645028085, 17: 0.0028919170727021992, 18: 0.0034576007165014744, 19: 0.0073711951554287225, 20: 0.007549871748778969, 21: 0.006713558177580126, 22: 0.011491248820675537, 23: 0.012926857016282156, 24: 0.015229457465466112, 25: 0.016811176290502772, 26: 0.014720126811880618, 27: 0.028675642679445446, 28: 0.033730167779140174, 29: 0.02573324798140675, 30: 0.05735281121451408, 31: 0.040787856793031096, 32: 0.0706482243258506, 33: 0.08673643739894032, 34: 0.14649441558867693, 35: 0.11204117815941572}, 'wall_clock_s': 208.5382513999939, 'rope_note': "Each doc prefilled at a running offset, so absolute RoPE positions are unique corpus-wide. Selected keys rebaked onto sequential slots at rope_theta=5e+06, matching the model's base.", 'stabilizers': 'none (one-shot compaction: no delta_weight, no old-ref guard)', 'compact_time_s': 208.58036541938782}
+E1110 00:37:01.177000 10789 site-packages/torch/_inductor/select_algorithm.py:1477] [1/5] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/rj/crjzuxs2swfztmg3rylb5byeutlg777oyt4qumlj75eodv3zafo5.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:37:01.502000 10789 site-packages/torch/_inductor/select_algorithm.py:1696] [1/5] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x2048x128, 1x8x2560x128, 1x8x2560x128, 1x32x2048, 1x1x16, 1x1x16x20, 1x1x16, 1x1x16x20, 2560, 2048)
+  triton_flex_attention_25 1.2687 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_29 1.5114 ms 83.9% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_26 1.5882 ms 79.9% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_28 4.5332 ms 28.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_27 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.6503 seconds and 10.7798 seconds precompiling for 5 choices
+2026-11-10 00:37:13,856 - cartridges.train [rank=0] - INFO - Evaluating `p1` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p1):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p1):  10%|█         | 1/10 [00:00<00:01,  7.37it/s]
+Evaluation [step=0] (p1):  20%|██        | 2/10 [00:00<00:01,  7.67it/s]
+Evaluation [step=0] (p1):  30%|███       | 3/10 [00:00<00:00,  7.77it/s]
+Evaluation [step=0] (p1):  40%|████      | 4/10 [00:00<00:00,  7.77it/s]
+Evaluation [step=0] (p1):  50%|█████     | 5/10 [00:00<00:00,  7.82it/s]
+Evaluation [step=0] (p1):  60%|██████    | 6/10 [00:00<00:00,  7.84it/s]
+Evaluation [step=0] (p1):  70%|███████   | 7/10 [00:00<00:00,  7.84it/s]
+Evaluation [step=0] (p1):  80%|████████  | 8/10 [00:01<00:00,  7.85it/s]
+Evaluation [step=0] (p1):  90%|█████████ | 9/10 [00:01<00:00,  7.86it/s]
+Evaluation [step=0] (p1): 100%|██████████| 10/10 [00:01<00:00,  7.83it/s]
+                                                                         
+2026-11-10 00:37:15,138 - cartridges.train [rank=0] - INFO - Eval loss - 2.56669282913208 
+2026-11-10 00:37:15,138 - cartridges.train [rank=0] - INFO - done evaling - p1
+2026-11-10 00:37:15,138 - cartridges.train [rank=0] - INFO - Evaluating `p2` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p2):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p2):  11%|█         | 1/9 [00:00<00:01,  7.93it/s]
+Evaluation [step=0] (p2):  22%|██▏       | 2/9 [00:00<00:00,  7.93it/s]
+Evaluation [step=0] (p2):  33%|███▎      | 3/9 [00:00<00:00,  7.91it/s]
+Evaluation [step=0] (p2):  44%|████▍     | 4/9 [00:00<00:00,  7.91it/s]
+Evaluation [step=0] (p2):  56%|█████▌    | 5/9 [00:00<00:00,  7.91it/s]
+Evaluation [step=0] (p2):  67%|██████▋   | 6/9 [00:00<00:00,  7.91it/s]
+Evaluation [step=0] (p2):  78%|███████▊  | 7/9 [00:00<00:00,  7.90it/s]
+Evaluation [step=0] (p2):  89%|████████▉ | 8/9 [00:01<00:00,  7.90it/s]
+Evaluation [step=0] (p2): 100%|██████████| 9/9 [00:01<00:00,  7.78it/s]
+                                                                       
+2026-11-10 00:37:16,284 - cartridges.train [rank=0] - INFO - Eval loss - 4.082645893096924 
+2026-11-10 00:37:16,284 - cartridges.train [rank=0] - INFO - done evaling - p2
+2026-11-10 00:37:16,284 - cartridges.train [rank=0] - INFO - Evaluating `p3` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p3):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p3):  11%|█         | 1/9 [00:00<00:01,  7.93it/s]
+Evaluation [step=0] (p3):  22%|██▏       | 2/9 [00:00<00:00,  7.94it/s]
+Evaluation [step=0] (p3):  33%|███▎      | 3/9 [00:00<00:00,  7.93it/s]
+Evaluation [step=0] (p3):  44%|████▍     | 4/9 [00:00<00:00,  7.86it/s]
+Evaluation [step=0] (p3):  56%|█████▌    | 5/9 [00:00<00:00,  7.89it/s]
+Evaluation [step=0] (p3):  67%|██████▋   | 6/9 [00:00<00:00,  7.90it/s]
+Evaluation [step=0] (p3):  78%|███████▊  | 7/9 [00:00<00:00,  7.88it/s]
+Evaluation [step=0] (p3):  89%|████████▉ | 8/9 [00:01<00:00,  7.88it/s]
+Evaluation [step=0] (p3): 100%|██████████| 9/9 [00:01<00:00,  7.81it/s]
+                                                                       
+2026-11-10 00:37:17,429 - cartridges.train [rank=0] - INFO - Eval loss - 3.7395081520080566 
+2026-11-10 00:37:17,430 - cartridges.train [rank=0] - INFO - done evaling - p3
+2026-11-10 00:37:17,430 - cartridges.train [rank=0] - INFO - Evaluating `p4` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p4):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p4):  12%|█▎        | 1/8 [00:00<00:00,  7.93it/s]
+Evaluation [step=0] (p4):  25%|██▌       | 2/8 [00:00<00:00,  7.94it/s]
+Evaluation [step=0] (p4):  38%|███▊      | 3/8 [00:00<00:00,  7.92it/s]
+Evaluation [step=0] (p4):  50%|█████     | 4/8 [00:00<00:00,  7.93it/s]
+Evaluation [step=0] (p4):  62%|██████▎   | 5/8 [00:00<00:00,  7.93it/s]
+Evaluation [step=0] (p4):  75%|███████▌  | 6/8 [00:00<00:00,  7.92it/s]
+Evaluation [step=0] (p4):  88%|████████▊ | 7/8 [00:00<00:00,  7.92it/s]
+Evaluation [step=0] (p4): 100%|██████████| 8/8 [00:01<00:00,  7.91it/s]
+                                                                       
+2026-11-10 00:37:18,441 - cartridges.train [rank=0] - INFO - Eval loss - 3.788994073867798 
+2026-11-10 00:37:18,441 - cartridges.train [rank=0] - INFO - done evaling - p4
+2026-11-10 00:37:18,441 - cartridges.train [rank=0] - INFO - Evaluating `p5` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p5):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p5):  12%|█▎        | 1/8 [00:00<00:00,  7.95it/s]
+Evaluation [step=0] (p5):  25%|██▌       | 2/8 [00:00<00:00,  7.92it/s]
+Evaluation [step=0] (p5):  38%|███▊      | 3/8 [00:00<00:00,  7.91it/s]
+Evaluation [step=0] (p5):  50%|█████     | 4/8 [00:00<00:00,  7.90it/s]
+Evaluation [step=0] (p5):  62%|██████▎   | 5/8 [00:00<00:00,  7.92it/s]
+Evaluation [step=0] (p5):  75%|███████▌  | 6/8 [00:00<00:00,  7.92it/s]
+Evaluation [step=0] (p5):  88%|████████▊ | 7/8 [00:00<00:00,  7.90it/s]
+Evaluation [step=0] (p5): 100%|██████████| 8/8 [00:01<00:00,  7.90it/s]
+                                                                       
+2026-11-10 00:37:19,454 - cartridges.train [rank=0] - INFO - Eval loss - 4.125100612640381 
+2026-11-10 00:37:19,454 - cartridges.train [rank=0] - INFO - done evaling - p5
+2026-11-10 00:37:19,681 - __main__ [rank=0] - INFO - AM Phase 1 compaction complete. Saved to /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081
+dataset   longhealth
+method    compaction
+p1 root   /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01
+recipe    /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/recipes/subkv_sweep/e2e_budget512_topt128.yaml
+=== p01 cache: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache_last.pt
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache_last.pt
+    P01 Cache ready: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache_last.pt
+--- Step 2: Continual Compaction (Stages p02-p05, top_t=128) ---
+dataset      longhealth
+method       am
+lineage      e2e_budget512_topt128
+p01 cache    /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+recipe       /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/recipes/subkv_sweep/e2e_budget512_topt128.yaml
+recipe knobs key_mode=highest_attention reposition=True beta=False top_t=128 ridge=0.0 delta=0.01 rope_theta=5000000.0
+runs/state   /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs | /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state
+write gpu    0   eval fan-out gpus ['0']
+
+=== p01: evaluating the starting cartridge on all 5 evals (fan-out gpus ['0']) ===
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.02it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.02s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.46it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+2026-11-10 00:37:36,943 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:37:36,943 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:37:36,964 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:37:37,051 - cartridges.train [rank=0] - INFO - Evaluating `p1` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p1):   0%|          | 0/10 [00:00<?, ?it/s]E1110 00:38:39.086000 12780 site-packages/torch/_inductor/select_algorithm.py:1477] [1/0] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/ks/cksifw4mj2epobanxwjdcdvnsshd5jhnragvgbo3asnbd4szi27o.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:38:39.406000 12780 site-packages/torch/_inductor/select_algorithm.py:1696] [1/0] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x2048x128, 1x8x2560x128, 1x8x2560x128, 1x32x2048, 1x1x16, 1x1x16x20, 1x1x16, 1x1x16x20, 2560, 2048)
+  triton_flex_attention_0 1.2687 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_4 1.5114 ms 83.9% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_1 1.5575 ms 81.5% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_3 4.5332 ms 28.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_2 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.6440 seconds and 11.4292 seconds precompiling for 5 choices
+
+Evaluation [step=0] (p1):  10%|█         | 1/10 [01:04<09:41, 64.58s/it]
+Evaluation [step=0] (p1):  20%|██        | 2/10 [01:04<03:33, 26.68s/it]
+Evaluation [step=0] (p1):  30%|███       | 3/10 [01:04<01:41, 14.55s/it]
+Evaluation [step=0] (p1):  40%|████      | 4/10 [01:04<00:53,  8.86s/it]
+Evaluation [step=0] (p1):  50%|█████     | 5/10 [01:05<00:28,  5.71s/it]
+Evaluation [step=0] (p1):  60%|██████    | 6/10 [01:05<00:15,  3.81s/it]
+Evaluation [step=0] (p1):  70%|███████   | 7/10 [01:05<00:07,  2.61s/it]
+Evaluation [step=0] (p1):  80%|████████  | 8/10 [01:05<00:03,  1.82s/it]
+Evaluation [step=0] (p1):  90%|█████████ | 9/10 [01:05<00:01,  1.29s/it]
+Evaluation [step=0] (p1): 100%|██████████| 10/10 [01:05<00:00,  1.08it/s]
+                                                                         
+2026-11-10 00:38:42,789 - cartridges.train [rank=0] - INFO - Eval loss - 2.5659165382385254 
+2026-11-10 00:38:42,789 - cartridges.train [rank=0] - INFO - done evaling - p1
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p1": {
+      "name": "p1",
+      "loss": 2.5659165382385254,
+      "perplexity": 13.012579432412853
+    }
+  }
+}
+2026-11-10 00:38:42,790 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p01_evals/p1.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.08it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.54it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+2026-11-10 00:38:58,656 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:38:58,656 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:38:58,677 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:38:58,759 - cartridges.train [rank=0] - INFO - Evaluating `p2` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p2):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p2):  11%|█         | 1/9 [00:05<00:42,  5.27s/it]
+Evaluation [step=0] (p2):  22%|██▏       | 2/9 [00:05<00:15,  2.24s/it]
+Evaluation [step=0] (p2):  33%|███▎      | 3/9 [00:05<00:07,  1.28s/it]
+Evaluation [step=0] (p2):  44%|████▍     | 4/9 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p2):  56%|█████▌    | 5/9 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p2):  67%|██████▋   | 6/9 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p2):  78%|███████▊  | 7/9 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p2):  89%|████████▉ | 8/9 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p2): 100%|██████████| 9/9 [00:06<00:00,  4.55it/s]
+                                                                       
+2026-11-10 00:39:05,042 - cartridges.train [rank=0] - INFO - Eval loss - 4.08675479888916 
+2026-11-10 00:39:05,043 - cartridges.train [rank=0] - INFO - done evaling - p2
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p2": {
+      "name": "p2",
+      "loss": 4.08675479888916,
+      "perplexity": 59.546337971484405
+    }
+  }
+}
+2026-11-10 00:39:05,044 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p01_evals/p2.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.12it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.55it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+2026-11-10 00:39:20,756 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:39:20,756 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:39:20,777 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:39:20,859 - cartridges.train [rank=0] - INFO - Evaluating `p3` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p3):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p3):  12%|█▎        | 1/8 [00:05<00:36,  5.24s/it]
+Evaluation [step=0] (p3):  25%|██▌       | 2/8 [00:05<00:13,  2.23s/it]
+Evaluation [step=0] (p3):  38%|███▊      | 3/8 [00:05<00:06,  1.27s/it]
+Evaluation [step=0] (p3):  50%|█████     | 4/8 [00:05<00:03,  1.22it/s]
+Evaluation [step=0] (p3):  62%|██████▎   | 5/8 [00:05<00:01,  1.76it/s]
+Evaluation [step=0] (p3):  75%|███████▌  | 6/8 [00:05<00:00,  2.40it/s]
+Evaluation [step=0] (p3):  88%|████████▊ | 7/8 [00:05<00:00,  3.11it/s]
+Evaluation [step=0] (p3): 100%|██████████| 8/8 [00:06<00:00,  3.85it/s]
+                                                                       
+2026-11-10 00:39:26,975 - cartridges.train [rank=0] - INFO - Eval loss - 3.7370214462280273 
+2026-11-10 00:39:26,975 - cartridges.train [rank=0] - INFO - done evaling - p3
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p3": {
+      "name": "p3",
+      "loss": 3.7370214462280273,
+      "perplexity": 41.97278559443706
+    }
+  }
+}
+2026-11-10 00:39:26,976 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p01_evals/p3.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.04it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.01it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.50it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+2026-11-10 00:39:42,889 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:39:42,889 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:39:42,911 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:39:42,991 - cartridges.train [rank=0] - INFO - Evaluating `p4` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p4):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p4):  12%|█▎        | 1/8 [00:05<00:36,  5.20s/it]
+Evaluation [step=0] (p4):  25%|██▌       | 2/8 [00:05<00:13,  2.22s/it]
+Evaluation [step=0] (p4):  38%|███▊      | 3/8 [00:05<00:06,  1.26s/it]
+Evaluation [step=0] (p4):  50%|█████     | 4/8 [00:05<00:03,  1.23it/s]
+Evaluation [step=0] (p4):  62%|██████▎   | 5/8 [00:05<00:01,  1.77it/s]
+Evaluation [step=0] (p4):  75%|███████▌  | 6/8 [00:05<00:00,  2.40it/s]
+Evaluation [step=0] (p4):  88%|████████▊ | 7/8 [00:05<00:00,  3.11it/s]
+Evaluation [step=0] (p4): 100%|██████████| 8/8 [00:06<00:00,  3.86it/s]
+                                                                       
+2026-11-10 00:39:49,079 - cartridges.train [rank=0] - INFO - Eval loss - 3.789677143096924 
+2026-11-10 00:39:49,079 - cartridges.train [rank=0] - INFO - done evaling - p4
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p4": {
+      "name": "p4",
+      "loss": 3.789677143096924,
+      "perplexity": 44.24211409796865
+    }
+  }
+}
+2026-11-10 00:39:49,081 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p01_evals/p4.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.06it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.02it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.52it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+2026-11-10 00:40:04,897 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:40:04,897 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:40:04,918 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:40:04,998 - cartridges.train [rank=0] - INFO - Evaluating `p5` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p5):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p5):  12%|█▎        | 1/8 [00:05<00:36,  5.22s/it]
+Evaluation [step=0] (p5):  25%|██▌       | 2/8 [00:05<00:13,  2.22s/it]
+Evaluation [step=0] (p5):  38%|███▊      | 3/8 [00:05<00:06,  1.26s/it]
+Evaluation [step=0] (p5):  50%|█████     | 4/8 [00:05<00:03,  1.23it/s]
+Evaluation [step=0] (p5):  62%|██████▎   | 5/8 [00:05<00:01,  1.77it/s]
+Evaluation [step=0] (p5):  75%|███████▌  | 6/8 [00:05<00:00,  2.40it/s]
+Evaluation [step=0] (p5):  88%|████████▊ | 7/8 [00:05<00:00,  3.11it/s]
+Evaluation [step=0] (p5): 100%|██████████| 8/8 [00:06<00:00,  3.86it/s]
+                                                                       
+2026-11-10 00:40:11,096 - cartridges.train [rank=0] - INFO - Eval loss - 4.127112865447998 
+2026-11-10 00:40:11,096 - cartridges.train [rank=0] - INFO - done evaling - p5
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p5": {
+      "name": "p5",
+      "loss": 4.127112865447998,
+      "perplexity": 61.99866579933598
+    }
+  }
+}
+2026-11-10 00:40:11,097 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p01_evals/p5.json
+
+=== p02: am write on gpu 0 + 5 evals fanned across ['0'] ===
+2026-11-10 00:40:20,440 - __main__ [rank=0] - INFO - B-ROPE: AM teacher rope_theta = 5e+06
+Running 1 configs
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.07it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.55it/s]
+2026-11-10 00:40:26,761 - cartridges.am.continual.run [rank=0] - INFO - RoPE write bound to model frequencies (ratio to vanilla theta min=0.9963 max=1.0034)
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/experiments/subkv_sweep_longhealth/budget512/p01/2026-11-10-00-32-47-initial_am_compaction/b74e0db0-7e6c-47c9-9776-5caf2f5ed081/cache-step0.pt
+2026-11-10 00:40:26,824 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:40:26,824 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:40:27,163 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM: 27 unique documents in /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/train/qwen_longhealth_p2_task_8192.parquet (teacher dataset=longhealth, qasper_topic=MT, quality_phase=None)
+2026-11-10 00:40:29,071 - cartridges.am.continual.run [rank=0] - INFO - Document 1/27 (doc-000-237aebd6): 64 conversations
+E1110 00:41:55.241000 14335 site-packages/torch/_inductor/select_algorithm.py:1477] [1/0] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/xi/cxidyaj4ptm36svxgc3xecypbzm3okbzdvpu2wzkb4trh2662jkk.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:41:55.806000 14335 site-packages/torch/_inductor/select_algorithm.py:1696] [1/0] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x11333x128, 1x8x11333x128, 1x8x11333x128, 1x32x11333, 1x1x89, 1x1x89x89, 1x1x89, 1x1x89x89, 11333)
+  triton_flex_attention_0 7.5284 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_4 8.7511 ms 86.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_1 12.1999 ms 61.7% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_3 37.4518 ms 20.1% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_2 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9640 seconds and 11.9988 seconds precompiling for 5 choices
+2026-11-10 00:42:10,269 - cartridges.am.continual.run [rank=0] - INFO - Document doc-000-237aebd6 complete: mean_mse=0.000805 queries=294912 time=101.1s
+2026-11-10 00:42:10,270 - cartridges.am.continual.run [rank=0] - INFO - Document 2/27 (doc-001-d67a6f5b): 192 conversations
+E1110 00:42:30.082000 14335 site-packages/torch/_inductor/select_algorithm.py:1477] [1/2] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/3c/c3c5o3uvzprdz5ibqwsatl4swraknmnaj4q7sp2ba23dat2sg3lm.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:42:30.493000 14335 site-packages/torch/_inductor/select_algorithm.py:1696] [1/2] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x10122x128, 1x8x10122x128, 1x8x10122x128, 1x32x10122, 1x1x80, 1x1x80x80, 1x1x80, 1x1x80x80, 10122)
+  triton_flex_attention_5 6.4358 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_9 7.8725 ms 81.8% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_6 10.5001 ms 61.3% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_8 31.3119 ms 20.6% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_7 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9399 seconds and 12.5597 seconds precompiling for 5 choices
+2026-11-10 00:42:40,569 - cartridges.am.continual.run [rank=0] - INFO - Document doc-001-d67a6f5b complete: mean_mse=0.000573 queries=294912 time=30.2s
+2026-11-10 00:42:40,570 - cartridges.am.continual.run [rank=0] - INFO - Document 3/27 (doc-002-1a4f3b33): 96 conversations
+2026-11-10 00:42:47,781 - cartridges.am.continual.run [rank=0] - INFO - Document doc-002-1a4f3b33 complete: mean_mse=0.000948 queries=294912 time=7.1s
+2026-11-10 00:42:47,781 - cartridges.am.continual.run [rank=0] - INFO - Document 4/27 (doc-003-002d5e1c): 128 conversations
+2026-11-10 00:42:54,342 - cartridges.am.continual.run [rank=0] - INFO - Document doc-003-002d5e1c complete: mean_mse=0.001528 queries=294912 time=6.4s
+2026-11-10 00:42:54,342 - cartridges.am.continual.run [rank=0] - INFO - Document 5/27 (doc-004-d313be95): 128 conversations
+2026-11-10 00:43:00,906 - cartridges.am.continual.run [rank=0] - INFO - Document doc-004-d313be95 complete: mean_mse=0.001400 queries=294912 time=6.5s
+2026-11-10 00:43:00,907 - cartridges.am.continual.run [rank=0] - INFO - Document 6/27 (doc-005-09f0d65b): 128 conversations
+2026-11-10 00:43:07,739 - cartridges.am.continual.run [rank=0] - INFO - Document doc-005-09f0d65b complete: mean_mse=0.001766 queries=294912 time=6.7s
+2026-11-10 00:43:07,739 - cartridges.am.continual.run [rank=0] - INFO - Document 7/27 (doc-006-52000ef9): 96 conversations
+2026-11-10 00:43:14,867 - cartridges.am.continual.run [rank=0] - INFO - Document doc-006-52000ef9 complete: mean_mse=0.001868 queries=294912 time=7.0s
+2026-11-10 00:43:14,867 - cartridges.am.continual.run [rank=0] - INFO - Document 8/27 (doc-007-aacb72aa): 128 conversations
+2026-11-10 00:43:22,144 - cartridges.am.continual.run [rank=0] - INFO - Document doc-007-aacb72aa complete: mean_mse=0.001715 queries=294912 time=7.2s
+2026-11-10 00:43:22,145 - cartridges.am.continual.run [rank=0] - INFO - Document 9/27 (doc-008-48afc6cd): 32 conversations
+2026-11-10 00:43:29,062 - cartridges.am.continual.run [rank=0] - INFO - Document doc-008-48afc6cd complete: mean_mse=0.001668 queries=294912 time=6.8s
+2026-11-10 00:43:29,063 - cartridges.am.continual.run [rank=0] - INFO - Document 10/27 (doc-009-94f7ae5e): 128 conversations
+2026-11-10 00:43:35,746 - cartridges.am.continual.run [rank=0] - INFO - Document doc-009-94f7ae5e complete: mean_mse=0.001524 queries=294912 time=6.6s
+2026-11-10 00:43:35,747 - cartridges.am.continual.run [rank=0] - INFO - Document 11/27 (doc-010-819481fb): 96 conversations
+2026-11-10 00:43:42,653 - cartridges.am.continual.run [rank=0] - INFO - Document doc-010-819481fb complete: mean_mse=0.001872 queries=294912 time=6.8s
+2026-11-10 00:43:42,654 - cartridges.am.continual.run [rank=0] - INFO - Document 12/27 (doc-011-1165ac8a): 96 conversations
+2026-11-10 00:43:49,370 - cartridges.am.continual.run [rank=0] - INFO - Document doc-011-1165ac8a complete: mean_mse=0.001740 queries=294912 time=6.6s
+2026-11-10 00:43:49,370 - cartridges.am.continual.run [rank=0] - INFO - Document 13/27 (doc-012-872ba2f8): 128 conversations
+2026-11-10 00:43:55,487 - cartridges.am.continual.run [rank=0] - INFO - Document doc-012-872ba2f8 complete: mean_mse=0.001734 queries=294912 time=6.0s
+2026-11-10 00:43:55,488 - cartridges.am.continual.run [rank=0] - INFO - Document 14/27 (doc-013-7f31d678): 64 conversations
+2026-11-10 00:44:01,807 - cartridges.am.continual.run [rank=0] - INFO - Document doc-013-7f31d678 complete: mean_mse=0.001982 queries=294912 time=6.2s
+2026-11-10 00:44:01,807 - cartridges.am.continual.run [rank=0] - INFO - Document 15/27 (doc-014-1908d0c8): 32 conversations
+2026-11-10 00:44:07,596 - cartridges.am.continual.run [rank=0] - INFO - Document doc-014-1908d0c8 complete: mean_mse=0.001400 queries=294912 time=5.7s
+2026-11-10 00:44:07,597 - cartridges.am.continual.run [rank=0] - INFO - Document 16/27 (doc-015-ed4c19dd): 128 conversations
+E1110 00:44:20.657000 14335 site-packages/torch/_inductor/select_algorithm.py:1477] [1/3] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/2a/c2aqqx4typ6l6ki4m4aoua3sxueo6xwhw6vgk3t52wnit73oepun.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:44:21.063000 14335 site-packages/torch/_inductor/select_algorithm.py:1696] [1/3] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x11024x128, 1x8x11024x128, 1x8x11024x128, 1x32x11024, 1x1x87, 1x1x87x87, 1x1x87, 1x1x87x87, 11024)
+  triton_flex_attention_10 6.9796 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_14 8.5361 ms 81.8% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_11 11.4125 ms 61.2% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_13 33.8422 ms 20.6% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_12 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9224 seconds and 12.0140 seconds precompiling for 5 choices
+2026-11-10 00:44:29,217 - cartridges.am.continual.run [rank=0] - INFO - Document doc-015-ed4c19dd complete: mean_mse=0.001279 queries=294912 time=21.5s
+2026-11-10 00:44:29,217 - cartridges.am.continual.run [rank=0] - INFO - Document 17/27 (doc-016-eedf04ae): 256 conversations
+E1110 00:44:42.897000 14335 site-packages/torch/_inductor/select_algorithm.py:1477] [1/4] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/ha/cha5zs5zhkestiex3varn3alyw4d6st6wci2a5pha2gchttplr45.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:44:43.311000 14335 site-packages/torch/_inductor/select_algorithm.py:1696] [1/4] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x10046x128, 1x8x10046x128, 1x8x10046x128, 1x32x10046, 1x1x79, 1x1x79x79, 1x1x79, 1x1x79x79, 10046)
+  triton_flex_attention_15 6.4379 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_19 7.7292 ms 83.3% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_16 10.4612 ms 61.5% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_18 31.5064 ms 20.4% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_17 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9439 seconds and 12.8925 seconds precompiling for 5 choices
+2026-11-10 00:44:51,148 - cartridges.am.continual.run [rank=0] - INFO - Document doc-016-eedf04ae complete: mean_mse=0.001580 queries=294912 time=21.8s
+2026-11-10 00:44:51,148 - cartridges.am.continual.run [rank=0] - INFO - Document 18/27 (doc-017-0e4476d8): 128 conversations
+2026-11-10 00:44:57,127 - cartridges.am.continual.run [rank=0] - INFO - Document doc-017-0e4476d8 complete: mean_mse=0.001192 queries=294912 time=5.9s
+2026-11-10 00:44:57,128 - cartridges.am.continual.run [rank=0] - INFO - Document 19/27 (doc-018-0d5edb28): 224 conversations
+2026-11-10 00:45:04,127 - cartridges.am.continual.run [rank=0] - INFO - Document doc-018-0d5edb28 complete: mean_mse=0.001535 queries=294912 time=6.9s
+2026-11-10 00:45:04,127 - cartridges.am.continual.run [rank=0] - INFO - Document 20/27 (doc-019-4c60ae9e): 160 conversations
+2026-11-10 00:45:09,819 - cartridges.am.continual.run [rank=0] - INFO - Document doc-019-4c60ae9e complete: mean_mse=0.001120 queries=294912 time=5.6s
+2026-11-10 00:45:09,819 - cartridges.am.continual.run [rank=0] - INFO - Document 21/27 (doc-020-c603b7f9): 128 conversations
+2026-11-10 00:45:15,990 - cartridges.am.continual.run [rank=0] - INFO - Document doc-020-c603b7f9 complete: mean_mse=0.001414 queries=294912 time=6.1s
+2026-11-10 00:45:15,990 - cartridges.am.continual.run [rank=0] - INFO - Document 22/27 (doc-021-6d868d1c): 160 conversations
+2026-11-10 00:45:22,159 - cartridges.am.continual.run [rank=0] - INFO - Document doc-021-6d868d1c complete: mean_mse=0.001154 queries=294912 time=6.1s
+2026-11-10 00:45:22,159 - cartridges.am.continual.run [rank=0] - INFO - Document 23/27 (doc-022-66388a84): 192 conversations
+2026-11-10 00:45:28,478 - cartridges.am.continual.run [rank=0] - INFO - Document doc-022-66388a84 complete: mean_mse=0.001488 queries=294912 time=6.2s
+2026-11-10 00:45:28,478 - cartridges.am.continual.run [rank=0] - INFO - Document 24/27 (doc-023-d572c376): 96 conversations
+2026-11-10 00:45:35,796 - cartridges.am.continual.run [rank=0] - INFO - Document doc-023-d572c376 complete: mean_mse=0.001369 queries=294912 time=7.2s
+2026-11-10 00:45:35,796 - cartridges.am.continual.run [rank=0] - INFO - Document 25/27 (doc-024-b16b1cdc): 96 conversations
+2026-11-10 00:45:42,756 - cartridges.am.continual.run [rank=0] - INFO - Document doc-024-b16b1cdc complete: mean_mse=0.001543 queries=294912 time=6.8s
+2026-11-10 00:45:42,756 - cartridges.am.continual.run [rank=0] - INFO - Document 26/27 (doc-025-97cf86dc): 32 conversations
+2026-11-10 00:45:50,603 - cartridges.am.continual.run [rank=0] - INFO - Document doc-025-97cf86dc complete: mean_mse=0.001901 queries=294912 time=7.7s
+2026-11-10 00:45:50,604 - cartridges.am.continual.run [rank=0] - INFO - Document 27/27 (doc-026-49eb173e): 32 conversations
+2026-11-10 00:45:56,431 - cartridges.am.continual.run [rank=0] - INFO - Document doc-026-49eb173e complete: mean_mse=0.001422 queries=294912 time=5.7s
+2026-11-10 00:45:56,435 - cartridges.am.continual.run [rank=0] - INFO - SLOT-GEOMETRY: saved slots_written.pt (this-stage distinct slots/layer=326.6/512, this-stage writes=124416, cumulative writes=124416)
+2026-11-10 00:45:56,435 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete: 27 documents in 327.4s
+2026-11-10 00:45:56,549 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete in 329.6s (27 documents). Saved to /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.14it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.56it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt
+2026-11-10 00:46:12,741 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:46:12,741 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:46:12,762 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:46:12,851 - cartridges.train [rank=0] - INFO - Evaluating `p1` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p1):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p1):  10%|█         | 1/10 [00:05<00:47,  5.26s/it]
+Evaluation [step=0] (p1):  20%|██        | 2/10 [00:05<00:17,  2.24s/it]
+Evaluation [step=0] (p1):  30%|███       | 3/10 [00:05<00:08,  1.27s/it]
+Evaluation [step=0] (p1):  40%|████      | 4/10 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p1):  50%|█████     | 5/10 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p1):  60%|██████    | 6/10 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p1):  70%|███████   | 7/10 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p1):  80%|████████  | 8/10 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p1):  90%|█████████ | 9/10 [00:06<00:00,  4.58it/s]
+Evaluation [step=0] (p1): 100%|██████████| 10/10 [00:06<00:00,  5.27it/s]
+                                                                         
+2026-11-10 00:46:19,244 - cartridges.train [rank=0] - INFO - Eval loss - 1.9362274408340454 
+2026-11-10 00:46:19,244 - cartridges.train [rank=0] - INFO - done evaling - p1
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p1": {
+      "name": "p1",
+      "loss": 1.9362274408340454,
+      "perplexity": 6.932548127843783
+    }
+  }
+}
+2026-11-10 00:46:19,245 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p02_evals/p1.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.11it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.07it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.59it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt
+2026-11-10 00:46:34,954 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:46:34,954 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:46:34,975 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:46:35,058 - cartridges.train [rank=0] - INFO - Evaluating `p2` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p2):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p2):  11%|█         | 1/9 [00:05<00:41,  5.22s/it]
+Evaluation [step=0] (p2):  22%|██▏       | 2/9 [00:05<00:15,  2.22s/it]
+Evaluation [step=0] (p2):  33%|███▎      | 3/9 [00:05<00:07,  1.27s/it]
+Evaluation [step=0] (p2):  44%|████▍     | 4/9 [00:05<00:04,  1.23it/s]
+Evaluation [step=0] (p2):  56%|█████▌    | 5/9 [00:05<00:02,  1.76it/s]
+Evaluation [step=0] (p2):  67%|██████▋   | 6/9 [00:05<00:01,  2.40it/s]
+Evaluation [step=0] (p2):  78%|███████▊  | 7/9 [00:05<00:00,  3.11it/s]
+Evaluation [step=0] (p2):  89%|████████▉ | 8/9 [00:06<00:00,  3.86it/s]
+Evaluation [step=0] (p2): 100%|██████████| 9/9 [00:06<00:00,  4.56it/s]
+                                                                       
+2026-11-10 00:46:41,290 - cartridges.train [rank=0] - INFO - Eval loss - 2.9781911373138428 
+2026-11-10 00:46:41,290 - cartridges.train [rank=0] - INFO - done evaling - p2
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p2": {
+      "name": "p2",
+      "loss": 2.9781911373138428,
+      "perplexity": 19.65223627756261
+    }
+  }
+}
+2026-11-10 00:46:41,292 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p02_evals/p2.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.07it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.03it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.53it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt
+2026-11-10 00:46:57,150 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:46:57,151 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:46:57,171 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:46:57,253 - cartridges.train [rank=0] - INFO - Evaluating `p3` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p3):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p3):  12%|█▎        | 1/8 [00:05<00:36,  5.25s/it]
+Evaluation [step=0] (p3):  25%|██▌       | 2/8 [00:05<00:13,  2.24s/it]
+Evaluation [step=0] (p3):  38%|███▊      | 3/8 [00:05<00:06,  1.27s/it]
+Evaluation [step=0] (p3):  50%|█████     | 4/8 [00:05<00:03,  1.22it/s]
+Evaluation [step=0] (p3):  62%|██████▎   | 5/8 [00:05<00:01,  1.76it/s]
+Evaluation [step=0] (p3):  75%|███████▌  | 6/8 [00:05<00:00,  2.39it/s]
+Evaluation [step=0] (p3):  88%|████████▊ | 7/8 [00:06<00:00,  3.10it/s]
+Evaluation [step=0] (p3): 100%|██████████| 8/8 [00:06<00:00,  3.85it/s]
+                                                                       
+2026-11-10 00:47:03,385 - cartridges.train [rank=0] - INFO - Eval loss - 2.7137179374694824 
+2026-11-10 00:47:03,385 - cartridges.train [rank=0] - INFO - done evaling - p3
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p3": {
+      "name": "p3",
+      "loss": 2.7137179374694824,
+      "perplexity": 15.085257425586299
+    }
+  }
+}
+2026-11-10 00:47:03,386 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p02_evals/p3.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.24it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.11it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.66it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt
+2026-11-10 00:47:19,018 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:47:19,018 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:47:19,039 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:47:19,121 - cartridges.train [rank=0] - INFO - Evaluating `p4` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p4):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p4):  12%|█▎        | 1/8 [00:05<00:36,  5.24s/it]
+Evaluation [step=0] (p4):  25%|██▌       | 2/8 [00:05<00:13,  2.23s/it]
+Evaluation [step=0] (p4):  38%|███▊      | 3/8 [00:05<00:06,  1.27s/it]
+Evaluation [step=0] (p4):  50%|█████     | 4/8 [00:05<00:03,  1.22it/s]
+Evaluation [step=0] (p4):  62%|██████▎   | 5/8 [00:05<00:01,  1.76it/s]
+Evaluation [step=0] (p4):  75%|███████▌  | 6/8 [00:05<00:00,  2.39it/s]
+Evaluation [step=0] (p4):  88%|████████▊ | 7/8 [00:05<00:00,  3.10it/s]
+Evaluation [step=0] (p4): 100%|██████████| 8/8 [00:06<00:00,  3.85it/s]
+                                                                       
+2026-11-10 00:47:25,241 - cartridges.train [rank=0] - INFO - Eval loss - 2.635868787765503 
+2026-11-10 00:47:25,241 - cartridges.train [rank=0] - INFO - done evaling - p4
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p4": {
+      "name": "p4",
+      "loss": 2.635868787765503,
+      "perplexity": 13.955431506117288
+    }
+  }
+}
+2026-11-10 00:47:25,242 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p02_evals/p4.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.08it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.10it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.63it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt
+2026-11-10 00:47:41,016 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:47:41,016 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:47:41,037 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:47:41,119 - cartridges.train [rank=0] - INFO - Evaluating `p5` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p5):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p5):  12%|█▎        | 1/8 [00:05<00:36,  5.24s/it]
+Evaluation [step=0] (p5):  25%|██▌       | 2/8 [00:05<00:13,  2.23s/it]
+Evaluation [step=0] (p5):  38%|███▊      | 3/8 [00:05<00:06,  1.27s/it]
+Evaluation [step=0] (p5):  50%|█████     | 4/8 [00:05<00:03,  1.22it/s]
+Evaluation [step=0] (p5):  62%|██████▎   | 5/8 [00:05<00:01,  1.76it/s]
+Evaluation [step=0] (p5):  75%|███████▌  | 6/8 [00:05<00:00,  2.39it/s]
+Evaluation [step=0] (p5):  88%|████████▊ | 7/8 [00:05<00:00,  3.10it/s]
+Evaluation [step=0] (p5): 100%|██████████| 8/8 [00:06<00:00,  3.85it/s]
+                                                                       
+2026-11-10 00:47:47,237 - cartridges.train [rank=0] - INFO - Eval loss - 3.0065314769744873 
+2026-11-10 00:47:47,238 - cartridges.train [rank=0] - INFO - done evaling - p5
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p5": {
+      "name": "p5",
+      "loss": 3.0065314769744873,
+      "perplexity": 20.217154505824624
+    }
+  }
+}
+2026-11-10 00:47:47,239 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p02_evals/p5.json
+stage         P1       P2       P3       P4       P5
+p01        2.566    4.087    3.737    3.790    4.127
+p02        1.936    2.978    2.714    2.636    3.007
+p03            -        -        -        -        -
+p04            -        -        -        -        -
+p05            -        -        -        -        -
+
+=== p03: am write on gpu 0 + 5 evals fanned across ['0'] ===
+2026-11-10 00:47:56,620 - __main__ [rank=0] - INFO - B-ROPE: AM teacher rope_theta = 5e+06
+Running 1 configs
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.12it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.56it/s]
+2026-11-10 00:48:02,914 - cartridges.am.continual.run [rank=0] - INFO - RoPE write bound to model frequencies (ratio to vanilla theta min=0.9963 max=1.0034)
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/cache-step27.pt
+2026-11-10 00:48:02,978 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:48:02,978 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:48:03,007 - cartridges.am.continual.run [rank=0] - INFO - SLOT-USAGE: loaded prior cumulative from /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-40-20-LONGHEALTH_P2_e2e_budget512_topt128/0f35f5c5-a101-4349-966c-7addff05ead4/slots_written.pt (writes=124416)
+2026-11-10 00:48:03,350 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM: 24 unique documents in /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/train/qwen_longhealth_p3_task_8192.parquet (teacher dataset=longhealth, qasper_topic=MT, quality_phase=None)
+2026-11-10 00:48:05,080 - cartridges.am.continual.run [rank=0] - INFO - Document 1/24 (doc-000-f19c7267): 142 conversations
+E1110 00:49:40.234000 18840 site-packages/torch/_inductor/select_algorithm.py:1477] [1/0] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/4d/c4dzk54dg536fzd4jkuphp644qyynrv46mqutaqkd5t3trfh7mdo.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:49:40.665000 18840 site-packages/torch/_inductor/select_algorithm.py:1696] [1/0] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x13241x128, 1x8x13241x128, 1x8x13241x128, 1x32x13241, 1x1x104, 1x1x104x104, 1x1x104, 1x1x104x104, 13241)
+  triton_flex_attention_0 8.6559 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_4 10.2185 ms 84.7% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_1 14.2244 ms 60.9% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_3 43.5077 ms 19.9% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_2 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 1.0468 seconds and 12.6522 seconds precompiling for 5 choices
+2026-11-10 00:49:55,297 - cartridges.am.continual.run [rank=0] - INFO - Document doc-000-f19c7267 complete: mean_mse=0.001400 queries=294912 time=110.1s
+2026-11-10 00:49:55,298 - cartridges.am.continual.run [rank=0] - INFO - Document 2/24 (doc-001-35979778): 208 conversations
+E1110 00:50:11.843000 18840 site-packages/torch/_inductor/select_algorithm.py:1477] [1/2] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/zg/czg5rindmplkbtbmnw6rfe6lckxi3gopas4745zh3cwaj2dq6zpd.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:50:12.282000 18840 site-packages/torch/_inductor/select_algorithm.py:1696] [1/2] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x13029x128, 1x8x13029x128, 1x8x13029x128, 1x32x13029, 1x1x102, 1x1x102x102, 1x1x102, 1x1x102x102, 13029)
+  triton_flex_attention_5 8.7613 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_9 10.0598 ms 87.1% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_6 15.0651 ms 58.2% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_8 40.0230 ms 21.9% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_7 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 1.0209 seconds and 12.9240 seconds precompiling for 5 choices
+2026-11-10 00:50:21,626 - cartridges.am.continual.run [rank=0] - INFO - Document doc-001-35979778 complete: mean_mse=0.001595 queries=294912 time=26.2s
+2026-11-10 00:50:21,626 - cartridges.am.continual.run [rank=0] - INFO - Document 3/24 (doc-002-1d65ec16): 210 conversations
+2026-11-10 00:50:29,519 - cartridges.am.continual.run [rank=0] - INFO - Document doc-002-1d65ec16 complete: mean_mse=0.002160 queries=294912 time=7.8s
+2026-11-10 00:50:29,519 - cartridges.am.continual.run [rank=0] - INFO - Document 4/24 (doc-003-6e5e3142): 130 conversations
+2026-11-10 00:50:37,672 - cartridges.am.continual.run [rank=0] - INFO - Document doc-003-6e5e3142 complete: mean_mse=0.001518 queries=294912 time=8.0s
+2026-11-10 00:50:37,672 - cartridges.am.continual.run [rank=0] - INFO - Document 5/24 (doc-004-05c6c698): 202 conversations
+2026-11-10 00:50:44,815 - cartridges.am.continual.run [rank=0] - INFO - Document doc-004-05c6c698 complete: mean_mse=0.001716 queries=294912 time=7.0s
+2026-11-10 00:50:44,815 - cartridges.am.continual.run [rank=0] - INFO - Document 6/24 (doc-005-456cc2b2): 141 conversations
+2026-11-10 00:50:51,450 - cartridges.am.continual.run [rank=0] - INFO - Document doc-005-456cc2b2 complete: mean_mse=0.001485 queries=294912 time=6.5s
+2026-11-10 00:50:51,450 - cartridges.am.continual.run [rank=0] - INFO - Document 7/24 (doc-006-015cd3b1): 194 conversations
+2026-11-10 00:50:58,228 - cartridges.am.continual.run [rank=0] - INFO - Document doc-006-015cd3b1 complete: mean_mse=0.001678 queries=294912 time=6.7s
+2026-11-10 00:50:58,228 - cartridges.am.continual.run [rank=0] - INFO - Document 8/24 (doc-007-af5912bd): 118 conversations
+2026-11-10 00:51:05,926 - cartridges.am.continual.run [rank=0] - INFO - Document doc-007-af5912bd complete: mean_mse=0.001663 queries=294912 time=7.6s
+2026-11-10 00:51:05,926 - cartridges.am.continual.run [rank=0] - INFO - Document 9/24 (doc-008-f4ceadbf): 140 conversations
+2026-11-10 00:51:13,183 - cartridges.am.continual.run [rank=0] - INFO - Document doc-008-f4ceadbf complete: mean_mse=0.001972 queries=294912 time=7.1s
+2026-11-10 00:51:13,183 - cartridges.am.continual.run [rank=0] - INFO - Document 10/24 (doc-009-2c813e63): 113 conversations
+2026-11-10 00:51:20,557 - cartridges.am.continual.run [rank=0] - INFO - Document doc-009-2c813e63 complete: mean_mse=0.002623 queries=294912 time=7.3s
+2026-11-10 00:51:20,558 - cartridges.am.continual.run [rank=0] - INFO - Document 11/24 (doc-010-65c80b46): 224 conversations
+E1110 00:51:34.135000 18840 site-packages/torch/_inductor/select_algorithm.py:1477] [1/3] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/zg/czgedtmfxtx7kabysx7rpd5x6u3cmcfkt5fu4d6c4ozjn52zywpg.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:51:34.548000 18840 site-packages/torch/_inductor/select_algorithm.py:1696] [1/3] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x10384x128, 1x8x10384x128, 1x8x10384x128, 1x32x10384, 1x1x82, 1x1x82x82, 1x1x82, 1x1x82x82, 10384)
+  triton_flex_attention_10 6.6990 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_14 8.0445 ms 83.3% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_11 10.9210 ms 61.3% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_13 29.6499 ms 22.6% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_12 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9282 seconds and 12.8506 seconds precompiling for 5 choices
+2026-11-10 00:51:42,547 - cartridges.am.continual.run [rank=0] - INFO - Document doc-010-65c80b46 complete: mean_mse=0.001389 queries=294912 time=21.9s
+2026-11-10 00:51:42,547 - cartridges.am.continual.run [rank=0] - INFO - Document 12/24 (doc-011-4ce475b0): 96 conversations
+E1110 00:51:56.997000 18840 site-packages/torch/_inductor/select_algorithm.py:1477] [1/4] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/d3/cd3p6n6qwntjpuxvh72ygke4i4br5owmdejp3y2jly7jqavbg24w.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:51:57.427000 18840 site-packages/torch/_inductor/select_algorithm.py:1696] [1/4] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x11135x128, 1x8x11135x128, 1x8x11135x128, 1x32x11135, 1x1x87, 1x1x87x87, 1x1x87, 1x1x87x87, 11135)
+  triton_flex_attention_15 7.3677 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_19 8.5811 ms 85.9% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_16 12.9198 ms 57.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_18 34.0838 ms 21.6% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_17 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9494 seconds and 13.3950 seconds precompiling for 5 choices
+2026-11-10 00:52:05,938 - cartridges.am.continual.run [rank=0] - INFO - Document doc-011-4ce475b0 complete: mean_mse=0.001478 queries=294912 time=23.3s
+2026-11-10 00:52:05,939 - cartridges.am.continual.run [rank=0] - INFO - Document 13/24 (doc-012-870e57a7): 224 conversations
+2026-11-10 00:52:13,410 - cartridges.am.continual.run [rank=0] - INFO - Document doc-012-870e57a7 complete: mean_mse=0.002111 queries=294912 time=7.3s
+2026-11-10 00:52:13,411 - cartridges.am.continual.run [rank=0] - INFO - Document 14/24 (doc-013-b7669956): 160 conversations
+2026-11-10 00:52:19,503 - cartridges.am.continual.run [rank=0] - INFO - Document doc-013-b7669956 complete: mean_mse=0.001873 queries=294912 time=6.0s
+2026-11-10 00:52:19,504 - cartridges.am.continual.run [rank=0] - INFO - Document 15/24 (doc-014-4be2d7a9): 128 conversations
+2026-11-10 00:52:26,391 - cartridges.am.continual.run [rank=0] - INFO - Document doc-014-4be2d7a9 complete: mean_mse=0.001443 queries=294912 time=6.8s
+2026-11-10 00:52:26,392 - cartridges.am.continual.run [rank=0] - INFO - Document 16/24 (doc-015-29e99e99): 128 conversations
+2026-11-10 00:52:32,833 - cartridges.am.continual.run [rank=0] - INFO - Document doc-015-29e99e99 complete: mean_mse=0.001596 queries=294912 time=6.3s
+2026-11-10 00:52:32,833 - cartridges.am.continual.run [rank=0] - INFO - Document 17/24 (doc-016-4eb3ee15): 224 conversations
+2026-11-10 00:52:38,806 - cartridges.am.continual.run [rank=0] - INFO - Document doc-016-4eb3ee15 complete: mean_mse=0.002319 queries=294912 time=5.9s
+2026-11-10 00:52:38,807 - cartridges.am.continual.run [rank=0] - INFO - Document 18/24 (doc-017-0288d3b0): 192 conversations
+2026-11-10 00:52:45,176 - cartridges.am.continual.run [rank=0] - INFO - Document doc-017-0288d3b0 complete: mean_mse=0.002048 queries=294912 time=6.3s
+2026-11-10 00:52:45,176 - cartridges.am.continual.run [rank=0] - INFO - Document 19/24 (doc-018-eece7d7a): 64 conversations
+2026-11-10 00:52:52,060 - cartridges.am.continual.run [rank=0] - INFO - Document doc-018-eece7d7a complete: mean_mse=0.001721 queries=294912 time=6.8s
+2026-11-10 00:52:52,061 - cartridges.am.continual.run [rank=0] - INFO - Document 20/24 (doc-019-a7fd70d5): 192 conversations
+2026-11-10 00:52:59,522 - cartridges.am.continual.run [rank=0] - INFO - Document doc-019-a7fd70d5 complete: mean_mse=0.002199 queries=294912 time=7.3s
+2026-11-10 00:52:59,523 - cartridges.am.continual.run [rank=0] - INFO - Document 21/24 (doc-020-15da6086): 64 conversations
+2026-11-10 00:53:06,742 - cartridges.am.continual.run [rank=0] - INFO - Document doc-020-15da6086 complete: mean_mse=0.002006 queries=294912 time=7.1s
+2026-11-10 00:53:06,742 - cartridges.am.continual.run [rank=0] - INFO - Document 22/24 (doc-021-4b1381f3): 96 conversations
+2026-11-10 00:53:13,091 - cartridges.am.continual.run [rank=0] - INFO - Document doc-021-4b1381f3 complete: mean_mse=0.002437 queries=294912 time=6.2s
+2026-11-10 00:53:13,091 - cartridges.am.continual.run [rank=0] - INFO - Document 23/24 (doc-022-f74e7608): 32 conversations
+2026-11-10 00:53:19,412 - cartridges.am.continual.run [rank=0] - INFO - Document doc-022-f74e7608 complete: mean_mse=0.002028 queries=294912 time=6.2s
+2026-11-10 00:53:19,412 - cartridges.am.continual.run [rank=0] - INFO - Document 24/24 (doc-023-a8f5b426): 32 conversations
+2026-11-10 00:53:25,960 - cartridges.am.continual.run [rank=0] - INFO - Document doc-023-a8f5b426 complete: mean_mse=0.001898 queries=294912 time=6.4s
+2026-11-10 00:53:25,963 - cartridges.am.continual.run [rank=0] - INFO - SLOT-GEOMETRY: saved slots_written.pt (this-stage distinct slots/layer=253.0/512, this-stage writes=110592, cumulative writes=235008)
+2026-11-10 00:53:25,964 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete: 24 documents in 320.9s
+2026-11-10 00:53:26,077 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete in 323.0s (24 documents). Saved to /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.03it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.01it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.51it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt
+2026-11-10 00:53:42,452 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:53:42,452 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:53:42,474 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:53:42,562 - cartridges.train [rank=0] - INFO - Evaluating `p1` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p1):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p1):  10%|█         | 1/10 [00:05<00:47,  5.24s/it]
+Evaluation [step=0] (p1):  20%|██        | 2/10 [00:05<00:17,  2.23s/it]
+Evaluation [step=0] (p1):  30%|███       | 3/10 [00:05<00:08,  1.27s/it]
+Evaluation [step=0] (p1):  40%|████      | 4/10 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p1):  50%|█████     | 5/10 [00:05<00:02,  1.76it/s]
+Evaluation [step=0] (p1):  60%|██████    | 6/10 [00:05<00:01,  2.39it/s]
+Evaluation [step=0] (p1):  70%|███████   | 7/10 [00:05<00:00,  3.10it/s]
+Evaluation [step=0] (p1):  80%|████████  | 8/10 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p1):  90%|█████████ | 9/10 [00:06<00:00,  4.58it/s]
+Evaluation [step=0] (p1): 100%|██████████| 10/10 [00:06<00:00,  5.27it/s]
+                                                                         
+2026-11-10 00:53:48,941 - cartridges.train [rank=0] - INFO - Eval loss - 1.9736288785934448 
+2026-11-10 00:53:48,941 - cartridges.train [rank=0] - INFO - done evaling - p1
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p1": {
+      "name": "p1",
+      "loss": 1.9736288785934448,
+      "perplexity": 7.196745274377693
+    }
+  }
+}
+2026-11-10 00:53:48,942 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p03_evals/p1.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.07it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.03it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.53it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt
+2026-11-10 00:54:04,888 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:54:04,888 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:54:04,909 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:54:04,991 - cartridges.train [rank=0] - INFO - Evaluating `p2` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p2):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p2):  11%|█         | 1/9 [00:05<00:42,  5.28s/it]
+Evaluation [step=0] (p2):  22%|██▏       | 2/9 [00:05<00:15,  2.25s/it]
+Evaluation [step=0] (p2):  33%|███▎      | 3/9 [00:05<00:07,  1.28s/it]
+Evaluation [step=0] (p2):  44%|████▍     | 4/9 [00:05<00:04,  1.21it/s]
+Evaluation [step=0] (p2):  56%|█████▌    | 5/9 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p2):  67%|██████▋   | 6/9 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p2):  78%|███████▊  | 7/9 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p2):  89%|████████▉ | 8/9 [00:06<00:00,  3.83it/s]
+Evaluation [step=0] (p2): 100%|██████████| 9/9 [00:06<00:00,  4.54it/s]
+                                                                       
+2026-11-10 00:54:11,281 - cartridges.train [rank=0] - INFO - Eval loss - 2.9483299255371094 
+2026-11-10 00:54:11,282 - cartridges.train [rank=0] - INFO - done evaling - p2
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p2": {
+      "name": "p2",
+      "loss": 2.9483299255371094,
+      "perplexity": 19.0740719926674
+    }
+  }
+}
+2026-11-10 00:54:11,283 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p03_evals/p2.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.04it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.09it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.61it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt
+2026-11-10 00:54:27,041 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:54:27,041 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:54:27,062 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:54:27,144 - cartridges.train [rank=0] - INFO - Evaluating `p3` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p3):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p3):  12%|█▎        | 1/8 [00:05<00:36,  5.25s/it]
+Evaluation [step=0] (p3):  25%|██▌       | 2/8 [00:05<00:13,  2.24s/it]
+Evaluation [step=0] (p3):  38%|███▊      | 3/8 [00:05<00:06,  1.27s/it]
+Evaluation [step=0] (p3):  50%|█████     | 4/8 [00:05<00:03,  1.22it/s]
+Evaluation [step=0] (p3):  62%|██████▎   | 5/8 [00:05<00:01,  1.76it/s]
+Evaluation [step=0] (p3):  75%|███████▌  | 6/8 [00:05<00:00,  2.39it/s]
+Evaluation [step=0] (p3):  88%|████████▊ | 7/8 [00:06<00:00,  3.10it/s]
+Evaluation [step=0] (p3): 100%|██████████| 8/8 [00:06<00:00,  3.84it/s]
+                                                                       
+2026-11-10 00:54:33,281 - cartridges.train [rank=0] - INFO - Eval loss - 2.703662633895874 
+2026-11-10 00:54:33,281 - cartridges.train [rank=0] - INFO - done evaling - p3
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p3": {
+      "name": "p3",
+      "loss": 2.703662633895874,
+      "perplexity": 14.934330661571448
+    }
+  }
+}
+2026-11-10 00:54:33,282 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p03_evals/p3.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.26it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.13it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.69it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt
+2026-11-10 00:54:48,989 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:54:48,989 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:54:49,010 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:54:49,092 - cartridges.train [rank=0] - INFO - Evaluating `p4` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p4):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p4):  12%|█▎        | 1/8 [00:05<00:36,  5.24s/it]
+Evaluation [step=0] (p4):  25%|██▌       | 2/8 [00:05<00:13,  2.23s/it]
+Evaluation [step=0] (p4):  38%|███▊      | 3/8 [00:05<00:06,  1.27s/it]
+Evaluation [step=0] (p4):  50%|█████     | 4/8 [00:05<00:03,  1.22it/s]
+Evaluation [step=0] (p4):  62%|██████▎   | 5/8 [00:05<00:01,  1.76it/s]
+Evaluation [step=0] (p4):  75%|███████▌  | 6/8 [00:05<00:00,  2.39it/s]
+Evaluation [step=0] (p4):  88%|████████▊ | 7/8 [00:06<00:00,  3.10it/s]
+Evaluation [step=0] (p4): 100%|██████████| 8/8 [00:06<00:00,  3.84it/s]
+                                                                       
+2026-11-10 00:54:55,223 - cartridges.train [rank=0] - INFO - Eval loss - 2.8477818965911865 
+2026-11-10 00:54:55,223 - cartridges.train [rank=0] - INFO - done evaling - p4
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p4": {
+      "name": "p4",
+      "loss": 2.8477818965911865,
+      "perplexity": 17.249478249104065
+    }
+  }
+}
+2026-11-10 00:54:55,224 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p03_evals/p4.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.04it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.01it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.51it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt
+2026-11-10 00:55:11,125 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:55:11,125 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:55:11,147 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 00:55:11,228 - cartridges.train [rank=0] - INFO - Evaluating `p5` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p5):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p5):  12%|█▎        | 1/8 [00:05<00:36,  5.26s/it]
+Evaluation [step=0] (p5):  25%|██▌       | 2/8 [00:05<00:13,  2.24s/it]
+Evaluation [step=0] (p5):  38%|███▊      | 3/8 [00:05<00:06,  1.28s/it]
+Evaluation [step=0] (p5):  50%|█████     | 4/8 [00:05<00:03,  1.22it/s]
+Evaluation [step=0] (p5):  62%|██████▎   | 5/8 [00:05<00:01,  1.75it/s]
+Evaluation [step=0] (p5):  75%|███████▌  | 6/8 [00:05<00:00,  2.38it/s]
+Evaluation [step=0] (p5):  88%|████████▊ | 7/8 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p5): 100%|██████████| 8/8 [00:06<00:00,  3.84it/s]
+                                                                       
+2026-11-10 00:55:17,374 - cartridges.train [rank=0] - INFO - Eval loss - 3.091758966445923 
+2026-11-10 00:55:17,375 - cartridges.train [rank=0] - INFO - done evaling - p5
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p5": {
+      "name": "p5",
+      "loss": 3.091758966445923,
+      "perplexity": 22.015768936577437
+    }
+  }
+}
+2026-11-10 00:55:17,376 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p03_evals/p5.json
+stage         P1       P2       P3       P4       P5
+p01        2.566    4.087    3.737    3.790    4.127
+p02        1.936    2.978    2.714    2.636    3.007
+p03        1.974    2.948    2.704    2.848    3.092
+p04            -        -        -        -        -
+p05            -        -        -        -        -
+
+=== p04: am write on gpu 0 + 5 evals fanned across ['0'] ===
+2026-11-10 00:55:26,770 - __main__ [rank=0] - INFO - B-ROPE: AM teacher rope_theta = 5e+06
+Running 1 configs
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.06it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.54it/s]
+2026-11-10 00:55:33,094 - cartridges.am.continual.run [rank=0] - INFO - RoPE write bound to model frequencies (ratio to vanilla theta min=0.9963 max=1.0034)
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/cache-step24.pt
+2026-11-10 00:55:33,158 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 00:55:33,158 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 00:55:33,187 - cartridges.am.continual.run [rank=0] - INFO - SLOT-USAGE: loaded prior cumulative from /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-47-56-LONGHEALTH_P3_e2e_budget512_topt128/69747c85-7e79-4e78-aa66-67722fc208bf/slots_written.pt (writes=235008)
+2026-11-10 00:55:33,500 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM: 23 unique documents in /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/train/qwen_longhealth_p4_task_8192.parquet (teacher dataset=longhealth, qasper_topic=MT, quality_phase=None)
+2026-11-10 00:55:35,146 - cartridges.am.continual.run [rank=0] - INFO - Document 1/23 (doc-000-83a1ff31): 130 conversations
+E1110 00:57:01.179000 23185 site-packages/torch/_inductor/select_algorithm.py:1477] [1/0] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/ve/cvelo767f4st5lffgbdpmnvu57i2jqdwxyffk7jna7innj4fbjjs.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:57:01.602000 23185 site-packages/torch/_inductor/select_algorithm.py:1696] [1/0] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x11615x128, 1x8x11615x128, 1x8x11615x128, 1x32x11615, 1x1x91, 1x1x91x91, 1x1x91, 1x1x91x91, 11615)
+  triton_flex_attention_0 7.6585 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_4 8.9344 ms 85.7% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_1 13.4973 ms 56.7% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_3 37.7385 ms 20.3% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_2 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9743 seconds and 12.8064 seconds precompiling for 5 choices
+2026-11-10 00:57:14,817 - cartridges.am.continual.run [rank=0] - INFO - Document doc-000-83a1ff31 complete: mean_mse=0.001460 queries=294912 time=99.6s
+2026-11-10 00:57:14,818 - cartridges.am.continual.run [rank=0] - INFO - Document 2/23 (doc-001-2ea08e8b): 140 conversations
+E1110 00:57:30.222000 23185 site-packages/torch/_inductor/select_algorithm.py:1477] [1/2] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/7m/c7mquzlnpxjwswr4qmtre3jdxep3redymtljszpaidbndgc7wmen.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:57:30.908000 23185 site-packages/torch/_inductor/select_algorithm.py:1696] [1/2] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x12668x128, 1x8x12668x128, 1x8x12668x128, 1x32x12668, 1x1x99, 1x1x99x99, 1x1x99, 1x1x99x99, 12668)
+  triton_flex_attention_5 8.0364 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_9 9.7075 ms 82.8% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_6 13.0447 ms 61.6% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_8 39.1188 ms 20.5% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_7 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9973 seconds and 12.0357 seconds precompiling for 5 choices
+2026-11-10 00:57:41,490 - cartridges.am.continual.run [rank=0] - INFO - Document doc-001-2ea08e8b complete: mean_mse=0.001928 queries=294912 time=26.6s
+2026-11-10 00:57:41,490 - cartridges.am.continual.run [rank=0] - INFO - Document 3/23 (doc-002-dd550ed4): 163 conversations
+2026-11-10 00:57:48,716 - cartridges.am.continual.run [rank=0] - INFO - Document doc-002-dd550ed4 complete: mean_mse=0.001541 queries=294912 time=7.1s
+2026-11-10 00:57:48,717 - cartridges.am.continual.run [rank=0] - INFO - Document 4/23 (doc-003-5579e97b): 110 conversations
+2026-11-10 00:57:56,145 - cartridges.am.continual.run [rank=0] - INFO - Document doc-003-5579e97b complete: mean_mse=0.001974 queries=294912 time=7.3s
+2026-11-10 00:57:56,145 - cartridges.am.continual.run [rank=0] - INFO - Document 5/23 (doc-004-16e96914): 110 conversations
+2026-11-10 00:58:02,634 - cartridges.am.continual.run [rank=0] - INFO - Document doc-004-16e96914 complete: mean_mse=0.002261 queries=294912 time=6.4s
+2026-11-10 00:58:02,634 - cartridges.am.continual.run [rank=0] - INFO - Document 6/23 (doc-005-3b7420b3): 113 conversations
+2026-11-10 00:58:09,134 - cartridges.am.continual.run [rank=0] - INFO - Document doc-005-3b7420b3 complete: mean_mse=0.001938 queries=294912 time=6.4s
+2026-11-10 00:58:09,134 - cartridges.am.continual.run [rank=0] - INFO - Document 7/23 (doc-006-67a8818b): 121 conversations
+2026-11-10 00:58:16,388 - cartridges.am.continual.run [rank=0] - INFO - Document doc-006-67a8818b complete: mean_mse=0.001800 queries=294912 time=7.1s
+2026-11-10 00:58:16,389 - cartridges.am.continual.run [rank=0] - INFO - Document 8/23 (doc-007-74737946): 101 conversations
+2026-11-10 00:58:22,845 - cartridges.am.continual.run [rank=0] - INFO - Document doc-007-74737946 complete: mean_mse=0.002405 queries=294912 time=6.3s
+2026-11-10 00:58:22,846 - cartridges.am.continual.run [rank=0] - INFO - Document 9/23 (doc-008-778067e9): 122 conversations
+2026-11-10 00:58:28,825 - cartridges.am.continual.run [rank=0] - INFO - Document doc-008-778067e9 complete: mean_mse=0.001876 queries=294912 time=5.9s
+2026-11-10 00:58:28,825 - cartridges.am.continual.run [rank=0] - INFO - Document 10/23 (doc-009-c6f785a8): 138 conversations
+2026-11-10 00:58:35,558 - cartridges.am.continual.run [rank=0] - INFO - Document doc-009-c6f785a8 complete: mean_mse=0.002011 queries=294912 time=6.6s
+2026-11-10 00:58:35,558 - cartridges.am.continual.run [rank=0] - INFO - Document 11/23 (doc-010-14972817): 121 conversations
+2026-11-10 00:58:42,273 - cartridges.am.continual.run [rank=0] - INFO - Document doc-010-14972817 complete: mean_mse=0.001751 queries=294912 time=6.6s
+2026-11-10 00:58:42,274 - cartridges.am.continual.run [rank=0] - INFO - Document 12/23 (doc-011-4ad98442): 146 conversations
+2026-11-10 00:58:48,882 - cartridges.am.continual.run [rank=0] - INFO - Document doc-011-4ad98442 complete: mean_mse=0.002247 queries=294912 time=6.5s
+2026-11-10 00:58:48,882 - cartridges.am.continual.run [rank=0] - INFO - Document 13/23 (doc-012-b8f602fa): 132 conversations
+2026-11-10 00:58:56,108 - cartridges.am.continual.run [rank=0] - INFO - Document doc-012-b8f602fa complete: mean_mse=0.002182 queries=294912 time=7.1s
+2026-11-10 00:58:56,109 - cartridges.am.continual.run [rank=0] - INFO - Document 14/23 (doc-013-56e03c73): 140 conversations
+E1110 00:59:07.979000 23185 site-packages/torch/_inductor/select_algorithm.py:1477] [1/3] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/l4/cl4milo5zvkdjssncwalpdswfio7onlap7xi4ucx4i2eh4pf5zcm.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:59:09.330000 23185 site-packages/torch/_inductor/select_algorithm.py:1696] [1/3] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x11448x128, 1x8x11448x128, 1x8x11448x128, 1x32x11448, 1x1x90, 1x1x90x90, 1x1x90, 1x1x90x90, 11448)
+  triton_flex_attention_10 7.2458 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_14 8.8381 ms 82.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_11 11.8323 ms 61.2% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_13 34.5088 ms 21.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_12 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9549 seconds and 12.0287 seconds precompiling for 5 choices
+2026-11-10 00:59:17,757 - cartridges.am.continual.run [rank=0] - INFO - Document doc-013-56e03c73 complete: mean_mse=0.001219 queries=294912 time=21.5s
+2026-11-10 00:59:17,757 - cartridges.am.continual.run [rank=0] - INFO - Document 15/23 (doc-014-049d2bda): 141 conversations
+2026-11-10 00:59:24,110 - cartridges.am.continual.run [rank=0] - INFO - Document doc-014-049d2bda complete: mean_mse=0.001584 queries=294912 time=6.2s
+2026-11-10 00:59:24,111 - cartridges.am.continual.run [rank=0] - INFO - Document 16/23 (doc-015-aaf2b5aa): 145 conversations
+2026-11-10 00:59:30,575 - cartridges.am.continual.run [rank=0] - INFO - Document doc-015-aaf2b5aa complete: mean_mse=0.001567 queries=294912 time=6.3s
+2026-11-10 00:59:30,575 - cartridges.am.continual.run [rank=0] - INFO - Document 17/23 (doc-016-137a0386): 201 conversations
+E1110 00:59:44.565000 23185 site-packages/torch/_inductor/select_algorithm.py:1477] [1/4] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/vm/cvmfer2yirct45qncxn6crhy4jc5sa535kdwg2smrzvr24osd6sc.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 00:59:44.981000 23185 site-packages/torch/_inductor/select_algorithm.py:1696] [1/4] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x10973x128, 1x8x10973x128, 1x8x10973x128, 1x32x10973, 1x1x86, 1x1x86x86, 1x1x86, 1x1x86x86, 10973)
+  triton_flex_attention_15 7.3011 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_19 8.4419 ms 86.5% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_16 11.7750 ms 62.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_18 35.7571 ms 20.4% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_17 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9503 seconds and 13.2756 seconds precompiling for 5 choices
+2026-11-10 00:59:53,969 - cartridges.am.continual.run [rank=0] - INFO - Document doc-016-137a0386 complete: mean_mse=0.001189 queries=294912 time=23.3s
+2026-11-10 00:59:53,969 - cartridges.am.continual.run [rank=0] - INFO - Document 18/23 (doc-017-971232e4): 131 conversations
+2026-11-10 01:00:01,165 - cartridges.am.continual.run [rank=0] - INFO - Document doc-017-971232e4 complete: mean_mse=0.001443 queries=294912 time=7.1s
+2026-11-10 01:00:01,166 - cartridges.am.continual.run [rank=0] - INFO - Document 19/23 (doc-018-f655752a): 186 conversations
+2026-11-10 01:00:08,094 - cartridges.am.continual.run [rank=0] - INFO - Document doc-018-f655752a complete: mean_mse=0.001689 queries=294912 time=6.8s
+2026-11-10 01:00:08,094 - cartridges.am.continual.run [rank=0] - INFO - Document 20/23 (doc-019-2b11c928): 181 conversations
+2026-11-10 01:00:14,567 - cartridges.am.continual.run [rank=0] - INFO - Document doc-019-2b11c928 complete: mean_mse=0.001828 queries=294912 time=6.4s
+2026-11-10 01:00:14,567 - cartridges.am.continual.run [rank=0] - INFO - Document 21/23 (doc-020-0d3a0db8): 127 conversations
+2026-11-10 01:00:21,125 - cartridges.am.continual.run [rank=0] - INFO - Document doc-020-0d3a0db8 complete: mean_mse=0.001672 queries=294912 time=6.4s
+2026-11-10 01:00:21,126 - cartridges.am.continual.run [rank=0] - INFO - Document 22/23 (doc-021-529cff8a): 151 conversations
+2026-11-10 01:00:27,483 - cartridges.am.continual.run [rank=0] - INFO - Document doc-021-529cff8a complete: mean_mse=0.002476 queries=294912 time=6.2s
+2026-11-10 01:00:27,484 - cartridges.am.continual.run [rank=0] - INFO - Document 23/23 (doc-022-c80dc0e9): 206 conversations
+2026-11-10 01:00:34,727 - cartridges.am.continual.run [rank=0] - INFO - Document doc-022-c80dc0e9 complete: mean_mse=0.001546 queries=294912 time=7.1s
+2026-11-10 01:00:34,730 - cartridges.am.continual.run [rank=0] - INFO - SLOT-GEOMETRY: saved slots_written.pt (this-stage distinct slots/layer=225.7/512, this-stage writes=105984, cumulative writes=340992)
+2026-11-10 01:00:34,730 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete: 23 documents in 299.6s
+2026-11-10 01:00:34,846 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete in 301.6s (23 documents). Saved to /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.06it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.10it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.62it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt
+2026-11-10 01:00:51,051 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 01:00:51,051 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 01:00:51,073 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 01:00:51,162 - cartridges.train [rank=0] - INFO - Evaluating `p1` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p1):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p1):  10%|█         | 1/10 [00:05<00:47,  5.26s/it]
+Evaluation [step=0] (p1):  20%|██        | 2/10 [00:05<00:17,  2.24s/it]
+Evaluation [step=0] (p1):  30%|███       | 3/10 [00:05<00:08,  1.27s/it]
+Evaluation [step=0] (p1):  40%|████      | 4/10 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p1):  50%|█████     | 5/10 [00:05<00:02,  1.75it/s]
+Evaluation [step=0] (p1):  60%|██████    | 6/10 [00:05<00:01,  2.38it/s]
+Evaluation [step=0] (p1):  70%|███████   | 7/10 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p1):  80%|████████  | 8/10 [00:06<00:00,  3.84it/s]
+Evaluation [step=0] (p1):  90%|█████████ | 9/10 [00:06<00:00,  4.58it/s]
+Evaluation [step=0] (p1): 100%|██████████| 10/10 [00:06<00:00,  5.27it/s]
+                                                                         
+2026-11-10 01:00:57,557 - cartridges.train [rank=0] - INFO - Eval loss - 1.9608145952224731 
+2026-11-10 01:00:57,557 - cartridges.train [rank=0] - INFO - done evaling - p1
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p1": {
+      "name": "p1",
+      "loss": 1.9608145952224731,
+      "perplexity": 7.1051124991402075
+    }
+  }
+}
+2026-11-10 01:00:57,558 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p04_evals/p1.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.06it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.02it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.52it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt
+2026-11-10 01:01:13,421 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 01:01:13,421 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 01:01:13,442 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 01:01:13,522 - cartridges.train [rank=0] - INFO - Evaluating `p2` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p2):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p2):  11%|█         | 1/9 [00:05<00:41,  5.24s/it]
+Evaluation [step=0] (p2):  22%|██▏       | 2/9 [00:05<00:15,  2.23s/it]
+Evaluation [step=0] (p2):  33%|███▎      | 3/9 [00:05<00:07,  1.27s/it]
+Evaluation [step=0] (p2):  44%|████▍     | 4/9 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p2):  56%|█████▌    | 5/9 [00:05<00:02,  1.76it/s]
+Evaluation [step=0] (p2):  67%|██████▋   | 6/9 [00:05<00:01,  2.39it/s]
+Evaluation [step=0] (p2):  78%|███████▊  | 7/9 [00:05<00:00,  3.10it/s]
+Evaluation [step=0] (p2):  89%|████████▉ | 8/9 [00:06<00:00,  3.85it/s]
+Evaluation [step=0] (p2): 100%|██████████| 9/9 [00:06<00:00,  4.55it/s]
+                                                                       
+2026-11-10 01:01:19,774 - cartridges.train [rank=0] - INFO - Eval loss - 2.9481170177459717 
+2026-11-10 01:01:19,774 - cartridges.train [rank=0] - INFO - done evaling - p2
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p2": {
+      "name": "p2",
+      "loss": 2.9481170177459717,
+      "perplexity": 19.070011406412004
+    }
+  }
+}
+2026-11-10 01:01:19,776 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p04_evals/p2.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.06it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.03it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.53it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt
+2026-11-10 01:01:35,613 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 01:01:35,613 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 01:01:35,634 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 01:01:35,718 - cartridges.train [rank=0] - INFO - Evaluating `p3` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p3):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p3):  12%|█▎        | 1/8 [00:05<00:36,  5.26s/it]
+Evaluation [step=0] (p3):  25%|██▌       | 2/8 [00:05<00:13,  2.24s/it]
+Evaluation [step=0] (p3):  38%|███▊      | 3/8 [00:05<00:06,  1.27s/it]
+Evaluation [step=0] (p3):  50%|█████     | 4/8 [00:05<00:03,  1.22it/s]
+Evaluation [step=0] (p3):  62%|██████▎   | 5/8 [00:05<00:01,  1.75it/s]
+Evaluation [step=0] (p3):  75%|███████▌  | 6/8 [00:05<00:00,  2.39it/s]
+Evaluation [step=0] (p3):  88%|████████▊ | 7/8 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p3): 100%|██████████| 8/8 [00:06<00:00,  3.84it/s]
+                                                                       
+2026-11-10 01:01:41,861 - cartridges.train [rank=0] - INFO - Eval loss - 2.6853270530700684 
+2026-11-10 01:01:41,861 - cartridges.train [rank=0] - INFO - done evaling - p3
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p3": {
+      "name": "p3",
+      "loss": 2.6853270530700684,
+      "perplexity": 14.662996174059074
+    }
+  }
+}
+2026-11-10 01:01:41,862 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p04_evals/p3.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.09it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.56it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt
+2026-11-10 01:01:57,611 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 01:01:57,611 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 01:01:57,633 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 01:01:57,715 - cartridges.train [rank=0] - INFO - Evaluating `p4` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p4):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p4):  12%|█▎        | 1/8 [00:05<00:37,  5.30s/it]
+Evaluation [step=0] (p4):  25%|██▌       | 2/8 [00:05<00:13,  2.26s/it]
+Evaluation [step=0] (p4):  38%|███▊      | 3/8 [00:05<00:06,  1.28s/it]
+Evaluation [step=0] (p4):  50%|█████     | 4/8 [00:05<00:03,  1.21it/s]
+Evaluation [step=0] (p4):  62%|██████▎   | 5/8 [00:05<00:01,  1.74it/s]
+Evaluation [step=0] (p4):  75%|███████▌  | 6/8 [00:05<00:00,  2.37it/s]
+Evaluation [step=0] (p4):  88%|████████▊ | 7/8 [00:06<00:00,  3.08it/s]
+Evaluation [step=0] (p4): 100%|██████████| 8/8 [00:06<00:00,  3.82it/s]
+                                                                       
+2026-11-10 01:02:03,896 - cartridges.train [rank=0] - INFO - Eval loss - 2.7517666816711426 
+2026-11-10 01:02:03,896 - cartridges.train [rank=0] - INFO - done evaling - p4
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p4": {
+      "name": "p4",
+      "loss": 2.7517666816711426,
+      "perplexity": 15.670291861219344
+    }
+  }
+}
+2026-11-10 01:02:03,897 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p04_evals/p4.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.06it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.03it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.53it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt
+2026-11-10 01:02:19,740 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 01:02:19,740 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 01:02:19,761 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 01:02:19,843 - cartridges.train [rank=0] - INFO - Evaluating `p5` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p5):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p5):  12%|█▎        | 1/8 [00:05<00:36,  5.25s/it]
+Evaluation [step=0] (p5):  25%|██▌       | 2/8 [00:05<00:13,  2.24s/it]
+Evaluation [step=0] (p5):  38%|███▊      | 3/8 [00:05<00:06,  1.27s/it]
+Evaluation [step=0] (p5):  50%|█████     | 4/8 [00:05<00:03,  1.22it/s]
+Evaluation [step=0] (p5):  62%|██████▎   | 5/8 [00:05<00:01,  1.76it/s]
+Evaluation [step=0] (p5):  75%|███████▌  | 6/8 [00:05<00:00,  2.39it/s]
+Evaluation [step=0] (p5):  88%|████████▊ | 7/8 [00:06<00:00,  3.10it/s]
+Evaluation [step=0] (p5): 100%|██████████| 8/8 [00:06<00:00,  3.84it/s]
+                                                                       
+2026-11-10 01:02:25,976 - cartridges.train [rank=0] - INFO - Eval loss - 3.0602827072143555 
+2026-11-10 01:02:25,976 - cartridges.train [rank=0] - INFO - done evaling - p5
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p5": {
+      "name": "p5",
+      "loss": 3.0602827072143555,
+      "perplexity": 21.333587468666618
+    }
+  }
+}
+2026-11-10 01:02:25,977 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p04_evals/p5.json
+stage         P1       P2       P3       P4       P5
+p01        2.566    4.087    3.737    3.790    4.127
+p02        1.936    2.978    2.714    2.636    3.007
+p03        1.974    2.948    2.704    2.848    3.092
+p04        1.961    2.948    2.685    2.752    3.060
+p05            -        -        -        -        -
+
+=== p05: am write on gpu 0 + 5 evals fanned across ['0'] ===
+2026-11-10 01:02:35,415 - __main__ [rank=0] - INFO - B-ROPE: AM teacher rope_theta = 5e+06
+Running 1 configs
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.11it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.09it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.62it/s]
+2026-11-10 01:02:41,633 - cartridges.am.continual.run [rank=0] - INFO - RoPE write bound to model frequencies (ratio to vanilla theta min=0.9963 max=1.0034)
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/cache-step23.pt
+2026-11-10 01:02:41,697 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 01:02:41,698 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 01:02:41,726 - cartridges.am.continual.run [rank=0] - INFO - SLOT-USAGE: loaded prior cumulative from /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-00-55-26-LONGHEALTH_P4_e2e_budget512_topt128/12e69a5b-97ab-44e5-820a-1764c802335f/slots_written.pt (writes=340992)
+2026-11-10 01:02:42,051 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM: 29 unique documents in /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/data/longhealth/train/qwen_longhealth_p5_task_8192.parquet (teacher dataset=longhealth, qasper_topic=MT, quality_phase=None)
+2026-11-10 01:02:44,130 - cartridges.am.continual.run [rank=0] - INFO - Document 1/29 (doc-000-a0bc2e9d): 69 conversations
+E1110 01:04:09.795000 27321 site-packages/torch/_inductor/select_algorithm.py:1477] [1/0] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/2s/c2sghzxpa5msso5rwuvscovmr5fi4nxfmqyl67tvs6hknz3abzpe.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 01:04:10.233000 27321 site-packages/torch/_inductor/select_algorithm.py:1696] [1/0] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x12468x128, 1x8x12468x128, 1x8x12468x128, 1x32x12468, 1x1x98, 1x1x98x98, 1x1x98, 1x1x98x98, 12468)
+  triton_flex_attention_0 8.0343 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_4 9.6287 ms 83.4% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_1 12.9556 ms 62.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_3 34.2999 ms 23.4% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_2 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9696 seconds and 12.4552 seconds precompiling for 5 choices
+2026-11-10 01:04:23,582 - cartridges.am.continual.run [rank=0] - INFO - Document doc-000-a0bc2e9d complete: mean_mse=0.001873 queries=294912 time=99.3s
+2026-11-10 01:04:23,582 - cartridges.am.continual.run [rank=0] - INFO - Document 2/29 (doc-001-882a17c4): 72 conversations
+2026-11-10 01:04:31,173 - cartridges.am.continual.run [rank=0] - INFO - Document doc-001-882a17c4 complete: mean_mse=0.002139 queries=294912 time=7.5s
+2026-11-10 01:04:31,174 - cartridges.am.continual.run [rank=0] - INFO - Document 3/29 (doc-002-6a762cf3): 157 conversations
+E1110 01:04:47.751000 27321 site-packages/torch/_inductor/select_algorithm.py:1477] [1/2] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/zr/czrtabfqkrskcive7n6xilzlcu454zl6nknx7garryfl2apitb6h.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 01:04:48.173000 27321 site-packages/torch/_inductor/select_algorithm.py:1696] [1/2] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x11569x128, 1x8x11569x128, 1x8x11569x128, 1x32x11569, 1x1x91, 1x1x91x91, 1x1x91, 1x1x91x91, 11569)
+  triton_flex_attention_5 7.6544 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_9 8.9129 ms 85.9% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_6 13.5025 ms 56.7% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_8 34.9727 ms 21.9% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_7 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9506 seconds and 12.8807 seconds precompiling for 5 choices
+2026-11-10 01:04:57,746 - cartridges.am.continual.run [rank=0] - INFO - Document doc-002-6a762cf3 complete: mean_mse=0.001960 queries=294912 time=26.5s
+2026-11-10 01:04:57,746 - cartridges.am.continual.run [rank=0] - INFO - Document 4/29 (doc-003-e2ba21f6): 162 conversations
+2026-11-10 01:05:05,009 - cartridges.am.continual.run [rank=0] - INFO - Document doc-003-e2ba21f6 complete: mean_mse=0.001816 queries=294912 time=7.2s
+2026-11-10 01:05:05,010 - cartridges.am.continual.run [rank=0] - INFO - Document 5/29 (doc-004-8e8fcb0d): 87 conversations
+2026-11-10 01:05:11,859 - cartridges.am.continual.run [rank=0] - INFO - Document doc-004-8e8fcb0d complete: mean_mse=0.001447 queries=294912 time=6.7s
+2026-11-10 01:05:11,859 - cartridges.am.continual.run [rank=0] - INFO - Document 6/29 (doc-005-1af1b21d): 69 conversations
+2026-11-10 01:05:18,985 - cartridges.am.continual.run [rank=0] - INFO - Document doc-005-1af1b21d complete: mean_mse=0.001675 queries=294912 time=7.0s
+2026-11-10 01:05:18,986 - cartridges.am.continual.run [rank=0] - INFO - Document 7/29 (doc-006-6343a20c): 142 conversations
+2026-11-10 01:05:25,951 - cartridges.am.continual.run [rank=0] - INFO - Document doc-006-6343a20c complete: mean_mse=0.001576 queries=294912 time=6.8s
+2026-11-10 01:05:25,952 - cartridges.am.continual.run [rank=0] - INFO - Document 8/29 (doc-007-bedb3d2c): 72 conversations
+2026-11-10 01:05:32,601 - cartridges.am.continual.run [rank=0] - INFO - Document doc-007-bedb3d2c complete: mean_mse=0.001378 queries=294912 time=6.5s
+2026-11-10 01:05:32,602 - cartridges.am.continual.run [rank=0] - INFO - Document 9/29 (doc-008-6f3e8a59): 156 conversations
+2026-11-10 01:05:39,608 - cartridges.am.continual.run [rank=0] - INFO - Document doc-008-6f3e8a59 complete: mean_mse=0.001650 queries=294912 time=6.9s
+2026-11-10 01:05:39,609 - cartridges.am.continual.run [rank=0] - INFO - Document 10/29 (doc-009-c965d96c): 68 conversations
+2026-11-10 01:05:47,298 - cartridges.am.continual.run [rank=0] - INFO - Document doc-009-c965d96c complete: mean_mse=0.002108 queries=294912 time=7.6s
+2026-11-10 01:05:47,299 - cartridges.am.continual.run [rank=0] - INFO - Document 11/29 (doc-010-8c730ee1): 78 conversations
+2026-11-10 01:05:53,851 - cartridges.am.continual.run [rank=0] - INFO - Document doc-010-8c730ee1 complete: mean_mse=0.001932 queries=294912 time=6.4s
+2026-11-10 01:05:53,851 - cartridges.am.continual.run [rank=0] - INFO - Document 12/29 (doc-011-74f44b74): 160 conversations
+2026-11-10 01:06:00,453 - cartridges.am.continual.run [rank=0] - INFO - Document doc-011-74f44b74 complete: mean_mse=0.001766 queries=294912 time=6.5s
+2026-11-10 01:06:00,453 - cartridges.am.continual.run [rank=0] - INFO - Document 13/29 (doc-012-0c50cea2): 66 conversations
+2026-11-10 01:06:06,985 - cartridges.am.continual.run [rank=0] - INFO - Document doc-012-0c50cea2 complete: mean_mse=0.001952 queries=294912 time=6.4s
+2026-11-10 01:06:06,986 - cartridges.am.continual.run [rank=0] - INFO - Document 14/29 (doc-013-2935c0a0): 93 conversations
+2026-11-10 01:06:13,574 - cartridges.am.continual.run [rank=0] - INFO - Document doc-013-2935c0a0 complete: mean_mse=0.003035 queries=294912 time=6.5s
+2026-11-10 01:06:13,575 - cartridges.am.continual.run [rank=0] - INFO - Document 15/29 (doc-014-fe082b13): 70 conversations
+2026-11-10 01:06:20,923 - cartridges.am.continual.run [rank=0] - INFO - Document doc-014-fe082b13 complete: mean_mse=0.002437 queries=294912 time=7.2s
+2026-11-10 01:06:20,924 - cartridges.am.continual.run [rank=0] - INFO - Document 16/29 (doc-015-2858f3fe): 66 conversations
+2026-11-10 01:06:27,593 - cartridges.am.continual.run [rank=0] - INFO - Document doc-015-2858f3fe complete: mean_mse=0.001968 queries=294912 time=6.6s
+2026-11-10 01:06:27,594 - cartridges.am.continual.run [rank=0] - INFO - Document 17/29 (doc-016-c0d19f37): 140 conversations
+E1110 01:06:41.094000 27321 site-packages/torch/_inductor/select_algorithm.py:1477] [1/3] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/zf/czfkhqefwm4uf3g5giuz5axwpg76x4m7dhmw6op76hzm2j4jsgww.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 01:06:41.514000 27321 site-packages/torch/_inductor/select_algorithm.py:1696] [1/3] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x13120x128, 1x8x13120x128, 1x8x13120x128, 1x32x13120, 1x1x103, 1x1x103x103, 1x1x103, 1x1x103x103, 13120)
+  triton_flex_attention_10 8.2985 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_14 10.0342 ms 82.7% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_11 13.6018 ms 61.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_13 36.8855 ms 22.5% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_12 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9724 seconds and 12.7215 seconds precompiling for 5 choices
+2026-11-10 01:06:50,504 - cartridges.am.continual.run [rank=0] - INFO - Document doc-016-c0d19f37 complete: mean_mse=0.001779 queries=294912 time=22.8s
+2026-11-10 01:06:50,504 - cartridges.am.continual.run [rank=0] - INFO - Document 18/29 (doc-017-9b1de5fb): 140 conversations
+2026-11-10 01:06:57,628 - cartridges.am.continual.run [rank=0] - INFO - Document doc-017-9b1de5fb complete: mean_mse=0.002315 queries=294912 time=7.0s
+2026-11-10 01:06:57,628 - cartridges.am.continual.run [rank=0] - INFO - Document 19/29 (doc-018-1fd83b55): 116 conversations
+E1110 01:07:11.917000 27321 site-packages/torch/_inductor/select_algorithm.py:1477] [1/4] Exception out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help. for benchmark choice TritonTemplateCaller(/tmp/torchinductor_voquangtri2025/uk/cukxyxftimukjimemcralrczwjfy4wpvd3eultwsnaj3zls2g2vx.py, BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4)
+W1110 01:07:12.359000 27321 site-packages/torch/_inductor/select_algorithm.py:1696] [1/4] out of resource: shared memory, Required: 167968, Hardware limit: 166912. Reducing block sizes or `num_stages` may help.
+AUTOTUNE flex_attention(1x32x12137x128, 1x8x12137x128, 1x8x12137x128, 1x32x12137, 1x1x95, 1x1x95x95, 1x1x95, 1x1x95x95, 12137)
+  triton_flex_attention_15 8.0886 ms 100.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=8
+  triton_flex_attention_19 9.3809 ms 86.2% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_16 13.0284 ms 62.1% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_18 36.7831 ms 22.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+  triton_flex_attention_17 inf ms 0.0% BLOCKS_ARE_CONTIGUOUS=False, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=4, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=False, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, ROWS_GUARANTEED_SAFE=False, SM_SCALE=0.08838834764831845, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, V_HEAD_DIM=128, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.9943 seconds and 13.5908 seconds precompiling for 5 choices
+2026-11-10 01:07:20,754 - cartridges.am.continual.run [rank=0] - INFO - Document doc-018-1fd83b55 complete: mean_mse=0.001421 queries=294912 time=23.0s
+2026-11-10 01:07:20,754 - cartridges.am.continual.run [rank=0] - INFO - Document 20/29 (doc-019-67b040d0): 147 conversations
+2026-11-10 01:07:28,182 - cartridges.am.continual.run [rank=0] - INFO - Document doc-019-67b040d0 complete: mean_mse=0.001916 queries=294912 time=7.3s
+2026-11-10 01:07:28,182 - cartridges.am.continual.run [rank=0] - INFO - Document 21/29 (doc-020-fe9d55bf): 153 conversations
+2026-11-10 01:07:35,862 - cartridges.am.continual.run [rank=0] - INFO - Document doc-020-fe9d55bf complete: mean_mse=0.001789 queries=294912 time=7.6s
+2026-11-10 01:07:35,862 - cartridges.am.continual.run [rank=0] - INFO - Document 22/29 (doc-021-8f720a0a): 138 conversations
+2026-11-10 01:07:42,026 - cartridges.am.continual.run [rank=0] - INFO - Document doc-021-8f720a0a complete: mean_mse=0.001477 queries=294912 time=6.1s
+2026-11-10 01:07:42,026 - cartridges.am.continual.run [rank=0] - INFO - Document 23/29 (doc-022-4a6b0efa): 116 conversations
+2026-11-10 01:07:49,446 - cartridges.am.continual.run [rank=0] - INFO - Document doc-022-4a6b0efa complete: mean_mse=0.001837 queries=294912 time=7.3s
+2026-11-10 01:07:49,446 - cartridges.am.continual.run [rank=0] - INFO - Document 24/29 (doc-023-b537a32e): 130 conversations
+2026-11-10 01:07:56,848 - cartridges.am.continual.run [rank=0] - INFO - Document doc-023-b537a32e complete: mean_mse=0.002402 queries=294912 time=7.3s
+2026-11-10 01:07:56,848 - cartridges.am.continual.run [rank=0] - INFO - Document 25/29 (doc-024-e9ae4089): 148 conversations
+2026-11-10 01:08:03,903 - cartridges.am.continual.run [rank=0] - INFO - Document doc-024-e9ae4089 complete: mean_mse=0.001586 queries=294912 time=6.9s
+2026-11-10 01:08:03,903 - cartridges.am.continual.run [rank=0] - INFO - Document 26/29 (doc-025-2bc7cc62): 150 conversations
+2026-11-10 01:08:11,048 - cartridges.am.continual.run [rank=0] - INFO - Document doc-025-2bc7cc62 complete: mean_mse=0.002750 queries=294912 time=7.0s
+2026-11-10 01:08:11,049 - cartridges.am.continual.run [rank=0] - INFO - Document 27/29 (doc-026-f100f5b4): 137 conversations
+2026-11-10 01:08:17,143 - cartridges.am.continual.run [rank=0] - INFO - Document doc-026-f100f5b4 complete: mean_mse=0.001499 queries=294912 time=6.0s
+2026-11-10 01:08:17,143 - cartridges.am.continual.run [rank=0] - INFO - Document 28/29 (doc-027-ab52af7a): 134 conversations
+2026-11-10 01:08:23,603 - cartridges.am.continual.run [rank=0] - INFO - Document doc-027-ab52af7a complete: mean_mse=0.002707 queries=294912 time=6.3s
+2026-11-10 01:08:23,603 - cartridges.am.continual.run [rank=0] - INFO - Document 29/29 (doc-028-febe4d64): 102 conversations
+2026-11-10 01:08:30,777 - cartridges.am.continual.run [rank=0] - INFO - Document doc-028-febe4d64 complete: mean_mse=0.002116 queries=294912 time=7.0s
+2026-11-10 01:08:30,780 - cartridges.am.continual.run [rank=0] - INFO - SLOT-GEOMETRY: saved slots_written.pt (this-stage distinct slots/layer=208.4/512, this-stage writes=133632, cumulative writes=474624)
+2026-11-10 01:08:30,781 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete: 29 documents in 346.7s
+2026-11-10 01:08:30,897 - cartridges.am.continual.run [rank=0] - INFO - Per-document AM Phase 2 complete in 349.1s (29 documents). Saved to /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.05it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.05it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.56it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt
+2026-11-10 01:08:47,154 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 01:08:47,154 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 01:08:47,176 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 01:08:47,265 - cartridges.train [rank=0] - INFO - Evaluating `p1` (n=10, 10 per device, world size=1)
+
+Evaluation [step=0] (p1):   0%|          | 0/10 [00:00<?, ?it/s]
+Evaluation [step=0] (p1):  10%|█         | 1/10 [00:05<00:47,  5.29s/it]
+Evaluation [step=0] (p1):  20%|██        | 2/10 [00:05<00:18,  2.25s/it]
+Evaluation [step=0] (p1):  30%|███       | 3/10 [00:05<00:08,  1.28s/it]
+Evaluation [step=0] (p1):  40%|████      | 4/10 [00:05<00:04,  1.21it/s]
+Evaluation [step=0] (p1):  50%|█████     | 5/10 [00:05<00:02,  1.74it/s]
+Evaluation [step=0] (p1):  60%|██████    | 6/10 [00:05<00:01,  2.37it/s]
+Evaluation [step=0] (p1):  70%|███████   | 7/10 [00:06<00:00,  3.08it/s]
+Evaluation [step=0] (p1):  80%|████████  | 8/10 [00:06<00:00,  3.82it/s]
+Evaluation [step=0] (p1):  90%|█████████ | 9/10 [00:06<00:00,  4.56it/s]
+Evaluation [step=0] (p1): 100%|██████████| 10/10 [00:06<00:00,  5.25it/s]
+                                                                         
+2026-11-10 01:08:53,692 - cartridges.train [rank=0] - INFO - Eval loss - 1.986400842666626 
+2026-11-10 01:08:53,692 - cartridges.train [rank=0] - INFO - done evaling - p1
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p1": {
+      "name": "p1",
+      "loss": 1.986400842666626,
+      "perplexity": 7.289251330995839
+    }
+  }
+}
+2026-11-10 01:08:53,694 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p05_evals/p1.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.08it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.55it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt
+2026-11-10 01:09:09,509 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 01:09:09,509 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 01:09:09,530 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 01:09:09,613 - cartridges.train [rank=0] - INFO - Evaluating `p2` (n=9, 9 per device, world size=1)
+
+Evaluation [step=0] (p2):   0%|          | 0/9 [00:00<?, ?it/s]
+Evaluation [step=0] (p2):  11%|█         | 1/9 [00:05<00:41,  5.23s/it]
+Evaluation [step=0] (p2):  22%|██▏       | 2/9 [00:05<00:15,  2.23s/it]
+Evaluation [step=0] (p2):  33%|███▎      | 3/9 [00:05<00:07,  1.27s/it]
+Evaluation [step=0] (p2):  44%|████▍     | 4/9 [00:05<00:04,  1.22it/s]
+Evaluation [step=0] (p2):  56%|█████▌    | 5/9 [00:05<00:02,  1.76it/s]
+Evaluation [step=0] (p2):  67%|██████▋   | 6/9 [00:05<00:01,  2.39it/s]
+Evaluation [step=0] (p2):  78%|███████▊  | 7/9 [00:05<00:00,  3.10it/s]
+Evaluation [step=0] (p2):  89%|████████▉ | 8/9 [00:06<00:00,  3.85it/s]
+Evaluation [step=0] (p2): 100%|██████████| 9/9 [00:06<00:00,  4.56it/s]
+                                                                       
+2026-11-10 01:09:15,859 - cartridges.train [rank=0] - INFO - Eval loss - 2.9848594665527344 
+2026-11-10 01:09:15,859 - cartridges.train [rank=0] - INFO - done evaling - p2
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p2": {
+      "name": "p2",
+      "loss": 2.9848594665527344,
+      "perplexity": 19.783721766380822
+    }
+  }
+}
+2026-11-10 01:09:15,860 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p05_evals/p2.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.04it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.02it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.52it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt
+2026-11-10 01:09:31,653 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 01:09:31,653 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 01:09:31,674 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 01:09:31,755 - cartridges.train [rank=0] - INFO - Evaluating `p3` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p3):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p3):  12%|█▎        | 1/8 [00:05<00:36,  5.25s/it]
+Evaluation [step=0] (p3):  25%|██▌       | 2/8 [00:05<00:13,  2.24s/it]
+Evaluation [step=0] (p3):  38%|███▊      | 3/8 [00:05<00:06,  1.27s/it]
+Evaluation [step=0] (p3):  50%|█████     | 4/8 [00:05<00:03,  1.22it/s]
+Evaluation [step=0] (p3):  62%|██████▎   | 5/8 [00:05<00:01,  1.76it/s]
+Evaluation [step=0] (p3):  75%|███████▌  | 6/8 [00:05<00:00,  2.39it/s]
+Evaluation [step=0] (p3):  88%|████████▊ | 7/8 [00:06<00:00,  3.10it/s]
+Evaluation [step=0] (p3): 100%|██████████| 8/8 [00:06<00:00,  3.85it/s]
+                                                                       
+2026-11-10 01:09:37,886 - cartridges.train [rank=0] - INFO - Eval loss - 2.7333247661590576 
+2026-11-10 01:09:37,886 - cartridges.train [rank=0] - INFO - done evaling - p3
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p3": {
+      "name": "p3",
+      "loss": 2.7333247661590576,
+      "perplexity": 15.383950123192609
+    }
+  }
+}
+2026-11-10 01:09:37,887 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p05_evals/p3.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.19it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.09it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.64it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt
+2026-11-10 01:09:53,578 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 01:09:53,579 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 01:09:53,600 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 01:09:53,682 - cartridges.train [rank=0] - INFO - Evaluating `p4` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p4):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p4):  12%|█▎        | 1/8 [00:05<00:36,  5.27s/it]
+Evaluation [step=0] (p4):  25%|██▌       | 2/8 [00:05<00:13,  2.25s/it]
+Evaluation [step=0] (p4):  38%|███▊      | 3/8 [00:05<00:06,  1.28s/it]
+Evaluation [step=0] (p4):  50%|█████     | 4/8 [00:05<00:03,  1.21it/s]
+Evaluation [step=0] (p4):  62%|██████▎   | 5/8 [00:05<00:01,  1.75it/s]
+Evaluation [step=0] (p4):  75%|███████▌  | 6/8 [00:05<00:00,  2.38it/s]
+Evaluation [step=0] (p4):  88%|████████▊ | 7/8 [00:06<00:00,  3.09it/s]
+Evaluation [step=0] (p4): 100%|██████████| 8/8 [00:06<00:00,  3.83it/s]
+                                                                       
+2026-11-10 01:09:59,840 - cartridges.train [rank=0] - INFO - Eval loss - 2.789958953857422 
+2026-11-10 01:09:59,841 - cartridges.train [rank=0] - INFO - done evaling - p4
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p4": {
+      "name": "p4",
+      "loss": 2.789958953857422,
+      "perplexity": 16.280351542443153
+    }
+  }
+}
+2026-11-10 01:09:59,842 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p05_evals/p4.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.07it/s]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.54it/s]
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt
+2026-11-10 01:10:15,661 - cartridges.cache [rank=0] - INFO - num_trainable_tokens: 512
+2026-11-10 01:10:15,661 - cartridges.cache [rank=0] - INFO - num_frozen_tokens: 0
+2026-11-10 01:10:15,682 - __main__ [rank=0] - INFO - Loaded cartridge /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt: 36 layers, 8 kv heads, 512 trainable slots
+2026-11-10 01:10:15,763 - cartridges.train [rank=0] - INFO - Evaluating `p5` (n=8, 8 per device, world size=1)
+
+Evaluation [step=0] (p5):   0%|          | 0/8 [00:00<?, ?it/s]
+Evaluation [step=0] (p5):  12%|█▎        | 1/8 [00:05<00:36,  5.24s/it]
+Evaluation [step=0] (p5):  25%|██▌       | 2/8 [00:05<00:13,  2.23s/it]
+Evaluation [step=0] (p5):  38%|███▊      | 3/8 [00:05<00:06,  1.27s/it]
+Evaluation [step=0] (p5):  50%|█████     | 4/8 [00:05<00:03,  1.22it/s]
+Evaluation [step=0] (p5):  62%|██████▎   | 5/8 [00:05<00:01,  1.76it/s]
+Evaluation [step=0] (p5):  75%|███████▌  | 6/8 [00:05<00:00,  2.39it/s]
+Evaluation [step=0] (p5):  88%|████████▊ | 7/8 [00:05<00:00,  3.10it/s]
+Evaluation [step=0] (p5): 100%|██████████| 8/8 [00:06<00:00,  3.84it/s]
+                                                                       
+2026-11-10 01:10:21,890 - cartridges.train [rank=0] - INFO - Eval loss - 3.0591397285461426 
+2026-11-10 01:10:21,890 - cartridges.train [rank=0] - INFO - done evaling - p5
+{
+  "cache_path": "/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_runs/2026-11-10-01-02-35-LONGHEALTH_P5_e2e_budget512_topt128/8c6ccd48-6f04-491b-9a52-65096c5e55c0/cache-step29.pt",
+  "n_slots": 512,
+  "eval_metrics": {
+    "p5": {
+      "name": "p5",
+      "loss": 3.0591397285461426,
+      "perplexity": 21.309217563067673
+    }
+  }
+}
+2026-11-10 01:10:21,891 - __main__ [rank=0] - INFO - wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/longhealth_5phase_state/e2e_budget512_topt128/p05_evals/p5.json
+stage         P1       P2       P3       P4       P5
+p01        2.566    4.087    3.737    3.790    4.127
+p02        1.936    2.978    2.714    2.636    3.007
+p03        1.974    2.948    2.704    2.848    3.092
+p04        1.961    2.948    2.685    2.752    3.060
+p05        1.986    2.985    2.733    2.790    3.059
+
+stage         P1       P2       P3       P4       P5
+p01        2.566    4.087    3.737    3.790    4.127
+p02        1.936    2.978    2.714    2.636    3.007
+p03        1.974    2.948    2.704    2.848    3.092
+p04        1.961    2.948    2.685    2.752    3.060
+p05        1.986    2.985    2.733    2.790    3.059
+
+{
+  "average_loss_on_seen_tasks": {
+    "p01": 2.5659165382385254,
+    "p02": 2.457209289073944,
+    "p03": 2.541873812675476,
+    "p04": 2.586506336927414,
+    "p05": 2.7107367515563965
+  },
+  "forgetting_at_final_stage": {
+    "p1": -0.5795156955718994,
+    "p2": 0.0066683292388916016,
+    "p3": 0.029662132263183594,
+    "p4": 0.0381922721862793
+  },
+  "mean_forgetting": -0.12624824047088623
+}
+
+wrote /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/evaluations/longhealth/e2e_budget512_topt128/teacher-forced-logppl-v1
+    Successfully generated perplexity matrix: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/evaluations/longhealth/e2e_budget512_topt128/teacher-forced-logppl-v1/matrix.json
+--- Step 3: Record Slot Frequency Artifacts (longhealth, e2e_budget512_topt128) ---
+  [slot_frequency] Recorded slot frequency outputs to: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/evaluations/longhealth/e2e_budget512_topt128/slot_frequency
+                   Coverage: 76.81% | Consecutive Jaccard: 0.601 | Max Writes/Slot: 103
+--- Step 4: Generation Accuracy Matrix (longhealth, e2e_budget512_topt128) ---
+/home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/evaluations/longhealth/e2e_budget512_topt128/accuracy-freeform-mc-options-primeAnswer-v1/plan.json
+{
+  "schema_version": 1,
+  "plan_hash": "4f81a3ac2c05b8710ea045544ac013c4fdf8ee15fe5a212cea05f2f6bbe95fc5",
+  "dataset": "longhealth",
+  "technique": "e2e_budget512_topt128",
+  "protocol": "freeform-mc-options-v1",
+  "model": "Qwen/Qwen3-4B-Instruct-2507",
+  "stage_ids": [
+    "p01",
+    "p02",
+    "p03",
+    "p04",
+    "p05"
+  ],
+  "eval_ids": [
+    "p01",
+    "p02",
+    "p03",
+    "p04",
+    "p05"
+  ],
+  "accuracy": [
+    [
+      0.3875,
+      0.3875,
+      0.45,
+      0.3125,
+      0.3875
+    ],
+    [
+      0.0375,
+      0.0375,
+      0.0375,
+      0.0125,
+      0.0375
+    ],
+    [
+      0.0375,
+      0.0,
+      0.1,
+      0.0375,
+      0.025
+    ],
+    [
+      0.025,
+      0.0,
+      0.075,
+      0.1,
+      0.0875
+    ],
+    [
+      0.05,
+      0.0,
+      0.125,
+      0.05,
+      0.1
+    ]
+  ],
+  "num_complete_cells": 25,
+  "num_expected_cells": 25
+}
+=== accuracy matrix done: outputs/evaluations/longhealth/e2e_budget512_topt128/accuracy-freeform-mc-options-primeAnswer-v1/matrix.json ===
+=== generations recorded in: outputs/evaluations/longhealth/e2e_budget512_topt128/accuracy-freeform-mc-options-primeAnswer-v1/cells/*/generations.jsonl ===
+    Successfully generated accuracy matrix: /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/outputs/evaluations/longhealth/e2e_budget512_topt128/accuracy-freeform-mc-options-primeAnswer-v1/matrix.json
+
+======================================================================
+ All datasets and arms completed successfully at Tue Nov 10 01:38:28 UTC 2026!
+ Results available in: outputs/evaluations/{longhealth}/
+ Logs stored in:        /home/voquangtri2025/ICLR-Rebuttal/gated-continual-cartridges/logs/e2e_subkv_sweep/
+======================================================================

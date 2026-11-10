@@ -1,0 +1,61 @@
+{
+  "accuracy": [
+    [
+      0.325,
+      0.3625,
+      0.425,
+      0.2875,
+      0.3625
+    ],
+    [
+      0.325,
+      0.2875,
+      0.325,
+      0.325,
+      0.2875
+    ],
+    [
+      0.3125,
+      0.3,
+      0.3125,
+      0.325,
+      0.275
+    ],
+    [
+      0.3375,
+      0.2375,
+      0.3375,
+      0.3125,
+      0.275
+    ],
+    [
+      0.2875,
+      0.275,
+      0.3625,
+      0.3375,
+      0.3
+    ]
+  ],
+  "dataset": "longhealth",
+  "eval_ids": [
+    "p01",
+    "p02",
+    "p03",
+    "p04",
+    "p05"
+  ],
+  "model": "Qwen/Qwen3-4B-Instruct-2507",
+  "num_complete_cells": 25,
+  "num_expected_cells": 25,
+  "plan_hash": "c2da0ff79bb9d88c8cd54c424863d90c9e758976dd8e6b322be5e032aa6f98f3",
+  "protocol": "freeform-mc-options-v1",
+  "schema_version": 1,
+  "stage_ids": [
+    "p01",
+    "p02",
+    "p03",
+    "p04",
+    "p05"
+  ],
+  "technique": "e2e_budget512_topt128"
+}
