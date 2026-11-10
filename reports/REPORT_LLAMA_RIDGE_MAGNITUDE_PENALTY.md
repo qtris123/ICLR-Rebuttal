@@ -1,4 +1,4 @@
-# Empirical Evaluation Report: Spectral Ridge Magnitude Penalty in Monolithic Continual Cartridge Updates
+"# Empirical Evaluation Report: Spectral Ridge Magnitude Penalty in Monolithic Continual Cartridge Updates
 
 **Repository**: `ICLR-Rebuttal` / `farid/gated-continual-cartridges` (`moe-am` branch)  
 **Model**: `meta-llama/Llama-3.2-3B-Instruct`  
@@ -203,3 +203,4 @@ Unlike the baseline—which suffered monotonic decay down to 5.50% accuracy with
 While adding the spectral ridge magnitude penalty provides clear mathematical and empirical benefits (halting intermediate memory loss and reducing long-term unparsed degeneration), **a monolithic shared cartridge fundamentally bottlenecks once slot capacity is exceeded**.
 
 This provides empirical validation for the core premise of **Gated Continual Cartridges / MoE-AM**: rather than forcing a single monolithic matrix to compress an infinite stream of knowledge through continuous overwrites, modular routing across discrete, task-specialized cartridges is essential to avoid saturation interference.
+

@@ -1,0 +1,449 @@
+diff --git a/submem/compaction/algorithms/highest_attention_keys.py b/submem/compaction/algorithms/highest_attention_keys.py
+index 1c43b7cb..ba9f7e77 100644
+--- a/submem/compaction/algorithms/highest_attention_keys.py
++++ b/submem/compaction/algorithms/highest_attention_keys.py
+@@ -11,6 +11,21 @@ from typing import Tuple
+ from .base import CompactionAlgorithm
+ 
+ 
++def _rope_reposition(keys, from_pos, to_pos, head_dim, rope_theta=500000.0):
++    """Rotate keys from prefill position `from_pos` to cartridge slot `to_pos`."""
++    device = keys.device
++    delta = (to_pos.to(torch.float32) - from_pos.to(torch.float32))
++    inv_freq = 1.0 / (rope_theta ** (torch.arange(0, head_dim, 2, device=device).float() / head_dim))
++    angle = delta[:, None] * inv_freq[None, :]
++    emb = torch.cat([angle, angle], dim=-1)
++    cos = emb.cos().to(keys.dtype)
++    sin = emb.sin().to(keys.dtype)
++    x1 = keys[..., : head_dim // 2]
++    x2 = keys[..., head_dim // 2 :]
++    rotated = torch.cat((-x2, x1), dim=-1)
++    return keys * cos + rotated * sin
++
++
+ class HighestAttentionKeysCompaction(CompactionAlgorithm):
+     """Select keys with highest average attention scores (or RMS if configured)."""
+ 
+@@ -19,9 +34,11 @@ class HighestAttentionKeysCompaction(CompactionAlgorithm):
+                  c2_ridge_lambda: float = 0, c2_solver: str = 'lstsq', c2_ridge_scale: str = 'spectral',
+                  c2_spectral_method: str = 'svd',
+                  c2_value_prior_lambda: float = 0,
++                 c2_value_prior_scale: str = 'fixed',
+                  pooling: str = None, kernel_size: int = 7,
+                  key_quota: list = None,
+-                 frozen_indices: list = None):
++                 frozen_indices: list = None,
++                 monolithic_info: dict = None):
+         """
+         Parameters
+         ----------
+@@ -102,6 +119,7 @@ class HighestAttentionKeysCompaction(CompactionAlgorithm):
+             raise ValueError(
+                 f"c2_value_prior_lambda must be >= 0, got {c2_value_prior_lambda}")
+         self.c2_value_prior_lambda = c2_value_prior_lambda
++        self.c2_value_prior_scale = c2_value_prior_scale
+         # A ridge under the 'lstsq' solver is dropped by _compute_C2; fail at
+         # construction, before any compaction runs on a silent no-op. The value
+         # prior and frozen-slot solve the normal equations themselves, so those
+@@ -124,6 +142,47 @@ class HighestAttentionKeysCompaction(CompactionAlgorithm):
+                 "frozen_indices needs c2_method 'lsq', beta_method 'zero', "
+                 "and no key_quota")
+         self.frozen_indices = frozen_indices
++        self.monolithic_info = monolithic_info
++
++    def _select_and_reposition_exp_tri(self, K, key_scores, t):
++        """exp/tri key selection: select candidate keys strictly from the new
++        document segment K[n_memory:], and RoPE-reposition them to their destination
++        cartridge slot coordinates in-place."""
++        device = K.device
++        d = K.shape[-1]
++        n_mem_orig = self.monolithic_info["n_memory"]
++        n_memory = min(n_mem_orig, t)
++        L_logical = self.monolithic_info.get("L_logical", 0)
++        rope_theta = self.monolithic_info.get("rope_theta", 500000.0)
++        frozen = [i for i in (self.frozen_indices or []) if i < n_memory]
++        writable = torch.tensor(
++            [i for i in range(n_memory) if i not in frozen],
++            device=device,
++            dtype=torch.long,
++        )
++        n_to_write = writable.numel()
++
++        # Select keys strictly from the new document segment K[n_mem_orig:]
++        doc_scores = key_scores[n_mem_orig:]
++        n_avail = doc_scores.shape[0]
++        k_sel = min(n_to_write, n_avail)
++        _, doc_top_local = torch.topk(doc_scores, k=k_sel, largest=True)
++        doc_top_idx = n_mem_orig + doc_top_local
++
++        # RoPE repositioning from prefill position (L_logical + doc_top_local) to slot index (writable)
++        from_pos = L_logical + doc_top_local
++        to_pos = writable[:k_sel]
++        repositioned_keys = _rope_reposition(
++            K[doc_top_idx], from_pos=from_pos, to_pos=to_pos, head_dim=d, rope_theta=rope_theta
++        )
++
++        # Assemble C1 in natural slot order: row s corresponds to slot s
++        C1 = K[:n_memory].clone()
++        C1[to_pos] = repositioned_keys
++
++        beta32 = torch.zeros(n_memory, dtype=torch.float32, device=device)
++        indices = list(range(n_memory))
++        return C1, beta32.to(K.dtype), indices
+ 
+     def _top_keys(self, key_scores, t):
+         """Indices of the t selected keys: one top-t over all keys, or under
+@@ -219,25 +278,86 @@ class HighestAttentionKeysCompaction(CompactionAlgorithm):
+ 
+         return C1, beta, C2, indices
+ 
++    def _compute_C2_frozen_exp_tri(self, C1, beta, K, V, queries, attention_bias=None):
++        """Values of an in-place exp/tri write that leaves frozen slots unchanged and
++        applies trust-region regularization toward the prior cartridge values."""
++        if self.c2_value_prior_lambda <= 0 and self.c2_ridge_lambda <= 0:
++            raise ValueError("frozen_indices needs regularizer: "
++                             "c2_value_prior_lambda > 0 or c2_ridge_lambda > 0")
++        frozen = torch.as_tensor(self.frozen_indices, device=V.device, dtype=torch.long)
++        if frozen.numel() > 0 and frozen.max() >= C1.shape[0]:
++            frozen = frozen[frozen < C1.shape[0]]
++        frozen_set = set(frozen.tolist())
++        writable = torch.tensor(
++            [i for i in range(C1.shape[0]) if i not in frozen_set],
++            device=V.device,
++            dtype=torch.long,
++        )
++        n_q, d = queries.shape
++        inv_sqrt_d = d ** -0.5
++        V32 = V.to(torch.float32)
++        T_k = K.shape[0]
++        blk = n_q if n_q * T_k <= 64_000_000 else max(1, 64_000_000 // T_k)
++        Y = torch.empty(n_q, V.shape[1], dtype=torch.float32, device=K.device)
++        for s0 in range(0, n_q, blk):
++            sK32 = (queries[s0:s0 + blk] @ K.T).to(torch.float32) * inv_sqrt_d
++            if attention_bias is not None:
++                sK32 = sK32 + torch.broadcast_to(
++                    attention_bias.to(torch.float32), sK32.shape)
++            Y[s0:s0 + blk] = torch.softmax(sK32, dim=1) @ V32
++            del sK32
++
++        sC32 = (queries @ C1.T).to(torch.float32) * inv_sqrt_d + beta.to(torch.float32)
++        X = torch.softmax(sC32, dim=1)
++        X_F = X[:, frozen]
++        X_S = X[:, writable]
++        V_F = V32[frozen]
++        Vp = V32[writable]  # True trust-region: prior value in memory!
++
++        spectral_sq = None
++        if self.c2_ridge_scale == 'spectral' or getattr(self, 'c2_value_prior_scale', None) == 'spectral':
++            try:
++                spectral_sq = float((torch.linalg.matrix_norm(X_S, ord=2) ** 2).item())
++            except Exception:
++                spectral_sq = float(((torch.linalg.matrix_norm(X_S, ord='fro') ** 2) / max(X_S.shape[1], 1)).item())
++
++        lam_p = float(self.c2_value_prior_lambda)
++        if getattr(self, 'c2_value_prior_scale', None) == 'spectral' and spectral_sq is not None:
++            lam_p = lam_p * spectral_sq
++
++        lam_ridge = 0.0
++        if self.c2_ridge_lambda > 0:
++            if self.c2_ridge_scale == 'spectral' and spectral_sq is not None:
++                lam_ridge = float(self.c2_ridge_lambda) * spectral_sq
++            elif self.c2_ridge_scale == 'frobenius':
++                fro_sq = float(((torch.linalg.matrix_norm(X_S, ord='fro') ** 2) / max(X_S.shape[1], 1)).item())
++                lam_ridge = float(self.c2_ridge_lambda) * fro_sq
++            else:
++                lam_ridge = float(self.c2_ridge_lambda)
++
++        A = X_S.T @ X_S
++        A = 0.5 * (A + A.T)
++        A.diagonal().add_(lam_p + lam_ridge)
++        rhs = X_S.T @ (Y - X_F @ V_F - X_S @ Vp)
++        if lam_ridge > 0:
++            rhs = rhs - lam_ridge * Vp
++        L = torch.linalg.cholesky(A)
++        C2_S = Vp + torch.cholesky_solve(rhs, L)
++
++        C2 = torch.empty(C1.shape[0], V.shape[1], dtype=V.dtype, device=V.device)
++        C2[frozen] = V[frozen]
++        C2[writable] = C2_S.to(V.dtype)
++        return C2
++
+     def _compute_C2_frozen(self, C1, beta, K, V, queries, indices,
+                            attention_bias=None):
+-        """Values of a write that leaves the frozen slots unchanged.
+-
+-        Rows [0, f) of C1 are the frozen slots, rows [f, t) the written ones.
+-        With X the attention of the queries over all t kept keys, split into
+-        the frozen columns X_F and the written columns X_S, the written values
+-        solve
+-            min ||X_S C2_S - (Y - X_F V_F)||^2 + lambda_p ||C2_S - Vp||^2 + lam_ridge ||C2_S||^2,
+-        Y being the attention output of the full cache, Vp the values the
+-        written keys carried before, and lam_ridge scaled by c2_ridge_scale
+-        (spectral or frobenius on X_S). The frozen values V_F are copied.
+-        With no frozen slot this matches the stability solve of _compute_C2.
++        """Values of a write that leaves the frozen slots unchanged."""
++        if (
++            getattr(self, "monolithic_info", None) is not None
++            and self.monolithic_info.get("key_mode") == "exp-tri"
++        ):
++            return self._compute_C2_frozen_exp_tri(C1, beta, K, V, queries, attention_bias)
+ 
+-        Returns
+-        -------
+-        C2 : Tensor, shape (t, d)
+-            Frozen values followed by the fitted values, in the dtype of V.
+-        """
+         if self.c2_value_prior_lambda <= 0 and self.c2_ridge_lambda <= 0:
+             raise ValueError("frozen_indices needs regularizer: "
+                              "c2_value_prior_lambda > 0 or c2_ridge_lambda > 0")
+@@ -470,6 +590,13 @@ class HighestAttentionKeysCompaction(CompactionAlgorithm):
+                                                   padding=self.kernel_size // 2, stride=1)
+             key_scores = key_scores_pooled.squeeze(0).squeeze(0)  # (T,) fp32
+ 
++        if (
++            self.frozen_indices is not None
++            and getattr(self, "monolithic_info", None) is not None
++            and self.monolithic_info.get("key_mode") == "exp-tri"
++        ):
++            return self._select_and_reposition_exp_tri(K, key_scores, t)
++
+         # Select top-t keys by score. Clamp t to the keys available: an expert whose
+         # pool is smaller than its slot budget keeps all of its keys.
+         t = min(t, key_scores.shape[-1])
+@@ -571,6 +698,13 @@ class HighestAttentionKeysCompaction(CompactionAlgorithm):
+                                   padding=self.kernel_size // 2, stride=1)
+             key_scores = ks.squeeze(0).squeeze(0)
+ 
++        if (
++            self.frozen_indices is not None
++            and getattr(self, "monolithic_info", None) is not None
++            and self.monolithic_info.get("key_mode") == "exp-tri"
++        ):
++            return self._select_and_reposition_exp_tri(K, key_scores, t)
++
+         t = min(t, key_scores.shape[-1])   # keep all keys if the pool is smaller than t
+         sel = self._top_keys(key_scores, t)
+         C1 = K[sel]
+diff --git a/submem/compaction/compaction_methods/per_layer_head_on_policy.py b/submem/compaction/compaction_methods/per_layer_head_on_policy.py
+index 4817af3e..59c073fe 100644
+--- a/submem/compaction/compaction_methods/per_layer_head_on_policy.py
++++ b/submem/compaction/compaction_methods/per_layer_head_on_policy.py
+@@ -503,6 +503,7 @@ class PerLayerHeadOnPolicyCompaction(FullCacheCompactionAlgorithm):
+                     n_memory=write["n_memory"], t=write["t"],
+                     rule=write.get("rule", "most"),
+                 )
++                self.algorithm_kwargs["monolithic_info"] = write
+ 
+             for head_idx in range(num_heads):
+                 # Extract K, V for this head
+@@ -685,6 +686,8 @@ class PerLayerHeadOnPolicyCompaction(FullCacheCompactionAlgorithm):
+             C2_layer = torch.cat(C2_heads, dim=1)
+ 
+             compacted_layers.append((C1_layer, beta_layer, C2_layer))
++            if torch.cuda.is_available():
++                torch.cuda.empty_cache()
+ 
+         # Aggregate stats
+         # Compute average tensor length across all global (non-sliding) layers
+@@ -967,7 +970,8 @@ class PerLayerHeadOnPolicyCompaction(FullCacheCompactionAlgorithm):
+                 continue
+ 
+             # q_all_layers: (num_layers, num_attn_heads, n_tokens, head_dim)
+-            q_layer = q_all_layers[layer_idx]  # (num_attn_heads, n_tokens, head_dim)
++            q_layer = q_all_layers[layer_idx].clone()
++            del q_all_layers
+ 
+             per_seq_q_layer.append(q_layer)
+ 
+diff --git a/submem/compaction/query_generation/self_study.py b/submem/compaction/query_generation/self_study.py
+index fe2b29a5..3710fb44 100644
+--- a/submem/compaction/query_generation/self_study.py
++++ b/submem/compaction/query_generation/self_study.py
+@@ -606,6 +606,14 @@ class SelfStudyQueryGenerator:
+             # --- save vLLM outputs for reuse by other cells on the same document ---
+             _ss_cache_save(_cache_key, spec_to_starters, starter_to_answer)
+ 
++            # Put vLLM to sleep immediately after text generation to free GPU memory for HF extraction
++            if self.vllm_model is not None:
++                if self.verbose:
++                    print("Putting vLLM to sleep before HF query extraction...")
++                self.vllm_model.sleep()
++                if torch.cuda.is_available():
++                    torch.cuda.empty_cache()
++
+             # Phase 3: Extract query vectors from answers using HuggingFace in prefill mode
+             all_query_vectors = []
+             sequences = [] if return_sequences else None
+diff --git a/submem/continual/archive.py b/submem/continual/archive.py
+index 992697c8..46759d48 100644
+--- a/submem/continual/archive.py
++++ b/submem/continual/archive.py
+@@ -128,6 +128,7 @@ def archive_before_overwrite(path, content=None, content_path=None):
+ 
+ def write_json(path, obj):
+     """Write obj as indented JSON to path, archiving a differing file first."""
++    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+     text = json.dumps(obj, indent=2)
+     archive_before_overwrite(path, content=text)
+     tmp = path + ".tmp"
+@@ -141,6 +142,7 @@ def write_json(path, obj):
+ def write_jsonl(path, meta, recs):
+     """Write a _meta line and one JSON record per line, archiving a differing
+     file first."""
++    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+     text = "".join(
+         json.dumps(r) + "\n" for r in [{"_meta": meta}] + list(recs)
+     )
+diff --git a/submem/continual/cli.py b/submem/continual/cli.py
+index 3407a55f..3d3cef3d 100644
+--- a/submem/continual/cli.py
++++ b/submem/continual/cli.py
+@@ -315,6 +315,17 @@ def _add_gated_update_flags(ap):
+             "that the re-fit queries attend to most (default) or least."
+         ),
+     )
++    group.add_argument(
++        "--key-mode",
++        choices=("union", "exp-tri"),
++        default="union",
++        help=(
++            "--write-slots: key selection pool and RoPE alignment. "
++            "'exp-tri' selects keys strictly from the new document "
++            "and re-bases them with RoPE into cartridge slots in-place; "
++            "'union' (default) selects from the mixed union without RoPE re-basing."
++        ),
++    )
+     group.add_argument(
+         "--write-slots",
+         type=int,
+@@ -325,8 +336,35 @@ def _add_gated_update_flags(ap):
+             "layer that the re-fit queries attend to most; every other "
+             "memory slot keeps its key and value, and the values of the t "
+             "written slots are fit with the frozen slots held fixed. Needs "
+-            "--value-prior-lambda > 0 and each phase in one segment. 0 "
+-            "(default) re-fits the whole memory."
++            "--value-prior-lambda > 0 or --c2-ridge-lambda > 0, and each "
++            "phase in one segment. 0 (default) re-fits the whole memory."
++        ),
++    )
++    group.add_argument(
++        "--c2-ridge-lambda",
++        type=float,
++        default=0.0,
++        help=(
++            "weight of ridge penalty lambda * ||C2||^2 on value least "
++            "squares (the magnitude penalty). 0 (default) turns it off."
++        ),
++    )
++    group.add_argument(
++        "--c2-ridge-scale",
++        choices=("spectral", "frobenius", "fixed"),
++        default="spectral",
++        help=(
++            "how c2-ridge-lambda is scaled: spectral (||X||_2^2), "
++            "frobenius, or fixed (default: spectral)."
++        ),
++    )
++    group.add_argument(
++        "--c2-value-prior-scale",
++        choices=("spectral", "fixed"),
++        default="fixed",
++        help=(
++            "how value-prior-lambda is scaled: spectral (||X||_2^2) "
++            "or fixed (default: fixed)."
+         ),
+     )
+     group.add_argument(
+@@ -603,12 +641,12 @@ def resolve_args(ap, args):
+     if args.write_slots and (
+         args.mode != "recompress"
+         or args.budget_mode != "total"
+-        or not args.value_prior_lambda
++        or (not args.value_prior_lambda and not args.c2_ridge_lambda)
+         or args.slot_quota
+     ):
+         ap.error(
+             "--write-slots requires --mode recompress --budget-mode total "
+-            "--value-prior-lambda > 0 and no --slot-quota"
++            "(--value-prior-lambda > 0 or --c2-ridge-lambda > 0) and no --slot-quota"
+         )
+     if args.write_slots < 0:
+         ap.error("--write-slots must be >= 0")
+diff --git a/submem/continual/memory_policies.py b/submem/continual/memory_policies.py
+index 9a27f7bd..6838dc6b 100644
+--- a/submem/continual/memory_policies.py
++++ b/submem/continual/memory_policies.py
+@@ -291,6 +291,14 @@ class MonolithicMemory(KVRecursiveMemory):
+     are. make_memory_policy picks it when --write-slots is set.
+     """
+ 
++    def current(self):
++        """The memory the probes read, with logical sequence length bounded to
++        the model's max position embeddings (Option A).
++        """
++        ctx = self.ctx
++        max_context = getattr(ctx.model.config, "max_position_embeddings", 131072)
++        return self.M, min(self.L_logical, max_context)
++
+     def _refit(self, text, target, t, contexts, old_blocks):
+         """The KV recursive re-fit with all but t memory slots frozen.
+ 
+@@ -307,6 +315,13 @@ class MonolithicMemory(KVRecursiveMemory):
+                 f"--write-slots needs the phase in one segment: {n_tok} "
+                 f"tokens > --recompress-segment {ctx.args.recompress_segment}"
+             )
++
++        max_context = getattr(ctx.model.config, "max_position_embeddings", 131072)
++        if self.L_logical + n_tok > max_context:
++            effective_L_before = max(0, max_context - n_tok)
++        else:
++            effective_L_before = self.L_logical
++
+         # The compactor picks each layer's writable slots among the memory
+         # slots, which lead the union (memory_ops._prefill_segment).
+         ctx.cache_compactor.monolithic_write = {
+@@ -317,12 +332,26 @@ class MonolithicMemory(KVRecursiveMemory):
+                 for li in range(len(self.M))
+                 if li not in (ctx.sliding_layers or ())
+             ),
++            "L_logical": int(effective_L_before),
++            "rope_theta": float(getattr(ctx.model.config, "rope_theta", 500000.0)),
++            "key_mode": getattr(ctx.args, "key_mode", "union"),
+         }
+         try:
+-            return super()._refit(text, target, t, contexts, old_blocks)
++            M_new, L_new, src = recompress_union(
++                self.ctx,
++                self.M,
++                effective_L_before,
++                text,
++                target,
++                t,
++                document_contexts=contexts,
++                old_blocks=old_blocks,
++            )
++            return M_new, min(L_new, max_context), src
+         finally:
+             del ctx.cache_compactor.monolithic_write
+             ctx.cache_compactor.algorithm_kwargs.pop("frozen_indices", None)
++            ctx.cache_compactor.algorithm_kwargs.pop("monolithic_info", None)
+ 
+ 
+ class InContextMemory(MemoryPolicy):
+diff --git a/submem/continual/run.py b/submem/continual/run.py
+index 6ff3bedd..37f950ea 100644
+--- a/submem/continual/run.py
++++ b/submem/continual/run.py
+@@ -198,6 +198,12 @@ def make_compactors(args):
+     am_config = {**AM_CONFIG, "beta_method": args.beta}
+     if args.am_on_policy:
+         am_config["on_policy"] = True
++    if getattr(args, "c2_ridge_lambda", 0) > 0:
++        am_config["c2_ridge_lambda"] = float(args.c2_ridge_lambda)
++        am_config["c2_ridge_scale"] = getattr(args, "c2_ridge_scale", "spectral")
++        am_config["c2_solver"] = "cholesky"
++    if getattr(args, "c2_value_prior_scale", None):
++        am_config["c2_value_prior_scale"] = args.c2_value_prior_scale
+     document_config = dict(am_config)
+     document_compactor = get_compaction_method(
+         AM_CONFIG["algorithm"],
