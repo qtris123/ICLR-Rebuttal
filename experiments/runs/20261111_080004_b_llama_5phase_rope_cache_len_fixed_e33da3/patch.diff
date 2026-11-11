@@ -1,0 +1,1011 @@
+diff --git a/submem/compaction/algorithms/base.py b/submem/compaction/algorithms/base.py
+index 90947773..7eadb5d6 100644
+--- a/submem/compaction/algorithms/base.py
++++ b/submem/compaction/algorithms/base.py
+@@ -162,6 +162,38 @@ class CompactionAlgorithm(ABC):
+             Y[s0:s0 + blk] = (exp_sK / exp_sK.sum(dim=1, keepdim=True)) @ V32
+             del sK32, exp_sK
+ 
++        return self._solve_C2_from_targets(
++            C1, beta, queries, Y,
++            ridge_lambda=ridge_lambda,
++            solver=solver,
++            ridge_scale=ridge_scale,
++            spectral_method=spectral_method,
++            value_prior=value_prior,
++            value_prior_lambda=value_prior_lambda,
++            K=K,
++            V=V,
++        )
++
++    def _solve_C2_from_targets(
++        self,
++        C1: torch.Tensor,
++        beta: torch.Tensor,
++        queries: torch.Tensor,
++        Y: torch.Tensor,
++        ridge_lambda: float = 0,
++        solver: str = 'lstsq',
++        ridge_scale: str = 'spectral',
++        spectral_method: str = 'svd',
++        value_prior: torch.Tensor = None,
++        value_prior_lambda: float = 0,
++        K: torch.Tensor = None,
++        V: torch.Tensor = None,
++    ) -> torch.Tensor:
++        """Solve for C2 given compacted keys C1, biases beta, queries, and teacher outputs Y."""
++        dtype_param = C1.dtype
++        inv_sqrt_d = (1.0 / C1.shape[1]) ** 0.5
++        Y = Y.to(torch.float32)
++
+         # X = softmax((Q C1^T)/sqrt(d) + beta)
+         sC_raw = queries @ C1.T                                  # (n, t) original dtype
+         sC32 = sC_raw.to(torch.float32) * inv_sqrt_d + beta.to(torch.float32)  # (n, t)
+@@ -247,8 +279,10 @@ class CompactionAlgorithm(ABC):
+                 print(f"lstsq failed ({e}), increasing lambda to 1e-6 and retrying")
+                 print(f"  C1 has NaN: {torch.isnan(C1).any().item()}, Inf: {torch.isinf(C1).any().item()}")
+                 print(f"  beta has NaN: {torch.isnan(beta).any().item()}, Inf: {torch.isinf(beta).any().item()}")
+-                print(f"  K has NaN: {torch.isnan(K).any().item()}, Inf: {torch.isinf(K).any().item()}")
+-                print(f"  V has NaN: {torch.isnan(V).any().item()}, Inf: {torch.isinf(V).any().item()}")
++                if K is not None:
++                    print(f"  K has NaN: {torch.isnan(K).any().item()}, Inf: {torch.isinf(K).any().item()}")
++                if V is not None:
++                    print(f"  V has NaN: {torch.isnan(V).any().item()}, Inf: {torch.isinf(V).any().item()}")
+                 print(f"  queries has NaN: {torch.isnan(queries).any().item()}, Inf: {torch.isinf(queries).any().item()}")
+                 print(f"  X has NaN: {torch.isnan(X).any().item()}, Inf: {torch.isinf(X).any().item()}")
+                 print(f"  Y has NaN: {torch.isnan(Y).any().item()}, Inf: {torch.isinf(Y).any().item()}")
+diff --git a/submem/compaction/algorithms/highest_attention_keys.py b/submem/compaction/algorithms/highest_attention_keys.py
+index 1c43b7cb..20def899 100644
+--- a/submem/compaction/algorithms/highest_attention_keys.py
++++ b/submem/compaction/algorithms/highest_attention_keys.py
+@@ -11,6 +11,74 @@ from typing import Tuple
+ from .base import CompactionAlgorithm
+ 
+ 
++def _rotate_vectors_rope(model, x: torch.Tensor, from_pos, to_pos) -> torch.Tensor:
++    """RoPE-rotate rows of ``x`` (L, d) from ``from_pos`` to ``to_pos``."""
++    if x.shape[0] == 0:
++        return x
++    if isinstance(from_pos, int) and isinstance(to_pos, int):
++        if from_pos == to_pos:
++            return x
++        cur = torch.tensor([from_pos], device=x.device, dtype=torch.long)
++        tgt = torch.tensor([to_pos], device=x.device, dtype=torch.long)
++        changed_mask = None
++    else:
++        cur = torch.as_tensor(from_pos, device=x.device, dtype=torch.long)
++        tgt = torch.as_tensor(to_pos, device=x.device, dtype=torch.long)
++        changed_mask = cur != tgt
++        if not changed_mask.any():
++            return x
++
++    from ..compaction_methods.chunked import compute_rope_correction
++    cos_diff, sin_diff = compute_rope_correction(
++        model, cur, tgt, device=x.device, dtype=torch.float32
++    )
++    x32 = x.to(torch.float32)
++    half = x32.shape[-1] // 2
++    rot_x = torch.cat((-x32[..., half:], x32[..., :half]), dim=-1)
++    rotated = (x32 * cos_diff[0] + rot_x * sin_diff[0]).to(x.dtype)
++    if changed_mask is not None and not changed_mask.all():
++        return torch.where(changed_mask.unsqueeze(-1), rotated, x)
++    return rotated
++
++
++def _slice_attention_bias(
++    attention_bias: torch.Tensor, n_q: int, q_start: int, q_end: int, k_limit: int = None
++) -> torch.Tensor:
++    """Slice optional attention bias along query and key dims when present."""
++    if attention_bias is None:
++        return None
++    b = attention_bias
++    if b.dim() >= 2 and b.shape[0] == n_q:
++        b = b[q_start:q_end]
++    if k_limit is not None:
++        b = b[..., :k_limit]
++    return b
++
++
++def _compute_teacher_attention_output(
++    K: torch.Tensor, V: torch.Tensor, queries: torch.Tensor, attention_bias: torch.Tensor = None
++) -> torch.Tensor:
++    """Blocked float32 softmax(Q K^T / sqrt(d) + bias) @ V over teacher KV."""
++    n_q, d = queries.shape
++    if n_q == 0:
++        return torch.empty(0, V.shape[1], dtype=torch.float32, device=K.device)
++    inv_sqrt_d = d ** -0.5
++    V32 = V.to(torch.float32)
++    T_k = K.shape[0]
++    blk = n_q if n_q * T_k <= 64_000_000 else max(1, 64_000_000 // T_k)
++    Y = torch.empty(n_q, V.shape[1], dtype=torch.float32, device=K.device)
++    for s0 in range(0, n_q, blk):
++        sK32 = (queries[s0:s0 + blk] @ K.T).to(torch.float32) * inv_sqrt_d
++        if attention_bias is not None:
++            b32 = attention_bias.to(torch.float32)
++            if b32.dim() >= 2 and b32.shape[0] == n_q:
++                b32 = b32[s0:s0 + blk]
++            sK32 = sK32 + torch.broadcast_to(b32, sK32.shape)
++        Y[s0:s0 + blk] = torch.softmax(sK32, dim=1) @ V32
++        del sK32
++    return Y
++
++
+ class HighestAttentionKeysCompaction(CompactionAlgorithm):
+     """Select keys with highest average attention scores (or RMS if configured)."""
+ 
+@@ -243,24 +311,23 @@ class HighestAttentionKeysCompaction(CompactionAlgorithm):
+                              "c2_value_prior_lambda > 0 or c2_ridge_lambda > 0")
+         f = len(self.frozen_indices)
+         idx = torch.as_tensor(indices, device=V.device, dtype=torch.long)
+-        n_q, d = queries.shape
+-        inv_sqrt_d = d ** -0.5
+-        V32 = V.to(torch.float32)
+-        T_k = K.shape[0]
+-        blk = n_q if n_q * T_k <= 64_000_000 else max(1, 64_000_000 // T_k)
+-        Y = torch.empty(n_q, V.shape[1], dtype=torch.float32, device=K.device)
+-        for s0 in range(0, n_q, blk):
+-            sK32 = (queries[s0:s0 + blk] @ K.T).to(torch.float32) * inv_sqrt_d
+-            if attention_bias is not None:
+-                sK32 = sK32 + torch.broadcast_to(
+-                    attention_bias.to(torch.float32), sK32.shape)
+-            Y[s0:s0 + blk] = torch.softmax(sK32, dim=1) @ V32
+-            del sK32
++        Y = _compute_teacher_attention_output(K, V, queries, attention_bias)
++        return self._compute_C2_frozen_from_targets(
++            C1, beta, V[idx[:f]], V[idx[f:]], queries, Y
++        )
++
++    def _compute_C2_frozen_from_targets(self, C1, beta, V_F_raw, Vp_raw, queries, Y):
++        """Solve frozen-slot C2 given precomputed teacher targets Y and prior values."""
++        if self.c2_value_prior_lambda <= 0 and self.c2_ridge_lambda <= 0:
++            raise ValueError("frozen_indices needs regularizer: "
++                             "c2_value_prior_lambda > 0 or c2_ridge_lambda > 0")
++        f = V_F_raw.shape[0]
++        inv_sqrt_d = queries.shape[1] ** -0.5
+         sC32 = (queries @ C1.T).to(torch.float32) * inv_sqrt_d + beta.to(torch.float32)
+         X = torch.softmax(sC32, dim=1)
+         X_F, X_S = X[:, :f], X[:, f:]
+-        V_F = V32[idx[:f]]
+-        Vp = V32[idx[f:]]
++        V_F = V_F_raw.to(torch.float32)
++        Vp = Vp_raw.to(torch.float32)
+ 
+         # Regularization scaling on X_S (matching base._compute_C2 and cartridges.am.core)
+         spectral_sq = None
+@@ -287,13 +354,194 @@ class HighestAttentionKeysCompaction(CompactionAlgorithm):
+         A = X_S.T @ X_S
+         A = 0.5 * (A + A.T)
+         A.diagonal().add_(lam_p + lam_ridge)
+-        rhs = X_S.T @ (Y - X_F @ V_F - X_S @ Vp)
++        rhs = X_S.T @ (Y.to(torch.float32) - X_F @ V_F - X_S @ Vp)
+         if lam_ridge > 0:
+             rhs = rhs - lam_ridge * Vp
+         L = torch.linalg.cholesky(A)
+         C2_S = Vp + torch.cholesky_solve(rhs, L)
+         # The frozen values are copied in their own dtype, bit for bit.
+-        return torch.cat([V[idx[:f]], C2_S.to(V.dtype)])
++        return torch.cat([V_F_raw, C2_S.to(V_F_raw.dtype)])
++
++    def _solve_C2_selected(self, C1, beta, V, queries, Y, idx, K=None):
++        """Dispatch C2 solve from precomputed teacher outputs Y."""
++        if self.frozen_indices:
++            f = len(self.frozen_indices)
++            return self._compute_C2_frozen_from_targets(
++                C1, beta, V[idx[:f]], V[idx[f:]], queries, Y
++            )
++        if self.c2_method == 'direct':
++            return V[idx]
++        if self.c2_method != 'lsq':
++            raise NotImplementedError(
++                f"compute_compacted_cache_rope_aligned supports c2_method 'lsq'/'direct', got {self.c2_method!r}"
++            )
++        value_prior = V[idx] if self.c2_value_prior_lambda > 0 else None
++        return self._solve_C2_from_targets(
++            C1,
++            beta,
++            queries,
++            Y,
++            ridge_lambda=self.c2_ridge_lambda,
++            solver=self.c2_solver,
++            ridge_scale=self.c2_ridge_scale,
++            spectral_method=self.c2_spectral_method,
++            value_prior=value_prior,
++            value_prior_lambda=self.c2_value_prior_lambda,
++            K=K,
++            V=V,
++        )
++
++    def _student_nnls_beta(
++        self, K, queries_t, C1_s, queries_s, idx, n_doc_q, n_memory, attention_bias
++    ) -> torch.Tensor:
++        """Fit student beta via NNLS in the student RoPE frame matching teacher mass."""
++        n_q, d = queries_t.shape
++        inv_sqrt_d = d ** -0.5
++        max_scores = torch.empty(n_q, dtype=torch.float32, device=K.device)
++        target = torch.empty(n_q, dtype=torch.float32, device=K.device)
++
++        def _accum_teacher(K_ref, q_slice, q_off, b_slice):
++            nq_s = q_slice.shape[0]
++            if nq_s == 0:
++                return
++            Tk = K_ref.shape[0]
++            blk = nq_s if nq_s * Tk <= 64_000_000 else max(1, 64_000_000 // Tk)
++            for s0 in range(0, nq_s, blk):
++                s1 = min(s0 + blk, nq_s)
++                sc = (q_slice[s0:s1] @ K_ref.T).to(torch.float32) * inv_sqrt_d
++                if b_slice is not None:
++                    b32 = b_slice.to(torch.float32)
++                    if b32.dim() >= 2 and b32.shape[0] == nq_s:
++                        b32 = b32[s0:s1]
++                    sc = sc + torch.broadcast_to(b32, sc.shape)
++                m = sc.max(dim=1, keepdim=True)[0]
++                max_scores[q_off + s0:q_off + s1] = m[:, 0]
++                target[q_off + s0:q_off + s1] = torch.exp(sc - m).sum(dim=1)
++
++        if n_memory > 0 and n_doc_q < n_q:
++            _accum_teacher(K, queries_t[:n_doc_q], 0, _slice_attention_bias(attention_bias, n_q, 0, n_doc_q))
++            _accum_teacher(
++                K[:n_memory],
++                queries_t[n_doc_q:],
++                n_doc_q,
++                _slice_attention_bias(attention_bias, n_q, n_doc_q, n_q, k_limit=n_memory),
++            )
++        else:
++            _accum_teacher(K, queries_t, 0, attention_bias)
++
++        sC = (queries_s @ C1_s.T).to(torch.float32) * inv_sqrt_d
++        bias_sel = None
++        if attention_bias is not None:
++            bias_sel = torch.broadcast_to(
++                attention_bias.to(torch.float32), (n_q, K.shape[0])
++            )[:, idx]
++            sC = sC + bias_sel
++        M = torch.exp(sC - max_scores.unsqueeze(1))
++        B = self._nnls_pg(M, target, self.nnls_iters, self.nnls_lower_bound, self.nnls_upper_bound)
++        beta32 = torch.log(B)
++        if bias_sel is not None:
++            beta32 = beta32 + bias_sel[0]
++        return beta32.to(C1_s.dtype)
++
++    def compute_compacted_cache_rope_aligned(
++        self,
++        K: torch.Tensor,
++        V: torch.Tensor,
++        queries: torch.Tensor,
++        t: int,
++        *,
++        model,
++        key_pos_base: int,
++        dst_pos_base: int,
++        teacher_query_pos: int,
++        student_query_pos: int,
++        n_doc_q: int,
++        n_memory: int = 0,
++        teacher_mem_query_pos: int = 0,
++        inplace_frozen: bool = False,
++        attention_bias: torch.Tensor = None,
++    ) -> Tuple[
++        Tuple[torch.Tensor, torch.Tensor, torch.Tensor],
++        Tuple[torch.Tensor, torch.Tensor, torch.Tensor],
++        list,
++    ]:
++        """Compute RoPE-rebased student cache plus teacher cache for on-policy layers."""
++        if self.c2_method == 'merge':
++            raise NotImplementedError("compute_compacted_cache_rope_aligned does not support c2_method='merge'")
++
++        C1_t, beta_t, selected_indices = self._select_keys_highest_attention(
++            K, queries, t, attention_bias
++        )
++        idx = torch.as_tensor(selected_indices, device=K.device, dtype=torch.long)
++        t_eff = idx.numel()
++        n_q = queries.shape[0]
++
++        if n_memory > 0 and n_doc_q < n_q:
++            Y_doc = _compute_teacher_attention_output(
++                K, V, queries[:n_doc_q], _slice_attention_bias(attention_bias, n_q, 0, n_doc_q)
++            )
++            Y_mem = _compute_teacher_attention_output(
++                K[:n_memory],
++                V[:n_memory],
++                queries[n_doc_q:],
++                _slice_attention_bias(attention_bias, n_q, n_doc_q, n_q, k_limit=n_memory),
++            )
++            Y = torch.cat([Y_doc, Y_mem], dim=0)
++        else:
++            Y = _compute_teacher_attention_output(K, V, queries, attention_bias)
++
++        C2_t = self._solve_C2_selected(C1_t, beta_t, V, queries, Y, idx, K=K)
++
++        inplace = bool(self.frozen_indices and inplace_frozen and t_eff == n_memory)
++        if inplace:
++            f = len(self.frozen_indices)
++            is_open = torch.ones(n_memory, dtype=torch.bool, device=K.device)
++            is_open[idx[:f]] = False
++            writable = torch.arange(n_memory, device=K.device, dtype=torch.long)[is_open]
++            C1_s_written = _rotate_vectors_rope(
++                model, C1_t[f:], key_pos_base + idx[f:], dst_pos_base + writable
++            )
++            C1_s_ordered = torch.cat([C1_t[:f], C1_s_written], dim=0)
++        else:
++            from_pos = key_pos_base + idx
++            to_pos = dst_pos_base + torch.arange(t_eff, device=K.device, dtype=torch.long)
++            C1_s_ordered = _rotate_vectors_rope(model, C1_t, from_pos, to_pos)
++
++        q_doc_s = _rotate_vectors_rope(
++            model, queries[:n_doc_q], int(teacher_query_pos), int(student_query_pos)
++        )
++        if n_doc_q < n_q:
++            q_mem_s = _rotate_vectors_rope(
++                model, queries[n_doc_q:], int(teacher_mem_query_pos), int(student_query_pos)
++            )
++            queries_s = torch.cat([q_doc_s, q_mem_s], dim=0)
++        else:
++            queries_s = q_doc_s
++
++        if self.beta_method == 'zero':
++            beta_s_ordered = beta_t
++        else:
++            beta_s_ordered = self._student_nnls_beta(
++                K, queries, C1_s_ordered, queries_s, idx, n_doc_q, n_memory, attention_bias
++            )
++
++        C2_s_ordered = self._solve_C2_selected(
++            C1_s_ordered, beta_s_ordered, V, queries_s, Y, idx, K=K
++        )
++
++        if inplace:
++            f = len(self.frozen_indices)
++            slot_perm = torch.cat([idx[:f], writable])
++            C1_s = torch.empty_like(C1_s_ordered)
++            C1_s[slot_perm] = C1_s_ordered
++            beta_s = torch.empty_like(beta_s_ordered)
++            beta_s[slot_perm] = beta_s_ordered
++            C2_s = torch.empty_like(C2_s_ordered)
++            C2_s[slot_perm] = C2_s_ordered
++        else:
++            C1_s, beta_s, C2_s = C1_s_ordered, beta_s_ordered, C2_s_ordered
++
++        return (C1_s, beta_s, C2_s), (C1_t, beta_t, C2_t), selected_indices
+ 
+     def _compute_merged_cache(self, K, V, queries, t, attention_bias=None):
+         """Keep the t keys of highest attention and merge every other key into
+diff --git a/submem/compaction/compaction_methods/chunked.py b/submem/compaction/compaction_methods/chunked.py
+index c3d033a0..3c6aebc1 100644
+--- a/submem/compaction/compaction_methods/chunked.py
++++ b/submem/compaction/compaction_methods/chunked.py
+@@ -362,6 +362,10 @@ class ChunkedCompaction(FullCacheCompactionAlgorithm):
+                 sliding_layer_indices=sliding_layer_indices,
+             )
+         else:
++            if getattr(self, "exp_tri_rope", False):
++                raise NotImplementedError(
++                    "exp_tri_rope requires use_kv_based=True (--chunking kv)"
++                )
+             return self._compact_kv_cache_text_based(
+                 past_key_values=past_key_values,
+                 target_size=target_size,
+@@ -968,6 +972,19 @@ class ChunkedCompaction(FullCacheCompactionAlgorithm):
+         total_inner_compaction_time = 0.0
+         total_train_stats_time = 0.0
+ 
++        use_exp_tri_rope = bool(getattr(self, "exp_tri_rope", False))
++        if use_exp_tri_rope:
++            if sliding_layer_indices:
++                raise ValueError(
++                    "exp_tri_rope RoPE rebasing in ChunkedCompaction needs a model without sliding layers"
++                )
++            chunk_targets = [
++                max(1, int((c.end_token_idx - c.start_token_idx) * target_size))
++                for c in chunks
++            ]
++            exp_tri_final_len = prefix_end + sum(chunk_targets)
++            dst_slot_cursor = prefix_end
++
+         # Store original chunk caches for test stats computation (only when compute_stats=True)
+         original_chunk_caches = [] if compute_stats else None
+ 
+@@ -1068,7 +1085,34 @@ class ChunkedCompaction(FullCacheCompactionAlgorithm):
+             # Only on-policy methods use query_cache_article_boundaries
+             if isinstance(chunk_compactor, PerLayerHeadOnPolicyCompaction):
+                 compact_kwargs['query_cache_article_boundaries'] = (prefix_end, prefix_end + chunk_article_len)
+-            chunk_compacted, chunk_stat = chunk_compactor.compact_kv_cache(**compact_kwargs)
++            if use_exp_tri_rope:
++                if not isinstance(chunk_compactor, PerLayerHeadOnPolicyCompaction):
++                    raise NotImplementedError(
++                        "exp_tri_rope requires PerLayerHeadOnPolicyCompaction inner method"
++                    )
++                chunk_compactor.rope_align_spec = {
++                    "model": model,
++                    "key_pos_base": chunk_start_global,
++                    "dst_pos_base": dst_slot_cursor,
++                    "teacher_query_pos": seq_len,
++                    "student_query_pos": exp_tri_final_len,
++                    "n_memory": 0,
++                    "teacher_mem_query_pos": 0,
++                    "inplace_frozen": False,
++                }
++            try:
++                chunk_compacted, chunk_stat = chunk_compactor.compact_kv_cache(**compact_kwargs)
++            finally:
++                if use_exp_tri_rope:
++                    chunk_compactor.rope_align_spec = None
++            if use_exp_tri_rope:
++                actual_chunk_len = chunk_compacted[ref_layer_idx][0].shape[2]
++                if actual_chunk_len != chunk_targets[chunk_idx]:
++                    raise RuntimeError(
++                        f"Chunk {chunk_idx} returned {actual_chunk_len} slots, "
++                        f"expected {chunk_targets[chunk_idx]} for exp_tri_rope alignment"
++                    )
++                dst_slot_cursor += actual_chunk_len
+ 
+             chunk_total_time = time.time() - chunk_start_time
+ 
+diff --git a/submem/compaction/compaction_methods/per_layer_head_on_policy.py b/submem/compaction/compaction_methods/per_layer_head_on_policy.py
+index 30a5573f..8c980233 100644
+--- a/submem/compaction/compaction_methods/per_layer_head_on_policy.py
++++ b/submem/compaction/compaction_methods/per_layer_head_on_policy.py
+@@ -320,6 +320,9 @@ class PerLayerHeadOnPolicyCompaction(FullCacheCompactionAlgorithm):
+ 
+         # Initialize storage
+         compacted_layers = []
++        rope_align_spec = getattr(self, "rope_align_spec", None)
++        onpolicy_layers = [] if rope_align_spec is not None else None
++        n_doc_queries = query_stats["n_queries_from_document_per_kv_head"]
+         all_stats = {
+             'per_layer_head_metrics': {},
+             'is_partial_compaction': is_partial_compaction,
+@@ -354,6 +357,8 @@ class PerLayerHeadOnPolicyCompaction(FullCacheCompactionAlgorithm):
+                 placeholder_beta = past_key_values[ref_layer_idx][0].new_zeros(1, num_heads, 0)
+                 placeholder_C2 = past_key_values[ref_layer_idx][1].new_zeros(1, num_heads, 0, head_dim)
+                 compacted_layers.append((placeholder_C1, placeholder_beta, placeholder_C2))
++                if onpolicy_layers is not None:
++                    onpolicy_layers.append((placeholder_C1, placeholder_beta, placeholder_C2))
+                 continue
+ 
+             print(f"Compacting layer {layer_idx+1}/{num_layers}")
+@@ -380,12 +385,16 @@ class PerLayerHeadOnPolicyCompaction(FullCacheCompactionAlgorithm):
+             C1_heads = []
+             beta_heads = []
+             C2_heads = []
++            C1_teacher_heads = [] if onpolicy_layers is not None else None
++            beta_teacher_heads = [] if onpolicy_layers is not None else None
++            C2_teacher_heads = [] if onpolicy_layers is not None else None
+ 
+             # Count only non-sliding previous layers for on-policy cache building
+             num_compacted_global_layers = len([l for l in range(layer_idx) if l not in sliding_layer_indices])
+             if num_compacted_global_layers > 0:
+-                # Build compacted cache for layers 0..layer_idx-1
+-                compacted_cache_prefix = tuple(compacted_layers[:layer_idx])
++                # Build compacted cache for layers 0..layer_idx-1 (teacher frame when RoPE-aligned)
++                prefix_source = onpolicy_layers if onpolicy_layers is not None else compacted_layers
++                compacted_cache_prefix = tuple(prefix_source[:layer_idx])
+ 
+                 # General approach: build list of (range, extraction_fn) for on-policy methods
+                 # Then iterate through all query positions and use on-policy or original as appropriate
+@@ -547,17 +556,38 @@ class PerLayerHeadOnPolicyCompaction(FullCacheCompactionAlgorithm):
+                     head_target_size = actual_target_size
+ 
+                 # Handle zero-budget heads: skip compaction and return empty tensors
++                teacher_head_tuple = None
+                 if head_target_size == 0:
+                     C1_compact = K.new_zeros(0, head_dim)
+                     beta_compact = K.new_zeros(0)
+                     C2_compact = V.new_zeros(0, head_dim)
+                     selected_indices = []
++                    if rope_align_spec is not None:
++                        teacher_head_tuple = (C1_compact, beta_compact, C2_compact)
+                 else:
+                     # Create algorithm instance and run compaction
+                     algorithm = self.algorithm_class(**self.algorithm_kwargs)
+-                    C1_compact, beta_compact, C2_compact, selected_indices = algorithm.compute_compacted_cache(
+-                        K, V, queries_for_compaction, head_target_size, attention_bias=attn_bias_head
+-                    )
++                    if rope_align_spec is not None:
++                        if not hasattr(algorithm, "compute_compacted_cache_rope_aligned"):
++                            raise NotImplementedError(
++                                f"{type(algorithm).__name__} does not implement "
++                                "compute_compacted_cache_rope_aligned for exp_tri_rope"
++                            )
++                        (C1_compact, beta_compact, C2_compact), teacher_head_tuple, selected_indices = (
++                            algorithm.compute_compacted_cache_rope_aligned(
++                                K,
++                                V,
++                                queries_for_compaction,
++                                head_target_size,
++                                attention_bias=attn_bias_head,
++                                n_doc_q=n_doc_queries,
++                                **rope_align_spec,
++                            )
++                        )
++                    else:
++                        C1_compact, beta_compact, C2_compact, selected_indices = algorithm.compute_compacted_cache(
++                            K, V, queries_for_compaction, head_target_size, attention_bias=attn_bias_head
++                        )
+                     # SELECTION_DUMP runs only (submem/continual/selection_dump.py).
+                     dump = getattr(self, "selection_dump", None)
+                     if dump is not None:
+@@ -570,50 +600,28 @@ class PerLayerHeadOnPolicyCompaction(FullCacheCompactionAlgorithm):
+                 total_effective_article_tokens += actual_returned_size
+                 # Save beta before padding for stats
+                 beta_for_stats = beta_compact
+-                if actual_returned_size < head_target_size:
+-                    # Pad with dummy keys to maintain consistent shape across heads
+-                    num_padding = head_target_size - actual_returned_size
+-                    C1_padding = K.new_zeros(num_padding, head_dim)
+-                    C2_padding = V.new_zeros(num_padding, head_dim)
+-                    # Use -inf beta so these keys are ignored in attention
+-                    beta_padding = K.new_full((num_padding,), float('-inf'))
+-
+-                    C1_compact = torch.cat([C1_compact, C1_padding], dim=0)
+-                    beta_compact = torch.cat([beta_compact, beta_padding], dim=0)
+-                    C2_compact = torch.cat([C2_compact, C2_padding], dim=0)
+-
+-                # Handle partial compaction reconstruction
+-                if is_partial_compaction:
+-                    # Split keep_indices into before and after
+-                    compact_start = indices_list[0]
+-                    compact_end = indices_list[-1] + 1
+-
+-                    keep_before_mask = [idx < compact_start for idx in keep_indices]
+-                    keep_after_mask = [idx >= compact_end for idx in keep_indices]
+-
+-                    K_keep_before = K_keep[keep_before_mask, :] if any(keep_before_mask) else K.new_zeros(0, head_dim)
+-                    V_keep_before = V_keep[keep_before_mask, :] if any(keep_before_mask) else V.new_zeros(0, head_dim)
+-                    K_keep_after = K_keep[keep_after_mask, :] if any(keep_after_mask) else K.new_zeros(0, head_dim)
+-                    V_keep_after = V_keep[keep_after_mask, :] if any(keep_after_mask) else V.new_zeros(0, head_dim)
+-
+-                    # Create zero betas for kept portions
+-                    beta_keep_before = K.new_zeros(K_keep_before.shape[0])
+-                    beta_keep_after = K.new_zeros(K_keep_after.shape[0])
+-
+-                    # Concatenate: [before, compacted, after]
+-                    C1 = torch.cat([K_keep_before, C1_compact, K_keep_after], dim=0)
+-                    beta = torch.cat([beta_keep_before, beta_compact, beta_keep_after], dim=0)
+-                    C2 = torch.cat([V_keep_before, C2_compact, V_keep_after], dim=0)
+-                else:
+-                    C1 = C1_compact
+-                    beta = beta_compact
+-                    C2 = C2_compact
++                keep_tensors = (K_keep, V_keep) if is_partial_compaction else None
++                C1, beta, C2 = self._assemble_head_cache(
++                    C1_compact, beta_compact, C2_compact,
++                    head_target_size, head_dim, K, V,
++                    is_partial_compaction, indices_list, keep_indices, keep_tensors,
++                )
+ 
+                 # Store results
+                 C1_heads.append(C1.unsqueeze(0).unsqueeze(0))
+                 beta_heads.append(beta.unsqueeze(0).unsqueeze(0))
+                 C2_heads.append(C2.unsqueeze(0).unsqueeze(0))
+ 
++                if onpolicy_layers is not None:
++                    C1_t, beta_t, C2_t = self._assemble_head_cache(
++                        *teacher_head_tuple,
++                        head_target_size, head_dim, K, V,
++                        is_partial_compaction, indices_list, keep_indices, keep_tensors,
++                    )
++                    C1_teacher_heads.append(C1_t.unsqueeze(0).unsqueeze(0))
++                    beta_teacher_heads.append(beta_t.unsqueeze(0).unsqueeze(0))
++                    C2_teacher_heads.append(C2_t.unsqueeze(0).unsqueeze(0))
++
+                 # Store stats
+                 head_stats = {
+                     'layer': layer_idx,
+@@ -656,38 +664,21 @@ class PerLayerHeadOnPolicyCompaction(FullCacheCompactionAlgorithm):
+ 
+                 all_stats['per_layer_head_metrics'][f'L{layer_idx}H{head_idx}'] = head_stats
+ 
+-            # Pad all heads within this layer to the same size before concatenating
+-            # Each layer can have different sequence lengths (nonuniform caches)
+-            # This is handled in the per-layer padding step below
+-            target_seq_len = max(h.shape[2] for h in C1_heads)
+-            for i in range(len(C1_heads)):
+-                curr_len = C1_heads[i].shape[2]
+-                if curr_len < target_seq_len:
+-                    pad_len = target_seq_len - curr_len
+-                    # Pad C1 and C2 with zeros
+-                    C1_heads[i] = torch.cat([
+-                        C1_heads[i],
+-                        C1_heads[i].new_zeros(1, 1, pad_len, head_dim)
+-                    ], dim=2)
+-                    C2_heads[i] = torch.cat([
+-                        C2_heads[i],
+-                        C2_heads[i].new_zeros(1, 1, pad_len, head_dim)
+-                    ], dim=2)
+-                    # Pad beta with -inf so these positions are ignored
+-                    beta_heads[i] = torch.cat([
+-                        beta_heads[i],
+-                        beta_heads[i].new_full((1, 1, pad_len), float('-inf'))
+-                    ], dim=2)
+-
+-            # Concatenate all heads for this layer
+-            C1_layer = torch.cat(C1_heads, dim=1)  # (1, num_heads, target_size, head_dim)
+-            beta_layer = torch.cat(beta_heads, dim=1)
+-            C2_layer = torch.cat(C2_heads, dim=1)
+-
+-            compacted_layers.append((C1_layer, beta_layer, C2_layer))
++            compacted_layers.append(
++                self._stack_layer_heads(C1_heads, beta_heads, C2_heads, head_dim)
++            )
++            if onpolicy_layers is not None:
++                onpolicy_layers.append(
++                    self._stack_layer_heads(
++                        C1_teacher_heads, beta_teacher_heads, C2_teacher_heads, head_dim
++                    )
++                )
+             if torch.cuda.is_available():
+                 torch.cuda.empty_cache()
+ 
++        if onpolicy_layers is not None:
++            del onpolicy_layers
++
+         # Aggregate stats
+         # Compute average tensor length across all global (non-sliding) layers
+         # For nonuniform caches, different layers can have different sequence lengths
+@@ -1000,6 +991,60 @@ class PerLayerHeadOnPolicyCompaction(FullCacheCompactionAlgorithm):
+ 
+         return q_kv_cat
+ 
++    @staticmethod
++    def _assemble_head_cache(
++        C1_compact, beta_compact, C2_compact,
++        head_target_size, head_dim, K, V,
++        is_partial_compaction, indices_list, keep_indices, keep_tensors,
++    ):
++        """Pad one head's compacted cache to head_target_size and reattach kept tokens."""
++        actual_returned_size = C1_compact.shape[0]
++        if actual_returned_size < head_target_size:
++            num_padding = head_target_size - actual_returned_size
++            C1_compact = torch.cat([C1_compact, K.new_zeros(num_padding, head_dim)], dim=0)
++            beta_compact = torch.cat([beta_compact, K.new_full((num_padding,), float('-inf'))], dim=0)
++            C2_compact = torch.cat([C2_compact, V.new_zeros(num_padding, head_dim)], dim=0)
++
++        if not is_partial_compaction:
++            return C1_compact, beta_compact, C2_compact
++
++        K_keep, V_keep = keep_tensors
++        compact_start = indices_list[0]
++        compact_end = indices_list[-1] + 1
++        keep_before_mask = [idx < compact_start for idx in keep_indices]
++        keep_after_mask = [idx >= compact_end for idx in keep_indices]
++        K_keep_before = K_keep[keep_before_mask, :] if any(keep_before_mask) else K.new_zeros(0, head_dim)
++        V_keep_before = V_keep[keep_before_mask, :] if any(keep_before_mask) else V.new_zeros(0, head_dim)
++        K_keep_after = K_keep[keep_after_mask, :] if any(keep_after_mask) else K.new_zeros(0, head_dim)
++        V_keep_after = V_keep[keep_after_mask, :] if any(keep_after_mask) else V.new_zeros(0, head_dim)
++        beta_keep_before = K.new_zeros(K_keep_before.shape[0])
++        beta_keep_after = K.new_zeros(K_keep_after.shape[0])
++        C1 = torch.cat([K_keep_before, C1_compact, K_keep_after], dim=0)
++        beta = torch.cat([beta_keep_before, beta_compact, beta_keep_after], dim=0)
++        C2 = torch.cat([V_keep_before, C2_compact, V_keep_after], dim=0)
++        return C1, beta, C2
++
++    @staticmethod
++    def _stack_layer_heads(C1_heads, beta_heads, C2_heads, head_dim):
++        """Pad head lists to uniform length and concatenate along the KV-head axis."""
++        target_seq_len = max(h.shape[2] for h in C1_heads)
++        C1_out, beta_out, C2_out = [], [], []
++        for c1_h, b_h, c2_h in zip(C1_heads, beta_heads, C2_heads):
++            curr_len = c1_h.shape[2]
++            if curr_len < target_seq_len:
++                pad_len = target_seq_len - curr_len
++                c1_h = torch.cat([c1_h, c1_h.new_zeros(1, 1, pad_len, head_dim)], dim=2)
++                c2_h = torch.cat([c2_h, c2_h.new_zeros(1, 1, pad_len, head_dim)], dim=2)
++                b_h = torch.cat([b_h, b_h.new_full((1, 1, pad_len), float('-inf'))], dim=2)
++            C1_out.append(c1_h)
++            beta_out.append(b_h)
++            C2_out.append(c2_h)
++        return (
++            torch.cat(C1_out, dim=1),
++            torch.cat(beta_out, dim=1),
++            torch.cat(C2_out, dim=1),
++        )
++
+     def _aggregate_train_stats(self, all_stats: Dict, eval_queries_per_kv_head: int):
+         """Aggregate train stats across all layers and heads."""
+         from submem.evaluation.utils import compute_all_head_stats
+diff --git a/submem/continual/memory_ops.py b/submem/continual/memory_ops.py
+index 240992ec..4ac520d6 100644
+--- a/submem/continual/memory_ops.py
++++ b/submem/continual/memory_ops.py
+@@ -94,6 +94,8 @@ def make_compaction_tag(ctx):
+         parts.append("kvchunk")
+     if a.blocks == "document":
+         parts.append("docblk")
++    if getattr(a, "rope_mode", "cumulative") == "cache_len":
++        parts.append("cachelen")
+     return "_".join(parts)
+ 
+ 
+@@ -561,6 +563,26 @@ def _compact_union(
+         # Every (layer, head) builds its own algorithm from these kwargs, so
+         # the quota holds for this re-fit only.
+         ctx.cache_compactor.algorithm_kwargs["key_quota"] = key_quota
++    use_cachelen_align = (
++        getattr(ctx.args, "rope_mode", "cumulative") == "cache_len"
++        or getattr(ctx.cache_compactor, "exp_tri_rope", False)
++    )
++    if use_cachelen_align:
++        if ctx.sliding_layers:
++            raise ValueError(
++                "--rope-mode cache_len RoPE rebasing needs a model without sliding layers"
++            )
++        n_memory = union_len - n_seg_tokens
++        ctx.cache_compactor.rope_align_spec = {
++            "model": ctx.model,
++            "key_pos_base": 0,
++            "dst_pos_base": 0,
++            "teacher_query_pos": union_len,
++            "student_query_pos": min(target, union_len),
++            "n_memory": n_memory,
++            "teacher_mem_query_pos": n_memory,
++            "inplace_frozen": True,
++        }
+     try:
+         return ctx.cache_compactor.compact_kv_cache(
+             past_key_values=union_cache,
+@@ -582,6 +604,8 @@ def _compact_union(
+     finally:
+         if key_quota is not None:
+             ctx.cache_compactor.algorithm_kwargs.pop("key_quota")
++        if use_cachelen_align:
++            ctx.cache_compactor.rope_align_spec = None
+ 
+ 
+ def _collect_refit_queries(ctx, M, L_logical, src):
+diff --git a/submem/continual/run.py b/submem/continual/run.py
+index 48259d96..8f1bc2dc 100644
+--- a/submem/continual/run.py
++++ b/submem/continual/run.py
+@@ -219,4 +219,7 @@ def make_compactors(args):
+     cache_compactor = get_compaction_method(
+         AM_CONFIG["algorithm"], method_kwargs=cache_config
+     )
++    exp_tri_rope = getattr(args, "rope_mode", "cumulative") == "cache_len"
++    document_compactor.exp_tri_rope = exp_tri_rope
++    cache_compactor.exp_tri_rope = exp_tri_rope
+     return document_compactor, cache_compactor
+diff --git a/tests/test_recompaction.py b/tests/test_recompaction.py
+index f73aa582..9162eedb 100644
+--- a/tests/test_recompaction.py
++++ b/tests/test_recompaction.py
+@@ -1118,3 +1118,240 @@ def test_monolithic_rope_modes(monkeypatch, rope_mode, expected_before, expected
+ 
+     assert seen_before == expected_before
+     assert currents == expected_current
++
++
++class _TinyRotaryEmb(torch.nn.Module):
++    """Minimal HF-compatible RoPE module for CPU RoPE-alignment tests."""
++
++    def __init__(self, head_dim: int = 8, theta: float = 10000.0):
++        super().__init__()
++        inv_freq = 1.0 / (theta ** (torch.arange(0, head_dim, 2, dtype=torch.float32) / head_dim))
++        self.register_buffer("inv_freq", inv_freq, persistent=False)
++        self.attention_scaling = 1.0
++
++    def forward(self, x: torch.Tensor, position_ids: torch.Tensor):
++        freqs = position_ids.to(torch.float32).unsqueeze(-1) * self.inv_freq
++        emb = torch.cat([freqs, freqs], dim=-1)
++        return emb.cos().to(x.dtype), emb.sin().to(x.dtype)
++
++
++def _apply_rope_single(model, x: torch.Tensor, positions: torch.Tensor) -> torch.Tensor:
++    """Apply HF rotary_emb at exact `positions` onto pre-RoPE vectors `x`."""
++    cos, sin = model.model.rotary_emb(x, positions.unsqueeze(0))
++    half = x.shape[-1] // 2
++    rot = torch.cat((-x[..., half:], x[..., :half]), dim=-1)
++    return x * cos[0] + rot * sin[0]
++
++
++def test_cache_len_compaction_tag_isolation():
++    """Only --rope-mode cache_len adds 'cachelen' to make_compaction_tag."""
++    from submem.continual.memory_ops import make_compaction_tag
++
++    base_args = dict(
++        beta="zero", am_on_policy=True, query_config="ss-plus-repeat",
++        chunking="kv", blocks="document", rope_mode="cumulative",
++    )
++    ctx_cum = types.SimpleNamespace(args=types.SimpleNamespace(**base_args))
++    ctx_cap = types.SimpleNamespace(args=types.SimpleNamespace(**{**base_args, "rope_mode": "window_cap"}))
++    ctx_cl = types.SimpleNamespace(args=types.SimpleNamespace(**{**base_args, "rope_mode": "cache_len"}))
++
++    assert make_compaction_tag(ctx_cum) == make_compaction_tag(ctx_cap)
++    assert "cachelen" not in make_compaction_tag(ctx_cum)
++    assert make_compaction_tag(ctx_cl) == make_compaction_tag(ctx_cum) + "_cachelen"
++
++
++def test_cache_len_rope_aligned_rebase_and_mem_target():
++    """Verify key rebasing, student query calibration, frozen in-place slots, and Y_mem isolation."""
++    torch.manual_seed(0)
++    d = 8
++    rot = _TinyRotaryEmb(head_dim=d)
++    model = types.SimpleNamespace(model=types.SimpleNamespace(rotary_emb=rot))
++
++    # Phase 0 chunk: K sits at [100..115], compressed to t=4 at dst slots [10..13],
++    # teacher queries sit at 500 + q_off, student eval queries sit at 20 + q_off.
++    raw_k = torch.randn(16, d)
++    raw_v = torch.randn(16, d)
++    K = _apply_rope_single(model, raw_k, torch.arange(100, 116))
++    raw_q = torch.randn(12, d)
++    q_off = torch.arange(12)
++    q_teacher = _apply_rope_single(model, raw_q, 500 + q_off)
++    q_eval = _apply_rope_single(model, raw_q, 20 + q_off)
++
++    alg = HighestAttentionKeysCompaction(
++        beta_method="zero", c2_method="lsq", c2_ridge_lambda=1e-4,
++        c2_ridge_scale="spectral", c2_solver="cholesky",
++    )
++    (C1_s, beta_s, C2_s), (C1_t, beta_t, C2_t), selected = alg.compute_compacted_cache_rope_aligned(
++        K, raw_v, q_teacher, 4,
++        model=model, key_pos_base=100, dst_pos_base=10,
++        teacher_query_pos=500, student_query_pos=20, n_doc_q=12,
++    )
++    assert C1_s.shape == (4, d)
++    expected_C1_s = _apply_rope_single(model, raw_k[selected], torch.arange(10, 14))
++    assert torch.allclose(C1_s, expected_C1_s, atol=1e-5)
++    assert torch.allclose(C1_t, K[selected], atol=1e-6)
++    Y_teacher = torch.softmax((q_teacher @ K.T) * (d ** -0.5), dim=-1) @ raw_v
++    X_eval = torch.softmax((q_eval @ C1_s.T) * (d ** -0.5) + beta_s, dim=-1)
++    # C2_s must match solving least-squares directly at eval query positions 20 + q_off.
++    C2_direct_eval = alg._solve_C2_from_targets(
++        C1_s, beta_s, q_eval, Y_teacher,
++        ridge_lambda=1e-4, ridge_scale="spectral", solver="cholesky",
++    )
++    assert torch.allclose(C2_s, C2_direct_eval, atol=1e-5)
++    # Without downsampling and with ridge=0, re-basing recovers Y_teacher accurately under eval queries.
++    alg_exact = HighestAttentionKeysCompaction(
++        beta_method="zero", c2_method="lsq", c2_ridge_lambda=0.0, c2_solver="lstsq",
++    )
++    (C1_full, beta_full, C2_full), _, _ = alg_exact.compute_compacted_cache_rope_aligned(
++        K, raw_v, q_teacher, 16,
++        model=model, key_pos_base=100, dst_pos_base=10,
++        teacher_query_pos=500, student_query_pos=20, n_doc_q=12,
++    )
++    Y_eval_full = torch.softmax((q_eval @ C1_full.T) * (d ** -0.5) + beta_full, dim=-1) @ C2_full
++    assert torch.allclose(Y_eval_full, Y_teacher, atol=1e-3)
++
++    # Phase 2 union: M=[0..7] + Doc=[8..23], frozen slots=[0, 2, 4, 6], t=8 inplace.
++    # Give Doc huge values so Y_mem MUST use M=[0..7] only (not [M || Doc]).
++    raw_km = torch.randn(8, d)
++    vm = torch.randn(8, d)
++    raw_kd = torch.randn(16, d)
++    vd = torch.randn(16, d) * 100.0
++    Km = _apply_rope_single(model, raw_km, torch.arange(0, 8))
++    Kd = _apply_rope_single(model, raw_kd, torch.arange(8, 24))
++    K_u = torch.cat([Km, Kd], dim=0)
++    V_u = torch.cat([vm, vd], dim=0)
++    raw_qdoc = torch.randn(10, d)
++    raw_qmem = torch.randn(10, d)
++    qd_t = _apply_rope_single(model, raw_qdoc, 24 + torch.arange(10))
++    qm_t = _apply_rope_single(model, raw_qmem, 8 + torch.arange(10))
++    q_u = torch.cat([qd_t, qm_t], dim=0)
++
++    frozen = [0, 2, 4, 6]
++    alg_u = HighestAttentionKeysCompaction(
++        beta_method="zero", c2_method="lsq", c2_ridge_lambda=1e-4,
++        c2_ridge_scale="spectral", c2_solver="cholesky",
++        c2_value_prior_lambda=0.01, frozen_indices=frozen,
++    )
++    (C1_us, beta_us, C2_us), _, sel_u = alg_u.compute_compacted_cache_rope_aligned(
++        K_u, V_u, q_u, 8,
++        model=model, key_pos_base=0, dst_pos_base=0,
++        teacher_query_pos=24, student_query_pos=8,
++        n_doc_q=10, n_memory=8, teacher_mem_query_pos=8, inplace_frozen=True,
++    )
++    # Frozen slots stay bit-for-bit untouched in-place.
++    assert torch.equal(C1_us[frozen], Km[frozen])
++    assert torch.equal(C2_us[frozen], vm[frozen])
++    assert torch.all(beta_us == 0)
++    # Open slots [1, 3, 5, 7] carry keys rotated from selected written indices onto [1, 3, 5, 7].
++    written = sel_u[len(frozen):]
++    raw_all = torch.cat([raw_km, raw_kd], dim=0)
++    open_slots = torch.tensor([1, 3, 5, 7])
++    assert torch.allclose(C1_us[open_slots], _apply_rope_single(model, raw_all[written], open_slots), atol=1e-5)
++    # Verify C2_us matches frozen solve against Y_mem from pre-write M only (not huge Doc V).
++    Y_doc_ref = torch.softmax((qd_t @ K_u.T) * (d ** -0.5), dim=-1) @ V_u
++    Y_mem_ref = torch.softmax((qm_t @ Km.T) * (d ** -0.5), dim=-1) @ vm
++    qd_eval = _apply_rope_single(model, raw_qdoc, 8 + torch.arange(10))
++    qm_eval = qm_t  # already at 8 + idx
++    q_u_eval = torch.cat([qd_eval, qm_eval], dim=0)
++    C1_ord = torch.cat([C1_us[frozen], C1_us[open_slots]], dim=0)
++    C2_ord_expected = alg_u._compute_C2_frozen_from_targets(
++        C1_ord, torch.zeros(8), vm[frozen], V_u[written], q_u_eval, torch.cat([Y_doc_ref, Y_mem_ref], dim=0),
++    )
++    assert torch.allclose(C2_us[open_slots], C2_ord_expected[len(frozen):], rtol=1e-4, atol=1e-4)
++    # Using leaked [M || Doc] target for mem_q would diverge significantly from C2_us.
++    Y_mem_leaked = torch.softmax((qm_t @ K_u.T) * (d ** -0.5), dim=-1) @ V_u
++    C2_leaked = alg_u._compute_C2_frozen_from_targets(
++        C1_ord, torch.zeros(8), vm[frozen], V_u[written], q_u_eval, torch.cat([Y_doc_ref, Y_mem_leaked], dim=0),
++    )
++    assert (C2_us[open_slots] - C2_leaked[len(frozen):]).abs().max().item() > 1.0
++
++
++def test_per_layer_on_policy_dual_teacher_prefix(monkeypatch):
++    """Layer 1 on-policy extraction receives Layer 0's teacher keys while output holds rebased keys."""
++    from submem.compaction.compaction_methods.per_layer_head_on_policy import (
++        PerLayerHeadOnPolicyCompaction,
++    )
++    from submem.compaction.query_generation import QueryConfig
++    from submem.compaction.query_generation.config import (
++        SelfStudyConfig, QueryMethodConfig, ConversationSpec,
++    )
++
++    torch.manual_seed(1)
++    d = 8
++    rot = _TinyRotaryEmb(head_dim=d)
++    cfg = types.SimpleNamespace(
++        num_hidden_layers=2, num_attention_heads=1, num_key_value_heads=1,
++        head_dim=d, sliding_window=None, _name_or_path="meta-llama/Llama-3.2-3B-Instruct",
++    )
++    model = types.SimpleNamespace(config=cfg, model=types.SimpleNamespace(rotary_emb=rot))
++
++    raw_k = torch.randn(2, 1, 12, d)
++    pos_k = torch.arange(50, 62)
++    kv = tuple(
++        (_apply_rope_single(model, raw_k[li, 0], pos_k).unsqueeze(0).unsqueeze(0), torch.randn(1, 1, 12, d))
++        for li in range(2)
++    )
++    raw_q = torch.randn(2, 1, 6, d)
++    q_t = torch.stack([
++        _apply_rope_single(model, raw_q[li, 0], 100 + torch.arange(6)).unsqueeze(0)
++        for li in range(2)
++    ], dim=0)
++
++    seen_prefix = []
++    method = PerLayerHeadOnPolicyCompaction(
++        algorithm_class=HighestAttentionKeysCompaction,
++        algorithm_kwargs={"beta_method": "zero", "c2_method": "lsq", "c2_ridge_lambda": 1e-4, "c2_solver": "cholesky"},
++    )
++    method.rope_align_spec = {
++        "model": model, "key_pos_base": 50, "dst_pos_base": 0,
++        "teacher_query_pos": 100, "student_query_pos": 4,
++        "n_memory": 0, "teacher_mem_query_pos": 0, "inplace_frozen": False,
++    }
++
++    monkeypatch.setattr(
++        method, "_generate_queries_with_sequences",
++        lambda **kw: (
++            q_t,
++            {
++                "final_n_queries_per_kv_head": 6,
++                "methods_used": {"self_study": {"query_range": (0, 6), "stats": {}}},
++            },
++            [{"suffix_token_ids": torch.zeros(1, 1, dtype=torch.long)}],
++        ),
++    )
++
++    def fake_extract(self_or_kw=None, **kw):
++        seen_prefix.append(kw["compacted_cache_prefix"])
++        return q_t[kw["layer_idx"]]
++
++    monkeypatch.setattr(method, "_extract_on_policy_queries_for_layer", fake_extract)
++
++    q_cfg = QueryConfig(
++        method_configs=[
++            QueryMethodConfig(
++                method="self_study",
++                fraction=1.0,
++                config=SelfStudyConfig(
++                    conversation_specs=[
++                        ConversationSpec(conversation_starter="q", prefill_with_article=True)
++                    ]
++                ),
++            )
++        ]
++    )
++    out, _ = method.compact_kv_cache(
++        past_key_values=kv, target_size=4, indices=range(0, 12),
++        query_config=q_cfg, model=model, tokenizer=None, formatted_context="",
++    )
++    assert len(seen_prefix) == 1
++    # Teacher prefix seen by layer 1 differs from rebased student layer 0 keys (moved 50..61 -> 0..3).
++    prefix_k0 = seen_prefix[0][0][0]
++    student_k0 = out[0][0]
++    assert not torch.allclose(prefix_k0, student_k0, atol=1e-2)
++    # Prefix keys match un-rebased teacher keys from raw K at positions 50..61.
++    diffs = (prefix_k0[0, 0, :, None, :] - kv[0][0][0, 0, None, :, :]).abs().max(dim=-1).values.min(dim=-1).values
++    assert torch.allclose(diffs, torch.zeros_like(diffs), atol=1e-6)
++    # Returned student keys match re-rotated keys at positions 0..3.
++    raw_matched_idx = (prefix_k0[0, 0, :, None, :] - kv[0][0][0, 0, None, :, :]).abs().max(dim=-1).values.argmin(dim=-1)
++    expected_s0 = _apply_rope_single(model, raw_k[0, 0][raw_matched_idx], torch.arange(0, 4))
++    assert torch.allclose(student_k0[0, 0], expected_s0, atol=1e-5)

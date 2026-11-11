@@ -1,0 +1,2668 @@
+Loading model: meta-llama/Llama-3.2-3B-Instruct
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.41s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.21it/s]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.09it/s]
+Model loaded successfully
+Stream data/streams/longhealth_5phase.json: 5 phase(s) ['longhealth phase 1', 'longhealth phase 2', 'longhealth phase 3', 'longhealth phase 4', 'longhealth phase 5']
+Initializing vLLM model (will be reused across all articles)...
+INFO 11-11 08:00:14 [__init__.py:216] Automatically detected platform cuda.
+Setting max_model_len=65536 (within native 131072)
+INFO 11-11 08:00:16 [utils.py:233] non-default args: {'tokenizer': 'meta-llama/Llama-3.2-3B-Instruct', 'max_model_len': 65536, 'gpu_memory_utilization': 0.36, 'disable_log_stats': True, 'enable_sleep_mode': True, 'model': 'meta-llama/Llama-3.2-3B-Instruct'}
+INFO 11-11 08:00:16 [model.py:547] Resolved architecture: LlamaForCausalLM
+`torch_dtype` is deprecated! Use `dtype` instead!
+INFO 11-11 08:00:16 [model.py:1510] Using max model len 65536
+INFO 11-11 08:00:16 [scheduler.py:205] Chunked prefill is enabled with max_num_batched_tokens=8192.
+INFO 11-11 08:00:22 [__init__.py:216] Automatically detected platform cuda.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:23 [core.py:644] Waiting for init message from front-end.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:23 [core.py:77] Initializing a V1 LLM engine (v0.11.0) with config: model='meta-llama/Llama-3.2-3B-Instruct', speculative_config=None, tokenizer='meta-llama/Llama-3.2-3B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=65536, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser=''), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None), seed=0, served_model_name=meta-llama/Llama-3.2-3B-Instruct, enable_prefix_caching=True, chunked_prefill_enabled=True, pooler_config=None, compilation_config={"level":3,"debug_dump_path":"","cache_dir":"","backend":"","custom_ops":[],"splitting_ops":["vllm.unified_attention","vllm.unified_attention_with_output","vllm.mamba_mixer2","vllm.mamba_mixer","vllm.short_conv","vllm.linear_attention","vllm.plamo2_mamba_mixer","vllm.gdn_attention","vllm.sparse_attn_indexer"],"use_inductor":true,"compile_sizes":[],"inductor_compile_config":{"enable_auto_functionalized_v2":false},"inductor_passes":{},"cudagraph_mode":[2,1],"use_cudagraph":true,"cudagraph_num_of_warmups":1,"cudagraph_capture_sizes":[512,504,496,488,480,472,464,456,448,440,432,424,416,408,400,392,384,376,368,360,352,344,336,328,320,312,304,296,288,280,272,264,256,248,240,232,224,216,208,200,192,184,176,168,160,152,144,136,128,120,112,104,96,88,80,72,64,56,48,40,32,24,16,8,4,2,1],"cudagraph_copy_inputs":false,"full_cuda_graph":false,"use_inductor_graph_partition":false,"pass_config":{},"max_capture_size":512,"local_cache_dir":null}
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:26 [parallel_state.py:1208] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:00:26 [topk_topp_sampler.py:66] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:26 [gpu_model_runner.py:2602] Starting to load model meta-llama/Llama-3.2-3B-Instruct...
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:26 [gpu_model_runner.py:2634] Loading model from scratch...
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:26 [cuda.py:366] Using Flash Attention backend on V1 engine.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:27 [weight_utils.py:392] Using model weights format ['*.safetensors']
+[1;36m(EngineCore_DP0 pid=29060)[0;0m 
+Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m 
+Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:00<00:00,  2.58it/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m 
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.06it/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m 
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.16it/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m 
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:29 [default_loader.py:267] Loading weights took 1.81 seconds
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:29 [gpu_model_runner.py:2653] Model loading took 6.0160 GiB and 2.301739 seconds
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:36 [backends.py:548] Using cache directory: /home/voquangtri2025/.cache/vllm/torch_compile_cache/db22fdc96f/rank_0_0/backbone for vLLM's torch.compile
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:36 [backends.py:559] Dynamo bytecode transform time: 6.38 s
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:38 [backends.py:164] Directly load the compiled graph(s) for dynamic shape from the cache, took 2.191 s
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:41 [monitor.py:34] torch.compile takes 6.38 s in total
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:42 [gpu_worker.py:298] Available KV cache memory: 7.68 GiB
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:42 [kv_cache_utils.py:1087] GPU KV cache size: 71,888 tokens
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:42 [kv_cache_utils.py:1091] Maximum concurrency for 65,536 tokens per request: 1.10x
+[1;36m(EngineCore_DP0 pid=29060)[0;0m 
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/67 [00:00<?, ?it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   4%|▍         | 3/67 [00:00<00:02, 26.55it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   9%|▉         | 6/67 [00:00<00:02, 26.95it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  13%|█▎        | 9/67 [00:00<00:02, 26.90it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  18%|█▊        | 12/67 [00:00<00:02, 26.91it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  22%|██▏       | 15/67 [00:00<00:01, 26.82it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  27%|██▋       | 18/67 [00:00<00:01, 27.00it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  31%|███▏      | 21/67 [00:00<00:01, 27.47it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  36%|███▌      | 24/67 [00:00<00:01, 27.62it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  40%|████      | 27/67 [00:00<00:01, 27.76it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  45%|████▍     | 30/67 [00:01<00:01, 28.08it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  49%|████▉     | 33/67 [00:01<00:01, 27.91it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  54%|█████▎    | 36/67 [00:01<00:01, 28.08it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  58%|█████▊    | 39/67 [00:01<00:01, 27.11it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  63%|██████▎   | 42/67 [00:01<00:00, 27.65it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  67%|██████▋   | 45/67 [00:01<00:00, 28.03it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  72%|███████▏  | 48/67 [00:01<00:00, 28.35it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  76%|███████▌  | 51/67 [00:01<00:00, 28.29it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  81%|████████  | 54/67 [00:01<00:00, 28.36it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  85%|████████▌ | 57/67 [00:02<00:00, 28.52it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  90%|████████▉ | 60/67 [00:02<00:00, 28.62it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  94%|█████████▍| 63/67 [00:02<00:00, 28.55it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  99%|█████████▊| 66/67 [00:02<00:00, 26.66it/s]
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 67/67 [00:02<00:00, 27.41it/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m 
+Capturing CUDA graphs (decode, FULL):   0%|          | 0/35 [00:00<?, ?it/s]
+Capturing CUDA graphs (decode, FULL):   9%|▊         | 3/35 [00:00<00:01, 24.33it/s]
+Capturing CUDA graphs (decode, FULL):  17%|█▋        | 6/35 [00:00<00:01, 25.54it/s]
+Capturing CUDA graphs (decode, FULL):  26%|██▌       | 9/35 [00:00<00:00, 26.46it/s]
+Capturing CUDA graphs (decode, FULL):  34%|███▍      | 12/35 [00:00<00:00, 27.00it/s]
+Capturing CUDA graphs (decode, FULL):  43%|████▎     | 15/35 [00:00<00:00, 27.23it/s]
+Capturing CUDA graphs (decode, FULL):  51%|█████▏    | 18/35 [00:00<00:00, 27.45it/s]
+Capturing CUDA graphs (decode, FULL):  60%|██████    | 21/35 [00:00<00:00, 27.39it/s]
+Capturing CUDA graphs (decode, FULL):  69%|██████▊   | 24/35 [00:00<00:00, 27.28it/s]
+Capturing CUDA graphs (decode, FULL):  77%|███████▋  | 27/35 [00:00<00:00, 27.38it/s]
+Capturing CUDA graphs (decode, FULL):  86%|████████▌ | 30/35 [00:01<00:00, 27.72it/s]
+Capturing CUDA graphs (decode, FULL):  94%|█████████▍| 33/35 [00:01<00:00, 27.40it/s]
+Capturing CUDA graphs (decode, FULL): 100%|██████████| 35/35 [00:01<00:00, 27.04it/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:47 [gpu_model_runner.py:3480] Graph capturing finished in 4 secs, took 0.55 GiB
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:47 [core.py:210] init engine (profile, create kv cache, warmup model) took 17.51 seconds
+INFO 11-11 08:00:48 [llm.py:306] Supported_tasks: ['generate']
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:48 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:52 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:52 [gpu_worker.py:117] Sleep mode freed 14.91 GiB memory, 7.56 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:00:52 [executor_base.py:189] It took 4.350503 seconds to fall asleep.
+vLLM initialized and put to sleep (model: meta-llama/Llama-3.2-3B-Instruct)
+  [base] longhealth phase 1: logppl=1.2647 (n=80)
+  [base] longhealth phase 2: logppl=2.61 (n=80)
+  [base] longhealth phase 3: logppl=2.219 (n=80)
+  [base] longhealth phase 4: logppl=2.243 (n=80)
+  [base] longhealth phase 5: logppl=2.5423 (n=80)
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:01:09 [executor_base.py:205] It took 0.601776 seconds to wake up tags {'kv_cache', 'weights'}.
+
+============================================================
+KV-Based Chunked Compaction
+============================================================
+Chunking strategy: document
+Inner method: highest_attention_keys
+Per-chunk compaction ratio: 2.16%
+Prefix tokens: 45
+Article tokens: 47352
+Full sequence length: 47399
+Chunked article into 4 chunks in 0.14s
+
+--- Processing chunk 1/4 ---
+Chunk tokens: 11820
+Chunk target: 255 tokens (2.16% of 11820)
+Generating original queries for all layers...
+Using provided vLLM model instance
+Generating ~50000 queries per KV head by conversation capture (5 spec(s): 'Repeat the previous context verbatim.', 'Summarize the main points of the context.', 'Aggregate all the key facts mentioned in the context.' (+2 more))...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 12.33GB allocated, 13.03GB reserved, 39.49GB total
+GPU Memory available: 27.16GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 36.05it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.09s/it, est. speed input: 5728.36 toks/s, output: 89.21 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.09s/it, est. speed input: 5728.36 toks/s, output: 89.21 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.09s/it, est. speed input: 5728.36 toks/s, output: 89.21 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (45040 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 40.52it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:05<00:10,  5.13s/it, est. speed input: 2322.61 toks/s, output: 94.55 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:07<00:03,  3.67s/it, est. speed input: 3062.94 toks/s, output: 160.17 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  7.21s/it, est. speed input: 1862.71 toks/s, output: 171.61 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  7.21s/it, est. speed input: 1862.71 toks/s, output: 171.61 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  6.40s/it, est. speed input: 1862.71 toks/s, output: 171.61 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 42.35it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:01<00:02,  1.31s/it, est. speed input: 9137.20 toks/s, output: 93.82 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:01<00:00,  1.40it/s, est. speed input: 14852.09 toks/s, output: 174.40 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  1.40it/s, est. speed input: 21340.11 toks/s, output: 264.57 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  1.78it/s, est. speed input: 21340.11 toks/s, output: 264.57 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:01:32 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:01:33 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:01:33 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 14.70 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:01:33 [executor_base.py:189] It took 0.522048 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:01:45 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:01:45 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:03:30 [executor_base.py:205] It took 0.633302 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+T...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 11862 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Based on the provided patient record, here are the main points of the context:
+
+**Patient Informatio...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 529 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Based on the provided patient record, here are the key facts about patient Anna Sample:
+
+**Demograph...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 805 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: I'll do my best to structure the patient's medical record in JSON format. Please note that this is a...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 2105 tokens
+  [Conv 5/7] Starter: What is the primary diagnosis for Mrs. Anna Sample?
+
+A) Multiple Sclerosis
+B) Diffuse Large B-Cell Lymphoma
+C) Chronic Inflammatory Lesions
+D) Aggressive B-Cell Lymphoma
+  [Conv 5/7] Answer: The primary diagnosis for Mrs. Anna Sample is Diffuse Large B-Cell Lymphoma (DLBCL) of germinal cent...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 239 tokens
+  [Conv 6/7] Starter: What is the name of the chemotherapy regimen initiated for Mrs. Anna Sample?
+
+A) R-Pola-CHP
+B) Rituximab-Vedotin
+C) Cyclophosphamide-Doxorubicin
+D) Polatuzumab-Vedotin
+  [Conv 6/7] Answer: The correct answer is D) Polatuzumab-Vedotin.
+
+According to the patient record, the chemotherapy reg...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 257 tokens
+  [Conv 7/7] Starter: What is the expected outcome of the liver MRI scan from 10/11/2017?
+
+A) Enlarged liver with increased FDG avidity indicating lymphomatous involvement
+B) Reduced liver size with no abnormal findings
+C) Focal nodular hyperplasia or atypical hemangioma
+D) Liver metastasis to the left axillary lymph node
+  [Conv 7/7] Answer: The correct answer is C) Focal nodular hyperplasia or atypical hemangioma.
+
+The MRI scan from 10/11/...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 232 tokens
+  Using all 16029 extracted tokens per attention head (requested 16667)
+Putting vLLM to sleep...
+Self-study queries occupy range 0-48087 in final queries (total: 48087)
+Generated 48087 original queries per KV head
+Original queries shape: torch.Size([28, 8, 48087, 128])
+Compacting layer 1/28
+Compacting layer 2/28
+  Extracting on-policy queries from self_study (range 0:48087)
+Compacting layer 3/28
+Compacting layer 4/28
+Compacting layer 5/28
+Compacting layer 6/28
+Compacting layer 7/28
+Compacting layer 8/28
+Compacting layer 9/28
+Compacting layer 10/28
+Compacting layer 11/28
+Compacting layer 12/28
+Compacting layer 13/28
+Compacting layer 14/28
+Compacting layer 15/28
+Compacting layer 16/28
+Compacting layer 17/28
+Compacting layer 18/28
+Compacting layer 19/28
+Compacting layer 20/28
+Compacting layer 21/28
+Compacting layer 22/28
+Compacting layer 23/28
+Compacting layer 24/28
+Compacting layer 25/28
+Compacting layer 26/28
+Compacting layer 27/28
+Compacting layer 28/28
+
+--- Processing chunk 2/4 ---
+Chunk tokens: 12182
+Chunk target: 263 tokens (2.16% of 12182)
+Generating original queries for all layers...
+Using provided vLLM model instance
+Generating ~50000 queries per KV head by conversation capture (5 spec(s): 'Repeat the previous context verbatim.', 'Summarize the main points of the context.', 'Aggregate all the key facts mentioned in the context.' (+2 more))...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 12.40GB allocated, 15.29GB reserved, 39.49GB total
+GPU Memory available: 27.10GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 38.45it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.07s/it, est. speed input: 5950.61 toks/s, output: 88.01 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.07s/it, est. speed input: 5950.61 toks/s, output: 88.01 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.07s/it, est. speed input: 5950.61 toks/s, output: 88.01 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (50330 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 44.03it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:04<00:08,  4.24s/it, est. speed input: 2894.78 toks/s, output: 94.32 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:08<00:04,  4.01s/it, est. speed input: 3038.08 toks/s, output: 148.49 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  7.26s/it, est. speed input: 1916.84 toks/s, output: 169.00 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  7.26s/it, est. speed input: 1916.84 toks/s, output: 169.00 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  6.41s/it, est. speed input: 1916.84 toks/s, output: 169.00 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 42.54it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:00<00:01,  1.80it/s, est. speed input: 22198.74 toks/s, output: 91.94 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:00<00:00,  4.66it/s, est. speed input: 49607.62 toks/s, output: 246.85 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:00<00:00,  4.66it/s, est. speed input: 49607.62 toks/s, output: 246.85 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:00<00:00,  4.02it/s, est. speed input: 49607.62 toks/s, output: 246.85 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:03:52 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:03:53 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:03:53 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 16.99 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:03:53 [executor_base.py:189] It took 0.522489 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:04:04 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:04:04 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:05:49 [executor_base.py:205] It took 0.643442 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+T...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 12224 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Based on the provided patient record, here is a summary of the main points:
+
+**Patient Information:*...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 444 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Here are the key facts from the patient's medical record:
+
+**Patient Information:**
+
+* Patient ID: p...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 844 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON format:
+
+```
+{
+  "patient": {
+    "id": "patient_02",
+   ...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 2105 tokens
+  [Conv 5/7] Starter: What was the primary diagnosis of Mrs. Jane Done when she was admitted to the clinic on 02/18/2018?
+
+A) Metastatic malignant melanoma
+B) Malignant melanoma of the left scapula
+C) Hemorrhagic melanoma of the left frontal lobe
+D) Resection of primary tumor
+  [Conv 5/7] Answer: The primary diagnosis of Mrs. Jane Done when she was admitted to the clinic on 02/18/2018 was:
+
+B) M...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 178 tokens
+  [Conv 6/7] Starter: What is the name of the medication that Mrs. Jane Done was started on on 05/26/2020, which resulted in drug exanthema?
+
+A) Pembrolizumab
+B) Nivolumab
+C) Ipilimumab
+D) Vemurafenib
+  [Conv 6/7] Answer: The correct answer is C) Ipilimumab.
+
+According to the text, Mrs. Jane Done was started on a combina...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 154 tokens
+  [Conv 7/7] Starter: What is the estimated tumor thickness of the malignant melanoma of the left scapula diagnosed in Mrs. Jane Done?
+
+A) 10 mm
+B) 15 mm
+C) 16 mm
+D) 20 mm
+  [Conv 7/7] Answer: The correct answer is C) 16 mm.
+
+According to the medical record, the diagnosis states: "Exophytic, ...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 132 tokens
+  Using all 16081 extracted tokens per attention head (requested 16667)
+Putting vLLM to sleep...
+Self-study queries occupy range 0-48243 in final queries (total: 48243)
+Generated 48243 original queries per KV head
+Original queries shape: torch.Size([28, 8, 48243, 128])
+Compacting layer 1/28
+Compacting layer 2/28
+  Extracting on-policy queries from self_study (range 0:48243)
+Compacting layer 3/28
+Compacting layer 4/28
+Compacting layer 5/28
+Compacting layer 6/28
+Compacting layer 7/28
+Compacting layer 8/28
+Compacting layer 9/28
+Compacting layer 10/28
+Compacting layer 11/28
+Compacting layer 12/28
+Compacting layer 13/28
+Compacting layer 14/28
+Compacting layer 15/28
+Compacting layer 16/28
+Compacting layer 17/28
+Compacting layer 18/28
+Compacting layer 19/28
+Compacting layer 20/28
+Compacting layer 21/28
+Compacting layer 22/28
+Compacting layer 23/28
+Compacting layer 24/28
+Compacting layer 25/28
+Compacting layer 26/28
+Compacting layer 27/28
+Compacting layer 28/28
+
+--- Processing chunk 3/4 ---
+Chunk tokens: 12256
+Chunk target: 265 tokens (2.16% of 12256)
+Generating original queries for all layers...
+Using provided vLLM model instance
+Generating ~50000 queries per KV head by conversation capture (5 spec(s): 'Repeat the previous context verbatim.', 'Summarize the main points of the context.', 'Aggregate all the key facts mentioned in the context.' (+2 more))...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 12.43GB allocated, 15.34GB reserved, 39.49GB total
+GPU Memory available: 27.06GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 36.71it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.69s/it, est. speed input: 7327.24 toks/s, output: 82.27 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.69s/it, est. speed input: 7327.24 toks/s, output: 82.27 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.69s/it, est. speed input: 7327.24 toks/s, output: 82.27 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (47954 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 40.74it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:04<00:08,  4.28s/it, est. speed input: 2883.23 toks/s, output: 94.55 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:05<00:02,  2.77s/it, est. speed input: 4122.52 toks/s, output: 164.73 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  7.48s/it, est. speed input: 1943.07 toks/s, output: 159.12 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  7.48s/it, est. speed input: 1943.07 toks/s, output: 159.12 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  6.36s/it, est. speed input: 1943.07 toks/s, output: 159.12 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 38.16it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:00<00:00,  2.60it/s, est. speed input: 32188.74 toks/s, output: 90.92 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:00<00:00,  2.66it/s, est. speed input: 32817.03 toks/s, output: 145.72 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  1.84it/s, est. speed input: 24817.72 toks/s, output: 181.03 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  1.84it/s, est. speed input: 24817.72 toks/s, output: 181.03 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  2.00it/s, est. speed input: 24817.72 toks/s, output: 181.03 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:06:11 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:06:12 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:06:12 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 17.04 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:06:12 [executor_base.py:189] It took 0.524542 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:06:23 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:06:23 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:08:06 [executor_base.py:205] It took 0.644304 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+T...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 12298 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Based on the provided medical record of Mr. John Williams (patient_03), here are the main points:
+
+*...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 449 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Based on the provided medical record of Mr. John Williams, the following are the key facts:
+
+**Perso...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 626 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON form:
+
+```
+{
+  "patient_info": {
+    "patient_id": "patie...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 2104 tokens
+  [Conv 5/7] Starter: What is the primary diagnosis of Mr. John Williams's medical record?
+
+A) Prostate cancer
+B) Multiple Myeloma IgG kappa
+C) Chronic kidney disease
+D) Heart failure
+  [Conv 5/7] Answer: The primary diagnosis of Mr. John Williams's medical record is Multiple Myeloma IgG kappa. This is e...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 235 tokens
+  [Conv 6/7] Starter: What is the stage of Mr. Williams's multiple myeloma according to the Salmon and Durie criteria?
+
+A) Stage I
+B) Stage II B
+C) Stage III
+D) Stage IV
+  [Conv 6/7] Answer: According to the provided text, Mr. Williams's multiple myeloma was diagnosed as Stage IIA (Salmon a...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 151 tokens
+  [Conv 7/7] Starter: What is the name of the medication that Mr. Williams was administered to relieve fluid overload and improve breathlessness?
+
+A) Furosemide
+B) Lisinopril
+C) Metoprolol
+D) Spironolactone
+  [Conv 7/7] Answer: The correct answer is A) Furosemide.
+
+According to the patient's medical record, furosemide was admi...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 119 tokens
+  Using all 15982 extracted tokens per attention head (requested 16667)
+Putting vLLM to sleep...
+Self-study queries occupy range 0-47946 in final queries (total: 47946)
+Generated 47946 original queries per KV head
+Original queries shape: torch.Size([28, 8, 47946, 128])
+Compacting layer 1/28
+Compacting layer 2/28
+  Extracting on-policy queries from self_study (range 0:47946)
+Compacting layer 3/28
+Compacting layer 4/28
+Compacting layer 5/28
+Compacting layer 6/28
+Compacting layer 7/28
+Compacting layer 8/28
+Compacting layer 9/28
+Compacting layer 10/28
+Compacting layer 11/28
+Compacting layer 12/28
+Compacting layer 13/28
+Compacting layer 14/28
+Compacting layer 15/28
+Compacting layer 16/28
+Compacting layer 17/28
+Compacting layer 18/28
+Compacting layer 19/28
+Compacting layer 20/28
+Compacting layer 21/28
+Compacting layer 22/28
+Compacting layer 23/28
+Compacting layer 24/28
+Compacting layer 25/28
+Compacting layer 26/28
+Compacting layer 27/28
+Compacting layer 28/28
+
+--- Processing chunk 4/4 ---
+Chunk tokens: 11095
+Chunk target: 239 tokens (2.16% of 11095)
+Generating original queries for all layers...
+Using provided vLLM model instance
+Generating ~50000 queries per KV head by conversation capture (5 spec(s): 'Repeat the previous context verbatim.', 'Summarize the main points of the context.', 'Aggregate all the key facts mentioned in the context.' (+2 more))...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 12.34GB allocated, 15.38GB reserved, 39.49GB total
+GPU Memory available: 27.16GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 38.77it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.40s/it, est. speed input: 8030.89 toks/s, output: 80.17 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.40s/it, est. speed input: 8030.89 toks/s, output: 80.17 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.40s/it, est. speed input: 8030.89 toks/s, output: 80.17 toks/s]
+Generated 4 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (45950 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 38.91it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:04<00:09,  4.59s/it, est. speed input: 2439.37 toks/s, output: 96.36 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:06<00:03,  3.23s/it, est. speed input: 3260.01 toks/s, output: 163.89 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  7.27s/it, est. speed input: 1773.10 toks/s, output: 167.55 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  7.27s/it, est. speed input: 1773.10 toks/s, output: 167.55 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  6.31s/it, est. speed input: 1773.10 toks/s, output: 167.55 toks/s]
+
+Adding requests:   0%|          | 0/4 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 4/4 [00:00<00:00, 43.23it/s]
+
+Processed prompts:   0%|          | 0/4 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  25%|██▌       | 1/4 [00:00<00:01,  1.82it/s, est. speed input: 20389.70 toks/s, output: 101.97 toks/s]
+Processed prompts:  50%|█████     | 2/4 [00:00<00:00,  3.40it/s, est. speed input: 33711.77 toks/s, output: 180.63 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:00<00:00,  5.61it/s, est. speed input: 50726.53 toks/s, output: 312.33 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:00<00:00,  5.61it/s, est. speed input: 50726.53 toks/s, output: 312.33 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:00<00:00,  4.53it/s, est. speed input: 50726.53 toks/s, output: 312.33 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:08:27 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:08:28 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:08:28 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 17.08 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:08:28 [executor_base.py:189] It took 0.521949 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:08:38 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:08:38 [executor_base.py:182] Executor is already sleeping.
+Generated 7 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/8] Starter: Repeat the previous context verbatim.
+  [Conv 1/8] Answer: <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+T...
+  [Conv 1/8] Extracting queries from answer...
+  [Conv 1/8] Extracted 11137 tokens
+  [Conv 2/8] Starter: Summarize the main points of the context.
+  [Conv 2/8] Answer: Based on the provided patient record, here is a summary of the main points:
+
+**Patient Information**...
+  [Conv 2/8] Extracting queries from answer...
+  [Conv 2/8] Extracted 486 tokens
+  [Conv 3/8] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/8] Answer: Based on the provided medical record of patient Jill Anderson, here are the key facts aggregated:
+
+*...
+  [Conv 3/8] Extracting queries from answer...
+  [Conv 3/8] Extracted 727 tokens
+  [Conv 4/8] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/8] Answer: Here is the structured information in JSON form:
+
+```
+{
+  "patient-record-patient_04": {
+    "patien...
+  [Conv 4/8] Extracting queries from answer...
+  [Conv 4/8] Extracted 2104 tokens
+  [Conv 5/8] Starter: What is the primary reason for Mrs. Anderson's hospitalization in July 2021?
+  [Conv 5/8] Answer: According to the medical record, the primary reason for Mrs. Anderson's hospitalization in July 2021...
+  [Conv 5/8] Extracting queries from answer...
+  [Conv 5/8] Extracted 108 tokens
+  [Conv 6/8] Starter: A) To undergo a routine check-up
+B) To receive treatment for pancreatic cancer
+C) To receive treatment for a broken bone
+D) To receive a vaccination
+  [Conv 6/8] Answer: Based on the patient's medical record, the correct answer is:
+
+B) To receive treatment for pancreati...
+  [Conv 6/8] Extracting queries from answer...
+  [Conv 6/8] Extracted 137 tokens
+  [Conv 7/8] Starter: What is the name of the chemotherapy regimen recommended for Mrs. Anderson in September 2021?
+  [Conv 7/8] Answer: According to the patient record, in September 2021, Mrs. Anderson was recommended to start neoadjuva...
+  [Conv 7/8] Extracting queries from answer...
+  [Conv 7/8] Extracted 117 tokens
+  [Conv 8/8] Starter: A) FOLFIRINOX
+B) Gemcitabine/nab-paclitaxel
+C) 5-FU and cisplatin
+D) FOLFOX
+  [Conv 8/8] Answer: The correct answer is B) Gemcitabine/nab-paclitaxel.
+
+According to the patient's medical record, Mrs...
+  [Conv 8/8] Extracting queries from answer...
+  [Conv 8/8] Extracted 159 tokens
+  Using all 14975 extracted tokens per attention head (requested 16667)
+Putting vLLM to sleep...
+Self-study queries occupy range 0-44925 in final queries (total: 44925)
+Generated 44925 original queries per KV head
+Original queries shape: torch.Size([28, 8, 44925, 128])
+Compacting layer 1/28
+Compacting layer 2/28
+  Extracting on-policy queries from self_study (range 0:44925)
+Compacting layer 3/28
+Compacting layer 4/28
+Compacting layer 5/28
+Compacting layer 6/28
+Compacting layer 7/28
+Compacting layer 8/28
+Compacting layer 9/28
+Compacting layer 10/28
+Compacting layer 11/28
+Compacting layer 12/28
+Compacting layer 13/28
+Compacting layer 14/28
+Compacting layer 15/28
+Compacting layer 16/28
+Compacting layer 17/28
+Compacting layer 18/28
+Compacting layer 19/28
+Compacting layer 20/28
+Compacting layer 21/28
+Compacting layer 22/28
+Compacting layer 23/28
+Compacting layer 24/28
+Compacting layer 25/28
+Compacting layer 26/28
+Compacting layer 27/28
+Compacting layer 28/28
+
+--- Concatenating 4 compacted chunks (no RoPE correction needed) ---
+Final average cache size: 1067.0 tokens across 28 global layers
+Total article tokens: 47353 -> 1022.0
+Aggregated timing: query_gen=449.40s, compaction=97.36s, train_stats=0.00s
+  [memcache SAVE] /home/voquangtri2025/ICLR-Rebuttal/farid/gated-continual-cartridges/results/compaction_cache/Llama-3.2-3B-Instruct__longhealth_phase_1__r0.02162527453961818__onp_ssplusrepeat_kvchunk_docblk_cachelen.pt
+  [heartbeat] probe_ppl 0/80 @ 08:10:13
+[phase 0 | recompress] M=1067tok  logppl={'alth phase 1': 0.9695}  (551s)
+  [save-memory] phase 0 -> results/ablation/rope_only_cache_len_fixed/longhealth_llama/r_phase0.memory.pt
+  [heartbeat] generate 48/80 decode 10/512 @ 08:10:33
+Saved 80 generations to results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.generations_phase0.jsonl
+  [per-phase gen] phase 0 -> results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.generations_phase0.jsonl
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 0: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 1: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 2: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 3: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 4: 3 conversation(s) from the memory
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:12:49 [executor_base.py:205] It took 0.628267 seconds to wake up tags {'kv_cache', 'weights'}.
+Generating original queries for all layers...
+Using provided vLLM model instance
+Generating ~38642 queries per KV head by conversation capture (5 spec(s): 'Repeat the previous context verbatim.', 'Summarize the main points of the context.', 'Aggregate all the key facts mentioned in the context.' (+2 more))...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 10.60GB allocated, 12.74GB reserved, 39.49GB total
+GPU Memory available: 28.89GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 45.24it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.68s/it, est. speed input: 5776.87 toks/s, output: 92.30 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.68s/it, est. speed input: 5776.87 toks/s, output: 92.30 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.68s/it, est. speed input: 5776.87 toks/s, output: 92.30 toks/s]
+Generated 4 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (37716 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 52.66it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:05<00:10,  5.27s/it, est. speed input: 1835.27 toks/s, output: 98.49 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:05<00:02,  2.54s/it, est. speed input: 3283.31 toks/s, output: 187.40 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  7.16s/it, est. speed input: 1564.36 toks/s, output: 169.88 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  7.16s/it, est. speed input: 1564.36 toks/s, output: 169.88 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  6.18s/it, est. speed input: 1564.36 toks/s, output: 169.88 toks/s]
+
+Adding requests:   0%|          | 0/4 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 4/4 [00:00<00:00, 48.80it/s]
+
+Processed prompts:   0%|          | 0/4 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  25%|██▌       | 1/4 [00:00<00:00,  3.27it/s, est. speed input: 31593.26 toks/s, output: 104.50 toks/s]
+Processed prompts:  50%|█████     | 2/4 [00:01<00:01,  1.68it/s, est. speed input: 17588.53 toks/s, output: 127.04 toks/s]
+Processed prompts:  75%|███████▌  | 3/4 [00:01<00:00,  2.36it/s, est. speed input: 21985.83 toks/s, output: 207.13 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  1.88it/s, est. speed input: 19228.92 toks/s, output: 241.87 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  1.88it/s, est. speed input: 19228.92 toks/s, output: 241.87 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  1.98it/s, est. speed input: 19228.92 toks/s, output: 241.87 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:13:11 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:13:12 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:13:12 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 14.44 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:13:12 [executor_base.py:189] It took 0.521091 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:13:30 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:13:30 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:13:31 [executor_base.py:205] It took 0.544832 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 7 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/8] Starter: Repeat the previous context verbatim.
+  [Conv 1/8] Answer: 
+Below is a panel of patient records.
+
+<patient-record-patient_05>
+Below is patient John Miller's me...
+  [Conv 1/8] Extracting queries from answer...
+  [Conv 1/8] Extracted 9619 tokens
+  [Conv 2/8] Starter: Summarize the main points of the context.
+  [Conv 2/8] Answer: Based on the provided patient record, here is a summary of the main points:
+
+**Patient Information**...
+  [Conv 2/8] Extracting queries from answer...
+  [Conv 2/8] Extracted 563 tokens
+  [Conv 3/8] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/8] Answer: Here are the key facts from John Miller's medical record:
+
+**Patient Information:**
+
+* Name: John Mi...
+  [Conv 3/8] Extracting queries from answer...
+  [Conv 3/8] Extracted 630 tokens
+  [Conv 4/8] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/8] Answer: Here is the structured information in JSON form:
+
+```json
+{
+  "patient": {
+    "id": "patient_05",
+ ...
+  [Conv 4/8] Extracting queries from answer...
+  [Conv 4/8] Extracted 2103 tokens
+  [Conv 5/8] Starter: Here are three questions to test understanding of the patient's context:
+  [Conv 5/8] Answer: Please go ahead and ask your questions about patient John Miller's medical record. I'll do my best t...
+  [Conv 5/8] Extracting queries from answer...
+  [Conv 5/8] Extracted 79 tokens
+  [Conv 6/8] Starter: 1. What is the primary diagnosis of patient John Miller's medical record?
+
+A) Hypertension
+B) Glioblastoma
+C) Diabetes Mellitus
+D) Epilepsy
+  [Conv 6/8] Answer: The correct answer is B) Glioblastoma.
+
+According to the patient record, John Miller's medical histo...
+  [Conv 6/8] Extracting queries from answer...
+  [Conv 6/8] Extracted 208 tokens
+  [Conv 7/8] Starter: 2. What type of surgery was performed on patient John Miller on 09/18/2020?
+
+A) Craniotomy
+B) Stereotactic biopsy
+C) Microsurgical navigated tumor resection
+D) Gamma Knife radiosurgery
+  [Conv 7/8] Answer: The correct answer is C) Microsurgical navigated tumor resection.
+
+According to the patient record, ...
+  [Conv 7/8] Extracting queries from answer...
+  [Conv 7/8] Extracted 300 tokens
+  [Conv 8/8] Starter: 3. What is the total dose of radiotherapy administered to patient John Miller in 03-04/2021?
+
+A) 30 Gy
+B) 46 Gy
+C) 60 Gy
+D) 66 Gy
+  [Conv 8/8] Answer: The correct answer is D) 66 Gy.
+
+According to the text, the total dose of radiotherapy administered ...
+  [Conv 8/8] Extracting queries from answer...
+  [Conv 8/8] Extracted 189 tokens
+  Subsampled 13691 → 3220 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 11.12GB allocated, 12.74GB reserved, 39.49GB total
+GPU Memory available: 28.38GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 42.35it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.21s/it, est. speed input: 4930.79 toks/s, output: 95.02 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.21s/it, est. speed input: 4930.79 toks/s, output: 95.02 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.21s/it, est. speed input: 4930.79 toks/s, output: 95.02 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (39388 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 48.65it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:04<00:09,  4.86s/it, est. speed input: 2236.76 toks/s, output: 96.95 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:10<00:05,  5.05s/it, est. speed input: 2164.62 toks/s, output: 148.42 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:14<00:00,  4.64s/it, est. speed input: 2296.88 toks/s, output: 210.16 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:14<00:00,  4.64s/it, est. speed input: 2296.88 toks/s, output: 210.16 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:14<00:00,  4.73s/it, est. speed input: 2296.88 toks/s, output: 210.16 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 47.94it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:00<00:01,  1.00it/s, est. speed input: 10940.13 toks/s, output: 95.17 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:02<00:01,  1.06s/it, est. speed input: 10405.11 toks/s, output: 147.11 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.49it/s, est. speed input: 14202.50 toks/s, output: 237.44 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.49it/s, est. speed input: 14202.50 toks/s, output: 237.44 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.30it/s, est. speed input: 14202.50 toks/s, output: 237.44 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:13:50 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:13:50 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:13:50 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 14.44 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:13:50 [executor_base.py:189] It took 0.521447 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:14:11 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:14:11 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:14:11 [executor_base.py:205] It took 0.545987 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+<patient-record-patient_06>
+Below is patient Paul Doe's medical record (ID: patient_06). 
+They were...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 10815 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Based on the provided medical record of patient Paul Doe (ID: patient_06), the following are the mai...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 515 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Based on the provided medical record of patient Paul Doe (patient_06), the following are the key fac...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 1537 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON format:
+
+```
+{
+  "patient": {
+    "id": "patient_06",
+   ...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 1073 tokens
+  [Conv 5/7] Starter: What is the primary reason for Mr. Paul Doe's radiotherapy treatment after his surgical resection of the tongue base carcinoma?
+
+A) To treat liver cirrhosis
+B) To alleviate dysphagia and odynophagia
+C) To control metastatic recurrence of the previously diagnosed hypopharyngeal carcinoma
+  [Conv 5/7] Answer: The correct answer is C) To control metastatic recurrence of the previously diagnosed hypopharyngeal...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 339 tokens
+  [Conv 6/7] Starter: A surgical procedure was performed on 01/11/2022, which included left VATS, pleurolysis, anatomical upper lobe resection, systematic mediastinal, hilar, and interlobar lymph node dissection. What is the primary purpose of this procedure?
+
+A) To treat pneumonia
+B) To diagnose lung cancer
+C) To remove metastatic lesions
+  [Conv 6/7] Answer: The correct answer is C) To remove metastatic lesions.
+
+According to the patient's medical record, t...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 326 tokens
+  [Conv 7/7] Starter: What is the current general condition of Mr. Paul Doe according to his physical examination on 01/24/2022?
+
+A) Unstable, with signs of B-symptoms
+B) Good, with slight weight loss and dysphagia
+C) Reduced, with significant weight loss and trismus
+  [Conv 7/7] Answer: The correct answer is B) Good, with slight weight loss and dysphagia.
+
+According to the physical exa...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 192 tokens
+  Subsampled 14797 → 3220 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 11.63GB allocated, 12.74GB reserved, 39.49GB total
+GPU Memory available: 27.86GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 40.54it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.19s/it, est. speed input: 4920.79 toks/s, output: 95.40 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.19s/it, est. speed input: 4920.79 toks/s, output: 95.40 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.19s/it, est. speed input: 4920.79 toks/s, output: 95.40 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (40762 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 44.88it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:04<00:09,  4.89s/it, est. speed input: 2196.31 toks/s, output: 97.05 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:09<00:04,  4.79s/it, est. speed input: 2238.16 toks/s, output: 150.74 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  6.92s/it, est. speed input: 1691.59 toks/s, output: 183.31 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  6.92s/it, est. speed input: 1691.59 toks/s, output: 183.31 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  6.36s/it, est. speed input: 1691.59 toks/s, output: 183.31 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 45.76it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:00<00:00,  2.58it/s, est. speed input: 27889.80 toks/s, output: 98.11 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:01<00:00,  1.89it/s, est. speed input: 21305.26 toks/s, output: 139.99 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  1.89it/s, est. speed input: 29221.30 toks/s, output: 230.70 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  2.70it/s, est. speed input: 29221.30 toks/s, output: 230.70 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:14:34 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:14:34 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:14:34 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 14.44 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:14:34 [executor_base.py:189] It took 0.525805 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:14:55 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:14:55 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:14:55 [executor_base.py:205] It took 0.543907 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+<patient-record-patient_07>
+Below is patient Linda Mayer's medical record (ID: patient_07). 
+They w...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 10698 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Patient Linda Mayer, born on 1948-12-01, has a medical record with the following key points:
+
+1. **D...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 519 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Based on the provided medical record of patient Linda Mayer (patient_07), here are the key facts:
+
+*...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 1017 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON format:
+
+```
+{
+  "patient_info": {
+    "id": "patient_07"...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 2105 tokens
+  [Conv 5/7] Starter: What is the primary diagnosis of Mrs. Linda Mayer's condition as per the tumor board decision on 07/13/2019?
+
+A) Breast carcinoma
+B) Ductal carcinoma in situ (DCIS)
+C) Hailey-Hailey disease
+D) Pemphigus vulgaris
+  [Conv 5/7] Answer: The primary diagnosis of Mrs. Linda Mayer's condition as per the tumor board decision on 07/13/2019 ...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 134 tokens
+  [Conv 6/7] Starter: What is the recommended treatment for Mrs. Linda Mayer's breast carcinoma if BRCA testing returns negative?
+
+A) Radiation therapy
+B) Selective excision of the left breast after ultrasound-guided fine needle marking and sentinel lymph node biopsy on the left side
+C) Mastectomy with axillary lymph node dissection
+D) Chemotherapy
+  [Conv 6/7] Answer: The correct answer is B) Selective excision of the left breast after ultrasound-guided fine needle m...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 206 tokens
+  [Conv 7/7] Starter: What is the primary medication prescribed to Mrs. Linda Mayer for her Hailey-Hailey disease?
+
+A) Prednisolone
+B) Acitretin 25mg
+C) Prednicarbate (Dermatop) 0.25% with Octenidine 0.1%
+D) Triamcinolone Acetonide shake lotion
+  [Conv 7/7] Answer: The correct answer is C) Prednicarbate (Dermatop) 0.25% with Octenidine 0.1%.
+
+According to text_6, ...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 223 tokens
+  Subsampled 14902 → 3220 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 12.15GB allocated, 13.26GB reserved, 39.49GB total
+GPU Memory available: 27.34GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 43.39it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it, est. speed input: 4348.56 toks/s, output: 98.73 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it, est. speed input: 4348.56 toks/s, output: 98.73 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it, est. speed input: 4348.56 toks/s, output: 98.73 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (38351 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 50.59it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:04<00:09,  4.65s/it, est. speed input: 2123.66 toks/s, output: 98.66 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:07<00:03,  3.33s/it, est. speed input: 2801.55 toks/s, output: 166.73 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  7.09s/it, est. speed input: 1593.24 toks/s, output: 173.23 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  7.09s/it, est. speed input: 1593.24 toks/s, output: 173.23 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  6.20s/it, est. speed input: 1593.24 toks/s, output: 173.23 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 48.15it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:00<00:01,  1.08it/s, est. speed input: 10775.12 toks/s, output: 96.50 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:01<00:00,  2.25it/s, est. speed input: 19235.63 toks/s, output: 185.82 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.34it/s, est. speed input: 13929.48 toks/s, output: 197.52 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.34it/s, est. speed input: 13929.48 toks/s, output: 197.52 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.40it/s, est. speed input: 13929.48 toks/s, output: 197.52 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:15:18 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:15:19 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:15:19 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 14.96 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:15:19 [executor_base.py:189] It took 0.522069 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:15:38 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:15:38 [executor_base.py:182] Executor is already sleeping.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+<patient-record-patient_08>
+Below is patient Laura Miller's medical record (ID: patient_08). 
+They ...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 9828 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Based on the provided medical record of patient Laura Miller (patient_08), here is a summary of the ...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 503 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Based on the provided patient record, here are the key facts about Laura Miller:
+
+**Demographics and...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 761 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON format:
+
+```
+{
+  "patient_info": {
+    "id": "patient_08"...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 2105 tokens
+  [Conv 5/7] Starter: What was the patient's primary diagnosis that led to the initiation of systemic therapy in June 2020?
+
+A) Liver cirrhosis due to ethanol toxicity
+B) Osteoporotic vertebral body sintering
+C) Hepatocellular carcinoma (HCC)
+D) Disseminated HCC lesions in all liver segments
+  [Conv 5/7] Answer: The correct answer is C) Hepatocellular carcinoma (HCC).
+
+According to the patient's medical record,...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 205 tokens
+  [Conv 6/7] Starter: What was the result of the MR imaging of the liver performed on June 6, 2020?
+
+A) Multiple focal HCC lesions in segments 1/3/4
+B) Disseminated HCC lesions in all segments, the largest foci in segments 5/7/8
+C) No evidence of HCC or other liver lesions
+D) A single large HCC lesion in segment 8
+  [Conv 6/7] Answer: The correct answer is B) Disseminated HCC lesions in all segments, the largest foci in segments 5/7/...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 351 tokens
+  [Conv 7/7] Starter: What was the outcome of the patient's follow-up examination on September 20, 2020?
+
+A) Re-admission to the hospital due to bleeding complications
+B) Discharge for outpatient care with a follow-up EGD
+C) Transfer to a different ward for further treatment
+D) Death due to complications from HCC
+  [Conv 7/7] Answer: The correct answer is B) Discharge for outpatient care with a follow-up EGD.
+
+According to the patie...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 190 tokens
+  Subsampled 13943 → 3220 tokens per attention head
+Putting vLLM to sleep...
+  [self-study] 4 documents, 29 conversations, 12880 queries per attention head
+Pooled 38640 generated and 11358 caller-supplied queries per KV head
+Self-study queries occupy range 0-38640 in final queries (total: 38640)
+Generated 38640 original queries per KV head
+Original queries shape: torch.Size([28, 8, 49998, 128])
+Compacting layer 1/28
+Compacting layer 2/28
+  Extracting on-policy queries from self_study (range 0:38640)
+  Keeping original queries for non-on-policy methods (range 38640:49998)
+Compacting layer 3/28
+Compacting layer 4/28
+Compacting layer 5/28
+Compacting layer 6/28
+Compacting layer 7/28
+Compacting layer 8/28
+Compacting layer 9/28
+Compacting layer 10/28
+Compacting layer 11/28
+Compacting layer 12/28
+Compacting layer 13/28
+Compacting layer 14/28
+Compacting layer 15/28
+Compacting layer 16/28
+Compacting layer 17/28
+Compacting layer 18/28
+Compacting layer 19/28
+Compacting layer 20/28
+Compacting layer 21/28
+Compacting layer 22/28
+Compacting layer 23/28
+Compacting layer 24/28
+Compacting layer 25/28
+Compacting layer 26/28
+Compacting layer 27/28
+Compacting layer 28/28
+  [recompress-queries] t=1 doc+memory: 4 document(s), 29 conversation(s), 38640 query vectors per kv head; memory 7 conversation(s), 11358 query vectors per kv head
+  [heartbeat] probe_ppl 0/80 @ 08:23:02
+[phase 1 | recompress] M=1024tok  logppl={'alth phase 1': 0.7523, 'alth phase 2': 1.3294}  (755s)
+  [save-memory] phase 1 -> results/ablation/rope_only_cache_len_fixed/longhealth_llama/r_phase1.memory.pt
+Saved 160 generations to results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.generations_phase1.jsonl
+  [per-phase gen] phase 1 -> results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.generations_phase1.jsonl
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 0: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 1: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 2: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 3: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 4: 3 conversation(s) from the memory
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:24:25 [executor_base.py:205] It took 0.925027 seconds to wake up tags {'kv_cache', 'weights'}.
+Generating original queries for all layers...
+Using provided vLLM model instance
+Generating ~44153 queries per KV head by conversation capture (5 spec(s): 'Repeat the previous context verbatim.', 'Summarize the main points of the context.', 'Aggregate all the key facts mentioned in the context.' (+2 more))...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 11.09GB allocated, 15.54GB reserved, 39.49GB total
+GPU Memory available: 28.41GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 40.89it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.81s/it, est. speed input: 5563.57 toks/s, output: 93.96 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.81s/it, est. speed input: 5563.57 toks/s, output: 93.96 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.81s/it, est. speed input: 5563.57 toks/s, output: 93.96 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (39145 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 45.27it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:03<00:07,  3.83s/it, est. speed input: 2618.10 toks/s, output: 98.87 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:06<00:03,  3.18s/it, est. speed input: 3061.41 toks/s, output: 160.30 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  7.20s/it, est. speed input: 1624.98 toks/s, output: 167.19 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  7.20s/it, est. speed input: 1624.98 toks/s, output: 167.19 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  6.18s/it, est. speed input: 1624.98 toks/s, output: 167.19 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 43.87it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:00<00:01,  1.46it/s, est. speed input: 14723.84 toks/s, output: 96.33 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:00<00:00,  2.30it/s, est. speed input: 21389.46 toks/s, output: 170.71 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:00<00:00,  2.30it/s, est. speed input: 31203.80 toks/s, output: 269.28 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:00<00:00,  3.09it/s, est. speed input: 31203.80 toks/s, output: 269.28 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:24:46 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:24:47 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:24:47 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 17.24 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:24:47 [executor_base.py:189] It took 0.520737 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:25:07 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:25:07 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:25:07 [executor_base.py:205] It took 0.545514 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+Below is a panel of patient records.
+
+<patient-record-patient_09>
+Below is patient Paul Wells's med...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 9984 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Based on the provided patient record of Paul Wells (patient_09), here are the main points of the con...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 423 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Based on the provided patient record, here are the key facts about patient Paul Wells:
+
+**Demographi...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 716 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON form:
+
+```json
+{
+  "patient_info": {
+    "patient_id": "p...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 2105 tokens
+  [Conv 5/7] Starter: What is the primary diagnosis of patient Paul Wells?
+
+A) Hepatitis B
+B) Hepatocellular carcinoma (HCC)
+C) Liver cirrhosis
+D) Chronic obstructive pulmonary disease (COPD)
+  [Conv 5/7] Answer: The primary diagnosis of patient Paul Wells is Hepatocellular carcinoma (HCC). 
+
+Hepatocellular carc...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 180 tokens
+  [Conv 6/7] Starter: What is the reason for the initiation of Atezolizumab/Bevacizumab treatment in patient Paul Wells?
+
+A) To manage his liver fibrosis
+B) To treat his COPD
+C) To treat his HCC
+D) To manage his hypertension
+  [Conv 6/7] Answer: The correct answer is C) To treat his HCC.
+
+According to the patient's medical record, the liver tum...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 187 tokens
+  [Conv 7/7] Starter: What is the name of the medication administered to patient Paul Wells for his respiratory symptoms during his hospitalization?
+
+A) Ceftriaxone and Azithromycin
+B) Prednisolone
+C) Ipratropium/Fenoterol (Combivent)
+D) Apixaban
+  [Conv 7/7] Answer: The correct answer is A) Ceftriaxone and Azithromycin.
+
+According to the patient's medical record, t...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 162 tokens
+  Subsampled 13757 → 3679 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 11.68GB allocated, 15.54GB reserved, 39.49GB total
+GPU Memory available: 27.82GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 38.64it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.17s/it, est. speed input: 5007.13 toks/s, output: 95.12 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.17s/it, est. speed input: 5007.13 toks/s, output: 95.12 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.17s/it, est. speed input: 5007.13 toks/s, output: 95.12 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (41649 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 42.61it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:04<00:09,  4.94s/it, est. speed input: 2187.25 toks/s, output: 96.68 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:10<00:00,  3.27s/it, est. speed input: 3149.15 toks/s, output: 199.50 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:10<00:00,  3.27s/it, est. speed input: 3149.15 toks/s, output: 199.50 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:10<00:00,  3.44s/it, est. speed input: 3149.15 toks/s, output: 199.50 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 43.25it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:00<00:01,  1.65it/s, est. speed input: 17999.96 toks/s, output: 94.32 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:00<00:00,  3.02it/s, est. speed input: 29159.91 toks/s, output: 177.20 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  1.50it/s, est. speed input: 18056.42 toks/s, output: 181.61 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  1.50it/s, est. speed input: 18056.42 toks/s, output: 181.61 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  1.66it/s, est. speed input: 18056.42 toks/s, output: 181.61 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:25:22 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:25:22 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:25:22 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 17.24 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:25:22 [executor_base.py:189] It took 0.521551 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:25:43 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:25:43 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:25:43 [executor_base.py:205] It took 0.545126 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+<patient-record-patient_10>
+Below is patient Peter Rudolph's medical record (ID: patient_10). 
+They...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 10762 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Based on the provided medical record of patient Peter Rudolph (patient_10), here are the main points...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 528 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Based on the provided medical record of patient Peter Rudolph, the following are the key facts:
+
+**P...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 522 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON format:
+
+```json
+{
+  "patient_info": {
+    "patient_id": ...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 1150 tokens
+  [Conv 5/7] Starter: What type of cancer was diagnosed in Mr. Rudolph in March 2019?
+
+
+A) Colon cancer
+B) Lung cancer
+C) Renal cell carcinoma
+D) Prostate cancer
+  [Conv 5/7] Answer: The correct answer is C) Renal cell carcinoma.
+
+According to the patient's medical record, Mr. Rudol...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 148 tokens
+  [Conv 6/7] Starter: What was the result of the biopsy and biopsy samples from the ureter and renal pelvis in Mr. Rudolph's diagnostic ureterorenoscopy?
+
+
+A) Cancer cells were detected, but no metastasis was found
+B) The biopsy samples showed normal tissue
+C) The biopsy samples were inconclusive, and further testing was needed
+D) Malignant urothelial cells were detected with a high-grade cancer
+  [Conv 6/7] Answer: The correct answer is D) Malignant urothelial cells were detected with a high-grade cancer.
+
+Accordi...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 316 tokens
+  [Conv 7/7] Starter: What type of chemotherapy was Mr. Rudolph initially treated with from 04/19 to 07/19?
+
+
+A) Gemcitabine and Paclitaxel
+B) Cisplatin and Vinflunin
+C) Gemcitabine and Cisplatin
+D) Nivolumab and Atezolizumab
+  [Conv 7/7] Answer: The correct answer is C) Gemcitabine and Cisplatin.
+
+According to the patient's medical record, Mr. ...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 165 tokens
+  Subsampled 13591 → 3679 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 12.27GB allocated, 15.54GB reserved, 39.49GB total
+GPU Memory available: 27.23GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 34.16it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.69s/it, est. speed input: 7307.12 toks/s, output: 82.63 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.69s/it, est. speed input: 7307.12 toks/s, output: 82.63 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.69s/it, est. speed input: 7307.12 toks/s, output: 82.63 toks/s]
+[SelfStudy] Warning: Extraction failed for spec 4 (extraction_fn=extract_after_thinking_then_split), attempt 1/3. Generated text preview: Here are three questions to test understanding of the context:
+
+
+What is the primary diagnosis of the patient, according to the medical record?
+
+
+A) Acute Pancreatitis
+B) Acute Myeloid Leukemia with M...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 36.16it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.01s/it, est. speed input: 6169.99 toks/s, output: 112.63 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.01s/it, est. speed input: 6169.99 toks/s, output: 112.63 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.01s/it, est. speed input: 6169.99 toks/s, output: 112.63 toks/s]
+[SelfStudy] Retry succeeded for spec 4 on attempt 2
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (45002 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 39.54it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:05<00:10,  5.25s/it, est. speed input: 2350.32 toks/s, output: 94.58 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:09<00:04,  4.65s/it, est. speed input: 2604.38 toks/s, output: 150.99 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  7.06s/it, est. speed input: 1909.03 toks/s, output: 179.25 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  7.06s/it, est. speed input: 1909.03 toks/s, output: 179.25 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  6.47s/it, est. speed input: 1909.03 toks/s, output: 179.25 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 39.29it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:00<00:01,  1.42it/s, est. speed input: 17568.21 toks/s, output: 93.42 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:01<00:00,  1.99it/s, est. speed input: 23255.94 toks/s, output: 158.28 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  2.07it/s, est. speed input: 24391.55 toks/s, output: 214.19 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  2.07it/s, est. speed input: 24391.55 toks/s, output: 214.19 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  1.96it/s, est. speed input: 24391.55 toks/s, output: 214.19 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:26:08 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:26:09 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:26:09 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 17.24 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:26:09 [executor_base.py:189] It took 0.523276 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:26:34 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:26:34 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:26:34 [executor_base.py:205] It took 0.543852 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+<patient-record-patient_11>
+Below is patient Bruno Hurley's medical record (ID: patient_11). 
+They ...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 12298 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Based on the provided medical record of patient Bruno Hurley (patient_11), here are the main points:...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 541 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Here are the key facts mentioned in the context of patient Bruno Hurley's medical record:
+
+**Patient...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 979 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON form:
+
+```json
+{
+  "patient_info": {
+    "name": "Bruno H...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 2103 tokens
+  [Conv 5/7] Starter: What is the primary diagnosis of Mr. Hurley's medical condition in the notes provided?
+
+
+A) Acute Myeloid Leukemia with Myelodysplastic Syndrome (AML-MRC)
+
+
+B) Chronic Tuberculosis
+
+
+C) Chronic Lymphocytic Leukemia (CLL)
+
+
+D) Acute Pancreatitis
+  [Conv 5/7] Answer: The correct answer is A) Acute Myeloid Leukemia with Myelodysplastic Syndrome (AML-MRC).
+
+The notes ...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 260 tokens
+  [Conv 6/7] Starter: What is the name of the medication that Mr. Hurley was taking in December 2020 for tuberculosis treatment?
+
+
+A) Rifampicin and Isoniazid
+
+
+B) Moxifloxacin and Pyrazinamide
+
+
+C) Levofloxacin and Ethambutol
+
+
+D) Azacitidine and Venetoclax
+  [Conv 6/7] Answer: The correct answer is A) Rifampicin and Isoniazid.
+
+According to the medical record, in December 202...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 171 tokens
+  [Conv 7/7] Starter: What is the reason for Mr. Hurley's referral to the infectious diseases outpatient clinic after allogeneic stem cell transplantation?
+
+
+A) To continue monitoring for tuberculosis
+
+
+B) To assess the effectiveness of immunosuppressive therapy
+
+
+C) To evaluate for signs of graft-versus-host disease (GvHD)
+
+
+D) To discuss treatment options for AML in the context of unresolved tuberculosis
+  [Conv 7/7] Answer: The correct answer is A) To continue monitoring for tuberculosis.
+
+According to the medical record, ...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 216 tokens
+  Subsampled 16568 → 3679 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 12.86GB allocated, 15.54GB reserved, 39.49GB total
+GPU Memory available: 26.64GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 33.61it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.27s/it, est. speed input: 5550.27 toks/s, output: 89.91 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.27s/it, est. speed input: 5550.27 toks/s, output: 89.91 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.27s/it, est. speed input: 5550.27 toks/s, output: 89.91 toks/s]
+Generated 4 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (46280 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 37.47it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:06<00:12,  6.17s/it, est. speed input: 2037.50 toks/s, output: 94.23 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:09<00:04,  4.34s/it, est. speed input: 2725.14 toks/s, output: 160.30 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:11<00:00,  3.56s/it, est. speed input: 3179.46 toks/s, output: 225.09 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:11<00:00,  3.56s/it, est. speed input: 3179.46 toks/s, output: 225.09 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:11<00:00,  3.95s/it, est. speed input: 3179.46 toks/s, output: 225.09 toks/s]
+
+Adding requests:   0%|          | 0/4 [00:00<?, ?it/s]
+Adding requests:  75%|███████▌  | 3/4 [00:00<00:00, 29.68it/s]
+Adding requests: 100%|██████████| 4/4 [00:00<00:00, 30.91it/s]
+
+Processed prompts:   0%|          | 0/4 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  25%|██▌       | 1/4 [00:00<00:00,  6.66it/s, est. speed input: 83719.93 toks/s, output: 126.56 toks/s]
+Processed prompts:  50%|█████     | 2/4 [00:00<00:00,  3.41it/s, est. speed input: 46356.39 toks/s, output: 125.08 toks/s]
+Processed prompts:  75%|███████▌  | 3/4 [00:00<00:00,  4.21it/s, est. speed input: 52926.69 toks/s, output: 190.38 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:01<00:00,  2.51it/s, est. speed input: 37119.59 toks/s, output: 206.17 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:01<00:00,  2.51it/s, est. speed input: 37119.59 toks/s, output: 206.17 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:01<00:00,  2.94it/s, est. speed input: 37119.59 toks/s, output: 206.17 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:26:50 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:26:50 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:26:50 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 17.24 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:26:50 [executor_base.py:189] It took 0.521242 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:27:14 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:27:14 [executor_base.py:182] Executor is already sleeping.
+Generated 7 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/8] Starter: Repeat the previous context verbatim.
+  [Conv 1/8] Answer: 
+<patient-record-patient_12>
+Below is patient Alan Fisher's medical record (ID: patient_12). 
+They w...
+  [Conv 1/8] Extracting queries from answer...
+  [Conv 1/8] Extracted 12511 tokens
+  [Conv 2/8] Starter: Summarize the main points of the context.
+  [Conv 2/8] Answer: Based on the provided patient record of Alan Fisher, the following are the main points of the contex...
+  [Conv 2/8] Extracting queries from answer...
+  [Conv 2/8] Extracted 625 tokens
+  [Conv 3/8] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/8] Answer: Here are the key facts from Alan Fisher's medical record:
+
+**Personal Information**
+
+* Born: Septemb...
+  [Conv 3/8] Extracting queries from answer...
+  [Conv 3/8] Extracted 941 tokens
+  [Conv 4/8] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/8] Answer: Here is the structured information in JSON form:
+
+```json
+{
+  "patient_id": "patient_12",
+  "patient...
+  [Conv 4/8] Extracting queries from answer...
+  [Conv 4/8] Extracted 1247 tokens
+  [Conv 5/8] Starter: Here are three questions to test understanding of different parts of the context:
+  [Conv 5/8] Answer: I'm ready to help. What are the three questions to test understanding of the context?...
+  [Conv 5/8] Extracting queries from answer...
+  [Conv 5/8] Extracted 67 tokens
+  [Conv 6/8] Starter: 1. What is the primary diagnosis for Mr. Alan Fisher's current hospitalization, according to the medical record?
+
+A) Chronic kidney disease
+B) Urosepsis
+C) Acute coronary syndrome
+D) Anastomotic stricture
+  [Conv 6/8] Answer: The primary diagnosis for Mr. Alan Fisher's current hospitalization is not explicitly stated in the ...
+  [Conv 6/8] Extracting queries from answer...
+  [Conv 6/8] Extracted 228 tokens
+  [Conv 7/8] Starter: 2. What is the primary immunosuppressive medication used in Mr. Fisher's treatment plan, according to the medication list?
+
+A) Prednisone
+B) Cyclosporin A
+C) Mycophenolic Acid
+D) Fluvastatin
+  [Conv 7/8] Answer: The primary immunosuppressive medication used in Mr. Fisher's treatment plan is Cyclosporin A, as it...
+  [Conv 7/8] Extracting queries from answer...
+  [Conv 7/8] Extracted 157 tokens
+  [Conv 8/8] Starter: 3. What is the estimated glomerular filtration rate (eGFR) measured at the time of discharge, according to the lab results?
+
+A) 30 mL/min/1.73m²
+B) 19 mL/min/1.73m²
+C) 40 mL/min/1.73m²
+D) 50 mL/min/1.73m²
+  [Conv 8/8] Answer: The correct answer is B) 19 mL/min/1.73m².
+
+According to the lab results upon discharge:
+
+"Estimated...
+  [Conv 8/8] Extracting queries from answer...
+  [Conv 8/8] Extracted 163 tokens
+  Subsampled 15939 → 3679 tokens per attention head
+Putting vLLM to sleep...
+  [self-study] 4 documents, 29 conversations, 14716 queries per attention head
+Pooled 44148 generated and 5847 caller-supplied queries per KV head
+Self-study queries occupy range 0-44148 in final queries (total: 44148)
+Generated 44148 original queries per KV head
+Original queries shape: torch.Size([28, 8, 49995, 128])
+Compacting layer 1/28
+Compacting layer 2/28
+  Extracting on-policy queries from self_study (range 0:44148)
+  Keeping original queries for non-on-policy methods (range 44148:49995)
+Compacting layer 3/28
+Compacting layer 4/28
+Compacting layer 5/28
+Compacting layer 6/28
+Compacting layer 7/28
+Compacting layer 8/28
+Compacting layer 9/28
+Compacting layer 10/28
+Compacting layer 11/28
+Compacting layer 12/28
+Compacting layer 13/28
+Compacting layer 14/28
+Compacting layer 15/28
+Compacting layer 16/28
+Compacting layer 17/28
+Compacting layer 18/28
+Compacting layer 19/28
+Compacting layer 20/28
+Compacting layer 21/28
+Compacting layer 22/28
+Compacting layer 23/28
+Compacting layer 24/28
+Compacting layer 25/28
+Compacting layer 26/28
+Compacting layer 27/28
+Compacting layer 28/28
+  [recompress-queries] t=2 doc+memory: 4 document(s), 29 conversation(s), 44148 query vectors per kv head; memory 7 conversation(s), 5847 query vectors per kv head
+  [heartbeat] probe_ppl 0/80 @ 08:34:39
+[phase 2 | recompress] M=1024tok  logppl={'alth phase 1': 0.7378, 'alth phase 2': 1.1828, 'alth phase 3': 0.983}  (694s)
+  [save-memory] phase 2 -> results/ablation/rope_only_cache_len_fixed/longhealth_llama/r_phase2.memory.pt
+Saved 240 generations to results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.generations_phase2.jsonl
+  [per-phase gen] phase 2 -> results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.generations_phase2.jsonl
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 0: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 1: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 2: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 3: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 4: 3 conversation(s) from the memory
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:38:44 [executor_base.py:205] It took 0.812745 seconds to wake up tags {'kv_cache', 'weights'}.
+Generating original queries for all layers...
+Using provided vLLM model instance
+Generating ~30038 queries per KV head by conversation capture (5 spec(s): 'Repeat the previous context verbatim.', 'Summarize the main points of the context.', 'Aggregate all the key facts mentioned in the context.' (+2 more))...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 10.96GB allocated, 12.63GB reserved, 39.49GB total
+GPU Memory available: 28.53GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 34.37it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.23s/it, est. speed input: 5392.53 toks/s, output: 91.35 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.23s/it, est. speed input: 5392.53 toks/s, output: 91.35 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.23s/it, est. speed input: 5392.53 toks/s, output: 91.35 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (43635 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 36.33it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:04<00:09,  4.95s/it, est. speed input: 2424.94 toks/s, output: 95.69 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:09<00:04,  4.54s/it, est. speed input: 2610.90 toks/s, output: 151.39 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  7.05s/it, est. speed input: 1872.91 toks/s, output: 178.78 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  7.05s/it, est. speed input: 1872.91 toks/s, output: 178.78 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  6.42s/it, est. speed input: 1872.91 toks/s, output: 178.78 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 34.82it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:00<00:01,  1.99it/s, est. speed input: 24067.34 toks/s, output: 93.75 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:00<00:00,  2.44it/s, est. speed input: 28507.86 toks/s, output: 153.56 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  3.26it/s, est. speed input: 35139.47 toks/s, output: 230.98 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  3.26it/s, est. speed input: 35139.47 toks/s, output: 230.98 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  2.91it/s, est. speed input: 35139.47 toks/s, output: 230.98 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:39:06 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:39:07 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:39:07 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 14.33 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:39:07 [executor_base.py:189] It took 0.520212 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:39:30 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:39:30 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:39:31 [executor_base.py:205] It took 0.546016 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+Below is a panel of patient records.
+
+<patient-record-patient_13>
+Below is patient Ben Harder's med...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 11960 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Based on the provided patient record of Ben Harder, here are the main points:
+
+**Patient Background:...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 518 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Here are the key facts from Ben Harder's medical record:
+
+**Demographics and Medical History**
+
+* Pa...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 963 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: I can help you structure the information in JSON format. However, please note that the provided text...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 2105 tokens
+  [Conv 5/7] Starter: What was the primary reason for Mr. Harder's hospital readmission in January 2023?
+
+A) To undergo a second opinion on his prostate cancer treatment
+B) To receive a follow-up cystogram and possibly catheter removal
+C) To be treated for urinary tract infection
+D) To receive a second cycle of Radioligand Therapy
+  [Conv 5/7] Answer: The correct answer is B) To receive a follow-up cystogram and possibly catheter removal.
+
+According ...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 213 tokens
+  [Conv 6/7] Starter: What was the Gleason score of Mr. Harder's prostate cancer based on the biopsy results?
+
+A) 2 + 3 = 5
+B) 4 + 5 = 9
+C) 6 + 7 = 13
+D) 8 + 9 = 17
+  [Conv 6/7] Answer: The correct answer is:
+
+B) 4 + 5 = 9
+
+According to the patient's medical record, the Gleason score o...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 144 tokens
+  [Conv 7/7] Starter: What was the primary medication that Mr. Harder was taking upon discharge from the hospital?
+
+A) Aspirin and Candesartan
+B) Doxazosin and Enoxaparin
+C) Valsartan and Simvastatin
+D) Aspirin and Chlorthalidone
+  [Conv 7/7] Answer: The correct answer is D) Aspirin and Chlorthalidone.
+
+Upon discharge from the hospital, Mr. Harder's...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 183 tokens
+  Subsampled 16086 → 2503 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 11.37GB allocated, 12.63GB reserved, 39.49GB total
+GPU Memory available: 28.13GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 28.74it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:03<00:00,  3.23s/it, est. speed input: 3462.61 toks/s, output: 101.71 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:03<00:00,  3.23s/it, est. speed input: 3462.61 toks/s, output: 101.71 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:03<00:00,  3.23s/it, est. speed input: 3462.61 toks/s, output: 101.71 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (41637 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 41.53it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:04<00:09,  4.89s/it, est. speed input: 2286.46 toks/s, output: 97.23 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:10<00:05,  5.34s/it, est. speed input: 2119.13 toks/s, output: 147.31 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:17<00:00,  6.09s/it, est. speed input: 1913.40 toks/s, output: 195.55 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:17<00:00,  6.09s/it, est. speed input: 1913.40 toks/s, output: 195.55 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:17<00:00,  5.84s/it, est. speed input: 1913.40 toks/s, output: 195.55 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 41.53it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:01<00:03,  1.76s/it, est. speed input: 6416.42 toks/s, output: 96.11 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:02<00:01,  1.10s/it, est. speed input: 9390.90 toks/s, output: 169.85 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.26it/s, est. speed input: 11970.71 toks/s, output: 247.18 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.26it/s, est. speed input: 11970.71 toks/s, output: 247.18 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.06it/s, est. speed input: 11970.71 toks/s, output: 247.18 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:39:55 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:39:55 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:39:55 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 14.33 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:39:55 [executor_base.py:189] It took 0.519679 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:40:18 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:40:18 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:40:19 [executor_base.py:205] It took 0.541917 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+<patient-record-patient_14>
+Below is patient John Havers's medical record (ID: patient_14). 
+They w...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 11118 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Based on the provided medical record of patient John Havers (patient_14), the main points of the con...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 519 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Here are the key facts mentioned in the context of patient John Havers's medical record:
+
+**Patient ...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 1122 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON format:
+
+```
+{
+  "patientRecord": {
+    "patientID": "pat...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 1929 tokens
+  [Conv 5/7] Starter: Here are 3 questions to test understanding of different parts of the context:
+
+**Question 1:**
+
+What is the primary diagnosis of the patient's condition based on the MRI findings from 02/19/2017?
+
+A) Mucinous liposarcoma
+B) Myxoid liposarcoma
+C) Liposarcoma with uncertain behavior
+D) Adipocytic liposarcoma
+  [Conv 5/7] Answer: The correct answer is B) Myxoid liposarcoma.
+
+According to the text, the MRI findings from 02/19/201...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 409 tokens
+  [Conv 6/7] Starter: **Question 2:**
+
+What is the name of the medication that was prescribed to Mr. Havers upon discharge, in addition to his usual medications?
+
+A) Empagliflozin (Jardiance) and Metformin (Glucophage)
+B) Aspirin and Pantoprazole (Protonix)
+C) Atorvastatin (Lipitor) and Metoprolol Tartrate (Lopressor)
+D) Enoxaparin (Lovenox) and Acetaminophen (Tylenol)
+  [Conv 6/7] Answer: The correct answer is A) Empagliflozin (Jardiance) and Metformin (Glucophage).
+
+According to the tex...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 388 tokens
+  [Conv 7/7] Starter: **Question 3:**
+
+What is the recommended follow-up schedule for Mr. Havers to monitor for any potential recurrence or new metastatic lesions?
+
+A) MRI right thigh: every 3 months, Chest X-ray, CT chest with contrast agent: every 12 months
+B) MRI right thigh: every 6 months, Chest X-ray, CT chest with contrast agent: every 6 months
+C) Local Follow-up: every 6 months, Pulmonary Follow-up: every 12 months
+D) Local Follow-up: every 12 months, Pulmonary Follow-up: every 6 months
+  [Conv 7/7] Answer: The correct answer is B) MRI right thigh: every 6 months, Chest X-ray, CT chest with contrast agent:...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 326 tokens
+  Subsampled 15811 → 2503 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 11.77GB allocated, 13.03GB reserved, 39.49GB total
+GPU Memory available: 27.73GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 36.75it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it, est. speed input: 4483.11 toks/s, output: 97.49 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it, est. speed input: 4483.11 toks/s, output: 97.49 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it, est. speed input: 4483.11 toks/s, output: 97.49 toks/s]
+[SelfStudy] Warning: Extraction failed for spec 4 (extraction_fn=extract_after_thinking_then_split), attempt 1/3. Generated text preview: Here are three questions to test understanding of different parts of the context:
+
+
+What is the primary diagnosis of the patient Mr. George Davies?
+
+
+A) Bronchopneumonia
+B) Galactosemia
+C) Osteopenia
+...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 36.79it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.37s/it, est. speed input: 7971.71 toks/s, output: 112.64 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.37s/it, est. speed input: 7971.71 toks/s, output: 112.64 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.37s/it, est. speed input: 7971.71 toks/s, output: 112.64 toks/s]
+[SelfStudy] Retry succeeded for spec 4 on attempt 2
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (42884 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 35.59it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:03<00:07,  3.95s/it, est. speed input: 2748.41 toks/s, output: 97.86 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:05<00:02,  2.80s/it, est. speed input: 3659.02 toks/s, output: 165.63 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:16<00:00,  6.34s/it, est. speed input: 1977.35 toks/s, output: 169.01 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:16<00:00,  6.34s/it, est. speed input: 1977.35 toks/s, output: 169.01 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:16<00:00,  5.50s/it, est. speed input: 1977.35 toks/s, output: 169.01 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 41.76it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:00<00:00,  7.19it/s, est. speed input: 78379.71 toks/s, output: 107.92 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:00<00:00,  3.13it/s, est. speed input: 37258.90 toks/s, output: 128.09 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  1.44it/s, est. speed input: 19015.77 toks/s, output: 155.72 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  1.44it/s, est. speed input: 19015.77 toks/s, output: 155.72 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  1.74it/s, est. speed input: 19015.77 toks/s, output: 155.72 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:40:41 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:40:42 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:40:42 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 14.73 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:40:42 [executor_base.py:189] It took 0.519601 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:41:03 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:41:03 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:41:03 [executor_base.py:205] It took 0.543526 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+<patient-record-patient_15>
+Below is patient George Davies's medical record (ID: patient_15). 
+They...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 10817 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Based on the provided patient record, here is a summary of the main points:
+
+**Patient Information:*...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 431 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Based on the provided medical records, here are the key facts about patient George Davies:
+
+**Demogr...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 641 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON format:
+
+```
+{
+  "patient": {
+    "id": "patient_15",
+   ...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 1860 tokens
+  [Conv 5/7] Starter: What is the primary medical condition of patient George Davies?
+
+A) Osteoporosis
+B) Galactosemia
+C) Diabetes
+D) Hypertension
+  [Conv 5/7] Answer: The primary medical condition of patient George Davies is Galactosemia....
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 83 tokens
+  [Conv 6/7] Starter: What is the primary treatment for George Davies's condition?
+
+A) A diet high in galactose
+B) A lactose-free and galactose-restricted diet
+C) Regular exercise and stress management
+D) Medication for osteoporosis
+  [Conv 6/7] Answer: The correct answer is B) A lactose-free and galactose-restricted diet.
+
+According to the patient rec...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 278 tokens
+  [Conv 7/7] Starter: What is the result of the bone density measurement on 12/01/2020 for George Davies's lumbar spine?
+
+A) 0.8 g/cm2
+B) 1.2 g/cm2
+C) 1.1 g/cm2
+D) 1.3 g/cm2
+  [Conv 7/7] Answer: The correct answer is C) 1.1 g/cm2.
+
+According to the text, the bone density measurement on 12/01/20...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 158 tokens
+  Subsampled 14268 → 2503 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 12.17GB allocated, 13.43GB reserved, 39.49GB total
+GPU Memory available: 27.32GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 36.91it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.94s/it, est. speed input: 5457.26 toks/s, output: 93.63 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.94s/it, est. speed input: 5457.26 toks/s, output: 93.63 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.94s/it, est. speed input: 5457.26 toks/s, output: 93.63 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (40879 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 42.79it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:05<00:10,  5.42s/it, est. speed input: 1952.08 toks/s, output: 97.81 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:09<00:04,  4.66s/it, est. speed input: 2214.28 toks/s, output: 156.89 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  6.84s/it, est. speed input: 1671.42 toks/s, output: 186.75 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  6.84s/it, est. speed input: 1671.42 toks/s, output: 186.75 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  6.33s/it, est. speed input: 1671.42 toks/s, output: 186.75 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 43.69it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:00<00:01,  1.15it/s, est. speed input: 12242.83 toks/s, output: 96.82 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  3.48it/s, est. speed input: 30801.76 toks/s, output: 271.47 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  3.48it/s, est. speed input: 30801.76 toks/s, output: 271.47 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  2.90it/s, est. speed input: 30801.76 toks/s, output: 271.47 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:41:25 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:41:26 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:41:26 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 15.13 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:41:26 [executor_base.py:189] It took 0.523523 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:41:47 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:41:47 [executor_base.py:182] Executor is already sleeping.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+<patient-record-patient_16>
+Below is patient John Chapman's medical record (ID: patient_16). 
+They ...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 10526 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Patient John Chapman (ID: patient_16) is a 23-year-old male who was involved in a severe motocross a...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 574 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Based on the provided medical records, here are the key facts about patient John Chapman:
+
+**Demogra...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 1013 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON format:
+
+```
+{
+  "patient_info": {
+    "id": "patient_16"...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 2105 tokens
+  [Conv 5/7] Starter: What type of injury did John Chapman suffer in the motocross accident that led to his current medical condition?
+
+A) Fractured collarbone
+B) Dislocated shoulder
+C) Traumatic brain injury with fractures of the cranial vault, mastoid, and skull base
+D) Broken rib
+  [Conv 5/7] Answer: According to the medical record, John Chapman suffered a traumatic brain injury with fractures of th...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 188 tokens
+  [Conv 6/7] Starter: What is the primary purpose of the External Ventricular Drain (EVD) placement in John Chapman's treatment?
+
+A) To relieve pressure on the brain
+B) To treat infection in the brain
+C) To remove excess cerebrospinal fluid
+D) To monitor the patient's intracranial pressure
+  [Conv 6/7] Answer: The primary purpose of the External Ventricular Drain (EVD) placement in John Chapman's treatment is...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 201 tokens
+  [Conv 7/7] Starter: What is the name of the procedure performed on John Chapman to manage his pseudoaneurysm on May 25, 2019?
+
+A) Angiography
+B) Embolization
+C) Angioplasty
+D) Angiography and closure
+  [Conv 7/7] Answer: The correct answer is D) Angiography and closure.
+
+According to the text, the procedure performed on...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 172 tokens
+  Subsampled 14779 → 2503 tokens per attention head
+Putting vLLM to sleep...
+  [self-study] 4 documents, 28 conversations, 10012 queries per attention head
+Pooled 30036 generated and 19962 caller-supplied queries per KV head
+Self-study queries occupy range 0-30036 in final queries (total: 30036)
+Generated 30036 original queries per KV head
+Original queries shape: torch.Size([28, 8, 49998, 128])
+Compacting layer 1/28
+Compacting layer 2/28
+  Extracting on-policy queries from self_study (range 0:30036)
+  Keeping original queries for non-on-policy methods (range 30036:49998)
+Compacting layer 3/28
+Compacting layer 4/28
+Compacting layer 5/28
+Compacting layer 6/28
+Compacting layer 7/28
+Compacting layer 8/28
+Compacting layer 9/28
+Compacting layer 10/28
+Compacting layer 11/28
+Compacting layer 12/28
+Compacting layer 13/28
+Compacting layer 14/28
+Compacting layer 15/28
+Compacting layer 16/28
+Compacting layer 17/28
+Compacting layer 18/28
+Compacting layer 19/28
+Compacting layer 20/28
+Compacting layer 21/28
+Compacting layer 22/28
+Compacting layer 23/28
+Compacting layer 24/28
+Compacting layer 25/28
+Compacting layer 26/28
+Compacting layer 27/28
+Compacting layer 28/28
+  [recompress-queries] t=3 doc+memory: 4 document(s), 28 conversation(s), 30036 query vectors per kv head; memory 7 conversation(s), 19962 query vectors per kv head
+  [heartbeat] probe_ppl 0/80 @ 08:49:43
+[phase 3 | recompress] M=1024tok  logppl={'alth phase 1': 0.7762, 'alth phase 2': 1.1966, 'alth phase 3': 1.0669, 'alth phase 4': 1.0871}  (902s)
+  [save-memory] phase 3 -> results/ablation/rope_only_cache_len_fixed/longhealth_llama/r_phase3.memory.pt
+  [heartbeat] generate 48/80 decode 0/512 @ 08:50:04
+Saved 320 generations to results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.generations_phase3.jsonl
+  [per-phase gen] phase 3 -> results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.generations_phase3.jsonl
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 0: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 1: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 2: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 3: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 4: 3 conversation(s) from the memory
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:53:06 [executor_base.py:205] It took 0.827566 seconds to wake up tags {'kv_cache', 'weights'}.
+Generating original queries for all layers...
+Using provided vLLM model instance
+Generating ~34550 queries per KV head by conversation capture (5 spec(s): 'Repeat the previous context verbatim.', 'Summarize the main points of the context.', 'Aggregate all the key facts mentioned in the context.' (+2 more))...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 11.23GB allocated, 16.66GB reserved, 39.49GB total
+GPU Memory available: 28.26GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 36.12it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.34s/it, est. speed input: 8260.48 toks/s, output: 81.23 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.34s/it, est. speed input: 8260.48 toks/s, output: 81.23 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.34s/it, est. speed input: 8260.48 toks/s, output: 81.23 toks/s]
+Generated 2 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (41265 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 39.40it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:03<00:06,  3.01s/it, est. speed input: 3673.76 toks/s, output: 97.38 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:07<00:03,  3.84s/it, est. speed input: 2978.03 toks/s, output: 141.98 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:17<00:00,  6.89s/it, est. speed input: 1849.26 toks/s, output: 167.90 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:17<00:00,  6.89s/it, est. speed input: 1849.26 toks/s, output: 167.90 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:17<00:00,  5.98s/it, est. speed input: 1849.26 toks/s, output: 167.90 toks/s]
+
+Adding requests:   0%|          | 0/2 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 2/2 [00:00<00:00, 39.07it/s]
+
+Processed prompts:   0%|          | 0/2 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  50%|█████     | 1/2 [00:00<00:00,  1.99it/s, est. speed input: 22128.94 toks/s, output: 107.72 toks/s]
+Processed prompts: 100%|██████████| 2/2 [00:00<00:00,  1.99it/s, est. speed input: 42070.05 toks/s, output: 206.62 toks/s]
+Processed prompts: 100%|██████████| 2/2 [00:00<00:00,  3.79it/s, est. speed input: 42070.05 toks/s, output: 206.62 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:53:26 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:53:26 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:53:26 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 18.36 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:53:26 [executor_base.py:189] It took 0.520178 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:53:45 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:53:45 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:53:46 [executor_base.py:205] It took 0.543899 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 5 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/6] Starter: Repeat the previous context verbatim.
+  [Conv 1/6] Answer: 
+Below is a panel of patient records.
+
+<patient-record-patient_17>
+Below is patient Brian Carter's m...
+  [Conv 1/6] Extracting queries from answer...
+  [Conv 1/6] Extracted 11002 tokens
+  [Conv 2/6] Starter: Summarize the main points of the context.
+  [Conv 2/6] Answer: Patient Brian Carter (ID: patient_17) was admitted to the hospital on 09/28/2021 due to COVID-19 pne...
+  [Conv 2/6] Extracting queries from answer...
+  [Conv 2/6] Extracted 337 tokens
+  [Conv 3/6] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/6] Answer: Based on the patient record, here are the key facts about patient Brian Carter:
+
+**Demographics:**
+
+...
+  [Conv 3/6] Extracting queries from answer...
+  [Conv 3/6] Extracted 805 tokens
+  [Conv 4/6] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/6] Answer: Here is the structured patient record in JSON format:
+
+```json
+{
+  "patient_info": {
+    "id": "pati...
+  [Conv 4/6] Extracting queries from answer...
+  [Conv 4/6] Extracted 2014 tokens
+  [Conv 5/6] Starter: What is the primary diagnosis for which Mr. Brian Carter was admitted to the hospital on 09/28/2021?
+
+A) COVID-19 pneumonia
+B) ARDS
+C) Pneumonia
+D) Bronchial asthma
+  [Conv 5/6] Answer: The primary diagnosis for which Mr. Brian Carter was admitted to the hospital on 09/28/2021 is COVID...
+  [Conv 5/6] Extracting queries from answer...
+  [Conv 5/6] Extracted 137 tokens
+  [Conv 6/6] Starter: What is the medication that was discontinued and switched to Dexamethasone on 09/29 to 10/8/2021?
+
+A) Methotrexate
+B) Prednisolone
+C) Candesartan
+D) Quetiapine
+  [Conv 6/6] Answer: The correct answer is B) Prednisolone.
+
+According to the patient's medical record, Prednisolone was ...
+  [Conv 6/6] Extracting queries from answer...
+  [Conv 6/6] Extracted 145 tokens
+  Subsampled 14440 → 2879 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 11.69GB allocated, 16.66GB reserved, 39.49GB total
+GPU Memory available: 27.80GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 34.30it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it, est. speed input: 4527.30 toks/s, output: 93.23 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it, est. speed input: 4527.30 toks/s, output: 93.23 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it, est. speed input: 4527.30 toks/s, output: 93.23 toks/s]
+Generated 4 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (42127 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 35.74it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:05<00:10,  5.17s/it, est. speed input: 2314.76 toks/s, output: 95.77 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:07<00:03,  3.68s/it, est. speed input: 3068.12 toks/s, output: 162.20 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:16<00:00,  6.04s/it, est. speed input: 2155.44 toks/s, output: 182.14 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:16<00:00,  6.04s/it, est. speed input: 2155.44 toks/s, output: 182.14 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:16<00:00,  5.55s/it, est. speed input: 2155.44 toks/s, output: 182.14 toks/s]
+
+Adding requests:   0%|          | 0/4 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 4/4 [00:00<00:00, 38.90it/s]
+Adding requests: 100%|██████████| 4/4 [00:00<00:00, 38.83it/s]
+
+Processed prompts:   0%|          | 0/4 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  25%|██▌       | 1/4 [00:01<00:04,  1.65s/it, est. speed input: 7292.56 toks/s, output: 94.10 toks/s]
+Processed prompts:  50%|█████     | 2/4 [00:01<00:01,  1.26it/s, est. speed input: 13016.02 toks/s, output: 179.35 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:01<00:00,  1.26it/s, est. speed input: 25193.50 toks/s, output: 362.22 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:01<00:00,  2.10it/s, est. speed input: 25193.50 toks/s, output: 362.22 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:54:07 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:54:08 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:54:08 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 18.36 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:54:08 [executor_base.py:189] It took 0.520631 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:54:29 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:54:29 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:54:30 [executor_base.py:205] It took 0.542199 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 7 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/8] Starter: Repeat the previous context verbatim.
+  [Conv 1/8] Answer: 
+<patient-record-patient_18>
+Below is patient David Romero's medical record (ID: patient_18). 
+They ...
+  [Conv 1/8] Extracting queries from answer...
+  [Conv 1/8] Extracted 11912 tokens
+  [Conv 2/8] Starter: Summarize the main points of the context.
+  [Conv 2/8] Answer: Based on the provided patient record, here is a summary of the main points:
+
+**Patient Information:*...
+  [Conv 2/8] Extracting queries from answer...
+  [Conv 2/8] Extracted 539 tokens
+  [Conv 3/8] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/8] Answer: Based on the provided medical record of patient David Romero, the following are the key facts:
+
+**Pa...
+  [Conv 3/8] Extracting queries from answer...
+  [Conv 3/8] Extracted 814 tokens
+  [Conv 4/8] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/8] Answer: Here is the structured information in JSON form:
+
+```
+{
+  "patient-record-patient_18": {
+    "patien...
+  [Conv 4/8] Extracting queries from answer...
+  [Conv 4/8] Extracted 1825 tokens
+  [Conv 5/8] Starter: What is the primary indication for the use of a LifeVest in Mr. David Romero's medical record?
+  [Conv 5/8] Answer: According to Mr. David Romero's medical record, the primary indication for the use of a LifeVest is ...
+  [Conv 5/8] Extracting queries from answer...
+  [Conv 5/8] Extracted 241 tokens
+  [Conv 6/8] Starter: 1. What is the primary indication for the use of a LifeVest in Mr. David Romero's medical record?
+
+A) To treat coronary artery disease
+B) To manage chronic hepatitis C
+C) To manage dilated cardiomyopathy
+D) To treat heart failure
+  [Conv 6/8] Answer: The correct answer is C) To manage dilated cardiomyopathy.
+
+According to the medical record, the Lif...
+  [Conv 6/8] Extracting queries from answer...
+  [Conv 6/8] Extracted 266 tokens
+  [Conv 7/8] Starter: 2. What is the result of the myocardial biopsy performed on Mr. David Romero on 01/27/2014?
+
+A) Positive detection of HCV-specific RNA in myocardial tissue
+B) No evidence of myocardial infection with enteroviruses, adenoviruses, Epstein-Barr virus, Human Herpes Virus Type 6 A/B, or Erythrovirus genotypes 1/2
+C) Positive detection of HCV-specific RNA in myocardial tissue
+D) Evidence of acute myocarditis
+  [Conv 7/8] Answer: The correct answer is:
+
+B) No evidence of myocardial infection with enteroviruses, adenoviruses, Eps...
+  [Conv 7/8] Extracting queries from answer...
+  [Conv 7/8] Extracted 317 tokens
+  [Conv 8/8] Starter: 3. What is the primary function of the CRT-D implantation in Mr. David Romero's treatment plan?
+
+A) To manage hypertension
+B) To improve ventricular function and reduce symptoms of heart failure
+C) To treat atrial fibrillation
+D) To manage diabetes mellitus
+  [Conv 8/8] Answer: The correct answer is B) To improve ventricular function and reduce symptoms of heart failure.
+
+Acco...
+  [Conv 8/8] Extracting queries from answer...
+  [Conv 8/8] Extracted 247 tokens
+  Subsampled 16161 → 2879 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 12.15GB allocated, 16.66GB reserved, 39.49GB total
+GPU Memory available: 27.34GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 31.72it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.29s/it, est. speed input: 5439.70 toks/s, output: 90.26 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.29s/it, est. speed input: 5439.70 toks/s, output: 90.26 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.29s/it, est. speed input: 5439.70 toks/s, output: 90.26 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (44102 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 37.47it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:03<00:07,  3.60s/it, est. speed input: 3453.47 toks/s, output: 95.18 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:07<00:03,  3.81s/it, est. speed input: 3295.66 toks/s, output: 145.52 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  7.31s/it, est. speed input: 1962.80 toks/s, output: 165.39 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  7.31s/it, est. speed input: 1962.80 toks/s, output: 165.39 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:19<00:00,  6.34s/it, est. speed input: 1962.80 toks/s, output: 165.39 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 37.38it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:01<00:02,  1.02s/it, est. speed input: 12213.47 toks/s, output: 93.75 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:02<00:01,  1.14s/it, est. speed input: 11134.67 toks/s, output: 142.49 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.15it/s, est. speed input: 13435.45 toks/s, output: 218.14 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.15it/s, est. speed input: 13435.45 toks/s, output: 218.14 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.07it/s, est. speed input: 13435.45 toks/s, output: 218.14 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:54:54 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:54:55 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:54:55 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 18.36 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:54:55 [executor_base.py:189] It took 0.524447 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:55:17 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:55:17 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:55:17 [executor_base.py:205] It took 0.543466 seconds to wake up tags {'kv_cache', 'weights'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+<patient-record-patient_19>
+Below is patient Emil Nilsson's medical record (ID: patient_19). 
+They ...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 12393 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Based on the provided medical record of patient Emil Nilsson (patient_19), the following are the mai...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 387 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Here are the key facts from Emil Nilsson's medical record:
+
+**General Information**
+
+* Born: 2004-04...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 800 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON form:
+
+```json
+{
+  "patient_info": {
+    "id": "patient_1...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 2105 tokens
+  [Conv 5/7] Starter: What is the primary purpose of the "Damus-Kaye-Stansel procedure in patient Emil Nilsson's medical record?
+
+A) To treat a pulmonary embolism
+B) To correct the anatomical location of the aorta and pulmonary artery
+C) To repair a hole in the heart
+D) To increase blood pressure
+  [Conv 5/7] Answer: The correct answer is B) To correct the anatomical location of the aorta and pulmonary artery.
+
+The ...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 390 tokens
+  [Conv 6/7] Starter: What is the result of the echocardiography on 01/27/2006?
+
+A) The patient has a normal heart function
+B) The patient has mild tricuspid valve insufficiency
+C) The patient has a small hypoplastic left ventricle with minimal contractility
+D) The patient has a blocked pulmonary artery
+  [Conv 6/7] Answer: The correct answer is C) The patient has a small hypoplastic left ventricle with minimal contractili...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 201 tokens
+  [Conv 7/7] Starter: What is the recommended follow-up for Emil Nilsson after the Cardiac MRI on 03/02/2022?
+
+A) Regular cardiac check-ups every 6 months
+B) A cardiac MRI every year
+C) A cardiac MRI with flow measurement in the Fontan tunnel
+D) No further follow-up is required
+  [Conv 7/7] Answer: The correct answer is C) A cardiac MRI with flow measurement in the Fontan tunnel.
+
+According to the...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 323 tokens
+  Subsampled 16599 → 2879 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 12.62GB allocated, 16.66GB reserved, 39.49GB total
+GPU Memory available: 26.88GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 1/1 [00:00<00:00, 33.73it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.16s/it, est. speed input: 5420.39 toks/s, output: 91.82 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.16s/it, est. speed input: 5420.39 toks/s, output: 91.82 toks/s]
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.16s/it, est. speed input: 5420.39 toks/s, output: 91.82 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (44963 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 38.24it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:04<00:08,  4.04s/it, est. speed input: 2887.23 toks/s, output: 96.33 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:07<00:03,  3.60s/it, est. speed input: 3179.66 toks/s, output: 153.54 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  7.24s/it, est. speed input: 1850.84 toks/s, output: 167.90 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  7.24s/it, est. speed input: 1850.84 toks/s, output: 167.90 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:18<00:00,  6.30s/it, est. speed input: 1850.84 toks/s, output: 167.90 toks/s]
+
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]
+Adding requests: 100%|██████████| 3/3 [00:00<00:00, 38.40it/s]
+
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  33%|███▎      | 1/3 [00:01<00:02,  1.02s/it, est. speed input: 11505.28 toks/s, output: 94.25 toks/s]
+Processed prompts:  67%|██████▋   | 2/3 [00:01<00:00,  1.19it/s, est. speed input: 13481.37 toks/s, output: 156.51 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.67it/s, est. speed input: 17185.11 toks/s, output: 235.22 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.67it/s, est. speed input: 17185.11 toks/s, output: 235.22 toks/s]
+Processed prompts: 100%|██████████| 3/3 [00:02<00:00,  1.47it/s, est. speed input: 17185.11 toks/s, output: 235.22 toks/s]
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:55:41 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:55:41 [cumem.py:228] CuMemAllocator: sleep freed 13.76 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.71 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:55:41 [gpu_worker.py:117] Sleep mode freed 14.50 GiB memory, 18.36 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:55:41 [executor_base.py:189] It took 0.519712 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=29060)[0;0m INFO 11-11 08:56:02 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=29060)[0;0m WARNING 11-11 08:56:02 [executor_base.py:182] Executor is already sleeping.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before HF query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+<patient-record-patient_20>
+Below is patient Hilary Sanders's medical record (ID: patient_20). 
+The...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 11607 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Patient Hilary Sanders, born on 08/24/1976, has been under medical supervision for Common Variable I...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 433 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Based on the provided patient record, here are the key facts about patient Hilary Sanders:
+
+**Demogr...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 781 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON form:
+
+```json
+{
+  "patient_info": {
+    "name": "Hilary ...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 2105 tokens
+  [Conv 5/7] Starter: What is the primary reason for the initiation of subcutaneous immunoglobulin substitution therapy in Mrs. Sanders?
+
+A) To treat a specific type of cancer
+B) To manage her immune system's response to infections
+C) To treat a gastrointestinal disorder
+D) To address iron-deficiency anemia
+  [Conv 5/7] Answer: The correct answer is B) To manage her immune system's response to infections.
+
+According to the med...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 271 tokens
+  [Conv 6/7] Starter: What is the expected role of passive protection in Mrs. Sanders' immune system in the medium term?
+
+A) To provide long-term immunity against infections
+B) To offer immediate protection against viral infections
+C) To provide temporary protection through immunoglobulin substitution therapy
+D) To enhance the body's natural immune response
+  [Conv 6/7] Answer: The correct answer is C) To provide temporary protection through immunoglobulin substitution therapy...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 306 tokens
+  [Conv 7/7] Starter: What is the primary concern regarding Mrs. Sanders' liver function as indicated by her MRI results?
+
+A) The presence of liver cancer
+B) The presence of liver cirrhosis
+C) The presence of multiple nodular consolidations and opacities in the lungs
+D) The presence of liver lesions with increased enhancement in the late contrast phase
+  [Conv 7/7] Answer: The correct answer is D) The presence of liver lesions with increased enhancement in the late contra...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 200 tokens
+  Subsampled 15703 → 2879 tokens per attention head
+Putting vLLM to sleep...
+  [self-study] 4 documents, 28 conversations, 11516 queries per attention head
+Pooled 34548 generated and 15450 caller-supplied queries per KV head
+Self-study queries occupy range 0-34548 in final queries (total: 34548)
+Generated 34548 original queries per KV head
+Original queries shape: torch.Size([28, 8, 49998, 128])
+Compacting layer 1/28
+Compacting layer 2/28
+  Extracting on-policy queries from self_study (range 0:34548)
+  Keeping original queries for non-on-policy methods (range 34548:49998)
+Compacting layer 3/28
+Compacting layer 4/28
+Compacting layer 5/28
+Compacting layer 6/28
+Compacting layer 7/28
+Compacting layer 8/28
+Compacting layer 9/28
+Compacting layer 10/28
+Compacting layer 11/28
+Compacting layer 12/28
+Compacting layer 13/28
+Compacting layer 14/28
+Compacting layer 15/28
+Compacting layer 16/28
+Compacting layer 17/28
+Compacting layer 18/28
+Compacting layer 19/28
+Compacting layer 20/28
+Compacting layer 21/28
+Compacting layer 22/28
+Compacting layer 23/28
+Compacting layer 24/28
+Compacting layer 25/28
+Compacting layer 26/28
+Compacting layer 27/28
+Compacting layer 28/28
+  [recompress-queries] t=4 doc+memory: 4 document(s), 28 conversation(s), 34548 query vectors per kv head; memory 7 conversation(s), 15450 query vectors per kv head
+  [heartbeat] probe_ppl 0/80 @ 09:03:21
+[phase 4 | recompress] M=1024tok  logppl={'alth phase 1': 0.8284, 'alth phase 2': 1.2545, 'alth phase 3': 1.1227, 'alth phase 4': 1.1227, 'alth phase 5': 1.2568}  (810s)
+  [save-memory] phase 4 -> results/ablation/rope_only_cache_len_fixed/longhealth_llama/r_phase4.memory.pt
+  [heartbeat] generate 64/80 decode 4/512 @ 09:03:41
+  [heartbeat] generate 48/80 decode 385/512 @ 09:04:01
+Saved 400 generations to results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.generations_phase4.jsonl
+  [per-phase gen] phase 4 -> results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.generations_phase4.jsonl
+
+Forget (Delta logppl, earlier docs): {'longhealth phase 1': -0.1411, 'longhealth phase 2': -0.0749, 'longhealth phase 3': 0.1397, 'longhealth phase 4': 0.0356}  avg=-0.0102
+Final logppl: {'alth phase 1': 0.8284, 'alth phase 2': 1.2545, 'alth phase 3': 1.1227, 'alth phase 4': 1.1227, 'alth phase 5': 1.2568}
+CL metrics (log-ppl, lower better): {'avg_final': 1.117, 'bwt': 0.0102, 'fwt': None, 'avg_forget': -0.0102, 'forgetting_ratio': -0.0982}
+Saved results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.json
+[final gen] copied results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.generations_phase4.jsonl -> results/ablation/rope_only_cache_len_fixed/longhealth_llama/r.generations.jsonl (same memory and questions as the last per-phase pass)
+[rank0]:[W1111 09:04:11.577043555 ProcessGroupNCCL.cpp:1538] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())

@@ -202,5 +202,41 @@ This 5-phase trajectory provides the definitive empirical validation for the dua
 3. **Why Modular Routing (MoE-AM / Gated Continual Cartridges) is Essential:**
    This proves why discrete, gated cartridges (as in `exp/tri` / MoE-AM) are strictly superior to a monolithic memory update: by dedicating separate modular cartridges to separate phases and routing dynamically, modular architectures avoid both rotary position accumulation AND slot cannibalization.
 
+---
+
+## 9. Isolating RoPE-Only Fixes vs. Key Candidate Selection (`--rope-mode window_cap | cache_len`)
+
+To verify whether RoPE coordinate fixes alone resolve the LLaMA-3.2-3B late-phase collapse **without** altering key candidate selection (keeping Farid's full union pool and `--write-slots 256` / `doc+memory` queries unchanged), we isolated and tested both RoPE modes independently in `farid/gated-continual-cartridges` (branched cleanly on top of `origin/moe-am`):
+
+1. **`--rope-mode window_cap`**: Keeps cumulative logical tracking up to `max_position_embeddings` (`131,072`), then re-anchors segment prefill at `max_context - n_tok` on potential overflow (`L_eval <= 131,072`).
+2. **`--rope-mode cache_len` (Naive / Un-rebased)**: Uses physical `len(cache) + index` (`rope_base = 0`) during evaluation and prefill while leaving compacted keys in their raw scattered teacher positions and `C2` solved at `seq_len` / `union_len`.
+3. **`--rope-mode cache_len` (Fixed with `exp/tri` RoPE Coordinate Alignment)**: Adds pure RoPE alignment to `cache_len` without changing key candidate selection:
+   - **Key Re-basing (`to_pos = slot_idx`)**: Re-rotates compacted keys from their teacher RoPE positions to their physical destination slots (`0..final_len-1` in Phase 0 `ChunkedCompaction._compact_kv_cache_kv_based`, and `0..target-1` in `_compact_union`), leaving `--write-slots` frozen slots untouched bit-for-bit in-place when `target == n_memory`.
+   - **Eval-Aligned Student Queries**: Rotates `doc` queries from teacher position (`seq_len` or `union_len`) to eval student position (`final_len` or `target`), and `mem` queries from `n_memory` to `target` before solving `C2`.
+   - **Dual `on_policy` Teacher/Student Tracking**: Maintains un-rebased teacher keys in `onpolicy_layers` inside `PerLayerHeadOnPolicyCompaction` so downstream layers `1..27` extract on-policy queries consistently in teacher coordinates, while returning rebased student caches.
+   - **Memory-Query Target Isolation (`Y_mem`)**: Computes teacher targets `Y_mem` for pre-write `doc+memory` memory queries strictly over pre-write memory `K[:n_memory], V[:n_memory]`, matching `exp/tri/continual/write.py`.
+
+### Empirical Comparison Across All 5 LongHealth Phases (LLaMA-3.2-3B-Instruct, 1024 Budget, `--write-slots 256`)
+
+| Mode (`--rope-mode`) | Ph 0 Acc (Unp%) | Ph 1 Acc (Unp%) | Ph 2 Acc (Unp%) | Ph 3 Acc (Unp%) | Ph 4 Acc (Unp%) | `avg_final` log-ppl | `avg_forget` | `BWT` |
+|---|---|---|---|---|---|---|---|---|
+| `cumulative` (`171ceaae`) | 38.75% (6.25%) | 29.38% (13.13%) | 30.42% (2.50%) | **0.94%** (94.69%) | 9.75% (47.75%) | 1.7448 | +0.4521 | -0.4521 |
+| `window_cap` (resumed Ph1) | *(38.75%)* | *(29.38%)* | 29.58% (2.08%) | **19.69%** (11.56%) | 7.50% (64.50%) | 1.2957 | +0.0349 | -0.0349 |
+| `cache_len` (naive un-rebased) | **6.25%** (87.50%) | **0.63%** (96.25%) | — | — | — | *(2.6874 at Ph1)* | — | — |
+| **`cache_len` (fixed, `exp/tri` RoPE)** | **36.25%** (18.75%) | **31.87%** (3.12%) | **32.08%** (**0.00%**) | **32.50%** (**0.31%**) | **24.00%** (**0.50%**) | **1.1170** | **-0.0102** | **+0.0102** |
+
+### Per-Phase Perplexity & Accuracy Breakdown (`cache_len` Fixed)
+
+- **Phase 0** (`M = 1067`): `log_ppl = 0.9695` (`base = 1.2647`); Acc = `36.25%` (`n=80`).
+- **Phase 1** (`M = 1024`): `log_ppl = {Ph1: 0.7523, Ph2: 1.3294}`; Acc = `38.75% / 25.00%` -> **`31.87%`** (`3.12%` unparsed, `n=160`).
+- **Phase 2** (`M = 1024`): `log_ppl = {Ph1: 0.7378, Ph2: 1.1828, Ph3: 0.9830}`; Acc = `33.75% / 28.75% / 33.75%` -> **`32.08%`** (`0.00%` unparsed, `n=240`).
+- **Phase 3** (`M = 1024`): `log_ppl = {Ph1: 0.7762, Ph2: 1.1966, Ph3: 1.0669, Ph4: 1.0871}`; Acc = `36.25% / 28.75% / 31.25% / 33.75%` -> **`32.50%`** (`0.31%` unparsed, `n=320`).
+- **Phase 4** (`M = 1024`, 224k stream tokens): `log_ppl = {Ph1: 0.8284, Ph2: 1.2545, Ph3: 1.1227, Ph4: 1.1227, Ph5: 1.2568}`; Acc = `25.00% / 26.25% / 22.50% / 22.50% / 23.75%` -> **`24.00%`** (`0.50%` unparsed, `n=400`).
+
+### Takeaways
+1. **Why naive `cache_len` dropped**: Evaluating at `m + idx` without re-basing keys (`0..47,398` in Phase 0 / `1067..41,904` in Phase 1) creates negative relative distances down to `-46k`, collapsing Phase 0 accuracy to `6.25%` and Phase 1 to `0.63%`.
+2. **`cache_len` with `exp/tri` RoPE coordinates completely cures late-phase collapse on LLaMA-3.2-3B** using Farid's union key selection alone: Phase 3 accuracy jumps from `0.94%` (`cumulative`) and `19.69%` (`window_cap`) to **`32.50%`** (`0.31%` unparsed), Phase 4 reaches **`24.00%`** with only **`0.50%` unparsed** (vs. `64.50%` unparsed for `window_cap` and `47.75%` for `cumulative`), average final log-perplexity drops to **`1.1170`**, and backward transfer stays net positive (**`BWT = +0.0102`**).
+
+
 
 
