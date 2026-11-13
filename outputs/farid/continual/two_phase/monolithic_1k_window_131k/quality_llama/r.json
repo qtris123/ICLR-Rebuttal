@@ -1,0 +1,147 @@
+{
+  "model": "meta-llama/Llama-3.2-3B-Instruct",
+  "benchmark": "quality",
+  "stream": "data/streams/quality_2phase.json",
+  "mode": "recompress",
+  "budget": 1024,
+  "budget_mode": "total",
+  "beta": "zero",
+  "seed": 0,
+  "host": "instance-20261107-064504",
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "written_at": "2026-11-13 05:15:43",
+  "command": "run_continual.py --config configs/monolithic_update.yaml --stream data/streams/quality_2phase.json --model meta-llama/Llama-3.2-3B-Instruct --budget 1024 --write-slots 256 --rope-mode window_cap --rope-max-context 131072 --vllm-mem 0.36 --vllm-max-len 28672 --generate-batch 16 --out results/continual/two_phase/monolithic_update_1k_wincap_131k/quality_llama/r.json --generate-out results/continual/two_phase/monolithic_update_1k_wincap_131k/quality_llama/r.generations.jsonl",
+  "generate_batch": 16,
+  "chunk_size": 2048,
+  "query_config": "ss-plus-repeat",
+  "ss_fallback": "error",
+  "recompress_queries": "doc+memory",
+  "merge_threshold": 0.05,
+  "read_topk": 1,
+  "value_prior_lambda": 0.01,
+  "write_slots": 256,
+  "write_rule": "most",
+  "max_questions": 0,
+  "continual": true,
+  "metric": "log_ppl",
+  "max_model_len": 0,
+  "yarn_extended": false,
+  "complete": true,
+  "docs": [
+    "quality phase 1",
+    "quality phase 2"
+  ],
+  "matrix": [
+    {
+      "phase": 0,
+      "m_len": 1065,
+      "ppl": {
+        "quality phase 1": {
+          "log_ppl": 1.2179,
+          "ppl": 3.38,
+          "log_ppl_perq": 1.8432,
+          "n": 124,
+          "_nll": 1794.0040593147278,
+          "_tok": 1473,
+          "per_cat": {
+            "quality_mcq": 1.8432
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 493.5,
+      "probe_s": 4.8
+    },
+    {
+      "phase": 1,
+      "m_len": 1024,
+      "ppl": {
+        "quality phase 1": {
+          "log_ppl": 1.2649,
+          "ppl": 3.543,
+          "log_ppl_perq": 1.9492,
+          "n": 124,
+          "_nll": 1863.1323590278625,
+          "_tok": 1473,
+          "per_cat": {
+            "quality_mcq": 1.9492
+          },
+          "read_mode": "dense"
+        },
+        "quality phase 2": {
+          "log_ppl": 1.6321,
+          "ppl": 5.115,
+          "log_ppl_perq": 2.7825,
+          "n": 128,
+          "_nll": 1870.37806224823,
+          "_tok": 1146,
+          "per_cat": {
+            "quality_mcq": 2.7825
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 760.4,
+      "probe_s": 9.7
+    }
+  ],
+  "base_logppl": {
+    "quality phase 1": 1.3198,
+    "quality phase 2": 1.7837
+  },
+  "total_s": 1377.9,
+  "query_source_fallbacks": 0,
+  "recompress_query_sources": [
+    {
+      "phase": 1,
+      "document_conversations": 51,
+      "document_queries": 37401,
+      "memory_conversations": 7,
+      "memory_queries": 12591,
+      "documents": 7
+    }
+  ],
+  "acquire_logppl": {
+    "quality phase 1": 1.2179,
+    "quality phase 2": 1.6321
+  },
+  "final_logppl": {
+    "quality phase 1": 1.2649,
+    "quality phase 2": 1.6321
+  },
+  "forget": {
+    "quality phase 1": 0.047
+  },
+  "avg_forget": 0.047,
+  "cl_metrics": {
+    "avg_final": 1.4485,
+    "bwt": -0.047,
+    "fwt": null,
+    "avg_forget": 0.047,
+    "forgetting_ratio": 0.4612,
+    "per_doc": {
+      "quality phase 1": {
+        "base_logppl": 1.3198,
+        "acquire_logppl": 1.2179,
+        "final_logppl": 1.2649,
+        "forget": 0.047,
+        "fwt": null,
+        "forgetting_ratio": 0.4612
+      },
+      "quality phase 2": {
+        "base_logppl": 1.7837,
+        "acquire_logppl": 1.6321,
+        "final_logppl": 1.6321,
+        "forget": 0.0,
+        "fwt": null,
+        "forgetting_ratio": null
+      }
+    }
+  },
+  "metric_conventions": "All values are log-ppl of the golden answers; LOWER IS BETTER. R[t][i]=log-ppl of corpus i after phase t; base_i=no-memory log-ppl (--probe-base); n=#phases. avg_final=mean_i R[n-1][i]. forget_i=R[n-1][i]-R[i][i] (>0 = forgot). bwt=-mean_{i<n-1} forget_i (>0 = old corpora improved; sign flipped so higher is better, as in the accuracy convention). fwt_i=base_i-R[i-1][i] for i>=1 (>0 = memory of earlier corpora helps an unseen corpus; needs R[i-1][i], from older runs only, and --probe-base). forgetting_ratio_i=forget_i/(base_i-R[i][i]), reported only when base_i-R[i][i]>=0.1 (the corpus actually gained over no memory): the fraction of that gain later lost. null = undefined or not measured in this run. Every cell in matrix[t]['ppl'] records the read it came from in its 'read_mode' field.",
+  "generate_s": 0.0
+}
