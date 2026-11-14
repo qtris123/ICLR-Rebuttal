@@ -1,0 +1,44 @@
+{
+  "quality phase 1": {
+    "n": 124,
+    "metric": "accuracy",
+    "score": 0.0161,
+    "unparsed": 115,
+    "score_parsed": 0.2222
+  },
+  "quality phase 2": {
+    "n": 128,
+    "metric": "accuracy",
+    "score": 0.0234,
+    "unparsed": 122,
+    "score_parsed": 0.5
+  },
+  "quality phase 3": {
+    "n": 122,
+    "metric": "accuracy",
+    "score": 0.0164,
+    "unparsed": 112,
+    "score_parsed": 0.2
+  },
+  "quality phase 4": {
+    "n": 126,
+    "metric": "accuracy",
+    "score": 0.0159,
+    "unparsed": 117,
+    "score_parsed": 0.2222
+  },
+  "quality phase 5": {
+    "n": 122,
+    "metric": "accuracy",
+    "score": 0.041,
+    "unparsed": 114,
+    "score_parsed": 0.625
+  },
+  "_overall": {
+    "n": 622,
+    "metric": "accuracy",
+    "score": 0.0225,
+    "unparsed_mcq": 580,
+    "unparsed_rate": 0.9325
+  }
+}

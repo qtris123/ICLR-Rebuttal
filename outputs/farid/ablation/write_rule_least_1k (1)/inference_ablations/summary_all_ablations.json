@@ -1,0 +1,890 @@
+{
+  "respond_only_quality_1k_phase2": {
+    "quality phase 1": {
+      "n": 124,
+      "metric": "accuracy",
+      "score": 0.3226,
+      "unparsed": 0,
+      "score_parsed": 0.3226
+    },
+    "quality phase 2": {
+      "n": 128,
+      "metric": "accuracy",
+      "score": 0.25,
+      "unparsed": 0,
+      "score_parsed": 0.25
+    },
+    "quality phase 3": {
+      "n": 122,
+      "metric": "accuracy",
+      "score": 0.2541,
+      "unparsed": 0,
+      "score_parsed": 0.2541
+    },
+    "_overall": {
+      "n": 374,
+      "metric": "accuracy",
+      "score": 0.2754,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "respond_only_longhealth_1k_phase2": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3875,
+      "unparsed": 0,
+      "score_parsed": 0.3875
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.35,
+      "unparsed": 0,
+      "score_parsed": 0.35
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2375,
+      "unparsed": 0,
+      "score_parsed": 0.2375
+    },
+    "_overall": {
+      "n": 240,
+      "metric": "accuracy",
+      "score": 0.325,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "respond_only_quality_1k_phase3": {
+    "quality phase 1": {
+      "n": 124,
+      "metric": "accuracy",
+      "score": 0.1855,
+      "unparsed": 35,
+      "score_parsed": 0.2584
+    },
+    "quality phase 2": {
+      "n": 128,
+      "metric": "accuracy",
+      "score": 0.2344,
+      "unparsed": 39,
+      "score_parsed": 0.3371
+    },
+    "quality phase 3": {
+      "n": 122,
+      "metric": "accuracy",
+      "score": 0.1885,
+      "unparsed": 42,
+      "score_parsed": 0.2875
+    },
+    "quality phase 4": {
+      "n": 126,
+      "metric": "accuracy",
+      "score": 0.1746,
+      "unparsed": 45,
+      "score_parsed": 0.2716
+    },
+    "_overall": {
+      "n": 500,
+      "metric": "accuracy",
+      "score": 0.196,
+      "unparsed_mcq": 161,
+      "unparsed_rate": 0.322
+    }
+  },
+  "respond_only_longhealth_1k_phase3": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3,
+      "unparsed": 0,
+      "score_parsed": 0.3
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.325,
+      "unparsed": 0,
+      "score_parsed": 0.325
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3375,
+      "unparsed": 0,
+      "score_parsed": 0.3375
+    },
+    "longhealth phase 4": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3625,
+      "unparsed": 0,
+      "score_parsed": 0.3625
+    },
+    "_overall": {
+      "n": 320,
+      "metric": "accuracy",
+      "score": 0.3312,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "respond_only_quality_1k_phase4": {
+    "quality phase 1": {
+      "n": 124,
+      "metric": "accuracy",
+      "score": 0.0806,
+      "unparsed": 89,
+      "score_parsed": 0.2857
+    },
+    "quality phase 2": {
+      "n": 128,
+      "metric": "accuracy",
+      "score": 0.0469,
+      "unparsed": 102,
+      "score_parsed": 0.2308
+    },
+    "quality phase 3": {
+      "n": 122,
+      "metric": "accuracy",
+      "score": 0.0738,
+      "unparsed": 86,
+      "score_parsed": 0.25
+    },
+    "quality phase 4": {
+      "n": 126,
+      "metric": "accuracy",
+      "score": 0.0317,
+      "unparsed": 98,
+      "score_parsed": 0.1429
+    },
+    "quality phase 5": {
+      "n": 122,
+      "metric": "accuracy",
+      "score": 0.0574,
+      "unparsed": 95,
+      "score_parsed": 0.2593
+    },
+    "_overall": {
+      "n": 622,
+      "metric": "accuracy",
+      "score": 0.0579,
+      "unparsed_mcq": 470,
+      "unparsed_rate": 0.7556
+    }
+  },
+  "respond_only_longhealth_1k_phase4": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2375,
+      "unparsed": 2,
+      "score_parsed": 0.2436
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3,
+      "unparsed": 1,
+      "score_parsed": 0.3038
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2625,
+      "unparsed": 2,
+      "score_parsed": 0.2692
+    },
+    "longhealth phase 4": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2125,
+      "unparsed": 0,
+      "score_parsed": 0.2125
+    },
+    "longhealth phase 5": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2625,
+      "unparsed": 0,
+      "score_parsed": 0.2625
+    },
+    "_overall": {
+      "n": 400,
+      "metric": "accuracy",
+      "score": 0.255,
+      "unparsed_mcq": 5,
+      "unparsed_rate": 0.0125
+    }
+  },
+  "think_briefly_quality_1k_phase2": {
+    "quality phase 1": {
+      "n": 124,
+      "metric": "accuracy",
+      "score": 0.3306,
+      "unparsed": 0,
+      "score_parsed": 0.3306
+    },
+    "quality phase 2": {
+      "n": 128,
+      "metric": "accuracy",
+      "score": 0.2656,
+      "unparsed": 0,
+      "score_parsed": 0.2656
+    },
+    "quality phase 3": {
+      "n": 122,
+      "metric": "accuracy",
+      "score": 0.2541,
+      "unparsed": 0,
+      "score_parsed": 0.2541
+    },
+    "_overall": {
+      "n": 374,
+      "metric": "accuracy",
+      "score": 0.2834,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "think_briefly_longhealth_1k_phase2": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.325,
+      "unparsed": 0,
+      "score_parsed": 0.325
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.35,
+      "unparsed": 0,
+      "score_parsed": 0.35
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.25,
+      "unparsed": 0,
+      "score_parsed": 0.25
+    },
+    "_overall": {
+      "n": 240,
+      "metric": "accuracy",
+      "score": 0.3083,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "think_briefly_quality_1k_phase3": {
+    "quality phase 1": {
+      "n": 124,
+      "metric": "accuracy",
+      "score": 0.1452,
+      "unparsed": 59,
+      "score_parsed": 0.2769
+    },
+    "quality phase 2": {
+      "n": 128,
+      "metric": "accuracy",
+      "score": 0.2031,
+      "unparsed": 46,
+      "score_parsed": 0.3171
+    },
+    "quality phase 3": {
+      "n": 122,
+      "metric": "accuracy",
+      "score": 0.1475,
+      "unparsed": 58,
+      "score_parsed": 0.2812
+    },
+    "quality phase 4": {
+      "n": 126,
+      "metric": "accuracy",
+      "score": 0.1349,
+      "unparsed": 60,
+      "score_parsed": 0.2576
+    },
+    "_overall": {
+      "n": 500,
+      "metric": "accuracy",
+      "score": 0.158,
+      "unparsed_mcq": 223,
+      "unparsed_rate": 0.446
+    }
+  },
+  "think_briefly_longhealth_1k_phase3": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.375,
+      "unparsed": 0,
+      "score_parsed": 0.375
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3125,
+      "unparsed": 0,
+      "score_parsed": 0.3125
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.275,
+      "unparsed": 0,
+      "score_parsed": 0.275
+    },
+    "longhealth phase 4": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3375,
+      "unparsed": 0,
+      "score_parsed": 0.3375
+    },
+    "_overall": {
+      "n": 320,
+      "metric": "accuracy",
+      "score": 0.325,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "think_briefly_quality_1k_phase4": {
+    "quality phase 1": {
+      "n": 124,
+      "metric": "accuracy",
+      "score": 0.0161,
+      "unparsed": 115,
+      "score_parsed": 0.2222
+    },
+    "quality phase 2": {
+      "n": 128,
+      "metric": "accuracy",
+      "score": 0.0234,
+      "unparsed": 122,
+      "score_parsed": 0.5
+    },
+    "quality phase 3": {
+      "n": 122,
+      "metric": "accuracy",
+      "score": 0.0164,
+      "unparsed": 112,
+      "score_parsed": 0.2
+    },
+    "quality phase 4": {
+      "n": 126,
+      "metric": "accuracy",
+      "score": 0.0159,
+      "unparsed": 117,
+      "score_parsed": 0.2222
+    },
+    "quality phase 5": {
+      "n": 122,
+      "metric": "accuracy",
+      "score": 0.041,
+      "unparsed": 114,
+      "score_parsed": 0.625
+    },
+    "_overall": {
+      "n": 622,
+      "metric": "accuracy",
+      "score": 0.0225,
+      "unparsed_mcq": 580,
+      "unparsed_rate": 0.9325
+    }
+  },
+  "think_briefly_longhealth_1k_phase4": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.275,
+      "unparsed": 1,
+      "score_parsed": 0.2785
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2125,
+      "unparsed": 2,
+      "score_parsed": 0.2179
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2375,
+      "unparsed": 1,
+      "score_parsed": 0.2405
+    },
+    "longhealth phase 4": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2375,
+      "unparsed": 1,
+      "score_parsed": 0.2405
+    },
+    "longhealth phase 5": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.175,
+      "unparsed": 0,
+      "score_parsed": 0.175
+    },
+    "_overall": {
+      "n": 400,
+      "metric": "accuracy",
+      "score": 0.2275,
+      "unparsed_mcq": 5,
+      "unparsed_rate": 0.0125
+    }
+  },
+  "rope_headroom_longhealth_1k_rl131k_phase2": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2875,
+      "unparsed": 2,
+      "score_parsed": 0.2949
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.275,
+      "unparsed": 5,
+      "score_parsed": 0.2933
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3125,
+      "unparsed": 0,
+      "score_parsed": 0.3125
+    },
+    "_overall": {
+      "n": 240,
+      "metric": "accuracy",
+      "score": 0.2917,
+      "unparsed_mcq": 7,
+      "unparsed_rate": 0.0292
+    }
+  },
+  "rope_headroom_longhealth_1k_rl129k_phase2": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.325,
+      "unparsed": 0,
+      "score_parsed": 0.325
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.35,
+      "unparsed": 0,
+      "score_parsed": 0.35
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.25,
+      "unparsed": 0,
+      "score_parsed": 0.25
+    },
+    "_overall": {
+      "n": 240,
+      "metric": "accuracy",
+      "score": 0.3083,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "rope_headroom_longhealth_1k_rl131k_phase3": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.325,
+      "unparsed": 0,
+      "score_parsed": 0.325
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2875,
+      "unparsed": 0,
+      "score_parsed": 0.2875
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2625,
+      "unparsed": 0,
+      "score_parsed": 0.2625
+    },
+    "longhealth phase 4": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3375,
+      "unparsed": 0,
+      "score_parsed": 0.3375
+    },
+    "_overall": {
+      "n": 320,
+      "metric": "accuracy",
+      "score": 0.3031,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "rope_headroom_longhealth_1k_rl129k_phase3": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.375,
+      "unparsed": 0,
+      "score_parsed": 0.375
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3125,
+      "unparsed": 0,
+      "score_parsed": 0.3125
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.275,
+      "unparsed": 0,
+      "score_parsed": 0.275
+    },
+    "longhealth phase 4": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3375,
+      "unparsed": 0,
+      "score_parsed": 0.3375
+    },
+    "_overall": {
+      "n": 320,
+      "metric": "accuracy",
+      "score": 0.325,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "rope_headroom_longhealth_1k_rl131k_phase4": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.225,
+      "unparsed": 0,
+      "score_parsed": 0.225
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.1625,
+      "unparsed": 0,
+      "score_parsed": 0.1625
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.15,
+      "unparsed": 0,
+      "score_parsed": 0.15
+    },
+    "longhealth phase 4": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.225,
+      "unparsed": 0,
+      "score_parsed": 0.225
+    },
+    "longhealth phase 5": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2125,
+      "unparsed": 0,
+      "score_parsed": 0.2125
+    },
+    "_overall": {
+      "n": 400,
+      "metric": "accuracy",
+      "score": 0.195,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "rope_headroom_longhealth_1k_rl129k_phase4": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.275,
+      "unparsed": 1,
+      "score_parsed": 0.2785
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2125,
+      "unparsed": 2,
+      "score_parsed": 0.2179
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2375,
+      "unparsed": 1,
+      "score_parsed": 0.2405
+    },
+    "longhealth phase 4": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2375,
+      "unparsed": 1,
+      "score_parsed": 0.2405
+    },
+    "longhealth phase 5": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.175,
+      "unparsed": 0,
+      "score_parsed": 0.175
+    },
+    "_overall": {
+      "n": 400,
+      "metric": "accuracy",
+      "score": 0.2275,
+      "unparsed_mcq": 5,
+      "unparsed_rate": 0.0125
+    }
+  },
+  "longhealth_16k_rl131k_phase2": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.4,
+      "unparsed": 0,
+      "score_parsed": 0.4
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.375,
+      "unparsed": 0,
+      "score_parsed": 0.375
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.45,
+      "unparsed": 0,
+      "score_parsed": 0.45
+    },
+    "_overall": {
+      "n": 240,
+      "metric": "accuracy",
+      "score": 0.4083,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "longhealth_16k_rl129k_phase2": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2125,
+      "unparsed": 0,
+      "score_parsed": 0.2125
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.325,
+      "unparsed": 0,
+      "score_parsed": 0.325
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.325,
+      "unparsed": 0,
+      "score_parsed": 0.325
+    },
+    "_overall": {
+      "n": 240,
+      "metric": "accuracy",
+      "score": 0.2875,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "longhealth_16k_rl131k_phase3": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.4125,
+      "unparsed": 0,
+      "score_parsed": 0.4125
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3875,
+      "unparsed": 0,
+      "score_parsed": 0.3875
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3625,
+      "unparsed": 0,
+      "score_parsed": 0.3625
+    },
+    "longhealth phase 4": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.325,
+      "unparsed": 0,
+      "score_parsed": 0.325
+    },
+    "_overall": {
+      "n": 320,
+      "metric": "accuracy",
+      "score": 0.3719,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "longhealth_16k_rl129k_phase3": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3,
+      "unparsed": 1,
+      "score_parsed": 0.3038
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.25,
+      "unparsed": 3,
+      "score_parsed": 0.2597
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2625,
+      "unparsed": 5,
+      "score_parsed": 0.28
+    },
+    "longhealth phase 4": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.2625,
+      "unparsed": 3,
+      "score_parsed": 0.2727
+    },
+    "_overall": {
+      "n": 320,
+      "metric": "accuracy",
+      "score": 0.2687,
+      "unparsed_mcq": 12,
+      "unparsed_rate": 0.0375
+    }
+  },
+  "longhealth_16k_rl131k_phase4": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.35,
+      "unparsed": 0,
+      "score_parsed": 0.35
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.425,
+      "unparsed": 0,
+      "score_parsed": 0.425
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3625,
+      "unparsed": 0,
+      "score_parsed": 0.3625
+    },
+    "longhealth phase 4": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.3,
+      "unparsed": 0,
+      "score_parsed": 0.3
+    },
+    "longhealth phase 5": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.375,
+      "unparsed": 0,
+      "score_parsed": 0.375
+    },
+    "_overall": {
+      "n": 400,
+      "metric": "accuracy",
+      "score": 0.3625,
+      "unparsed_mcq": 0,
+      "unparsed_rate": 0.0
+    }
+  },
+  "longhealth_16k_rl129k_phase4": {
+    "longhealth phase 1": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.0125,
+      "unparsed": 76,
+      "score_parsed": 0.25
+    },
+    "longhealth phase 2": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.0125,
+      "unparsed": 76,
+      "score_parsed": 0.25
+    },
+    "longhealth phase 3": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.0,
+      "unparsed": 79,
+      "score_parsed": 0.0
+    },
+    "longhealth phase 4": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.0,
+      "unparsed": 80,
+      "score_parsed": 0.0
+    },
+    "longhealth phase 5": {
+      "n": 80,
+      "metric": "accuracy",
+      "score": 0.0,
+      "unparsed": 80,
+      "score_parsed": 0.0
+    },
+    "_overall": {
+      "n": 400,
+      "metric": "accuracy",
+      "score": 0.005,
+      "unparsed_mcq": 391,
+      "unparsed_rate": 0.9775
+    }
+  }
+}

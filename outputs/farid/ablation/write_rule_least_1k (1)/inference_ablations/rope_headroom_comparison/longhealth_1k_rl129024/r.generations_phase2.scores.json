@@ -1,0 +1,30 @@
+{
+  "longhealth phase 1": {
+    "n": 80,
+    "metric": "accuracy",
+    "score": 0.325,
+    "unparsed": 0,
+    "score_parsed": 0.325
+  },
+  "longhealth phase 2": {
+    "n": 80,
+    "metric": "accuracy",
+    "score": 0.35,
+    "unparsed": 0,
+    "score_parsed": 0.35
+  },
+  "longhealth phase 3": {
+    "n": 80,
+    "metric": "accuracy",
+    "score": 0.25,
+    "unparsed": 0,
+    "score_parsed": 0.25
+  },
+  "_overall": {
+    "n": 240,
+    "metric": "accuracy",
+    "score": 0.3083,
+    "unparsed_mcq": 0,
+    "unparsed_rate": 0.0
+  }
+}

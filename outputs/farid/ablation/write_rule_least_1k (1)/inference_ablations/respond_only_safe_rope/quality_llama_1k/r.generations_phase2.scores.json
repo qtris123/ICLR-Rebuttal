@@ -1,0 +1,30 @@
+{
+  "quality phase 1": {
+    "n": 124,
+    "metric": "accuracy",
+    "score": 0.3226,
+    "unparsed": 0,
+    "score_parsed": 0.3226
+  },
+  "quality phase 2": {
+    "n": 128,
+    "metric": "accuracy",
+    "score": 0.25,
+    "unparsed": 0,
+    "score_parsed": 0.25
+  },
+  "quality phase 3": {
+    "n": 122,
+    "metric": "accuracy",
+    "score": 0.2541,
+    "unparsed": 0,
+    "score_parsed": 0.2541
+  },
+  "_overall": {
+    "n": 374,
+    "metric": "accuracy",
+    "score": 0.2754,
+    "unparsed_mcq": 0,
+    "unparsed_rate": 0.0
+  }
+}

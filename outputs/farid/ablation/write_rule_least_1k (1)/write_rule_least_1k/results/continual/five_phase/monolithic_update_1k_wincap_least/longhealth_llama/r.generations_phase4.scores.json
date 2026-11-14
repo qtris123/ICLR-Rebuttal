@@ -1,0 +1,50 @@
+{
+  "longhealth phase 1": {
+    "n": 80,
+    "metric": "accuracy",
+    "score": 0.2,
+    "unparsed": 0,
+    "score_parsed": 0.2
+  },
+  "longhealth phase 2": {
+    "n": 80,
+    "metric": "accuracy",
+    "score": 0.125,
+    "unparsed": 0,
+    "score_parsed": 0.125
+  },
+  "longhealth phase 3": {
+    "n": 80,
+    "metric": "accuracy",
+    "score": 0.1375,
+    "unparsed": 0,
+    "score_parsed": 0.1375
+  },
+  "longhealth phase 4": {
+    "n": 80,
+    "metric": "accuracy",
+    "score": 0.2125,
+    "unparsed": 1,
+    "score_parsed": 0.2152
+  },
+  "longhealth phase 5": {
+    "n": 80,
+    "metric": "accuracy",
+    "score": 0.2125,
+    "unparsed": 0,
+    "score_parsed": 0.2125
+  },
+  "_overall": {
+    "n": 400,
+    "metric": "accuracy",
+    "score": 0.1775,
+    "unparsed_mcq": 1,
+    "unparsed_rate": 0.0025
+  },
+  "_scorer": {
+    "commit": "05ee8ff6",
+    "rules_version": "2026-09-19.lenient",
+    "scorer_mtime": "2026-11-14T04:32:46",
+    "scored_at": "2026-11-14T16:42:11"
+  }
+}

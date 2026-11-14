@@ -1,0 +1,384 @@
+{
+  "model": "meta-llama/Llama-3.2-3B-Instruct",
+  "benchmark": "quality",
+  "stream": "data/streams/quality_5phase.json",
+  "mode": "recompress",
+  "budget": 1024,
+  "budget_mode": "total",
+  "beta": "zero",
+  "seed": 0,
+  "host": "slinky-0",
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "written_at": "2026-11-14 07:58:01",
+  "command": "run_continual.py --config configs/monolithic_update.yaml --stream data/streams/quality_5phase.json --model meta-llama/Llama-3.2-3B-Instruct --budget 1024 --write-slots 256 --write-rule least --rope-mode window_cap --rope-max-context 131072 --out results/continual/five_phase/monolithic_update_1k_wincap_least/quality_llama/r.json --generate-out results/continual/five_phase/monolithic_update_1k_wincap_least/quality_llama/r.generations.jsonl --vllm-mem 0.35",
+  "generate_batch": 1,
+  "chunk_size": 2048,
+  "query_config": "ss-plus-repeat",
+  "ss_fallback": "error",
+  "recompress_queries": "doc+memory",
+  "merge_threshold": 0.05,
+  "read_topk": 1,
+  "value_prior_lambda": 0.01,
+  "write_slots": 256,
+  "write_rule": "least",
+  "max_questions": 0,
+  "continual": true,
+  "metric": "log_ppl",
+  "max_model_len": 0,
+  "yarn_extended": false,
+  "complete": true,
+  "docs": [
+    "quality phase 1",
+    "quality phase 2",
+    "quality phase 3",
+    "quality phase 4",
+    "quality phase 5"
+  ],
+  "matrix": [
+    {
+      "phase": 0,
+      "m_len": 1065,
+      "ppl": {
+        "quality phase 1": {
+          "log_ppl": 1.2107,
+          "ppl": 3.356,
+          "log_ppl_perq": 1.8289,
+          "n": 124,
+          "_nll": 1783.4270343780518,
+          "_tok": 1473,
+          "per_cat": {
+            "quality_mcq": 1.8289
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 500.3,
+      "probe_s": 3.1
+    },
+    {
+      "phase": 1,
+      "m_len": 1024,
+      "ppl": {
+        "quality phase 1": {
+          "log_ppl": 1.2008,
+          "ppl": 3.323,
+          "log_ppl_perq": 1.8515,
+          "n": 124,
+          "_nll": 1768.8043313026428,
+          "_tok": 1473,
+          "per_cat": {
+            "quality_mcq": 1.8515
+          },
+          "read_mode": "dense"
+        },
+        "quality phase 2": {
+          "log_ppl": 1.5714,
+          "ppl": 4.813,
+          "log_ppl_perq": 2.6665,
+          "n": 128,
+          "_nll": 1800.8515944480896,
+          "_tok": 1146,
+          "per_cat": {
+            "quality_mcq": 2.6665
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 568.8,
+      "probe_s": 6.1
+    },
+    {
+      "phase": 2,
+      "m_len": 1024,
+      "ppl": {
+        "quality phase 1": {
+          "log_ppl": 0.9704,
+          "ppl": 2.639,
+          "log_ppl_perq": 1.4989,
+          "n": 124,
+          "_nll": 1429.4204428195953,
+          "_tok": 1473,
+          "per_cat": {
+            "quality_mcq": 1.4989
+          },
+          "read_mode": "dense"
+        },
+        "quality phase 2": {
+          "log_ppl": 1.2559,
+          "ppl": 3.511,
+          "log_ppl_perq": 2.174,
+          "n": 128,
+          "_nll": 1439.2313215732574,
+          "_tok": 1146,
+          "per_cat": {
+            "quality_mcq": 2.174
+          },
+          "read_mode": "dense"
+        },
+        "quality phase 3": {
+          "log_ppl": 0.9532,
+          "ppl": 2.594,
+          "log_ppl_perq": 1.5946,
+          "n": 122,
+          "_nll": 1292.590591430664,
+          "_tok": 1356,
+          "per_cat": {
+            "quality_mcq": 1.5946
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 720.5,
+      "probe_s": 7.8
+    },
+    {
+      "phase": 3,
+      "m_len": 1024,
+      "ppl": {
+        "quality phase 1": {
+          "log_ppl": 1.2498,
+          "ppl": 3.49,
+          "log_ppl_perq": 1.6816,
+          "n": 124,
+          "_nll": 1841.0127120018005,
+          "_tok": 1473,
+          "per_cat": {
+            "quality_mcq": 1.6816
+          },
+          "read_mode": "dense"
+        },
+        "quality phase 2": {
+          "log_ppl": 1.5884,
+          "ppl": 4.896,
+          "log_ppl_perq": 2.4445,
+          "n": 128,
+          "_nll": 1820.2808318138123,
+          "_tok": 1146,
+          "per_cat": {
+            "quality_mcq": 2.4445
+          },
+          "read_mode": "dense"
+        },
+        "quality phase 3": {
+          "log_ppl": 1.2838,
+          "ppl": 3.61,
+          "log_ppl_perq": 1.9353,
+          "n": 122,
+          "_nll": 1740.872272014618,
+          "_tok": 1356,
+          "per_cat": {
+            "quality_mcq": 1.9353
+          },
+          "read_mode": "dense"
+        },
+        "quality phase 4": {
+          "log_ppl": 1.2339,
+          "ppl": 3.435,
+          "log_ppl_perq": 1.8027,
+          "n": 126,
+          "_nll": 1891.6029000282288,
+          "_tok": 1533,
+          "per_cat": {
+            "quality_mcq": 1.8027
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 963.9,
+      "probe_s": 12.6
+    },
+    {
+      "phase": 4,
+      "m_len": 1024,
+      "ppl": {
+        "quality phase 1": {
+          "log_ppl": 1.3003,
+          "ppl": 3.67,
+          "log_ppl_perq": 1.7625,
+          "n": 124,
+          "_nll": 1915.3549361228943,
+          "_tok": 1473,
+          "per_cat": {
+            "quality_mcq": 1.7625
+          },
+          "read_mode": "dense"
+        },
+        "quality phase 2": {
+          "log_ppl": 1.669,
+          "ppl": 5.307,
+          "log_ppl_perq": 2.5575,
+          "n": 128,
+          "_nll": 1912.6965594291687,
+          "_tok": 1146,
+          "per_cat": {
+            "quality_mcq": 2.5575
+          },
+          "read_mode": "dense"
+        },
+        "quality phase 3": {
+          "log_ppl": 1.3112,
+          "ppl": 3.711,
+          "log_ppl_perq": 1.9962,
+          "n": 122,
+          "_nll": 1778.0109310150146,
+          "_tok": 1356,
+          "per_cat": {
+            "quality_mcq": 1.9962
+          },
+          "read_mode": "dense"
+        },
+        "quality phase 4": {
+          "log_ppl": 1.2445,
+          "ppl": 3.471,
+          "log_ppl_perq": 1.8406,
+          "n": 126,
+          "_nll": 1907.8443493843079,
+          "_tok": 1533,
+          "per_cat": {
+            "quality_mcq": 1.8406
+          },
+          "read_mode": "dense"
+        },
+        "quality phase 5": {
+          "log_ppl": 1.5372,
+          "ppl": 4.652,
+          "log_ppl_perq": 2.3667,
+          "n": 122,
+          "_nll": 1581.790557384491,
+          "_tok": 1029,
+          "per_cat": {
+            "quality_mcq": 2.3667
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 824.6,
+      "probe_s": 13.4
+    }
+  ],
+  "base_logppl": {
+    "quality phase 1": 1.3094,
+    "quality phase 2": 1.7716,
+    "quality phase 3": 1.3774,
+    "quality phase 4": 1.2362,
+    "quality phase 5": 1.8077
+  },
+  "total_s": 4322.4,
+  "query_source_fallbacks": 0,
+  "recompress_query_sources": [
+    {
+      "phase": 1,
+      "document_conversations": 49,
+      "document_queries": 44163,
+      "memory_conversations": 4,
+      "memory_queries": 5835,
+      "documents": 7
+    },
+    {
+      "phase": 2,
+      "document_conversations": 50,
+      "document_queries": 24990,
+      "memory_conversations": 5,
+      "memory_queries": 25000,
+      "documents": 7
+    },
+    {
+      "phase": 3,
+      "document_conversations": 49,
+      "document_queries": 24990,
+      "memory_conversations": 6,
+      "memory_queries": 25000,
+      "documents": 7
+    },
+    {
+      "phase": 4,
+      "document_conversations": 50,
+      "document_queries": 24990,
+      "memory_conversations": 5,
+      "memory_queries": 25000,
+      "documents": 7
+    }
+  ],
+  "acquire_logppl": {
+    "quality phase 1": 1.2107,
+    "quality phase 2": 1.5714,
+    "quality phase 3": 0.9532,
+    "quality phase 4": 1.2339,
+    "quality phase 5": 1.5372
+  },
+  "final_logppl": {
+    "quality phase 1": 1.3003,
+    "quality phase 2": 1.669,
+    "quality phase 3": 1.3112,
+    "quality phase 4": 1.2445,
+    "quality phase 5": 1.5372
+  },
+  "forget": {
+    "quality phase 1": 0.0896,
+    "quality phase 2": 0.0976,
+    "quality phase 3": 0.358,
+    "quality phase 4": 0.0106
+  },
+  "avg_forget": 0.1389,
+  "cl_metrics": {
+    "avg_final": 1.4124,
+    "bwt": -0.1389,
+    "fwt": null,
+    "avg_forget": 0.1389,
+    "forgetting_ratio": 0.6657,
+    "per_doc": {
+      "quality phase 1": {
+        "base_logppl": 1.3094,
+        "acquire_logppl": 1.2107,
+        "final_logppl": 1.3003,
+        "forget": 0.0896,
+        "fwt": null,
+        "forgetting_ratio": null
+      },
+      "quality phase 2": {
+        "base_logppl": 1.7716,
+        "acquire_logppl": 1.5714,
+        "final_logppl": 1.669,
+        "forget": 0.0976,
+        "fwt": null,
+        "forgetting_ratio": 0.4875
+      },
+      "quality phase 3": {
+        "base_logppl": 1.3774,
+        "acquire_logppl": 0.9532,
+        "final_logppl": 1.3112,
+        "forget": 0.358,
+        "fwt": null,
+        "forgetting_ratio": 0.8439
+      },
+      "quality phase 4": {
+        "base_logppl": 1.2362,
+        "acquire_logppl": 1.2339,
+        "final_logppl": 1.2445,
+        "forget": 0.0106,
+        "fwt": null,
+        "forgetting_ratio": null
+      },
+      "quality phase 5": {
+        "base_logppl": 1.8077,
+        "acquire_logppl": 1.5372,
+        "final_logppl": 1.5372,
+        "forget": 0.0,
+        "fwt": null,
+        "forgetting_ratio": null
+      }
+    }
+  },
+  "metric_conventions": "All values are log-ppl of the golden answers; LOWER IS BETTER. R[t][i]=log-ppl of corpus i after phase t; base_i=no-memory log-ppl (--probe-base); n=#phases. avg_final=mean_i R[n-1][i]. forget_i=R[n-1][i]-R[i][i] (>0 = forgot). bwt=-mean_{i<n-1} forget_i (>0 = old corpora improved; sign flipped so higher is better, as in the accuracy convention). fwt_i=base_i-R[i-1][i] for i>=1 (>0 = memory of earlier corpora helps an unseen corpus; needs R[i-1][i], from older runs only, and --probe-base). forgetting_ratio_i=forget_i/(base_i-R[i][i]), reported only when base_i-R[i][i]>=0.1 (the corpus actually gained over no memory): the fraction of that gain later lost. null = undefined or not measured in this run. Every cell in matrix[t]['ppl'] records the read it came from in its 'read_mode' field.",
+  "generate_s": 0.0
+}
