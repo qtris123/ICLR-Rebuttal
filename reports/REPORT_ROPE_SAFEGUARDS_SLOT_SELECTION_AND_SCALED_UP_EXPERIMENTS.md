@@ -103,6 +103,32 @@ The per-phase scoring across all 5 phases produced the exact empirical trajector
 2. **Phase 3 Threshold Crossing:** At Phase 3 ($178\text{k}$ tokens, 1.36x context window), slight degradation begins (overall accuracy 24.69%).
 3. **Phase 4 Complete Overflow Collapse:** At Phase 4 ($225\text{k}$ tokens, 1.71x context window), RoPE out-of-distribution frequency shift causes the model to generate repetitive / rambling text, causing the unparsed rate to skyrocket to **77.5%** and raw score to drop to **5.25%**. Crucially, among parsed answers, accuracy is still **23.3%**, proving the internal memory representation remains intact—it is the RoPE position overflow during decoding that destroys generation syntax.
 
+### 2.5 Comparative Ablation: Does Selective Update Exacerbate the Collapse?
+To determine whether selectively updating a subset of slots per layer ($t = 256$, with $768$ slots frozen) exacerbates the collapse behavior compared to updating all slots ($t = 0$, KV-recursive), we ran the exact same 5-phase continual compaction under `--config configs/monolithic_update.yaml`, `--write-slots 256`, `--write-rule most`, `--rope-mode cumulative`:
+- Output directory: `results/continual/five_phase/monolithic_update_1k_cumulative_most/longhealth_llama/`
+- Instruction prompt: Full prompt restored (`"If you are not sure, still make a guess."`)
+
+The per-phase scoring across all 5 phases produced:
+
+| Phase | $L_{\text{logical}}$ | Ratio ($L / 128\text{k}$) | Doc 1 Acc | Doc 2 Acc | Doc 3 Acc | Doc 4 Acc | Doc 5 Acc | Overall Acc | Unparsed % | Parsed Acc |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Phase 0** | 47,399 | 0.36 | **40.00%** | — | — | — | — | **40.00%** | **0.0%** | 40.0% |
+| **Phase 1** | 88,237 | 0.67 | **42.50%** | **26.25%** | — | — | — | **34.38%** | **13.1%** | 39.5% |
+| **Phase 2** | 133,670 | 1.02 | **25.00%** | **31.25%** | **20.00%** | — | — | **25.42%** | **1.7%** | 25.8% |
+| **Phase 3** | **177,969** | **1.36** | **18.75%** | **15.00%** | **16.25%** | **11.25%** | — | **15.31%** | **21.9%** | 19.6% |
+| **Phase 4** | **224,761** | **1.71** | **30.00%** | **22.50%** | **21.25%** | **26.25%** | **27.50%** | **25.50%** | **9.2%** | 28.1% |
+
+#### Cross-Comparison Analysis (Selective Update vs. KV-Recursive):
+1. **Selective Update Does NOT Exacerbate Collapse to 5%:**
+   At Phase 4 ($L_{\text{logical}} = 224,761$), while KV-recursive suffered an unparsed rate of **77.5%** and collapsed to **5.25%**, the monolithic selective update maintained an overall accuracy of **25.50%** with only **9.2% unparsed answers**!
+2. **Mechanism (Slot Anchoring):**
+   The slot telemetry explains why:
+   - In KV-recursive, **~95% of memory slots are overwritten** at each phase (`wrote 973 slots, kept 50 slots`). By Phase 4, the vast majority of memory slots are derived from the Phase 4 document at high positions ($> 178\text{k}$), so almost the entire memory operates in the out-of-distribution RoPE regime.
+   - In monolithic selective update, **~77% of memory slots are preserved from earlier phases** (`kept ~785 slots, wrote ~235 slots`). These frozen slots act as historical anchors with representations established when coordinates were within or closer to native distribution.
+3. **Mid-Stream Degradation at Phase 3:**
+   In Phase 3, selective update experienced higher friction (accuracy dipped to **15.31%**, unparsed 21.9%) before recovering at Phase 4 to **25.50%**, reflecting the tension between frozen historical slots and newly rotated slots during the transition across the 128k boundary.
+
+
 
 ---
 
