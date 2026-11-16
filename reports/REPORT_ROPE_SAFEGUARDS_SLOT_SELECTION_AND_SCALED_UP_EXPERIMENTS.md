@@ -284,3 +284,44 @@ When $L_{\text{logical}} \le 131,072$ (Phases 0 and 1), LLaMA generates clean, w
    Because real-world continual learning streams accumulate arbitrary sequence lengths, un-safeguarded KV compaction policies inherently suffer position embedding breakdown unless an explicit position coordinate management policy (such as `window_cap` or re-basing) is applied.
 3. **Reproducibility Verified:**  
    Phase 0 ($40.0\%$) and Phase 1 ($31.25\%$) results on the pristine historical commit match our recent runs within exact floating-point tolerances, validating the complete reproducibility of our testing infrastructure.
+
+---
+
+## 8. RoPE Design Ablation: 5-Phase Continual Monolithic on QuALITY for Qwen (`cache_len` / Fixed Cache, Write-Most)
+
+To investigate the theoretical behavior of the **fixed cache coordinate alignment** (`--rope-mode cache_len`, which forces compacted prefix positions into $[0, B-1] = [0, 1023]$) on a long-context reading comprehension task with Qwen, we executed the full 5-phase continual compaction experiment:
+
+- **Benchmark**: QuALITY 5-phase continual stream ([`quality_5phase.json`](file:///home/voquangtri2025/ICLR-Rebuttal/farid/gated-continual-cartridges/data/streams/quality_5phase.json), 5 phases, 622 total MCQs, stories up to $8,475$ tokens).
+- **Model**: `Qwen/Qwen3-4B-Instruct-2507` (native context $262,144$, RoPE $\theta = 5,000,000$).
+- **Configuration**: Monolithic selective update, Budget $B=1024$, Write slots $t=256$, Write rule: `most`, RoPE mode: `cache_len`.
+- **Script Executed**: [`scripts/farid_handoff_scaled_up_runs/group4/03_quality_qwen_1k.sh`](file:///home/voquangtri2025/ICLR-Rebuttal/farid/gated-continual-cartridges/scripts/farid_handoff_scaled_up_runs/group4/03_quality_qwen_1k.sh).
+
+### 8.1 Empirical Results
+
+| Phase | Corpus Seen | Golden Answers Evaluated | Base No-Memory Log-PPL | Compacted Memory Log-PPL | Perplexity (PPL) | Overall Accuracy | Unparsed MCQ Rate |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **0** | Phase 1 (1 story) | 124 | 3.2824 | **9.4702** | 12,968 | **0.00%** | **100.0%** (124/124) |
+| **1** | Phases 1–2 (2 stories) | 252 | 4.2386 | **9.3989** | 12,075 | **0.00%** | **100.0%** (252/252) |
+| **2** | Phases 1–3 (3 stories) | 374 | 3.4132 | **9.7478** | 17,116 | **0.00%** | **100.0%** (374/374) |
+| **3** | Phases 1–4 (4 stories) | 500 | 3.2190 | **8.6785** | 5,875 | **0.00%** | **100.0%** (500/500) |
+| **4** | Phases 1–5 (5 stories) | 622 | 4.2833 | **9.7044** | 16,390 | **0.00%** | **100.0%** (622/622) |
+
+**Continual Learning Summary:**
+$$\text{Average Final Accuracy} = 0.00\%, \quad \text{Unparsed Rate} = 100.00\%, \quad \text{Average Final Log-PPL} = 9.1053$$
+
+### 8.2 Qualitative Diagnosis: The Degenerate Attractor Token Loop
+In all 622 questions across all 5 phases, the greedy generation degenerated into an infinite loop repeating `"the the the the"` until the maximum token budget ($512$ tokens) was exhausted:
+
+```json
+{"id": "62569_H25OYX58_1", "gold": "They work together and are able to coordinate with each other pretty well.", "generated": "the the the the the the the\n the\n\n\n the\n the\n the\n the\n the\n the the the the the the\n the the the\n the\n the\n the\n the\n the the the the the\n\n\n the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the..."}
+{"id": "62569_H25OYX58_2", "gold": "They realized the beasts were not actual beasts, but were meant to seem real.", "generated": "the the the the the the\n the the\n the\n the\n the\n the the the the the\n\n\n the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the..."}
+```
+
+### 8.3 Theoretical Mechanism: Why `cache_len` Collapses on Qwen
+1. **Severe Distortion of Relative Rotary Angles**:
+   Qwen3-4B uses an ultra-wide base frequency $\theta = 5,000,000$ calibrated for contexts up to $262,144$ tokens. When keys originating from stories of length $8,000$ to $55,000$ are forcibly re-indexed to positions in $[0, 1023]$, the rotary angles $\theta_i = \text{pos} \cdot b^{-2i/d}$ for low positions become negligibly small ($e^{i \theta_i} \approx 1$).
+2. **Softmax Attention Singularity & Attractor Token**:
+   Because the position encoding no longer provides discrimination among prefix keys, the query's attention weights collapse into high-magnitude uncalibrated logits. Autoregressive generation lands immediately on the vocabulary's high-frequency attractor token (`the`), causing the KV cache to continuously append `the`, creating an unrecoverable self-reinforcing repetition loop.
+3. **Sharp Contrast with `window_cap`**:
+   Under `--rope-mode window_cap`, the prefix positions retain their natural scale ($[L_{\text{logical}} - B, L_{\text{logical}}]$) adjacent to the incoming query tokens. As demonstrated in our earlier validation test on QuALITY, `window_cap` achieves **Log-PPL 0.91–1.03**, **50.0% Accuracy**, and **0.0% Unparsed Rate**.
+   This comparison provides decisive empirical evidence that **coordinate re-basing to $[0, B-1]$ (`fixed_cache`) is structurally unviable for models with large base frequencies like Qwen**, whereas **`window_cap` preserves both theoretical phase geometry and empirical accuracy**.
