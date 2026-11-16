@@ -1,0 +1,37 @@
+Loading model: meta-llama/Llama-3.2-3B-Instruct
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.43s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.20it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.08it/s]
+Model loaded successfully
+Stream data/streams/longhealth_5phase.json: 5 phase(s) ['longhealth phase 1', 'longhealth phase 2', 'longhealth phase 3', 'longhealth phase 4', 'longhealth phase 5']
+[checkpoint] results/continual/five_phase/monolithic_update_1k_wincap_least_safeguard_0a93919/longhealth_llama/r_phase4.memory.pt: --mode recompress, phases 0..4 of data/streams/longhealth_5phase.json: 400 question(s) over 5 document(s)
+  [heartbeat] generate 3/80 decode 427/512 @ 14:55:24
+  [heartbeat] generate 9/80 decode 367/512 @ 14:55:44
+  [heartbeat] generate 10/80 decode 473/512 @ 14:56:04
+  [heartbeat] generate 12/80 decode 64/512 @ 14:56:24
+  [heartbeat] generate 15/80 decode 6/512 @ 14:56:44
+  [heartbeat] generate 29/80 decode 0/512 @ 14:57:04
+  [heartbeat] generate 41/80 decode 484/512 @ 14:57:24
+  [heartbeat] generate 52/80 decode 3/512 @ 14:57:44
+  [heartbeat] generate 69/80 decode 427/512 @ 14:58:04
+  [heartbeat] generate 12/80 decode 21/512 @ 14:58:24
+  [heartbeat] generate 19/80 decode 5/512 @ 14:58:44
+  [heartbeat] generate 39/80 decode 258/512 @ 14:59:04
+  [heartbeat] generate 54/80 decode 167/512 @ 14:59:24
+  [heartbeat] generate 59/80 decode 239/512 @ 14:59:44
+  [heartbeat] generate 78/80 decode 55/512 @ 15:00:04
+  [heartbeat] generate 8/80 decode 67/512 @ 15:00:24
+  [heartbeat] generate 19/80 decode 57/512 @ 15:00:44
+  [heartbeat] generate 26/80 decode 65/512 @ 15:01:04
+  [heartbeat] generate 51/80 decode 200/512 @ 15:01:24
+  [heartbeat] generate 52/80 decode 306/512 @ 15:01:44
+  [heartbeat] generate 9/80 decode 31/512 @ 15:02:04
+  [heartbeat] generate 15/80 decode 46/512 @ 15:02:24
+  [heartbeat] generate 20/80 decode 6/512 @ 15:02:45
+  [heartbeat] generate 34/80 decode 479/512 @ 15:03:05
+  [heartbeat] generate 58/80 decode 226/512 @ 15:03:25
+  [heartbeat] generate 69/80 decode 4/512 @ 15:03:45
+  [heartbeat] generate 0/80 decode 6/512 @ 15:04:05
+  [heartbeat] generate 44/80 decode 59/512 @ 15:04:25
+  [heartbeat] generate 50/80 decode 111/512 @ 15:04:45
+  [heartbeat] generate 51/80 decode 247/512 @ 15:05:05
+  [heartbeat] generate 63/80 decode 492/512 @ 15:05:25
+Saved 400 generations to results/continual/five_phase/monolithic_update_1k_wincap_least_safeguard_0a93919/longhealth_llama/r.generations_phase4_newprompt.jsonl

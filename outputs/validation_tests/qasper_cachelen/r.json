@@ -1,0 +1,147 @@
+{
+  "model": "meta-llama/Llama-3.2-3B-Instruct",
+  "benchmark": "qasper",
+  "stream": "data/streams/qasper_2phase.json",
+  "mode": "recompress",
+  "budget": 1024,
+  "budget_mode": "total",
+  "beta": "zero",
+  "seed": 0,
+  "host": "instance-20261107-064504",
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "written_at": "2026-11-15 19:00:14",
+  "command": "run_continual.py --config configs/kv_recursive.yaml --stream data/streams/qasper_2phase.json --model meta-llama/Llama-3.2-3B-Instruct --budget 1024 --rope-mode cache_len --vllm-mem 0.35 --max-questions 2 --max-doc-tokens 12000 --out out/test_validation/qasper_cachelen/r.json --generate-out out/test_validation/qasper_cachelen/r.generations.jsonl --record-slots",
+  "generate_batch": 1,
+  "chunk_size": 2048,
+  "query_config": "ss-plus-repeat",
+  "ss_fallback": "error",
+  "recompress_queries": "doc+memory",
+  "merge_threshold": 0.05,
+  "read_topk": 1,
+  "value_prior_lambda": 0.01,
+  "write_slots": 0,
+  "write_rule": "most",
+  "max_questions": 2,
+  "continual": true,
+  "metric": "log_ppl",
+  "max_model_len": 0,
+  "yarn_extended": false,
+  "complete": true,
+  "docs": [
+    "qasper phase 1",
+    "qasper phase 2"
+  ],
+  "matrix": [
+    {
+      "phase": 0,
+      "m_len": 1067,
+      "ppl": {
+        "qasper phase 1": {
+          "log_ppl": 4.4422,
+          "ppl": 84.959,
+          "log_ppl_perq": 5.0344,
+          "n": 2,
+          "_nll": 44.421682357788086,
+          "_tok": 10,
+          "per_cat": {
+            "qasper_freeform": 5.0344
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 154.9,
+      "probe_s": 0.1
+    },
+    {
+      "phase": 1,
+      "m_len": 1024,
+      "ppl": {
+        "qasper phase 1": {
+          "log_ppl": 4.9511,
+          "ppl": 141.332,
+          "log_ppl_perq": 5.1156,
+          "n": 2,
+          "_nll": 49.51114845275879,
+          "_tok": 10,
+          "per_cat": {
+            "qasper_freeform": 5.1156
+          },
+          "read_mode": "dense"
+        },
+        "qasper phase 2": {
+          "log_ppl": 4.7623,
+          "ppl": 117.01,
+          "log_ppl_perq": 4.7623,
+          "n": 2,
+          "_nll": 66.67166900634766,
+          "_tok": 14,
+          "per_cat": {
+            "qasper_freeform": 4.7623
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 366.9,
+      "probe_s": 0.2
+    }
+  ],
+  "base_logppl": {
+    "qasper phase 1": 6.1345,
+    "qasper phase 2": 5.5547
+  },
+  "total_s": 618.5,
+  "query_source_fallbacks": 0,
+  "recompress_query_sources": [
+    {
+      "phase": 1,
+      "document_conversations": 21,
+      "document_queries": 31977,
+      "memory_conversations": 7,
+      "memory_queries": 18024,
+      "documents": 3
+    }
+  ],
+  "acquire_logppl": {
+    "qasper phase 1": 4.4422,
+    "qasper phase 2": 4.7623
+  },
+  "final_logppl": {
+    "qasper phase 1": 4.9511,
+    "qasper phase 2": 4.7623
+  },
+  "forget": {
+    "qasper phase 1": 0.5089
+  },
+  "avg_forget": 0.5089,
+  "cl_metrics": {
+    "avg_final": 4.8567,
+    "bwt": -0.5089,
+    "fwt": null,
+    "avg_forget": 0.5089,
+    "forgetting_ratio": 0.3007,
+    "per_doc": {
+      "qasper phase 1": {
+        "base_logppl": 6.1345,
+        "acquire_logppl": 4.4422,
+        "final_logppl": 4.9511,
+        "forget": 0.5089,
+        "fwt": null,
+        "forgetting_ratio": 0.3007
+      },
+      "qasper phase 2": {
+        "base_logppl": 5.5547,
+        "acquire_logppl": 4.7623,
+        "final_logppl": 4.7623,
+        "forget": 0.0,
+        "fwt": null,
+        "forgetting_ratio": null
+      }
+    }
+  },
+  "metric_conventions": "All values are log-ppl of the golden answers; LOWER IS BETTER. R[t][i]=log-ppl of corpus i after phase t; base_i=no-memory log-ppl (--probe-base); n=#phases. avg_final=mean_i R[n-1][i]. forget_i=R[n-1][i]-R[i][i] (>0 = forgot). bwt=-mean_{i<n-1} forget_i (>0 = old corpora improved; sign flipped so higher is better, as in the accuracy convention). fwt_i=base_i-R[i-1][i] for i>=1 (>0 = memory of earlier corpora helps an unseen corpus; needs R[i-1][i], from older runs only, and --probe-base). forgetting_ratio_i=forget_i/(base_i-R[i][i]), reported only when base_i-R[i][i]>=0.1 (the corpus actually gained over no memory): the fraction of that gain later lost. null = undefined or not measured in this run. Every cell in matrix[t]['ppl'] records the read it came from in its 'read_mode' field.",
+  "generate_s": 0.0
+}

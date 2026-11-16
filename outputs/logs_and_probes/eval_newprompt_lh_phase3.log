@@ -1,0 +1,19 @@
+Loading model: meta-llama/Llama-3.2-3B-Instruct
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.42s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.21it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.09it/s]
+Model loaded successfully
+Stream data/streams/longhealth_5phase.json: 5 phase(s) ['longhealth phase 1', 'longhealth phase 2', 'longhealth phase 3', 'longhealth phase 4', 'longhealth phase 5']
+[checkpoint] results/continual/five_phase/monolithic_update_1k_wincap_least_safeguard_0a93919/longhealth_llama/r_phase3.memory.pt: --mode recompress, phases 0..3 of data/streams/longhealth_5phase.json: 320 question(s) over 4 document(s)
+  [heartbeat] generate 32/80 decode 81/512 @ 14:50:43
+  [heartbeat] generate 58/80 decode 52/512 @ 14:51:03
+  [heartbeat] generate 72/80 decode 355/512 @ 14:51:23
+  [heartbeat] generate 19/80 decode 129/512 @ 14:51:43
+  [heartbeat] generate 27/80 decode 128/512 @ 14:52:03
+  [heartbeat] generate 40/80 decode 0/512 @ 14:52:23
+  [heartbeat] generate 58/80 decode 3/512 @ 14:52:43
+  [heartbeat] generate 19/80 decode 42/512 @ 14:53:03
+  [heartbeat] generate 48/80 decode 6/512 @ 14:53:23
+  [heartbeat] generate 9/80 decode 6/512 @ 14:53:43
+  [heartbeat] generate 19/80 decode 295/512 @ 14:54:03
+  [heartbeat] generate 35/80 decode 89/512 @ 14:54:23
+  [heartbeat] generate 78/80 decode 6/512 @ 14:54:43
+Saved 320 generations to results/continual/five_phase/monolithic_update_1k_wincap_least_safeguard_0a93919/longhealth_llama/r.generations_phase3_newprompt.jsonl

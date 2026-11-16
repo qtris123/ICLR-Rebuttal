@@ -1,0 +1,36 @@
+{
+  "quality phase 1": {
+    "n": 124,
+    "metric": "accuracy",
+    "score": 0.3387,
+    "unparsed": 5,
+    "score_parsed": 0.3529
+  },
+  "quality phase 2": {
+    "n": 128,
+    "metric": "accuracy",
+    "score": 0.375,
+    "unparsed": 10,
+    "score_parsed": 0.4068
+  },
+  "quality phase 3": {
+    "n": 122,
+    "metric": "accuracy",
+    "score": 0.5082,
+    "unparsed": 6,
+    "score_parsed": 0.5345
+  },
+  "_overall": {
+    "n": 374,
+    "metric": "accuracy",
+    "score": 0.4064,
+    "unparsed_mcq": 21,
+    "unparsed_rate": 0.0561
+  },
+  "_scorer": {
+    "commit": "5e365bc7",
+    "rules_version": "2026-09-19.lenient",
+    "scorer_mtime": "2026-11-13T11:31:09",
+    "scored_at": "2026-11-15T11:24:13"
+  }
+}

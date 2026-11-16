@@ -1,0 +1,54 @@
+Loading model: meta-llama/Llama-3.2-3B-Instruct
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.42s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.21it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.09it/s]
+Model loaded successfully
+Stream data/streams/quality_5phase.json: 5 phase(s) ['quality phase 1', 'quality phase 2', 'quality phase 3', 'quality phase 4', 'quality phase 5']
+[checkpoint] results/continual/five_phase/monolithic_update_1k_wincap_least_safeguard_0a93919/quality_llama/r_phase4.memory.pt: --mode recompress, phases 0..4 of data/streams/quality_5phase.json: 622 question(s) over 5 document(s)
+  [heartbeat] generate 1/124 decode 92/512 @ 15:06:00
+  [heartbeat] generate 14/124 decode 104/512 @ 15:06:20
+  [heartbeat] generate 15/124 decode 210/512 @ 15:06:40
+  [heartbeat] generate 35/124 decode 166/512 @ 15:07:00
+  [heartbeat] generate 62/124 decode 5/512 @ 15:07:20
+  [heartbeat] generate 72/124 decode 43/512 @ 15:07:40
+  [heartbeat] generate 77/124 decode 118/512 @ 15:08:00
+  [heartbeat] generate 99/124 decode 60/512 @ 15:08:20
+  [heartbeat] generate 113/124 decode 63/512 @ 15:08:40
+  [heartbeat] generate 1/128 decode 63/512 @ 15:09:00
+  [heartbeat] generate 12/128 decode 82/512 @ 15:09:20
+  [heartbeat] generate 24/128 decode 5/512 @ 15:09:40
+  [heartbeat] generate 34/128 decode 36/512 @ 15:10:00
+  [heartbeat] generate 38/128 decode 53/512 @ 15:10:20
+  [heartbeat] generate 53/128 decode 45/512 @ 15:10:40
+  [heartbeat] generate 57/128 decode 122/512 @ 15:11:00
+  [heartbeat] generate 83/128 decode 16/512 @ 15:11:20
+  [heartbeat] generate 89/128 decode 4/512 @ 15:11:40
+  [heartbeat] generate 102/128 decode 4/512 @ 15:12:00
+  [heartbeat] generate 114/128 decode 5/512 @ 15:12:20
+  [heartbeat] generate 0/122 decode 5/512 @ 15:12:40
+  [heartbeat] generate 11/122 decode 0/512 @ 15:13:00
+  [heartbeat] generate 32/122 decode 390/512 @ 15:13:20
+  [heartbeat] generate 40/122 decode 429/512 @ 15:13:40
+  [heartbeat] generate 74/122 decode 261/512 @ 15:14:00
+  [heartbeat] generate 81/122 decode 302/512 @ 15:14:20
+  [heartbeat] generate 82/122 decode 397/512 @ 15:14:40
+  [heartbeat] generate 83/122 decode 496/512 @ 15:15:00
+  [heartbeat] generate 95/122 decode 1/512 @ 15:15:20
+  [heartbeat] generate 108/122 decode 5/512 @ 15:15:40
+  [heartbeat] generate 2/126 decode 501/512 @ 15:16:00
+  [heartbeat] generate 29/126 decode 398/512 @ 15:16:20
+  [heartbeat] generate 41/126 decode 418/512 @ 15:16:40
+  [heartbeat] generate 52/126 decode 443/512 @ 15:17:01
+  [heartbeat] generate 57/126 decode 510/512 @ 15:17:21
+  [heartbeat] generate 60/126 decode 88/512 @ 15:17:41
+  [heartbeat] generate 78/126 decode 56/512 @ 15:18:01
+  [heartbeat] generate 81/126 decode 136/512 @ 15:18:21
+  [heartbeat] generate 83/126 decode 229/512 @ 15:18:41
+  [heartbeat] generate 96/126 decode 229/512 @ 15:19:01
+  [heartbeat] generate 105/126 decode 273/512 @ 15:19:21
+  [heartbeat] generate 123/126 decode 242/512 @ 15:19:41
+  [heartbeat] generate 2/122 decode 266/512 @ 15:20:01
+  [heartbeat] generate 14/122 decode 283/512 @ 15:20:21
+  [heartbeat] generate 63/122 decode 7/512 @ 15:20:41
+  [heartbeat] generate 78/122 @ 15:21:01
+  [heartbeat] generate 83/122 decode 69/512 @ 15:21:21
+  [heartbeat] generate 105/122 decode 5/512 @ 15:21:41
+Saved 622 generations to results/continual/five_phase/monolithic_update_1k_wincap_least_safeguard_0a93919/quality_llama/r.generations_phase4_newprompt.jsonl

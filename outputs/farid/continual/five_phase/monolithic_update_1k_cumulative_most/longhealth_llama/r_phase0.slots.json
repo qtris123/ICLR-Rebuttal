@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "phase": 0,
+    "segment_start": 0,
+    "target": 1024,
+    "model": "meta-llama/Llama-3.2-3B-Instruct"
+  },
+  "write_info": null,
+  "summary": {
+    "total_heads": 224,
+    "slots_per_head": 1067,
+    "avg_from_memory": 0.0,
+    "avg_from_doc": 1067.0,
+    "pct_from_memory": 0.0,
+    "pct_from_doc": 100.0
+  },
+  "per_layer": {
+    "info": "Phase 0: initial memory formed from 47352 document tokens into 1067 slots per head."
+  }
+}

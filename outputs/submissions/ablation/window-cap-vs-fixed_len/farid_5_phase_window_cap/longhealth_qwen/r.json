@@ -1,0 +1,384 @@
+{
+  "model": "Qwen/Qwen3-4B-Instruct-2507",
+  "benchmark": "longhealth",
+  "stream": "data/streams/longhealth_5phase.json",
+  "mode": "recompress",
+  "budget": 1024,
+  "budget_mode": "total",
+  "beta": "zero",
+  "seed": 0,
+  "host": "adilazua-gcc-set1-0-0",
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "written_at": "2026-11-14 09:03:38",
+  "command": "run_continual.py --config configs/monolithic_update.yaml --stream data/streams/longhealth_5phase.json --model Qwen/Qwen3-4B-Instruct-2507 --budget 1024 --write-slots 256 --rope-mode window_cap --rope-max-context 262144 --out results/continual/five_phase/monolithic_update_1k_wincap/longhealth_qwen/r.json --generate-out results/continual/five_phase/monolithic_update_1k_wincap/longhealth_qwen/r.generations.jsonl --vllm-mem 0.5",
+  "generate_batch": 1,
+  "chunk_size": 2048,
+  "query_config": "ss-plus-repeat",
+  "ss_fallback": "error",
+  "recompress_queries": "doc+memory",
+  "merge_threshold": 0.05,
+  "read_topk": 1,
+  "value_prior_lambda": 0.01,
+  "write_slots": 256,
+  "write_rule": "most",
+  "max_questions": 0,
+  "continual": true,
+  "metric": "log_ppl",
+  "max_model_len": 0,
+  "yarn_extended": false,
+  "complete": true,
+  "docs": [
+    "longhealth phase 1",
+    "longhealth phase 2",
+    "longhealth phase 3",
+    "longhealth phase 4",
+    "longhealth phase 5"
+  ],
+  "matrix": [
+    {
+      "phase": 0,
+      "m_len": 1045,
+      "ppl": {
+        "longhealth phase 1": {
+          "log_ppl": 1.3112,
+          "ppl": 3.711,
+          "log_ppl_perq": 2.6879,
+          "n": 80,
+          "_nll": 1665.2258682250977,
+          "_tok": 1270,
+          "per_cat": {
+            "longhealth_mcq": 2.6879
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 471.3,
+      "probe_s": 2.3
+    },
+    {
+      "phase": 1,
+      "m_len": 1024,
+      "ppl": {
+        "longhealth phase 1": {
+          "log_ppl": 1.2131,
+          "ppl": 3.364,
+          "log_ppl_perq": 2.5548,
+          "n": 80,
+          "_nll": 1540.6298637390137,
+          "_tok": 1270,
+          "per_cat": {
+            "longhealth_mcq": 2.5548
+          },
+          "read_mode": "dense"
+        },
+        "longhealth phase 2": {
+          "log_ppl": 2.0496,
+          "ppl": 7.765,
+          "log_ppl_perq": 4.082,
+          "n": 80,
+          "_nll": 1498.264235496521,
+          "_tok": 731,
+          "per_cat": {
+            "longhealth_mcq": 4.082
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 653.9,
+      "probe_s": 4.3
+    },
+    {
+      "phase": 2,
+      "m_len": 1024,
+      "ppl": {
+        "longhealth phase 1": {
+          "log_ppl": 1.0484,
+          "ppl": 2.853,
+          "log_ppl_perq": 2.1175,
+          "n": 80,
+          "_nll": 1331.452886581421,
+          "_tok": 1270,
+          "per_cat": {
+            "longhealth_mcq": 2.1175
+          },
+          "read_mode": "dense"
+        },
+        "longhealth phase 2": {
+          "log_ppl": 1.7381,
+          "ppl": 5.686,
+          "log_ppl_perq": 3.4178,
+          "n": 80,
+          "_nll": 1270.5374670028687,
+          "_tok": 731,
+          "per_cat": {
+            "longhealth_mcq": 3.4178
+          },
+          "read_mode": "dense"
+        },
+        "longhealth phase 3": {
+          "log_ppl": 1.6361,
+          "ppl": 5.135,
+          "log_ppl_perq": 2.9729,
+          "n": 80,
+          "_nll": 1287.5906143188477,
+          "_tok": 787,
+          "per_cat": {
+            "longhealth_mcq": 2.9729
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 704.9,
+      "probe_s": 6.4
+    },
+    {
+      "phase": 3,
+      "m_len": 1024,
+      "ppl": {
+        "longhealth phase 1": {
+          "log_ppl": 1.0924,
+          "ppl": 2.982,
+          "log_ppl_perq": 2.1874,
+          "n": 80,
+          "_nll": 1387.3925533294678,
+          "_tok": 1270,
+          "per_cat": {
+            "longhealth_mcq": 2.1874
+          },
+          "read_mode": "dense"
+        },
+        "longhealth phase 2": {
+          "log_ppl": 1.8212,
+          "ppl": 6.179,
+          "log_ppl_perq": 3.4869,
+          "n": 80,
+          "_nll": 1331.2834372520447,
+          "_tok": 731,
+          "per_cat": {
+            "longhealth_mcq": 3.4869
+          },
+          "read_mode": "dense"
+        },
+        "longhealth phase 3": {
+          "log_ppl": 1.6788,
+          "ppl": 5.359,
+          "log_ppl_perq": 2.997,
+          "n": 80,
+          "_nll": 1321.2039957046509,
+          "_tok": 787,
+          "per_cat": {
+            "longhealth_mcq": 2.997
+          },
+          "read_mode": "dense"
+        },
+        "longhealth phase 4": {
+          "log_ppl": 1.6178,
+          "ppl": 5.042,
+          "log_ppl_perq": 3.0518,
+          "n": 80,
+          "_nll": 1299.0749745368958,
+          "_tok": 803,
+          "per_cat": {
+            "longhealth_mcq": 3.0518
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 650.2,
+      "probe_s": 8.5
+    },
+    {
+      "phase": 4,
+      "m_len": 1024,
+      "ppl": {
+        "longhealth phase 1": {
+          "log_ppl": 1.1211,
+          "ppl": 3.068,
+          "log_ppl_perq": 2.1978,
+          "n": 80,
+          "_nll": 1423.8550672531128,
+          "_tok": 1270,
+          "per_cat": {
+            "longhealth_mcq": 2.1978
+          },
+          "read_mode": "dense"
+        },
+        "longhealth phase 2": {
+          "log_ppl": 1.8682,
+          "ppl": 6.477,
+          "log_ppl_perq": 3.4878,
+          "n": 80,
+          "_nll": 1365.6536445617676,
+          "_tok": 731,
+          "per_cat": {
+            "longhealth_mcq": 3.4878
+          },
+          "read_mode": "dense"
+        },
+        "longhealth phase 3": {
+          "log_ppl": 1.7184,
+          "ppl": 5.576,
+          "log_ppl_perq": 2.9868,
+          "n": 80,
+          "_nll": 1352.4029397964478,
+          "_tok": 787,
+          "per_cat": {
+            "longhealth_mcq": 2.9868
+          },
+          "read_mode": "dense"
+        },
+        "longhealth phase 4": {
+          "log_ppl": 1.6324,
+          "ppl": 5.116,
+          "log_ppl_perq": 3.0826,
+          "n": 80,
+          "_nll": 1310.8126783370972,
+          "_tok": 803,
+          "per_cat": {
+            "longhealth_mcq": 3.0826
+          },
+          "read_mode": "dense"
+        },
+        "longhealth phase 5": {
+          "log_ppl": 1.9353,
+          "ppl": 6.926,
+          "log_ppl_perq": 3.1574,
+          "n": 80,
+          "_nll": 1372.1429376602173,
+          "_tok": 709,
+          "per_cat": {
+            "longhealth_mcq": 3.1574
+          },
+          "read_mode": "dense"
+        }
+      },
+      "route_acc": {},
+      "route_dist": {},
+      "write_s": 711.5,
+      "probe_s": 10.8
+    }
+  ],
+  "base_logppl": {
+    "longhealth phase 1": 2.2433,
+    "longhealth phase 2": 3.6164,
+    "longhealth phase 3": 3.2358,
+    "longhealth phase 4": 3.289,
+    "longhealth phase 5": 3.7975
+  },
+  "total_s": 9076.9,
+  "query_source_fallbacks": 0,
+  "recompress_query_sources": [
+    {
+      "phase": 1,
+      "document_conversations": 28,
+      "document_queries": 24992,
+      "memory_conversations": 7,
+      "memory_queries": 25000,
+      "documents": 4
+    },
+    {
+      "phase": 2,
+      "document_conversations": 28,
+      "document_queries": 24992,
+      "memory_conversations": 7,
+      "memory_queries": 25000,
+      "documents": 4
+    },
+    {
+      "phase": 3,
+      "document_conversations": 28,
+      "document_queries": 30800,
+      "memory_conversations": 8,
+      "memory_queries": 19192,
+      "documents": 4
+    },
+    {
+      "phase": 4,
+      "document_conversations": 28,
+      "document_queries": 28272,
+      "memory_conversations": 7,
+      "memory_queries": 21720,
+      "documents": 4
+    }
+  ],
+  "acquire_logppl": {
+    "longhealth phase 1": 1.3112,
+    "longhealth phase 2": 2.0496,
+    "longhealth phase 3": 1.6361,
+    "longhealth phase 4": 1.6178,
+    "longhealth phase 5": 1.9353
+  },
+  "final_logppl": {
+    "longhealth phase 1": 1.1211,
+    "longhealth phase 2": 1.8682,
+    "longhealth phase 3": 1.7184,
+    "longhealth phase 4": 1.6324,
+    "longhealth phase 5": 1.9353
+  },
+  "forget": {
+    "longhealth phase 1": -0.1901,
+    "longhealth phase 2": -0.1814,
+    "longhealth phase 3": 0.0823,
+    "longhealth phase 4": 0.0146
+  },
+  "avg_forget": -0.0687,
+  "cl_metrics": {
+    "avg_final": 1.6551,
+    "bwt": 0.0687,
+    "fwt": null,
+    "avg_forget": -0.0687,
+    "forgetting_ratio": -0.0649,
+    "per_doc": {
+      "longhealth phase 1": {
+        "base_logppl": 2.2433,
+        "acquire_logppl": 1.3112,
+        "final_logppl": 1.1211,
+        "forget": -0.1901,
+        "fwt": null,
+        "forgetting_ratio": -0.2039
+      },
+      "longhealth phase 2": {
+        "base_logppl": 3.6164,
+        "acquire_logppl": 2.0496,
+        "final_logppl": 1.8682,
+        "forget": -0.1814,
+        "fwt": null,
+        "forgetting_ratio": -0.1158
+      },
+      "longhealth phase 3": {
+        "base_logppl": 3.2358,
+        "acquire_logppl": 1.6361,
+        "final_logppl": 1.7184,
+        "forget": 0.0823,
+        "fwt": null,
+        "forgetting_ratio": 0.0514
+      },
+      "longhealth phase 4": {
+        "base_logppl": 3.289,
+        "acquire_logppl": 1.6178,
+        "final_logppl": 1.6324,
+        "forget": 0.0146,
+        "fwt": null,
+        "forgetting_ratio": 0.0087
+      },
+      "longhealth phase 5": {
+        "base_logppl": 3.7975,
+        "acquire_logppl": 1.9353,
+        "final_logppl": 1.9353,
+        "forget": 0.0,
+        "fwt": null,
+        "forgetting_ratio": null
+      }
+    }
+  },
+  "metric_conventions": "All values are log-ppl of the golden answers; LOWER IS BETTER. R[t][i]=log-ppl of corpus i after phase t; base_i=no-memory log-ppl (--probe-base); n=#phases. avg_final=mean_i R[n-1][i]. forget_i=R[n-1][i]-R[i][i] (>0 = forgot). bwt=-mean_{i<n-1} forget_i (>0 = old corpora improved; sign flipped so higher is better, as in the accuracy convention). fwt_i=base_i-R[i-1][i] for i>=1 (>0 = memory of earlier corpora helps an unseen corpus; needs R[i-1][i], from older runs only, and --probe-base). forgetting_ratio_i=forget_i/(base_i-R[i][i]), reported only when base_i-R[i][i]>=0.1 (the corpus actually gained over no memory): the fraction of that gain later lost. null = undefined or not measured in this run. Every cell in matrix[t]['ppl'] records the read it came from in its 'read_mode' field.",
+  "generate_s": 0.0
+}

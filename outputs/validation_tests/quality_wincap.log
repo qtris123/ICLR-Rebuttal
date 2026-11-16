@@ -1,0 +1,644 @@
+Loading model: meta-llama/Llama-3.2-3B-Instruct
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.42s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.21it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.09it/s]
+Model loaded successfully
+Stream data/streams/quality_2phase.json: 2 phase(s) ['quality phase 1', 'quality phase 2']
+Initializing vLLM model (will be reused across all articles)...
+INFO 11-15 18:35:27 [__init__.py:216] Automatically detected platform cuda.
+Setting max_model_len=65536 (within native 131072)
+INFO 11-15 18:35:29 [utils.py:233] non-default args: {'tokenizer': 'meta-llama/Llama-3.2-3B-Instruct', 'max_model_len': 65536, 'gpu_memory_utilization': 0.35, 'disable_log_stats': True, 'enable_sleep_mode': True, 'model': 'meta-llama/Llama-3.2-3B-Instruct'}
+INFO 11-15 18:35:29 [model.py:547] Resolved architecture: LlamaForCausalLM
+`torch_dtype` is deprecated! Use `dtype` instead!
+INFO 11-15 18:35:29 [model.py:1510] Using max model len 65536
+INFO 11-15 18:35:29 [scheduler.py:205] Chunked prefill is enabled with max_num_batched_tokens=8192.
+INFO 11-15 18:35:34 [__init__.py:216] Automatically detected platform cuda.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:36 [core.py:644] Waiting for init message from front-end.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:36 [core.py:77] Initializing a V1 LLM engine (v0.11.0) with config: model='meta-llama/Llama-3.2-3B-Instruct', speculative_config=None, tokenizer='meta-llama/Llama-3.2-3B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=65536, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser=''), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None), seed=0, served_model_name=meta-llama/Llama-3.2-3B-Instruct, enable_prefix_caching=True, chunked_prefill_enabled=True, pooler_config=None, compilation_config={"level":3,"debug_dump_path":"","cache_dir":"","backend":"","custom_ops":[],"splitting_ops":["vllm.unified_attention","vllm.unified_attention_with_output","vllm.mamba_mixer2","vllm.mamba_mixer","vllm.short_conv","vllm.linear_attention","vllm.plamo2_mamba_mixer","vllm.gdn_attention","vllm.sparse_attn_indexer"],"use_inductor":true,"compile_sizes":[],"inductor_compile_config":{"enable_auto_functionalized_v2":false},"inductor_passes":{},"cudagraph_mode":[2,1],"use_cudagraph":true,"cudagraph_num_of_warmups":1,"cudagraph_capture_sizes":[512,504,496,488,480,472,464,456,448,440,432,424,416,408,400,392,384,376,368,360,352,344,336,328,320,312,304,296,288,280,272,264,256,248,240,232,224,216,208,200,192,184,176,168,160,152,144,136,128,120,112,104,96,88,80,72,64,56,48,40,32,24,16,8,4,2,1],"cudagraph_copy_inputs":false,"full_cuda_graph":false,"use_inductor_graph_partition":false,"pass_config":{},"max_capture_size":512,"local_cache_dir":null}
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:38 [parallel_state.py:1208] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
+[1;36m(EngineCore_DP0 pid=227710)[0;0m WARNING 11-15 18:35:39 [topk_topp_sampler.py:66] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:39 [gpu_model_runner.py:2602] Starting to load model meta-llama/Llama-3.2-3B-Instruct...
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:39 [gpu_model_runner.py:2634] Loading model from scratch...
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:39 [cuda.py:366] Using Flash Attention backend on V1 engine.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:39 [weight_utils.py:392] Using model weights format ['*.safetensors']
+[1;36m(EngineCore_DP0 pid=227710)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+[1;36m(EngineCore_DP0 pid=227710)[0;0m Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:00<00:00,  2.54it/s]
+[1;36m(EngineCore_DP0 pid=227710)[0;0m Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.05it/s]
+[1;36m(EngineCore_DP0 pid=227710)[0;0m Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.15it/s]
+[1;36m(EngineCore_DP0 pid=227710)[0;0m 
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:41 [default_loader.py:267] Loading weights took 1.82 seconds
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:42 [gpu_model_runner.py:2653] Model loading took 6.0160 GiB and 2.326192 seconds
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:48 [backends.py:548] Using cache directory: /home/voquangtri2025/.cache/vllm/torch_compile_cache/db22fdc96f/rank_0_0/backbone for vLLM's torch.compile
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:48 [backends.py:559] Dynamo bytecode transform time: 6.35 s
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:51 [backends.py:164] Directly load the compiled graph(s) for dynamic shape from the cache, took 2.201 s
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:54 [monitor.py:34] torch.compile takes 6.35 s in total
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:54 [gpu_worker.py:298] Available KV cache memory: 7.28 GiB
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:55 [kv_cache_utils.py:1087] GPU KV cache size: 68,192 tokens
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:55 [kv_cache_utils.py:1091] Maximum concurrency for 65,536 tokens per request: 1.04x
+[1;36m(EngineCore_DP0 pid=227710)[0;0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/67 [00:00<?, ?it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   4%|▍         | 3/67 [00:00<00:02, 26.59it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   9%|▉         | 6/67 [00:00<00:02, 26.99it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  13%|█▎        | 9/67 [00:00<00:02, 27.08it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  18%|█▊        | 12/67 [00:00<00:02, 26.50it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  22%|██▏       | 15/67 [00:00<00:01, 26.54it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  27%|██▋       | 18/67 [00:00<00:01, 26.91it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  31%|███▏      | 21/67 [00:00<00:01, 27.39it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  36%|███▌      | 24/67 [00:00<00:01, 27.57it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  40%|████      | 27/67 [00:00<00:01, 27.63it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  45%|████▍     | 30/67 [00:01<00:01, 28.00it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  49%|████▉     | 33/67 [00:01<00:01, 28.18it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  54%|█████▎    | 36/67 [00:01<00:01, 28.52it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  58%|█████▊    | 39/67 [00:01<00:01, 27.85it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  63%|██████▎   | 42/67 [00:01<00:00, 28.23it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  67%|██████▋   | 45/67 [00:01<00:00, 28.25it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  72%|███████▏  | 48/67 [00:01<00:00, 28.55it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  76%|███████▌  | 51/67 [00:01<00:00, 28.52it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  81%|████████  | 54/67 [00:01<00:00, 28.51it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  85%|████████▌ | 57/67 [00:02<00:00, 28.49it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  90%|████████▉ | 60/67 [00:02<00:00, 28.57it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  94%|█████████▍| 63/67 [00:02<00:00, 28.57it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  99%|█████████▊| 66/67 [00:02<00:00, 26.72it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 67/67 [00:02<00:00, 27.50it/s]
+[1;36m(EngineCore_DP0 pid=227710)[0;0m Capturing CUDA graphs (decode, FULL):   0%|          | 0/35 [00:00<?, ?it/s]Capturing CUDA graphs (decode, FULL):   9%|▊         | 3/35 [00:00<00:01, 23.88it/s]Capturing CUDA graphs (decode, FULL):  17%|█▋        | 6/35 [00:00<00:01, 25.37it/s]Capturing CUDA graphs (decode, FULL):  26%|██▌       | 9/35 [00:00<00:00, 26.39it/s]Capturing CUDA graphs (decode, FULL):  34%|███▍      | 12/35 [00:00<00:00, 27.01it/s]Capturing CUDA graphs (decode, FULL):  43%|████▎     | 15/35 [00:00<00:00, 26.98it/s]Capturing CUDA graphs (decode, FULL):  51%|█████▏    | 18/35 [00:00<00:00, 27.21it/s]Capturing CUDA graphs (decode, FULL):  60%|██████    | 21/35 [00:00<00:00, 27.15it/s]Capturing CUDA graphs (decode, FULL):  69%|██████▊   | 24/35 [00:00<00:00, 27.16it/s]Capturing CUDA graphs (decode, FULL):  77%|███████▋  | 27/35 [00:01<00:00, 27.47it/s]Capturing CUDA graphs (decode, FULL):  86%|████████▌ | 30/35 [00:01<00:00, 27.64it/s]Capturing CUDA graphs (decode, FULL):  94%|█████████▍| 33/35 [00:01<00:00, 27.27it/s]Capturing CUDA graphs (decode, FULL): 100%|██████████| 35/35 [00:01<00:00, 26.98it/s]
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:59 [gpu_model_runner.py:3480] Graph capturing finished in 4 secs, took 0.55 GiB
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:35:59 [core.py:210] init engine (profile, create kv cache, warmup model) took 17.41 seconds
+INFO 11-15 18:36:00 [llm.py:306] Supported_tasks: ['generate']
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:36:00 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:36:04 [cumem.py:228] CuMemAllocator: sleep freed 13.38 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.33 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:36:04 [gpu_worker.py:117] Sleep mode freed 14.53 GiB memory, 7.56 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:36:04 [executor_base.py:189] It took 4.342017 seconds to fall asleep.
+vLLM initialized and put to sleep (model: meta-llama/Llama-3.2-3B-Instruct)
+  [base] quality phase 1: logppl=0.8108 (n=2)
+  [base] quality phase 2: logppl=1.1611 (n=2)
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:36:06 [executor_base.py:205] It took 0.542781 seconds to wake up tags {'weights', 'kv_cache'}.
+
+============================================================
+KV-Based Chunked Compaction
+============================================================
+Chunking strategy: document
+Inner method: highest_attention_keys
+Per-chunk compaction ratio: 8.53%
+Prefix tokens: 45
+Article tokens: 12001
+Full sequence length: 12046
+Chunked article into 2 chunks in 0.04s
+
+--- Processing chunk 1/2 ---
+Chunk tokens: 8453
+Chunk target: 721 tokens (8.53% of 8453)
+Generating original queries for all layers...
+Using provided vLLM model instance
+Generating ~50000 queries per KV head by conversation capture (5 spec(s): 'Repeat the previous context verbatim.', 'Summarize the main points of the context.', 'Aggregate all the key facts mentioned in the context.' (+2 more))...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 8.19GB allocated, 8.36GB reserved, 39.49GB total
+GPU Memory available: 31.30GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]Adding requests: 100%|██████████| 1/1 [00:00<00:00, 49.67it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.71s/it, est. speed input: 5001.15 toks/s, output: 98.55 toks/s]Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.71s/it, est. speed input: 5001.15 toks/s, output: 98.55 toks/s]Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.72s/it, est. speed input: 5001.15 toks/s, output: 98.55 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (35452 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]Adding requests: 100%|██████████| 3/3 [00:00<00:00, 56.00it/s]
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:  33%|███▎      | 1/3 [00:04<00:08,  4.40s/it, est. speed input: 1942.56 toks/s, output: 101.15 toks/s]Processed prompts:  67%|██████▋   | 2/3 [00:06<00:02,  2.95s/it, est. speed input: 2701.00 toks/s, output: 173.99 toks/s]Processed prompts: 100%|██████████| 3/3 [00:13<00:00,  4.71s/it, est. speed input: 1953.78 toks/s, output: 194.24 toks/s]Processed prompts: 100%|██████████| 3/3 [00:13<00:00,  4.71s/it, est. speed input: 1953.78 toks/s, output: 194.24 toks/s]Processed prompts: 100%|██████████| 3/3 [00:13<00:00,  4.38s/it, est. speed input: 1953.78 toks/s, output: 194.24 toks/s]
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]Adding requests: 100%|██████████| 3/3 [00:00<00:00, 55.93it/s]
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:  33%|███▎      | 1/3 [00:00<00:01,  1.36it/s, est. speed input: 11647.35 toks/s, output: 100.54 toks/s]Processed prompts:  67%|██████▋   | 2/3 [00:00<00:00,  2.29it/s, est. speed input: 17833.85 toks/s, output: 178.67 toks/s]Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  2.21it/s, est. speed input: 17957.78 toks/s, output: 228.55 toks/s]Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  2.21it/s, est. speed input: 17957.78 toks/s, output: 228.55 toks/s]Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  2.09it/s, est. speed input: 17957.78 toks/s, output: 228.55 toks/s]
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:36:22 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:36:23 [cumem.py:228] CuMemAllocator: sleep freed 13.38 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.33 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:36:23 [gpu_worker.py:117] Sleep mode freed 14.12 GiB memory, 10.03 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:36:23 [executor_base.py:189] It took 0.519954 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:36:31 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=227710)[0;0m WARNING 11-15 18:36:31 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:37:30 [executor_base.py:205] It took 0.631157 seconds to wake up tags {'weights', 'kv_cache'}.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+T...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 8495 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Here's a summary of the context:
+
+The story "Conditionally Human" is set in a future society where t...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 489 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Here are the key facts mentioned in the story:
+
+**Setting:**
+
+* The story takes place in a future wo...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 700 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information from the story in JSON format:
+
+```
+{
+  "title": "Conditionally H...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 1505 tokens
+  [Conv 5/7] Starter: What is the primary reason for the creation of neutroids in the story?
+
+A) To create a new source of food for the population
+B) To provide companionship for people who cannot have children
+C) To serve as a source of entertainment for the masses
+D) To replace human children in a world with a limited birth rate
+  [Conv 5/7] Answer: The correct answer is D) To replace human children in a world with a limited birth rate.
+
+In the sto...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 258 tokens
+  [Conv 6/7] Starter: What is the occupation of the character Norris?
+
+A) A scientist
+B) A veterinarian
+C) A district inspector for the Federal Bureau of Animals
+D) A pet store owner
+  [Conv 6/7] Answer: The correct answer is C) A district inspector for the Federal Bureau of Animals.
+
+According to the t...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 145 tokens
+  [Conv 7/7] Starter: What is the purpose of the bio-agents who work with the neutroids?
+
+A) To ensure the humane treatment of the animals
+B) To prevent the unauthorized sale of neutroids
+C) To conduct tests on the animals for quality control
+D) To provide medical care for the animals
+  [Conv 7/7] Answer: The correct answer is B) To prevent the unauthorized sale of neutroids.
+
+The bio-agents, specificall...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 191 tokens
+  Using all 11783 extracted tokens per attention head (requested 16667)
+Putting vLLM to sleep...
+Self-study queries occupy range 0-35349 in final queries (total: 35349)
+Generated 35349 original queries per KV head
+Original queries shape: torch.Size([28, 8, 35349, 128])
+Compacting layer 1/28
+  Layer 1/28 compacted. GPU allocated: 10.09 GiB
+Compacting layer 2/28
+  Extracting on-policy queries from self_study (range 0:35349)
+  Layer 2/28 compacted. GPU allocated: 10.16 GiB
+Compacting layer 3/28
+  Layer 3/28 compacted. GPU allocated: 10.17 GiB
+Compacting layer 4/28
+  Layer 4/28 compacted. GPU allocated: 10.17 GiB
+Compacting layer 5/28
+  Layer 5/28 compacted. GPU allocated: 10.17 GiB
+Compacting layer 6/28
+  Layer 6/28 compacted. GPU allocated: 10.18 GiB
+Compacting layer 7/28
+  Layer 7/28 compacted. GPU allocated: 10.18 GiB
+Compacting layer 8/28
+  Layer 8/28 compacted. GPU allocated: 10.18 GiB
+Compacting layer 9/28
+  Layer 9/28 compacted. GPU allocated: 10.19 GiB
+Compacting layer 10/28
+  Layer 10/28 compacted. GPU allocated: 10.19 GiB
+Compacting layer 11/28
+  Layer 11/28 compacted. GPU allocated: 10.19 GiB
+Compacting layer 12/28
+  Layer 12/28 compacted. GPU allocated: 10.20 GiB
+Compacting layer 13/28
+  Layer 13/28 compacted. GPU allocated: 10.20 GiB
+Compacting layer 14/28
+  Layer 14/28 compacted. GPU allocated: 10.20 GiB
+Compacting layer 15/28
+  Layer 15/28 compacted. GPU allocated: 10.20 GiB
+Compacting layer 16/28
+  Layer 16/28 compacted. GPU allocated: 10.21 GiB
+Compacting layer 17/28
+  Layer 17/28 compacted. GPU allocated: 10.21 GiB
+Compacting layer 18/28
+  Layer 18/28 compacted. GPU allocated: 10.21 GiB
+Compacting layer 19/28
+  Layer 19/28 compacted. GPU allocated: 10.22 GiB
+Compacting layer 20/28
+  Layer 20/28 compacted. GPU allocated: 10.22 GiB
+Compacting layer 21/28
+  Layer 21/28 compacted. GPU allocated: 10.22 GiB
+Compacting layer 22/28
+  Layer 22/28 compacted. GPU allocated: 10.23 GiB
+Compacting layer 23/28
+  Layer 23/28 compacted. GPU allocated: 10.23 GiB
+Compacting layer 24/28
+  Layer 24/28 compacted. GPU allocated: 10.23 GiB
+Compacting layer 25/28
+  Layer 25/28 compacted. GPU allocated: 10.24 GiB
+Compacting layer 26/28
+  Layer 26/28 compacted. GPU allocated: 10.24 GiB
+Compacting layer 27/28
+  Layer 27/28 compacted. GPU allocated: 10.24 GiB
+Compacting layer 28/28
+  Layer 28/28 compacted. GPU allocated: 10.25 GiB
+
+--- Processing chunk 2/2 ---
+Chunk tokens: 3547
+Chunk target: 302 tokens (8.53% of 3547)
+Generating original queries for all layers...
+Using provided vLLM model instance
+Generating ~50000 queries per KV head by conversation capture (5 spec(s): 'Repeat the previous context verbatim.', 'Summarize the main points of the context.', 'Aggregate all the key facts mentioned in the context.' (+2 more))...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 7.76GB allocated, 10.34GB reserved, 39.49GB total
+GPU Memory available: 31.73GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]Adding requests: 100%|██████████| 1/1 [00:00<00:00, 110.51it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.33s/it, est. speed input: 2754.94 toks/s, output: 114.10 toks/s]Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.33s/it, est. speed input: 2754.94 toks/s, output: 114.10 toks/s]Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.33s/it, est. speed input: 2754.94 toks/s, output: 114.10 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (14849 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]Adding requests: 100%|██████████| 3/3 [00:00<00:00, 129.98it/s]
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:  33%|███▎      | 1/3 [00:02<00:05,  2.53s/it, est. speed input: 1438.98 toks/s, output: 111.48 toks/s]Processed prompts:  67%|██████▋   | 2/3 [00:03<00:01,  1.37s/it, est. speed input: 2356.97 toks/s, output: 203.32 toks/s]Processed prompts: 100%|██████████| 3/3 [00:05<00:00,  1.71s/it, est. speed input: 2105.25 toks/s, output: 237.25 toks/s]Processed prompts: 100%|██████████| 3/3 [00:05<00:00,  1.71s/it, est. speed input: 2105.25 toks/s, output: 237.25 toks/s]Processed prompts: 100%|██████████| 3/3 [00:05<00:00,  1.73s/it, est. speed input: 2105.25 toks/s, output: 237.25 toks/s]
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]Adding requests: 100%|██████████| 3/3 [00:00<00:00, 118.86it/s]
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:  33%|███▎      | 1/3 [00:00<00:00,  4.75it/s, est. speed input: 17432.31 toks/s, output: 104.55 toks/s]Processed prompts:  67%|██████▋   | 2/3 [00:00<00:00,  1.85it/s, est. speed input: 7488.31 toks/s, output: 137.52 toks/s] Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  2.23it/s, est. speed input: 8361.85 toks/s, output: 220.44 toks/s]Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  2.23it/s, est. speed input: 8361.85 toks/s, output: 220.44 toks/s]Processed prompts: 100%|██████████| 3/3 [00:01<00:00,  2.27it/s, est. speed input: 8361.85 toks/s, output: 220.44 toks/s]
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:37:38 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:37:38 [cumem.py:228] CuMemAllocator: sleep freed 13.38 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.33 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:37:38 [gpu_worker.py:117] Sleep mode freed 13.71 GiB memory, 12.04 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:37:38 [executor_base.py:189] It took 0.520244 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:37:41 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=227710)[0;0m WARNING 11-15 18:37:41 [executor_base.py:182] Executor is already sleeping.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+T...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 3589 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Here's a summary of the main points in the provided context:
+
+1. Walter Towne, the Vice President-in...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 326 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Here are the key facts mentioned in the context:
+
+1. **Company:** Robling Titanium Corporation
+2. **...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 390 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here is the structured information in JSON form:
+
+```
+{
+  "title": "Meeting of the Board",
+  "author...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 660 tokens
+  [Conv 5/7] Starter: What is the primary reason for Walter's nervousness as he is getting ready for work?
+
+A) He is late for a meeting with a potential client
+B) He has a conflict with his boss, Torkleson
+C) He is concerned about the performance of the company
+  [Conv 5/7] Answer: The correct answer is B) He has a conflict with his boss, Torkleson.
+
+The passage states: "He had re...
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 247 tokens
+  [Conv 6/7] Starter: What is the significance of the "White list" mentioned in the story?
+
+A) A list of the company's top employees
+B) A list of companies that are in trouble with the union
+C) A list of individuals who are being watched by the authorities
+  [Conv 6/7] Answer: The correct answer is C) A list of individuals who are being watched by the authorities.
+
+In the sto...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 200 tokens
+  [Conv 7/7] Starter: Who is the character that is in charge of the National Association of Union Stockholders?
+
+A) Walter Towne
+B) Daniel P. Torkleson
+C) Paul Hendricks
+  [Conv 7/7] Answer: The character Daniel P. Torkleson is in charge of the National Association of Union Stockholders....
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 94 tokens
+  Using all 5506 extracted tokens per attention head (requested 16667)
+Putting vLLM to sleep...
+Self-study queries occupy range 0-16518 in final queries (total: 16518)
+Generated 16518 original queries per KV head
+Original queries shape: torch.Size([28, 8, 16518, 128])
+Compacting layer 1/28
+  Layer 1/28 compacted. GPU allocated: 8.65 GiB
+Compacting layer 2/28
+  Extracting on-policy queries from self_study (range 0:16518)
+  Layer 2/28 compacted. GPU allocated: 8.68 GiB
+Compacting layer 3/28
+  Layer 3/28 compacted. GPU allocated: 8.68 GiB
+Compacting layer 4/28
+  Layer 4/28 compacted. GPU allocated: 8.68 GiB
+Compacting layer 5/28
+  Layer 5/28 compacted. GPU allocated: 8.68 GiB
+Compacting layer 6/28
+  Layer 6/28 compacted. GPU allocated: 8.68 GiB
+Compacting layer 7/28
+  Layer 7/28 compacted. GPU allocated: 8.68 GiB
+Compacting layer 8/28
+  Layer 8/28 compacted. GPU allocated: 8.69 GiB
+Compacting layer 9/28
+  Layer 9/28 compacted. GPU allocated: 8.69 GiB
+Compacting layer 10/28
+  Layer 10/28 compacted. GPU allocated: 8.69 GiB
+Compacting layer 11/28
+  Layer 11/28 compacted. GPU allocated: 8.69 GiB
+Compacting layer 12/28
+  Layer 12/28 compacted. GPU allocated: 8.69 GiB
+Compacting layer 13/28
+  Layer 13/28 compacted. GPU allocated: 8.69 GiB
+Compacting layer 14/28
+  Layer 14/28 compacted. GPU allocated: 8.69 GiB
+Compacting layer 15/28
+  Layer 15/28 compacted. GPU allocated: 8.69 GiB
+Compacting layer 16/28
+  Layer 16/28 compacted. GPU allocated: 8.70 GiB
+Compacting layer 17/28
+  Layer 17/28 compacted. GPU allocated: 8.70 GiB
+Compacting layer 18/28
+  Layer 18/28 compacted. GPU allocated: 8.70 GiB
+Compacting layer 19/28
+  Layer 19/28 compacted. GPU allocated: 8.70 GiB
+Compacting layer 20/28
+  Layer 20/28 compacted. GPU allocated: 8.70 GiB
+Compacting layer 21/28
+  Layer 21/28 compacted. GPU allocated: 8.70 GiB
+Compacting layer 22/28
+  Layer 22/28 compacted. GPU allocated: 8.70 GiB
+Compacting layer 23/28
+  Layer 23/28 compacted. GPU allocated: 8.70 GiB
+Compacting layer 24/28
+  Layer 24/28 compacted. GPU allocated: 8.70 GiB
+Compacting layer 25/28
+  Layer 25/28 compacted. GPU allocated: 8.71 GiB
+Compacting layer 26/28
+  Layer 26/28 compacted. GPU allocated: 8.71 GiB
+Compacting layer 27/28
+  Layer 27/28 compacted. GPU allocated: 8.71 GiB
+Compacting layer 28/28
+  Layer 28/28 compacted. GPU allocated: 8.71 GiB
+
+--- Concatenating 2 compacted chunks (no RoPE correction needed) ---
+Final average cache size: 1068.0 tokens across 28 global layers
+Total article tokens: 12000 -> 1023.0
+Aggregated timing: query_gen=86.36s, compaction=32.40s, train_stats=0.00s
+  [memcache SAVE] /home/voquangtri2025/ICLR-Rebuttal/farid/gated-continual-cartridges/results/compaction_cache/Llama-3.2-3B-Instruct__quality_phase_1__r0.08532622281476544__onp_ssplusrepeat_kvchunk_docblk_wincap.pt
+  [slot-recorder] Phase 0: initial document (12001 tokens) -> 1068 slots. -> out/test_validation/quality_wincap/r_phase0.slots.json
+  [heartbeat] probe_ppl 0/2 @ 18:38:04
+[phase 0 | recompress] M=1068tok  logppl={'lity phase 1': 0.9198}  (119s)
+  [save-memory] phase 0 -> out/test_validation/quality_wincap/r_phase0.memory.pt
+Saved 2 generations to out/test_validation/quality_wincap/r.generations_phase0.jsonl
+  [per-phase gen] phase 0 -> out/test_validation/quality_wincap/r.generations_phase0.jsonl
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 0: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 1: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 2: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 3: 1 conversation(s) from the memory
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+    [memory-queries] spec 4: 3 conversation(s) from the memory
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:41:03 [executor_base.py:205] It took 0.740446 seconds to wake up tags {'weights', 'kv_cache'}.
+Generating original queries for all layers...
+Using provided vLLM model instance
+Generating ~33233 queries per KV head by conversation capture (5 spec(s): 'Repeat the previous context verbatim.', 'Summarize the main points of the context.', 'Aggregate all the key facts mentioned in the context.' (+2 more))...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 7.52GB allocated, 7.99GB reserved, 39.49GB total
+GPU Memory available: 31.98GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]Adding requests: 100%|██████████| 1/1 [00:00<00:00, 53.52it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.05s/it, est. speed input: 8185.13 toks/s, output: 85.98 toks/s]Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.05s/it, est. speed input: 8185.13 toks/s, output: 85.98 toks/s]Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.05s/it, est. speed input: 8185.13 toks/s, output: 85.98 toks/s]
+Generated 4 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (34159 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]Adding requests: 100%|██████████| 3/3 [00:00<00:00, 54.07it/s]
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:  33%|███▎      | 1/3 [00:03<00:06,  3.02s/it, est. speed input: 2828.79 toks/s, output: 101.05 toks/s]Processed prompts:  67%|██████▋   | 2/3 [00:05<00:02,  2.55s/it, est. speed input: 3257.54 toks/s, output: 162.91 toks/s]Processed prompts: 100%|██████████| 3/3 [00:07<00:00,  2.57s/it, est. speed input: 3275.34 toks/s, output: 217.54 toks/s]Processed prompts: 100%|██████████| 3/3 [00:07<00:00,  2.57s/it, est. speed input: 3275.34 toks/s, output: 217.54 toks/s]Processed prompts: 100%|██████████| 3/3 [00:07<00:00,  2.61s/it, est. speed input: 3275.34 toks/s, output: 217.54 toks/s]
+Adding requests:   0%|          | 0/4 [00:00<?, ?it/s]Adding requests: 100%|██████████| 4/4 [00:00<00:00, 58.68it/s]
+Processed prompts:   0%|          | 0/4 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:  25%|██▌       | 1/4 [00:00<00:00,  9.02it/s, est. speed input: 77057.98 toks/s, output: 117.30 toks/s]Processed prompts:  50%|█████     | 2/4 [00:00<00:00,  3.98it/s, est. speed input: 37089.43 toks/s, output: 128.02 toks/s]Processed prompts:  75%|███████▌  | 3/4 [00:00<00:00,  4.91it/s, est. speed input: 42212.79 toks/s, output: 200.84 toks/s]Processed prompts: 100%|██████████| 4/4 [00:00<00:00,  4.18it/s, est. speed input: 37925.63 toks/s, output: 241.75 toks/s]Processed prompts: 100%|██████████| 4/4 [00:00<00:00,  4.18it/s, est. speed input: 37925.63 toks/s, output: 241.75 toks/s]Processed prompts: 100%|██████████| 4/4 [00:00<00:00,  4.43it/s, est. speed input: 37925.63 toks/s, output: 241.75 toks/s]
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:41:13 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:41:13 [cumem.py:228] CuMemAllocator: sleep freed 13.38 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.33 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:41:13 [gpu_worker.py:117] Sleep mode freed 14.12 GiB memory, 9.69 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:41:13 [executor_base.py:189] It took 0.523477 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:41:22 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=227710)[0;0m WARNING 11-15 18:41:22 [executor_base.py:182] Executor is already sleeping.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:41:22 [executor_base.py:205] It took 0.542743 seconds to wake up tags {'weights', 'kv_cache'}.
+Generated 7 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before query extraction...
+  [Conv 1/8] Starter: Repeat the previous context verbatim.
+  [Conv 1/8] Answer: 
+Below is a collection of stories.
+
+<story>
+<title>Wind</title>
+<author>Fontenay, Charles L.</author...
+  [Conv 1/8] Extracting queries from answer...
+  [Conv 1/8] Extracted 8487 tokens
+  [Conv 2/8] Starter: Summarize the main points of the context.
+  [Conv 2/8] Answer: Here's a summary of the main points of the context:
+
+1. **The story is set on Venus**: The story tak...
+  [Conv 2/8] Extracting queries from answer...
+  [Conv 2/8] Extracted 349 tokens
+  [Conv 3/8] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/8] Answer: Here are the key facts mentioned in the story:
+
+**Setting**
+
+* The story takes place on Venus, in a ...
+  [Conv 3/8] Extracting queries from answer...
+  [Conv 3/8] Extracted 593 tokens
+  [Conv 4/8] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/8] Answer: Here is the structured information in JSON form:
+
+```
+{
+  "story": {
+    "title": "Wind",
+    "autho...
+  [Conv 4/8] Extracting queries from answer...
+  [Conv 4/8] Extracted 904 tokens
+  [Conv 5/8] Starter: Here are three questions to test understanding of the context:
+  [Conv 5/8] Answer: I'm ready to help. What are the three questions?...
+  [Conv 5/8] Extracting queries from answer...
+  [Conv 5/8] Extracted 58 tokens
+  [Conv 6/8] Starter: 1. What is the reason for Jan Van Artevelde's journey to Rathole?
+
+
+_____________________________________________________
+  [Conv 6/8] Answer: Jan Van Artevelde's reason for the journey to Rathole is to rescue a boy named Diego, who is sufferi...
+  [Conv 6/8] Extracting queries from answer...
+  [Conv 6/8] Extracted 118 tokens
+  [Conv 7/8] Starter: 2. What is the unique feature of the groundcar driven by Jan Van Artevelde in the story?
+
+
+_____________________________________________________
+  [Conv 7/8] Answer: The unique feature of the groundcar driven by Jan Van Artevelde in the story is that it is powered b...
+  [Conv 7/8] Extracting queries from answer...
+  [Conv 7/8] Extracted 105 tokens
+  [Conv 8/8] Starter: 3. What is the reason for Heemskerk's concern about Van Artevelde's disappearance during the countdown to blastoff?
+
+
+_____________________________________________________
+  [Conv 8/8] Answer: Heemskerk's concern about Van Artevelde's disappearance is due to the fact that they had received a ...
+  [Conv 8/8] Extracting queries from answer...
+  [Conv 8/8] Extracted 160 tokens
+  Subsampled 10774 → 5539 tokens per attention head
+Putting vLLM to sleep...
+Waking up vLLM for generation...
+GPU Memory before vLLM wake: 8.41GB allocated, 8.88GB reserved, 39.49GB total
+GPU Memory available: 31.09GB
+Generating conversations from 5 ConversationSpecs with vLLM...
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s]Adding requests: 100%|██████████| 1/1 [00:00<00:00, 104.63it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.26s/it, est. speed input: 1626.76 toks/s, output: 117.24 toks/s]Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.26s/it, est. speed input: 1626.76 toks/s, output: 117.24 toks/s]Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.26s/it, est. speed input: 1626.76 toks/s, output: 117.24 toks/s]
+Generated 3 conversation starters from 1 seed prompts with vLLM
+Extracted article for prefill (14160 chars)
+Prefilled 1 answers with article content (bypassing vLLM)
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]Adding requests: 100%|██████████| 3/3 [00:00<00:00, 93.92it/s]
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:  33%|███▎      | 1/3 [00:03<00:07,  3.63s/it, est. speed input: 1004.22 toks/s, output: 111.24 toks/s]Processed prompts:  67%|██████▋   | 2/3 [00:04<00:01,  1.96s/it, est. speed input: 1648.86 toks/s, output: 203.22 toks/s]Processed prompts: 100%|██████████| 3/3 [00:17<00:00,  6.83s/it, est. speed input: 642.78 toks/s, output: 172.95 toks/s] Processed prompts: 100%|██████████| 3/3 [00:17<00:00,  6.83s/it, est. speed input: 642.78 toks/s, output: 172.95 toks/s]Processed prompts: 100%|██████████| 3/3 [00:17<00:00,  5.68s/it, est. speed input: 642.78 toks/s, output: 172.95 toks/s]
+Adding requests:   0%|          | 0/3 [00:00<?, ?it/s]Adding requests: 100%|██████████| 3/3 [00:00<00:00, 122.06it/s]
+Processed prompts:   0%|          | 0/3 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:  33%|███▎      | 1/3 [00:00<00:01,  1.40it/s, est. speed input: 5211.69 toks/s, output: 109.30 toks/s]Processed prompts:  67%|██████▋   | 2/3 [00:00<00:00,  2.60it/s, est. speed input: 8582.84 toks/s, output: 202.76 toks/s]Processed prompts: 100%|██████████| 3/3 [00:00<00:00,  2.60it/s, est. speed input: 12735.75 toks/s, output: 312.60 toks/s]Processed prompts: 100%|██████████| 3/3 [00:00<00:00,  3.42it/s, est. speed input: 12735.75 toks/s, output: 312.60 toks/s]
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:41:43 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:41:43 [cumem.py:228] CuMemAllocator: sleep freed 13.38 GiB memory in total, of which 6.05 GiB is backed up in CPU and the rest 7.33 GiB is discarded directly.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:41:43 [gpu_worker.py:117] Sleep mode freed 13.71 GiB memory, 10.58 GiB memory is still in use.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:41:43 [executor_base.py:189] It took 0.519826 seconds to fall asleep.
+[1;36m(EngineCore_DP0 pid=227710)[0;0m INFO 11-15 18:41:48 [block_pool.py:378] Successfully reset prefix cache
+[1;36m(EngineCore_DP0 pid=227710)[0;0m WARNING 11-15 18:41:48 [executor_base.py:182] Executor is already sleeping.
+Generated 6 answers with vLLM across 2 parameter groups
+Putting vLLM to sleep before query extraction...
+  [Conv 1/7] Starter: Repeat the previous context verbatim.
+  [Conv 1/7] Answer: 
+<story>
+<title>Mightiest Qorn</title>
+<author>Laumer, Keith</author>
+<text>
+MIGHTIEST QORN
+BY KEITH...
+  [Conv 1/7] Extracting queries from answer...
+  [Conv 1/7] Extracted 3596 tokens
+  [Conv 2/7] Starter: Summarize the main points of the context.
+  [Conv 2/7] Answer: Here's a summary of the main points in the provided context:
+
+1. **The Qornt have returned**: The Qo...
+  [Conv 2/7] Extracting queries from answer...
+  [Conv 2/7] Extracted 448 tokens
+  [Conv 3/7] Starter: Aggregate all the key facts mentioned in the context.
+  [Conv 3/7] Answer: Here are the key facts mentioned in the context:
+
+1. **The Qornt**: A warlike, aggressive, and merce...
+  [Conv 3/7] Extracting queries from answer...
+  [Conv 3/7] Extracted 539 tokens
+  [Conv 4/7] Starter: Structure the information in JSON form and include all important details like dates, times, names, and numerical values.
+  [Conv 4/7] Answer: Here's the structured information in JSON format:
+
+```
+{
+  "title": "Mightiest Qorn",
+  "author": "K...
+  [Conv 4/7] Extracting queries from answer...
+  [Conv 4/7] Extracted 2105 tokens
+  [Conv 5/7] Starter: Here are three questions to test understanding of the context:
+
+**Question 1**
+
+What is the primary reason Ambassador Nitworth sends Magnan to Roolit to investigate the Qornt?
+
+A) To negotiate with the Qornt over their territorial claims
+B) To gather intelligence on the Qornt's military strength
+C) To establish communication with the Qornt and learn about their intentions
+D) To lead a military expedition against the Qornt
+  [Conv 5/7] Answer: The correct answer is C) To establish communication with the Qornt and learn about their intentions....
+  [Conv 5/7] Extracting queries from answer...
+  [Conv 5/7] Extracted 226 tokens
+  [Conv 6/7] Starter: **Question 2**
+
+What is notable about the Qornt's ability to remain undetected by the Navigational Monitor Service?
+
+A) They possess advanced cloaking technology
+B) They can manipulate the instruments of the Monitor Service
+C) They are able to evade detection by hiding in plain sight
+D) They have a sophisticated understanding of the Monitor Service's limitations
+  [Conv 6/7] Answer: The correct answer is D) They have a sophisticated understanding of the Monitor Service's limitation...
+  [Conv 6/7] Extracting queries from answer...
+  [Conv 6/7] Extracted 208 tokens
+  [Conv 7/7] Starter: **Question 3**
+
+What is the purpose of Slun's warning to Retief and Magnan about the dangers of approaching the military leaders of the Qornt?
+
+A) To reveal a hidden trap or ambush
+B) To introduce a potential ally or guide
+C) To inform them about the Qornt's ceremonial activities
+D) To warn them about the importance of respecting Qornt customs
+  [Conv 7/7] Answer: The correct answer is A) To reveal a hidden trap or ambush.
+
+Slun's warning to Retief and Magnan is ...
+  [Conv 7/7] Extracting queries from answer...
+  [Conv 7/7] Extracted 194 tokens
+  Subsampled 7316 → 5539 tokens per attention head
+Putting vLLM to sleep...
+  [self-study] 2 documents, 15 conversations, 11078 queries per attention head
+Pooled 33234 generated and 16767 caller-supplied queries per KV head
+Self-study queries occupy range 0-33234 in final queries (total: 33234)
+Generated 33234 original queries per KV head
+Original queries shape: torch.Size([28, 8, 50001, 128])
+Compacting layer 1/28
+  Layer 1/28 compacted. GPU allocated: 11.10 GiB
+Compacting layer 2/28
+  Extracting on-policy queries from self_study (range 0:33234)
+  Keeping original queries for non-on-policy methods (range 33234:50001)
+  Layer 2/28 compacted. GPU allocated: 11.20 GiB
+Compacting layer 3/28
+  Layer 3/28 compacted. GPU allocated: 11.20 GiB
+Compacting layer 4/28
+  Layer 4/28 compacted. GPU allocated: 11.20 GiB
+Compacting layer 5/28
+  Layer 5/28 compacted. GPU allocated: 11.21 GiB
+Compacting layer 6/28
+  Layer 6/28 compacted. GPU allocated: 11.21 GiB
+Compacting layer 7/28
+  Layer 7/28 compacted. GPU allocated: 11.22 GiB
+Compacting layer 8/28
+  Layer 8/28 compacted. GPU allocated: 11.22 GiB
+Compacting layer 9/28
+  Layer 9/28 compacted. GPU allocated: 11.22 GiB
+Compacting layer 10/28
+  Layer 10/28 compacted. GPU allocated: 11.23 GiB
+Compacting layer 11/28
+  Layer 11/28 compacted. GPU allocated: 11.23 GiB
+Compacting layer 12/28
+  Layer 12/28 compacted. GPU allocated: 11.24 GiB
+Compacting layer 13/28
+  Layer 13/28 compacted. GPU allocated: 11.24 GiB
+Compacting layer 14/28
+  Layer 14/28 compacted. GPU allocated: 11.24 GiB
+Compacting layer 15/28
+  Layer 15/28 compacted. GPU allocated: 11.25 GiB
+Compacting layer 16/28
+  Layer 16/28 compacted. GPU allocated: 11.25 GiB
+Compacting layer 17/28
+  Layer 17/28 compacted. GPU allocated: 11.26 GiB
+Compacting layer 18/28
+  Layer 18/28 compacted. GPU allocated: 11.26 GiB
+Compacting layer 19/28
+  Layer 19/28 compacted. GPU allocated: 11.27 GiB
+Compacting layer 20/28
+  Layer 20/28 compacted. GPU allocated: 11.27 GiB
+Compacting layer 21/28
+  Layer 21/28 compacted. GPU allocated: 11.27 GiB
+Compacting layer 22/28
+  Layer 22/28 compacted. GPU allocated: 11.28 GiB
+Compacting layer 23/28
+  Layer 23/28 compacted. GPU allocated: 11.28 GiB
+Compacting layer 24/28
+  Layer 24/28 compacted. GPU allocated: 11.29 GiB
+Compacting layer 25/28
+  Layer 25/28 compacted. GPU allocated: 11.29 GiB
+Compacting layer 26/28
+  Layer 26/28 compacted. GPU allocated: 11.29 GiB
+Compacting layer 27/28
+  Layer 27/28 compacted. GPU allocated: 11.30 GiB
+Compacting layer 28/28
+  Layer 28/28 compacted. GPU allocated: 11.30 GiB
+  [slot-recorder] Phase 1: kept 102.4 from memory (10.0%), wrote 921.6 from new doc KV (90.0%). -> out/test_validation/quality_wincap/r_phase1.slots.json
+  [recompress-queries] t=1 doc+memory: 2 document(s), 15 conversation(s), 33234 query vectors per kv head; memory 7 conversation(s), 16767 query vectors per kv head
+  [heartbeat] probe_ppl 0/2 @ 18:43:06
+[phase 1 | recompress] M=1024tok  logppl={'lity phase 1': 0.8938, 'lity phase 2': 1.0381}  (301s)
+  [save-memory] phase 1 -> out/test_validation/quality_wincap/r_phase1.memory.pt
+Saved 4 generations to out/test_validation/quality_wincap/r.generations_phase1.jsonl
+  [per-phase gen] phase 1 -> out/test_validation/quality_wincap/r.generations_phase1.jsonl
+
+Forget (Delta logppl, earlier docs): {'quality phase 1': -0.026}  avg=-0.0260
+Final logppl: {'lity phase 1': 0.8938, 'lity phase 2': 1.0381}
+CL metrics (log-ppl, lower better): {'avg_final': 0.966, 'bwt': 0.026, 'fwt': None, 'avg_forget': -0.026, 'forgetting_ratio': None}
+Saved out/test_validation/quality_wincap/r.json
+[final gen] copied out/test_validation/quality_wincap/r.generations_phase1.jsonl -> out/test_validation/quality_wincap/r.generations.jsonl (same memory and questions as the last per-phase pass)
+[rank0]:[W1115 18:43:07.269431456 ProcessGroupNCCL.cpp:1538] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
