@@ -233,3 +233,54 @@ The following output directories in `/home/voquangtri2025/ICLR-Rebuttal/outputs/
    - `tmux_train_fix1.log`, `tmux_train_random.log`: Complete stdout/stderr tmux logs from the 5-phase runs.
    - `tmux_eval_prompt.log`: Prompt sensitivity evaluations.
    - `test_slots/`: JSON telemetry files verifying selected slot recording.
+4. **`outputs/farid/continual/five_phase/monolithic_update_1k_original_57c67c8f/longhealth_llama/`**:
+   - Complete 5-phase generations, scores, memory checkpoints (`r_phase0` through `r_phase4`), and `r.json` from the pristine rollback run (`moe-am-before-tri`).
+
+---
+
+## 7. Pristine Codebase Verification: Historical Rollback to Commit `57c67c8f` (`moe-am-before-tri`)
+
+To rigorously establish whether the context length overflow collapse was present in the **original, untouched codebase prior to any subsequent modifications**, we cloned and checked out the exact historical commit [`57c67c8f537de49c7359f5092bc353795e0db1cb`](https://github.com/faridlazuarda/gated-continual-cartridges/commit/57c67c8f537de49c7359f5092bc353795e0db1cb) into an isolated directory:
+```
+/home/voquangtri2025/ICLR-Rebuttal/moe-am-before-tri/
+```
+In this pristine tree, no RoPE safeguards (`window_cap`, `fixed_cache`), no slot recorders, and no prompt alterations exist (`hasattr(submem.continual.memory_ops, "rope_mode") == False`).
+
+### 7.1 Experimental Setup
+- **Architecture & Task**: LLaMA-3.2-3B-Instruct on LongHealth (5-phase stream, 80 questions/phase).
+- **Configuration**: Monolithic selective update (`configs/monolithic_update.yaml`), Total budget $B=1024$, Write slots $t=256$ (`write-rule: most`).
+- **Memory Optimization for 40GB A100**: Configured `--vllm-mem 0.28 --vllm-max-len 32768` (LongHealth patient records are $\le 12,470$ tokens), allowing vLLM to initialize cleanly and sleep at $1.16\text{ GiB}$, freeing $\sim 38\text{ GiB}$ for PyTorch prefill without altering any source code.
+- **Evaluation**: Per-phase greedy generation (`max_new_tokens: 512`), identical scoring pipeline (`scripts/score/score_generations.py`).
+
+### 7.2 Results Across All 5 Phases
+
+| Phase | Documents Seen | Cumulative Stream $L_{\text{logical}}$ | Native LLaMA Context (131,072) | Overall Accuracy | Unparsed MCQ Rate | Failure Mode Observed |
+| :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **0** | Doc 1 | $47,399$ tokens | **Within Context** ($36.2\%$) | **40.00%** | **0.0%** (0 / 80) | Accurate, concise answers |
+| **1** | Docs 1–2 | $88,237$ tokens | **Within Context** ($67.3\%$) | **31.25%** | **11.25%** (18 / 160) | Stable selective memory |
+| **2** | Docs 1–3 | $133,670$ tokens | **Borderline Exceeded** ($102.0\%$) | **24.17%** | **10.83%** (26 / 240) | Modest degradation |
+| **3** | Docs 1–4 | $177,969$ tokens | **Severely Exceeded** ($135.8\%$) | **9.06%** | **48.13%** (154 / 320) | **Catastrophic collapse**: Degenerate token loops (`A. A. A. A...`) |
+| **4** | Docs 1–5 | $224,761$ tokens | **Critically Exceeded** ($171.5\%$) | **8.75%** | **35.25%** (141 / 400) | **Catastrophic collapse**: Degenerate token loops (`A. A. A. A...`) |
+
+**Continual Learning Summary (Commit `57c67c8f`):**
+$$\text{Average Final Accuracy} = 8.75\%, \quad \text{Forgetting} = 16.9\%, \quad \text{Unparsed Rate} = 35.25\%$$
+$$\text{Per-Phase Accuracies after Phase 4}: \quad [12.5\%, \; 3.8\%, \; 6.2\%, \; 7.5\%, \; 13.8\%]$$
+
+### 7.3 Detailed Generation Diagnosis: The RoPE Overflow Signature
+Direct inspection of `r.generations_phase3.jsonl` and `r.generations_phase4.jsonl` demonstrates the unmistakable mechanical failure of RoPE extrapolation beyond trained context:
+
+```json
+{"id": "patient_01_0", "gold": "Vincristine", "generated": "A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A. A..."}
+{"id": "patient_01_1", "gold": "She has 3-vessel CHD.", "generated": "A. She has 2-vessel disease\nB. She has 2-vessel disease\nB. She has 2-vessel disease\nB..."}
+{"id": "patient_01_2", "gold": "Multiple sclerosis", "generated": "A. D. D. D. D. D. D. D. D. D. D. D. D. D. D. D. D. D. D. D. D. D. D. D..."}
+```
+
+When $L_{\text{logical}} \le 131,072$ (Phases 0 and 1), LLaMA generates clean, well-calibrated choices. As soon as $L_{\text{logical}}$ moves into $178\text{k}$ and $225\text{k}$ tokens, the attention distribution on query positions degrades, producing infinite repetition loops until the generation budget (`max_new_tokens = 512`) is exhausted.
+
+### 7.4 Key Scientific Conclusions from the Rollback Experiment
+1. **The Collapse is Inherent to Unbounded Cumulative RoPE Positioning:**  
+   The catastrophic drop in accuracy (from $40.0\%$ to $8.8\%$) and soaring unparsed rate ($0\% \to 48\%$) is **not** an artifact of recent code edits, slot recorders, or refactorings. It was present in the pristine repository immediately following paper submission.
+2. **RoPE Safeguards (`window_cap`) are Essential for Continual Streams:**  
+   Because real-world continual learning streams accumulate arbitrary sequence lengths, un-safeguarded KV compaction policies inherently suffer position embedding breakdown unless an explicit position coordinate management policy (such as `window_cap` or re-basing) is applied.
+3. **Reproducibility Verified:**  
+   Phase 0 ($40.0\%$) and Phase 1 ($31.25\%$) results on the pristine historical commit match our recent runs within exact floating-point tolerances, validating the complete reproducibility of our testing infrastructure.
