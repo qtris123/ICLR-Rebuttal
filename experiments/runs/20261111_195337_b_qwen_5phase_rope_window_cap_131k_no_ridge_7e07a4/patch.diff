@@ -1,0 +1,157 @@
+diff --git a/run_continual.py b/run_continual.py
+index f8dcd393..426f8795 100644
+--- a/run_continual.py
++++ b/run_continual.py
+@@ -238,6 +238,7 @@ def _make_result_header(args, benchmark, continual, model, docs):
+         "write_slots": args.write_slots,
+         "write_rule": args.write_rule,
+         "rope_mode": getattr(args, "rope_mode", "cumulative"),
++        "rope_max_context": getattr(args, "rope_max_context", 0),
+         "max_questions": args.max_questions,
+         "continual": continual,
+         "metric": "log_ppl",
+diff --git a/submem/continual/cli.py b/submem/continual/cli.py
+index 40561da0..16e3ecca 100644
+--- a/submem/continual/cli.py
++++ b/submem/continual/cli.py
+@@ -328,6 +328,15 @@ def _add_gated_update_flags(ap):
+             "physical len(cache) + index everywhere so rope_base=0)."
+         ),
+     )
++    group.add_argument(
++        "--rope-max-context",
++        type=int,
++        default=0,
++        help=(
++            "optional override for the --rope-mode window_cap context ceiling "
++            "in tokens (0 = use model.config.max_position_embeddings)."
++        ),
++    )
+     group.add_argument(
+         "--write-slots",
+         type=int,
+@@ -643,6 +652,10 @@ def resolve_args(ap, args):
+         )
+     if args.write_slots < 0:
+         ap.error("--write-slots must be >= 0")
++    if args.rope_max_context < 0:
++        ap.error("--rope-max-context must be >= 0")
++    if args.rope_max_context and args.rope_mode != "window_cap":
++        ap.error("--rope-max-context requires --rope-mode window_cap")
+     if args.blocks == "document" and args.chunking != "kv":
+         ap.error("--blocks document requires --chunking kv")
+     if args.resume_from and not os.path.exists(args.resume_from):
+diff --git a/submem/continual/memory_policies.py b/submem/continual/memory_policies.py
+index 6687955a..4f6761b6 100644
+--- a/submem/continual/memory_policies.py
++++ b/submem/continual/memory_policies.py
+@@ -169,7 +169,10 @@ class KVRecursiveMemory(MemoryPolicy):
+         return int(mem[li0][0].shape[-2])
+ 
+     def _max_context(self):
+-        """Model's trained context limit (max_position_embeddings)."""
++        """Effective logical RoPE context ceiling (--rope-max-context or native limit)."""
++        override = int(getattr(self.ctx.args, "rope_max_context", 0) or 0)
++        if override > 0:
++            return override
+         return int(getattr(self.ctx.model.config, "max_position_embeddings", 131072))
+ 
+     def _rope_mode(self):
+diff --git a/tests/test_recompaction.py b/tests/test_recompaction.py
+index 9162eedb..2d690771 100644
+--- a/tests/test_recompaction.py
++++ b/tests/test_recompaction.py
+@@ -1057,17 +1057,14 @@ def test_max_partitions_forces_a_merge(rule):
+         assert best == gu.random.Random(3).randrange(3)
+ 
+ 
+-@pytest.mark.parametrize(
+-    "rope_mode,expected_before,expected_current",
+-    [
+-        # Max context is 1000, doc lengths are [600, 300, 300] (phase 0=600, 1=900, 2=1200>1000)
+-        ("cumulative", [600, 900], [600, 900, 1200]),
+-        ("window_cap", [600, 700], [600, 900, 1000]),
+-        ("cache_len", [64, 64], [64, 64, 64]),
+-    ],
+-)
+-def test_monolithic_rope_modes(monkeypatch, rope_mode, expected_before, expected_current):
+-    """--rope-mode controls logical length progression across phases independently."""
++def _run_monolithic_rope_trace(
++    monkeypatch,
++    rope_mode: str,
++    doc_lengths: list[int],
++    max_position_embeddings: int = 1000,
++    rope_max_context: int = 0,
++):
++    """Run MonolithicMemory across synthetic phases and return (before, current) traces."""
+     import submem.continual.memory_policies as mp
+ 
+     seen_before = []
+@@ -1104,22 +1101,65 @@ def test_monolithic_rope_modes(monkeypatch, rope_mode, expected_before, expected
+             write_rule="most",
+             recompress_segment=2000,
+             rope_mode=rope_mode,
++            rope_max_context=rope_max_context,
+         ),
+-        model=types.SimpleNamespace(config=types.SimpleNamespace(max_position_embeddings=1000)),
++        model=types.SimpleNamespace(config=types.SimpleNamespace(max_position_embeddings=max_position_embeddings)),
+         tokenizer=Tok(),
+         sliding_layers=set(),
+         cache_compactor=types.SimpleNamespace(algorithm_kwargs={}),
+     )
+     pol = mp.MonolithicMemory(ctx)
+     currents = []
+-    for t, length in enumerate([600, 300, 300]):
++    for t, length in enumerate(doc_lengths):
+         pol.update({"len": length}, t)
+         currents.append(pol.current()[1])
++    return seen_before, currents
+ 
++
++@pytest.mark.parametrize(
++    "rope_mode,max_pos,rope_max_context,expected_before,expected_current",
++    [
++        # Effective max context is 1000, doc lengths are [600, 300, 300] (phase 0=600, 1=900, 2=1200>1000)
++        ("cumulative", 1000, 0, [600, 900], [600, 900, 1200]),
++        ("window_cap", 1000, 0, [600, 700], [600, 900, 1000]),
++        ("window_cap", 5000, 1000, [600, 700], [600, 900, 1000]),
++        ("cache_len", 1000, 0, [64, 64], [64, 64, 64]),
++    ],
++)
++def test_monolithic_rope_modes(
++    monkeypatch, rope_mode, max_pos, rope_max_context, expected_before, expected_current
++):
++    """--rope-mode and --rope-max-context control logical length progression across phases."""
++    seen_before, currents = _run_monolithic_rope_trace(
++        monkeypatch,
++        rope_mode=rope_mode,
++        doc_lengths=[600, 300, 300],
++        max_position_embeddings=max_pos,
++        rope_max_context=rope_max_context,
++    )
+     assert seen_before == expected_before
+     assert currents == expected_current
+ 
+ 
++def test_rope_max_context_cli_validation():
++    """--rope-max-context defaults to 0, accepts positive ints with window_cap, and rejects invalid inputs."""
++    ap, default_args = _args()
++    resolved = resolve_args(ap, default_args)
++    assert resolved.rope_max_context == 0
++
++    ap_ok, args_ok = _args("--rope-mode", "window_cap", "--rope-max-context", "131072")
++    assert resolve_args(ap_ok, args_ok).rope_max_context == 131072
++
++    for bad_argv in (
++        ("--rope-max-context", "131072"),
++        ("--rope-mode", "cache_len", "--rope-max-context", "131072"),
++        ("--rope-mode", "window_cap", "--rope-max-context", "-1"),
++    ):
++        ap_bad, args_bad = _args(*bad_argv)
++        with pytest.raises(SystemExit):
++            resolve_args(ap_bad, args_bad)
++
++
+ class _TinyRotaryEmb(torch.nn.Module):
+     """Minimal HF-compatible RoPE module for CPU RoPE-alignment tests."""
+ 
